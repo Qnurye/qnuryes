@@ -1,6 +1,9 @@
 ---
 import Logo from "./Logo.astro";
 import LanguageSwitcher from "./LanguageSwitcher.astro";
+import {loadTranslations} from "../i18n";
+
+const t = await loadTranslations(Astro.currentLocale);
 ---
 
 <header class="sticky top-0 z-50">
@@ -8,11 +11,11 @@ import LanguageSwitcher from "./LanguageSwitcher.astro";
         <Logo />
 
         <nav class="flex flex-row space-x-4 items-center">
-            <a href="/info">About</a>
-            <a href="/projects">Portfolio</a>
-            <a href="/articles">Blog</a>
-            <a href="/#">Notes</a>
-            <a href="/friends">Friends</a>
+            <a href="/info">{t('nav.about')}</a>
+            <a href="/projects">{t('nav.portfolio')}</a>
+            <a href="/articles">{t('nav.blog')}</a>
+            <a href="/#">{t('nav.notes')}</a>
+            <a href="/friends">{t('nav.friends')}</a>
             <LanguageSwitcher />
         </nav>
     </div>

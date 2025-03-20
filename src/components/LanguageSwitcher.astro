@@ -1,11 +1,10 @@
 ---
 import { LanguagesIcon } from "lucide-react";
 import { Button } from "./ui/button";
-
-
+import {getLanguageFromLocale} from "@/i18n";
 ---
 
 <Button variant='outline'>
   <LanguagesIcon />
-  <span>Language</span>
+  <span>{getLanguageFromLocale(Astro.currentLocale as string)}</span>
 </Button>
