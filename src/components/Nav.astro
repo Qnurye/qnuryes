@@ -1,0 +1,20 @@
+---
+import Logo from "./Logo.astro";
+import LanguageSwitcher from "./LanguageSwitcher.astro";
+---
+
+<header class="sticky top-0 z-50">
+    <div class="flex flex-row justify-between p-4 w-full">
+        <Logo />
+
+        <nav class="flex flex-row space-x-4 items-center">
+            <a href="/info">About</a>
+            <a href="/projects">Portfolio</a>
+            <a href="/articles">Blog</a>
+            <a href="/#">Notes</a>
+            <a href="/friends">Friends</a>
+            <LanguageSwitcher />
+        </nav>
+    </div>
+</header>
+
