@@ -17,7 +17,7 @@ const { title, className } = Astro.props;
 	</head>
 	<body class="px-8">
 	<Nav/>
-	<main class={cn(className, "min-h-screen")}>
+	<main class={cn(className, "min-h-screen scroll-smooth")}>
 		<slot />
 	</main>
 	<Footer/>
