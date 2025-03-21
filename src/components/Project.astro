@@ -1,0 +1,26 @@
+---
+const {title, description, date, url} = Astro.props;
+
+const formattedDate = new Intl.DateTimeFormat(Astro.currentLocale, {
+  year: "2-digit",
+  month: "short",
+  day: "numeric",
+}).format(date);
+---
+
+<div class="relative group">
+    <img src={url} alt={title} />
+    <div
+        class="transition-opacity duration-500 opacity-0 absolute top-0 left-0 size-full bg-gradient-to-b from-transparent to-gray-900 to-60% group-hover:opacity-70"></div>
+    <div class={`flex flex-col justify-end p-2 absolute size-full top-0 left-0 z-10 overflow-hidden mix-blend-difference`}>
+        <div class=`translate-y-full`>
+            <div class={`flex flex-col justify-end gap-2 text-white
+        transition-all *:transition-all z-10
+        -translate-y-8 group-hover:-translate-y-full *:duration-500 duration-500`}>
+                <h1 class="text-3xl group-hover:text-xl text-nowrap text-ellipsis overflow-hidden">{title}</h1>
+                <p>{description}</p>
+                <p>{formattedDate}</p>
+            </div>
+        </div>
+    </div>
+</div>

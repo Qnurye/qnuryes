@@ -1,5 +1,5 @@
 ---
-import {CopyrightIcon, GithubIcon, MailboxIcon, RssIcon} from "lucide-react";
+import {CopyrightIcon, CodeIcon, MailboxIcon, RssIcon} from "lucide-react";
 import {Button} from "./ui/button";
 import Tail from "./Tail.astro";
 import {loadTranslations} from "@/i18n";
@@ -7,7 +7,7 @@ import {loadTranslations} from "@/i18n";
 const t = await loadTranslations(Astro.currentLocale);
 ---
 
-<footer class="pt-8 flex flex-col gap-4 border-t">
+<footer class="pt-8 mt-16 flex flex-col gap-4 border-t">
     <div class="flex flex-row gap-1">
         <Button variant='outline'>
             <MailboxIcon/>
@@ -18,7 +18,7 @@ const t = await loadTranslations(Astro.currentLocale);
           {t('footer.rss')}
         </Button>
         <Button variant='outline'>
-            <GithubIcon/>
+            <CodeIcon/>
           {t('footer.source_code')}
         </Button>
     </div>
@@ -30,7 +30,7 @@ const t = await loadTranslations(Astro.currentLocale);
         2025
       {t('footer.all_rights_reserved')}
     </span>
-    <div class="w-full flex flex-row justify-center gap-8">
+    <div class="w-full flex flex-row justify-center gap-8 h-2 overflow-auto">
       {Array(9).fill({}).map((_, i) =>
           <Tail key={i}/>)}
     </div>
