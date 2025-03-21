@@ -1,7 +1,7 @@
 ---
 import Logo from "./Logo.astro";
 import LanguageSwitcher from "./LanguageSwitcher.astro";
-import {loadTranslations} from "../i18n";
+import {loadTranslations} from "@/i18n";
 
 const t = await loadTranslations(Astro.currentLocale);
 ---

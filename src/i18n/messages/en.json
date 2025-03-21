@@ -1,0 +1,17 @@
+{
+  "nav": {
+    "about": "About",
+    "portfolio": "Portfolio",
+    "blog": "Blog",
+    "notes": "Notes",
+    "friends": "Friends"
+  },
+  "footer": {
+    "subscribe_newsletter": "subscribe newsletter",
+    "rss": "RSS",
+    "source_code": "source code",
+    "credits_before_astro": "Designed and built by Qnurye, proudly powered ",
+    "credits_after_astro": ".",
+    "all_rights_reserved": "All rights reserved."
+  }
+}

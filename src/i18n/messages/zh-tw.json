@@ -1,0 +1,19 @@
+{
+  "nav": {
+    "about": "關於",
+    "portfolio": "作品集",
+    "blog": "部落格",
+    "notes": "筆記",
+    "friends": "友鏈"
+  },
+  "footer": {
+    "footer": {
+      "subscribe_newsletter": "訂閱郵件",
+      "rss": "RSS",
+      "source_code": "源代碼",
+      "credits_before_astro": "Qnurye 設計開發, 自豪地由 ",
+      "credits_after_astro": " 驅動。",
+      "all_rights_reserved": " 保留所有權利。"
+    }
+  }
+}

@@ -18,8 +18,8 @@ export const staticPaths = Object.keys(locales).map(locale => ({
 
 export async function loadTranslations(locale: string | undefined) {
   try {
-    const translations = await import(`./${locale || 'en'}.json`);
-    return (key: string) => key.split('.').reduce((obj, i) => obj?.[i], translations.default) || key;
+    const translations = await import(`./messages/${locale || 'en'}.json`);
+    return (key: string) => key.split('.').reduce((obj, i) => obj?.[i], translations.default) || '';
   } catch (error) {
     console.error(`Error loading translations for locale "${locale}":`, error);
     return (key: string) => key;

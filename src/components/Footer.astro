@@ -1,35 +1,37 @@
 ---
-import { CopyrightIcon, GithubIcon, MailboxIcon, RssIcon } from "lucide-react";
-import { Button } from "./ui/button";
+import {CopyrightIcon, GithubIcon, MailboxIcon, RssIcon} from "lucide-react";
+import {Button} from "./ui/button";
 import Tail from "./Tail.astro";
+import {loadTranslations} from "@/i18n";
+
+const t = await loadTranslations(Astro.currentLocale);
 ---
 
 <footer class="pt-8 flex flex-col gap-4 border-t">
     <div class="flex flex-row gap-1">
         <Button variant='outline'>
-            <MailboxIcon />
-            subscribe newsletter
+            <MailboxIcon/>
+          {t('footer.subscribe_newsletter')}
         </Button>
         <Button variant='outline'>
-            <RssIcon />
-            RSS
+            <RssIcon/>
+          {t('footer.rss')}
         </Button>
         <Button variant='outline'>
-            <GithubIcon />
-            Source Code
+            <GithubIcon/>
+          {t('footer.source_code')}
         </Button>
     </div>
     <span class="font-mono font-light text-sm">
-        Designed and built by
-        <span>Qnurye</span>
-        , proudly powered by
-        <a href="https://astro.build">Astro</a>.
+        <span>{t('footer.credits_before_astro')}<a href="https://astro.build">Astro</a>{t('footer.credits_after_astro')}</span>
     </span>
     <span class="flex gap-1 text-sm items-center">
-        <CopyrightIcon size={20} strokeWidth={1} />
-        2025 All rights reserved.
+        <CopyrightIcon size={20} strokeWidth={1}/>
+        2025
+      {t('footer.all_rights_reserved')}
     </span>
     <div class="w-full flex flex-row justify-center gap-8">
-        {Array(9).fill({}).map((_, i) => <Tail key={i} />)}
+      {Array(9).fill({}).map((_, i) =>
+          <Tail key={i}/>)}
     </div>
 </footer>
