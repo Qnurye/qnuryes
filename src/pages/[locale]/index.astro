@@ -2,8 +2,27 @@
 import Base from "@/layouts/Base.astro";
 import {staticPaths} from "@/i18n";
 import {ChevronDownIcon} from "lucide-react";
-import Typescript from "simple-icons-astro/Typescript";
+// import Telegram from "simple-icons-astro/Telegram";
+import Gmail from "simple-icons-astro/Gmail";
+import Github from "simple-icons-astro/Github";
 import Project from "@/components/Project.astro";
+
+import AstroIcon from "simple-icons-astro/Astro";
+import NextjsIcon from "simple-icons-astro/Nextdotjs";
+import SpringIcon from "simple-icons-astro/Spring";
+import LaravelIcon from "simple-icons-astro/Laravel";
+import VueIcon from "simple-icons-astro/Vuedotjs";
+import FastapiIcon from "simple-icons-astro/Fastapi";
+import FigmaIcon from "simple-icons-astro/Figma";
+import WechatIcon from "simple-icons-astro/Wechat";
+import GinIcon from "simple-icons-astro/Gin";
+import CodeigniterIcon from "simple-icons-astro/Codeigniter";
+import LatexIcon from "simple-icons-astro/Latex";
+import GraphqlIcon from "simple-icons-astro/Graphql";
+import FlutterIcon from "simple-icons-astro/Flutter";
+import CmakeIcon from "simple-icons-astro/Cmake";
+import MaterialdesignIcon from "simple-icons-astro/Materialdesign";
+
 
 export const getStaticPaths = () => staticPaths;
 import {loadTranslations} from "@/i18n";
@@ -11,7 +30,6 @@ import {loadTranslations} from "@/i18n";
 const t = await loadTranslations(Astro.currentLocale);
 ---
 <Base title="Qnury.e's" className="flex flex-col gap-4">
-
     <!-- Landing -->
     <div class="h-[80vh] w-full font-serif px-24 mb-36 flex flex-col gap-8 justify-between *:py-16 *:w-full" data-aos="fade-in" data-aos-duration="1000">
         <div class="text-3xl">
@@ -51,12 +69,9 @@ const t = await loadTranslations(Astro.currentLocale);
                 <div data-aos="fade-right" data-aos-delay="400">
                     <h1 class="font-serif text-3xl">{t('about.contact')}</h1>
                     <div class="flex flex-row gap-4">
-                        <Typescript />
-                        <Typescript />
-                        <Typescript />
-                        <Typescript />
-                        <Typescript />
-                        <Typescript />
+                        <!--<a href="https://t.me/nnnnnoremac"><Telegram /></a>-->
+                        <a href="mailto:cest@qnury.es"><Gmail /></a>
+                        <a href="https://github.com/Qnurye"><Github /></a>
                     </div>
                 </div>
             </div>
@@ -67,34 +82,31 @@ const t = await loadTranslations(Astro.currentLocale);
                         <div>
                             <h2>{t('about.tech_stack_proficient')}</h2>
                             <div class="flex flex-row gap-4">
-                                <Typescript />
-                                <Typescript />
-                                <Typescript />
-                                <Typescript />
-                                <Typescript />
-                                <Typescript />
+                                <AstroIcon />
+                                <NextjsIcon />
+                                <SpringIcon />
+                                <LaravelIcon />
+                                <FastapiIcon />
+                                <WechatIcon title="微信小程序" fill="currentColor" />
+                                <MaterialdesignIcon />
                             </div>
                         </div>
                         <div>
                             <h2>{t('about.tech_stack_familiar')}</h2>
                             <div class="flex flex-row gap-4">
-                                <Typescript />
-                                <Typescript />
-                                <Typescript />
-                                <Typescript />
-                                <Typescript />
-                                <Typescript />
+                                <LatexIcon />
+                                <GinIcon />
+                                <CodeigniterIcon />
+                                <VueIcon />
+                                <FigmaIcon />
                             </div>
                         </div>
                         <div>
                             <h2>{t('about.tech_stack_beginner')}</h2>
                             <div class="flex flex-row gap-4">
-                                <Typescript />
-                                <Typescript />
-                                <Typescript />
-                                <Typescript />
-                                <Typescript />
-                                <Typescript />
+                                <GraphqlIcon />
+                                <FlutterIcon />
+                                <CmakeIcon />
                             </div>
                         </div>
                     </div>

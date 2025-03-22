@@ -12,14 +12,12 @@
     }
   },
   "footer": {
-    "footer": {
-      "subscribe_newsletter": "訂閱郵件",
-      "rss": "RSS",
-      "source_code": "源代碼",
-      "credits_before_astro": "Qnurye 設計開發, 自豪地由 ",
-      "credits_after_astro": " 驅動。",
-      "all_rights_reserved": " 保留所有權利。"
-    }
+    "subscribe_newsletter": "訂閱郵件",
+    "rss": "RSS",
+    "source_code": "源代碼",
+    "credits_before_astro": "Qnurye 設計開發, 自豪地由 ",
+    "credits_after_astro": " 驅動。",
+    "all_rights_reserved": " 保留所有權利。"
   },
   "landing": {
     "welcome": "歡迎光臨 Qnury.e's",
@@ -29,11 +27,11 @@
   "about": {
     "title": "名片",
     "introduction": "簡介",
-    "introduction_text": "主修《數據科學與大數據技術》專業本科生。",
+    "introduction_text": "人 / 學生 / 愛好者，輕微潔癖。",
     "unemployed": "待業",
     "unemployed_text": "我正在尋找實習機會。",
     "interests": "興趣",
-    "interests_text": "我愛好觀影、音樂、讀書，但說不出最喜歡的導演、樂隊或作者。",
+    "interests_text": "愛好觀影、音樂、讀書，最喜歡的樂隊是萬能青年旅店、King Crimson 和 Pink Floyd，最愛聽的古典是印象主義。",
     "contact": "聯繫",
     "tech_stack": "技術棧",
     "tech_stack_proficient": "熟練",

@@ -21,17 +21,17 @@
   },
   "landing": {
     "welcome": "Welcome to Qnury.e's",
-    "line1": "Confusion will be my epitaph,",
-    "line2": "As I crawl a cracked and broken path."
+    "line1": "Confusion will be my epitaph",
+    "line2": "As I crawl a cracked and broken path"
   },
   "about": {
-    "title": "Profile",
+    "title": "About",
     "introduction": "Introduction",
-    "introduction_text": "Undergraduate majoring in Data Science and Big Data Technology.",
-    "unemployed": "Open to work",
-    "unemployed_text": "I am looking for internship opportunities.",
+    "introduction_text": "Person / Student / Enthusiast, slightly obsessive-compulsive.",
+    "unemployed": "Unemployed",
+    "unemployed_text": "I am looking for an internship opportunity.",
     "interests": "Interests",
-    "interests_text": "I enjoy movies, music, and reading, but I can't name a favorite director, band, or author.",
+    "interests_text": "I like films, music, reading. Favorite bands are Omnipotent Youth Society, King Crimson, and Pink Floyd. Favorite classical music is Impressionism.",
     "contact": "Contact",
     "tech_stack": "Tech Stack",
     "tech_stack_proficient": "Proficient",

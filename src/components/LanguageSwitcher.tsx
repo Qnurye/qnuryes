@@ -8,12 +8,10 @@ import {CheckIcon, LanguagesIcon} from "lucide-react";
 import {getLanguageFromLocale} from "@/i18n";
 import {useTranslations} from "@/hooks/useTranslations";
 
-interface LanguageSwitcherProps {
+export default function LanguageSwitcher({locales, currentLocale}: {
   locales: string[];
   currentLocale: string;
-}
-
-export default function LanguageSwitcher({locales, currentLocale}: LanguageSwitcherProps) {
+}) {
   const [open, setOpen] = useState(false);
   const {t, isLoading} = useTranslations(currentLocale);
 
@@ -23,8 +21,7 @@ export default function LanguageSwitcher({locales, currentLocale}: LanguageSwitc
     const pathname = window.location.pathname;
     const currentPath = pathname.replace(`/${currentLocale}`, "");
 
-    const newPath = `/${locale}${currentPath}`;
-    window.location.href = newPath;
+    window.location.href = `/${locale}${currentPath}`;
   }
 
   if (isLoading) {
