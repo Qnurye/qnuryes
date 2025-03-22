@@ -4,6 +4,8 @@ export const locales = {
   "zh-tw": "繁體中文",
 }
 
+export const defaultLocale = 'en'
+
 export const getLanguageFromLocale = (locale: string) => {
   if (!(locale in locales)) {
     return locale

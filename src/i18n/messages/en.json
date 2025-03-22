@@ -4,7 +4,12 @@
     "portfolio": "Portfolio",
     "blog": "Blog",
     "notes": "Notes",
-    "friends": "Friends"
+    "friends": "Friends",
+    "language": {
+      "select": "Select language",
+      "search": "Search language...",
+      "not_found": "No language found."
+    }
   },
   "footer": {
     "subscribe_newsletter": "subscribe newsletter",

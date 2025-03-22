@@ -4,7 +4,12 @@
     "portfolio": "作品集",
     "blog": "部落格",
     "notes": "筆記",
-    "friends": "友鏈"
+    "friends": "友鏈",
+    "language": {
+      "select": "選擇語言",
+      "search": "搜索語言...",
+      "not_found": "未找到語言。"
+    }
   },
   "footer": {
     "footer": {

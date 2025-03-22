@@ -12,10 +12,10 @@ export default defineConfig({
   },
   integrations: [react()],
   i18n: {
-    locales:  ["en", "zh-cn", "zh-tw"],
+    locales: ["en", "zh-cn", "zh-tw"],
     defaultLocale: "en",
     routing: {
-      prefixDefaultLocale: true
-    }
-  }
+      prefixDefaultLocale: true,
+    },
+  },
 });
