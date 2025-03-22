@@ -15,5 +15,27 @@
       "credits_after_astro": " 驅動。",
       "all_rights_reserved": " 保留所有權利。"
     }
+  },
+  "landing": {
+    "welcome": "歡迎光臨 Qnury.e's",
+    "line1": "切斷電纜 朝霞晚風 臨時收入 臨時生活",
+    "line2": "切斷電纜 數字雲煙 免費月光 免費驚險"
+  },
+  "about": {
+    "title": "名片",
+    "introduction": "簡介",
+    "introduction_text": "主修《數據科學與大數據技術》專業本科生。",
+    "unemployed": "待業",
+    "unemployed_text": "我正在尋找實習機會。",
+    "interests": "興趣",
+    "interests_text": "我愛好觀影、音樂、讀書，但說不出最喜歡的導演、樂隊或作者。",
+    "contact": "聯繫",
+    "tech_stack": "技術棧",
+    "tech_stack_proficient": "熟練",
+    "tech_stack_familiar": "略懂",
+    "tech_stack_beginner": "入門"
+  },
+  "portfolio": {
+    "title": "項目"
   }
 }

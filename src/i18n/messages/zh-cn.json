@@ -13,5 +13,27 @@
     "credits_before_astro": "Qnurye 设计开发, 自豪地由 ",
     "credits_after_astro": " 驱动。",
     "all_rights_reserved": " 保留所有权利。"
+  },
+  "landing": {
+    "welcome": "欢迎光临 Qnury.e's",
+    "line1": "切断电缆 朝霞晚风 临时收入 临时生活",
+    "line2": "切断电缆 数字云烟 免费月光 免费惊险"
+  },
+  "about": {
+    "title": "名片",
+    "introduction": "简介",
+    "introduction_text": "主修《数据科学与大数据技术》专业本科生。",
+    "unemployed": "待业",
+    "unemployed_text": "我正在寻找实习机会。",
+    "interests": "兴趣",
+    "interests_text": "我爱好观影、音乐、读书，但说不出最喜欢的导演、乐队或作者。",
+    "contact": "联系",
+    "tech_stack": "技术栈",
+    "tech_stack_proficient": "熟练",
+    "tech_stack_familiar": "略懂",
+    "tech_stack_beginner": "入门"
+  },
+  "portfolio": {
+    "title": "项目"
   }
 }

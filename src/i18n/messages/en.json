@@ -13,5 +13,27 @@
     "credits_before_astro": "Designed and built by Qnurye, proudly powered ",
     "credits_after_astro": ".",
     "all_rights_reserved": "All rights reserved."
+  },
+  "landing": {
+    "welcome": "Welcome to Qnury.e's",
+    "line1": "Confusion will be my epitaph,",
+    "line2": "As I crawl a cracked and broken path."
+  },
+  "about": {
+    "title": "Profile",
+    "introduction": "Introduction",
+    "introduction_text": "Undergraduate majoring in Data Science and Big Data Technology.",
+    "unemployed": "Unemployed",
+    "unemployed_text": "I am looking for internship opportunities.",
+    "interests": "Interests",
+    "interests_text": "I enjoy movies, music, and reading, but I can't name a favorite director, band, or author.",
+    "contact": "Contact",
+    "tech_stack": "Tech Stack",
+    "tech_stack_proficient": "Proficient",
+    "tech_stack_familiar": "Familiar",
+    "tech_stack_beginner": "Beginner"
+  },
+  "portfolio": {
+    "title": "Projects"
   }
 }
