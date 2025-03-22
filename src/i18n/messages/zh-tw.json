@@ -8,7 +8,7 @@
     "language": {
       "select": "選擇語言",
       "search": "搜索語言...",
-      "not_found": "未找到語言。"
+      "not_found": "我不會說這門語言。"
     }
   },
   "footer": {

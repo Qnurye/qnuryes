@@ -56,7 +56,7 @@ export default function LanguageSwitcher({locales, currentLocale}: LanguageSwitc
           {getLanguageFromLocale(currentLocale)}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-fit p-0">
+      <PopoverContent className="w-fit p-0 mx-12">
         <Command>
           <CommandInput placeholder={t('nav.language.search') || "Search language..."}/>
           <CommandList>

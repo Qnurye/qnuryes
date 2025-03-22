@@ -8,7 +8,7 @@
     "language": {
       "select": "Select language",
       "search": "Search language...",
-      "not_found": "No language found."
+      "not_found": "I don't speak this language"
     }
   },
   "footer": {
@@ -28,7 +28,7 @@
     "title": "Profile",
     "introduction": "Introduction",
     "introduction_text": "Undergraduate majoring in Data Science and Big Data Technology.",
-    "unemployed": "Unemployed",
+    "unemployed": "Open to work",
     "unemployed_text": "I am looking for internship opportunities.",
     "interests": "Interests",
     "interests_text": "I enjoy movies, music, and reading, but I can't name a favorite director, band, or author.",
