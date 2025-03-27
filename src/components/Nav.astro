@@ -1,24 +1,24 @@
 ---
 import Logo from "./Logo.astro";
 import LanguageSwitcher from "./LanguageSwitcher.tsx";
-import { loadTranslations } from "@/i18n";
-import { getRelativeLocaleUrl } from "astro:i18n";
+import {loadTranslations} from "@/i18n";
+import {getRelativeLocaleUrl} from "astro:i18n";
 
 const t = await loadTranslations(Astro.currentLocale);
 const locales = Astro.props.locales || ["en", "zh-cn", "zh-tw"];
 ---
 
 <header class="sticky top-0 z-50">
-  <div class="flex flex-row justify-between p-4 w-full">
-    <Logo />
-    <nav class="flex flex-row space-x-4 items-center">
-      <a href={`/${Astro.currentLocale}#about`}>{t('nav.about')}</a>
-      <a href={`/${Astro.currentLocale}#portfolio`}>{t('nav.portfolio')}</a>
-      <a href={getRelativeLocaleUrl(Astro.currentLocale, "blog")}>{t('nav.blog')}</a>
-      <a href="/#">{t('nav.notes')}</a>
-      <a href={getRelativeLocaleUrl(Astro.currentLocale, "friends")}>{t('nav.friends')}</a>
-      <LanguageSwitcher locales={locales} currentLocale={Astro.currentLocale || 'en'} client:load />
-    </nav>
-  </div>
+    <div class="flex flex-row justify-between p-4 w-full">
+        <Logo/>
+        <nav class="flex flex-row space-x-4 items-center">
+            <a href={`/${Astro.currentLocale}#about`}>{t('nav.about')}</a>
+            <a href={`/${Astro.currentLocale}#portfolio`}>{t('nav.portfolio')}</a>
+            <a href={getRelativeLocaleUrl(Astro.currentLocale, "blog")}>{t('nav.blog')}</a>
+            <a href="/#">{t('nav.notes')}</a>
+            <a href={getRelativeLocaleUrl(Astro.currentLocale, "friends")}>{t('nav.friends')}</a>
+            <LanguageSwitcher locales={locales} currentLocale={Astro.currentLocale || 'en'} client:load/>
+        </nav>
+    </div>
 </header>
 

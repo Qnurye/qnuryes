@@ -2,7 +2,7 @@
 import Base from "@/layouts/Base.astro";
 import {staticPaths} from "@/i18n";
 
-import { getCollection } from 'astro:content';
+import {getCollection} from 'astro:content';
 
 const allBlogPosts = await getCollection('blog');
 
@@ -10,12 +10,12 @@ export const getStaticPaths = () => staticPaths;
 ---
 
 <Base>
-  <h1>Blog</h1>
-  <ul>
-    {allBlogPosts.map((post) => (
-      <li>
-        <a href={`${post.id}`}>{post.data.title}</a>
-      </li>
-    ))}
-  </ul>
+    <h1>Blog</h1>
+    <ul>
+      {allBlogPosts.map((post) => (
+          <li>
+              <a href={`${post.data.translation_id || post.id}`}>{post.data.title}</a>
+          </li>
+      ))}
+    </ul>
 </Base>

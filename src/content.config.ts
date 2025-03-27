@@ -9,7 +9,13 @@ const blog = defineCollection({
     created_at: z.date(),
     updated_at: z.date(),
     tags: z.array(z.string()),
+
+    // 预估阅读时间
     estimated: z.number(),
+
+    // i18n
+    translation_id: z.string().optional(),
+    locale: z.string().default("en"),
   })
 });
 

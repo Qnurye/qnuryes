@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { loadTranslations } from '@/i18n';
+import {useEffect, useState} from 'react';
+import {loadTranslations} from '@/i18n';
 
 /**
  * React hook to load and use translations
@@ -12,7 +12,7 @@ export function useTranslations(locale: string) {
 
   useEffect(() => {
     let isMounted = true;
-    
+
     async function load() {
       try {
         const translationFn = await loadTranslations(locale);
@@ -37,5 +37,5 @@ export function useTranslations(locale: string) {
     };
   }, [locale]);
 
-  return { t, isLoading };
+  return {t, isLoading};
 }

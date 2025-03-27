@@ -5,10 +5,9 @@ created_at: 2021-01-01 00:00:00
 updated_at: 2021-01-01 00:00:00
 tags: [test, test2]
 estimated: 12
+translation_id: test
+locale: en
 ---
-
-
-
 
 # Lorem Ipsum
 

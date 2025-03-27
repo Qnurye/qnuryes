@@ -31,7 +31,8 @@ const t = await loadTranslations(Astro.currentLocale);
 ---
 <Base title="Qnury.e's" className="flex flex-col gap-4">
     <!-- Landing -->
-    <div class="h-[80vh] w-full font-serif px-24 mb-36 flex flex-col gap-8 justify-between *:py-16 *:w-full" data-aos="fade-in" data-aos-duration="1000">
+    <div class="h-[80vh] w-full font-serif px-24 mb-36 flex flex-col gap-8 justify-between *:py-16 *:w-full"
+         data-aos="fade-in" data-aos-duration="1000">
         <div class="text-3xl">
             <h1>{t('landing.welcome')}</h1>
         </div>
@@ -42,13 +43,15 @@ const t = await loadTranslations(Astro.currentLocale);
     </div>
 
     <!-- Read More Button -->
-    <button id="more" class="transition-opacity duration-500 absolute left-1/2 -translate-x-1/2 bottom-2 flex flex-col gap-0.5 items-center opacity-70 animate-bounce hover:cursor-pointer">
+    <button id="more"
+            class="transition-opacity duration-500 absolute left-1/2 -translate-x-1/2 bottom-2 flex flex-col gap-0.5 items-center opacity-70 animate-bounce hover:cursor-pointer">
         <span class="font-serif">SCROLL</span>
-        <ChevronDownIcon size={16} />
+        <ChevronDownIcon size={16}/>
     </button>
 
     <!-- About -->
-    <div class="h-screen w-full font-serif px-24 flex flex-col gap-8 *:w-full" data-aos="fade-up" data-aos-duration="800" data-aos-anchor-placement="top-center">
+    <div class="h-screen w-full font-serif px-24 flex flex-col gap-8 *:w-full" data-aos="fade-up"
+         data-aos-duration="800" data-aos-anchor-placement="top-center">
         <div class="text-6xl">
             <h1 id="about" class="scroll-m-16">{t('about.title')}</h1>
         </div>
@@ -70,8 +73,12 @@ const t = await loadTranslations(Astro.currentLocale);
                     <h1 class="font-serif text-3xl">{t('about.contact')}</h1>
                     <div class="flex flex-row gap-4">
                         <!--<a href="https://t.me/nnnnnoremac"><Telegram /></a>-->
-                        <a href="mailto:cest@qnury.es"><Gmail /></a>
-                        <a href="https://github.com/Qnurye"><Github /></a>
+                        <a href="mailto:cest@qnury.es">
+                            <Gmail/>
+                        </a>
+                        <a href="https://github.com/Qnurye">
+                            <Github/>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -82,31 +89,31 @@ const t = await loadTranslations(Astro.currentLocale);
                         <div>
                             <h2>{t('about.tech_stack_proficient')}</h2>
                             <div class="flex flex-row gap-4">
-                                <AstroIcon />
-                                <NextjsIcon />
-                                <SpringIcon />
-                                <LaravelIcon />
-                                <FastapiIcon />
-                                <WechatIcon title="微信小程序" fill="currentColor" />
-                                <MaterialdesignIcon />
+                                <AstroIcon/>
+                                <NextjsIcon/>
+                                <SpringIcon/>
+                                <LaravelIcon/>
+                                <FastapiIcon/>
+                                <WechatIcon title="微信小程序" fill="currentColor"/>
+                                <MaterialdesignIcon/>
                             </div>
                         </div>
                         <div>
                             <h2>{t('about.tech_stack_familiar')}</h2>
                             <div class="flex flex-row gap-4">
-                                <LatexIcon />
-                                <GinIcon />
-                                <CodeigniterIcon />
-                                <VueIcon />
-                                <FigmaIcon />
+                                <LatexIcon/>
+                                <GinIcon/>
+                                <CodeigniterIcon/>
+                                <VueIcon/>
+                                <FigmaIcon/>
                             </div>
                         </div>
                         <div>
                             <h2>{t('about.tech_stack_beginner')}</h2>
                             <div class="flex flex-row gap-4">
-                                <GraphqlIcon />
-                                <FlutterIcon />
-                                <CmakeIcon />
+                                <GraphqlIcon/>
+                                <FlutterIcon/>
+                                <CmakeIcon/>
                             </div>
                         </div>
                     </div>
@@ -122,22 +129,24 @@ const t = await loadTranslations(Astro.currentLocale);
         </div>
         <div class="px-16 flex flex-row gap-4 justify-around *:flex *:flex-col *:gap-4">
             <div data-aos="fade-up" data-aos-delay="300">
-                <Project title="Test" description="test" date={new Date()} url={`https://picsum.photos/1200/1300`} />
-                <Project title="你好你好你好你好你好你好" description="你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好" date={new Date()} url="https://picsum.photos/1200/1400" />
-                <Project title="Test" description="test" date={new Date()} url="https://picsum.photos/1200/1100" />
-                <Project title="Test" description="test" date={new Date()} url="https://picsum.photos/1200/900" />
+                <Project title="Test" description="test" date={new Date()} url={`https://picsum.photos/1200/1300`}/>
+                <Project title="你好你好你好你好你好你好"
+                         description="你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好"
+                         date={new Date()} url="https://picsum.photos/1200/1400"/>
+                <Project title="Test" description="test" date={new Date()} url="https://picsum.photos/1200/1100"/>
+                <Project title="Test" description="test" date={new Date()} url="https://picsum.photos/1200/900"/>
             </div>
             <div data-aos="fade-up" data-aos-delay="400">
-                <Project title="Test" description="test" date={new Date()} url="https://picsum.photos/1200/800" />
-                <Project title="Test" description="test" date={new Date()} url="https://picsum.photos/1200/700" />
-                <Project title="Test" description="test" date={new Date()} url="https://picsum.photos/1200/1500" />
-                <Project title="Test" description="test" date={new Date()} url="https://picsum.photos/1300/1300" />
+                <Project title="Test" description="test" date={new Date()} url="https://picsum.photos/1200/800"/>
+                <Project title="Test" description="test" date={new Date()} url="https://picsum.photos/1200/700"/>
+                <Project title="Test" description="test" date={new Date()} url="https://picsum.photos/1200/1500"/>
+                <Project title="Test" description="test" date={new Date()} url="https://picsum.photos/1300/1300"/>
             </div>
             <div data-aos="fade-up" data-aos-delay="500">
-                <Project title="Test" description="test" date={new Date()} url="https://picsum.photos/1100/1300" />
-                <Project title="Test" description="test" date={new Date()} url="https://picsum.photos/1000/1300" />
-                <Project title="Test" description="test" date={new Date()} url="https://picsum.photos/900/1300" />
-                <Project title="Test" description="test" date={new Date()} url="https://picsum.photos/800/1300" />
+                <Project title="Test" description="test" date={new Date()} url="https://picsum.photos/1100/1300"/>
+                <Project title="Test" description="test" date={new Date()} url="https://picsum.photos/1000/1300"/>
+                <Project title="Test" description="test" date={new Date()} url="https://picsum.photos/900/1300"/>
+                <Project title="Test" description="test" date={new Date()} url="https://picsum.photos/800/1300"/>
             </div>
         </div>
     </div>
@@ -145,30 +154,30 @@ const t = await loadTranslations(Astro.currentLocale);
 </Base>
 
 <script>
-    import AOS from 'aos';
-    import 'aos/dist/aos.css';
+  import AOS from 'aos';
+  import 'aos/dist/aos.css';
 
-    AOS.init({
-        once: false,
-        mirror: true,
-        easing: 'ease-in-cubic',
-    });
+  AOS.init({
+    once: false,
+    mirror: true,
+    easing: 'ease-in-cubic',
+  });
 
-    document.getElementById('more')!.addEventListener('click', () => {
-        window.scrollTo({
-            top: window.innerHeight,
-            behavior: 'smooth',
-        });
+  document.getElementById('more')!.addEventListener('click', () => {
+    window.scrollTo({
+      top: window.innerHeight,
+      behavior: 'smooth',
     });
+  });
 
-    window.addEventListener('scroll', () => {
-        const moreButton = document.getElementById('more');
-        if (window.scrollY > 0) {
-            moreButton!.style.opacity = '0';
-            moreButton!.style.pointerEvents = 'none';
-        } else {
-            moreButton!.style.opacity = '0.7';
-            moreButton!.style.pointerEvents = 'auto';
-        }
-    });
+  window.addEventListener('scroll', () => {
+    const moreButton = document.getElementById('more');
+    if (window.scrollY > 0) {
+      moreButton!.style.opacity = '0';
+      moreButton!.style.pointerEvents = 'none';
+    } else {
+      moreButton!.style.opacity = '0.7';
+      moreButton!.style.pointerEvents = 'auto';
+    }
+  });
 </script>

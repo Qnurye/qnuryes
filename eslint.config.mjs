@@ -35,7 +35,7 @@ export default [
         {"omitLastInOneLineBlock": true}
       ]
     },
-    languageOptions: { globals: globals.browser },
+    languageOptions: {globals: globals.browser},
     settings: {
       tailwindcss: {
         whitelist: ["hide-scrollbars", "collapsible.*"],
