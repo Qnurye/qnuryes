@@ -1,0 +1,15 @@
+.idea/
+.env
+.env.local
+.env.production
+
+bin/
+build/
+
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.out
+go.work
