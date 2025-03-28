@@ -1,41 +1,45 @@
-import {useEffect, useState} from 'react';
-import {loadTranslations} from '@/i18n';
+import { useEffect, useState } from 'react'
+import { loadTranslations } from '@/i18n'
 
 /**
  * React hook to load and use translations
  * @param locale The current locale
  * @returns A translation function and loading state
  */
-export function useTranslations(locale: string) {
-  const [t, setT] = useState<(key: string) => string>(() => (key: string) => key);
-  const [isLoading, setIsLoading] = useState(true);
+export function useTranslations(locale: string): {
+  t: (key: string) => string
+  isLoading: boolean
+} {
+  const [t, setT] = useState<(key: string) => string>(() => (key: string): string => key)
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    let isMounted = true;
+    let isMounted = true
 
-    async function load() {
+    async function load(): Promise<undefined> {
       try {
-        const translationFn = await loadTranslations(locale);
+        const translationFn = await loadTranslations(locale)
         if (isMounted) {
-          setT(() => translationFn);
-          setIsLoading(false);
+          setT(() => translationFn)
+          setIsLoading(false)
         }
-      } catch (error) {
-        console.error(`Error loading translations for locale "${locale}":`, error);
+      }
+      catch (error) {
+        console.error(`Error loading translations for locale "${locale}":`, error)
         if (isMounted) {
-          setT(() => (key: string) => key);
-          setIsLoading(false);
+          setT(() => (key: string): string => key)
+          setIsLoading(false)
         }
       }
     }
 
-    setIsLoading(true);
-    load();
+    setIsLoading(true)
+    load()
 
-    return () => {
-      isMounted = false;
-    };
-  }, [locale]);
+    return (): undefined => {
+      isMounted = false
+    }
+  }, [locale])
 
-  return {t, isLoading};
+  return { t, isLoading }
 }

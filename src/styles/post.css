@@ -1,0 +1,100 @@
+/* 博客文章整体样式 */
+.blog-post {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+/* 文章头部样式 */
+.post-header {
+    margin-bottom: 2rem;
+}
+
+.post-meta {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    color: #666;
+}
+
+.post-title {
+    font-size: 3rem;
+    line-height: 1.2;
+    margin: 1.5rem 0;
+    font-weight: 900;
+}
+
+.post-description {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+/* 文章内容样式 */
+.post-content {
+    line-height: 1.6;
+    font-size: 1.1rem;
+    margin-bottom: 3rem;
+}
+
+.post-content h2 {
+    font-size: 1.8rem;
+    margin: 2rem 0 1rem;
+}
+
+.post-content p {
+    margin-bottom: 1.5rem;
+}
+
+.post-content pre {
+    background-color: #f8f8f8;
+    border-radius: 4px;
+    padding: 1rem;
+    margin: 1.5rem 0;
+    overflow-x: auto;
+}
+
+/* 文章底部样式 */
+.post-footer {
+    margin-top: 3rem;
+    padding-top: 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+.license {
+    display: inline-block;
+    font-size: 0.9rem;
+}
+
+.license a {
+    text-decoration: none;
+    color: #333;
+}
+
+/* 评论区分隔线 */
+.comment-divider {
+    border: none;
+    border-top: 1px solid #eee;
+    margin: 3rem 0;
+}
+
+/* 标签样式 */
+.tag {
+    display: inline-block;
+    margin-right: 0.5rem;
+    text-decoration: none;
+    color: #666;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .post-title {
+        font-size: 2rem;
+    }
+
+    .post-description {
+        font-size: 1rem;
+    }
+}

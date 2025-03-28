@@ -1,6 +1,5 @@
 ---
 title: 测试文章
-author: Qnurye
 created_at: 2021-01-01 00:00:00
 updated_at: 2021-01-01 00:00:00
 tags: [测试, 示例]
