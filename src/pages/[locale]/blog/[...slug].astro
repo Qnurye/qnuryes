@@ -2,10 +2,10 @@
 import { getCollection, render } from 'astro:content';
 import Base from '@/layouts/Base.astro';
 import { locales } from '@/i18n';
-import Section from '../../../components/Comment/Section';
-import '@/styles/post.css';
+import Section from '@/components/Comment/Section';
 import { type GetStaticPathsResult } from 'astro';
 import type { CollectionEntry } from 'astro:content';
+import { formatDate } from '@/lib/utils';
 
 export async function getStaticPaths(): Promise<GetStaticPathsResult> {
   const pages = await getCollection('blog');
@@ -30,57 +30,119 @@ export async function getStaticPaths(): Promise<GetStaticPathsResult> {
 
 const { locale } = Astro.params as { locale: string };
 const { page } = Astro.props as { page: CollectionEntry<'blog'>, translations: { [key: string]: string } };
-const formattedDate = page.data.created_at.toLocaleString(locale);
+const formattedDate = formatDate(page.data.created_at.toLocaleString(), locale);
 const { Content } = await render(page);
 ---
 
 <Base>
-  <article class="blog-post">
-    <header class="post-header">
-      <div class="post-meta">
-        <time datetime={page.data.created_at.toISOString()}>
+  <article class="max-w-3xl mx-auto px-4 py-8">
+    <header class="mb-8">
+      <div class="flex flex-wrap gap-4 text-sm font-mono text-gray-600">
+        <time datetime={page.data.created_at.toISOString()} class="inline-block">
           {formattedDate}
         </time>
-        <span class="reading-time">
-          ~
-          {page.data.estimated}
-          {' '}
-          min
+        <span class="inline-block">
+          {`~ ${page.data.estimated} min`}
         </span>
         {page.data.tags && (
-          <div class="tags">
+          <div class="flex flex-wrap gap-2">
             {page.data.tags.map((tag: string) => (
-              <a href={`/${locale}/blog/tag/${tag}`} class="tag">
-                #
-                {tag}
+              <a href={`/${locale}/blog/tag/${tag}`} class="text-gray-600 hover:text-gray-900">
+                {`#${tag}`}
               </a>
             ))}
           </div>
         )}
       </div>
-      <h1 class="post-title">{page.data.title}</h1>
-      <div class="post-description">
+
+      <h1 class="text-3xl font-serif font-black leading-tight my-6 md:text-3xl">{page.data.title}</h1>
+      <div class="font-serif text-lg leading-relaxed mb-8">
         <p>
-          Omnis doloribus aut omnis tempore. Nostrum et non et earum. Et ipsum dolores reprehenderit eveniet
-          aspernatur officia quam et. Omnis doloribus aut omnis tempore. Nostrum et non et earum. Et ipsum
-          dolores reprehenderit eveniet aspernatur officia quam et.
+                    Omnis doloribus aut omnis tempore. Nostrum et non et earum. Et ipsum dolores reprehenderit eveniet
+                    aspernatur officia quam et. Omnis doloribus aut omnis tempore. Nostrum et non et earum. Et ipsum
+                    dolores reprehenderit eveniet aspernatur officia quam et.
         </p>
       </div>
     </header>
 
-    <div class="post-content">
+    <div class="prose max-w-none mb-12">
       <Content />
     </div>
 
-    <footer class="post-footer">
-      <div class="license">
-        <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">
-          BY-NC-SA
+    <footer class="mt-12 pt-4 flex justify-center">
+      <div class="text-sm">
+        <a
+          href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
+          target="_blank"
+          rel="noopener"
+          class="no-underline text-gray-800 hover:text-gray-600"
+        >
+                    BY-NC-SA
         </a>
       </div>
     </footer>
 
-    <hr class="comment-divider" />
+    <hr class="border-none border-t border-gray-200 my-12" />
     <Section client:load postId={page.data.translation_id || page.id} locale={locale} />
   </article>
 </Base>
+
+<script>
+ function setupImageScrollContainers(): undefined {
+   const contentDiv = document.querySelector('.prose');
+   if (!contentDiv) {
+     return;
+   }
+
+   let consecutiveImages: Element[] = [];
+   const elements = Array.from(contentDiv.children);
+
+   elements.forEach((element, index) => {
+     const el = element.firstElementChild;
+     if (!el) { return; }
+     const isImageElement = el.tagName === 'IMG'
+       || (el.tagName === 'FIGURE' && el.querySelector('img'))
+       || (el.tagName === 'P' && el.querySelector('img') && el.children.length === 1);
+
+     if (isImageElement) {
+       consecutiveImages.push(el);
+
+       // 如果是最后一个元素或者下一个元素不是图片，则创建图片容器
+       if (index === elements.length - 1
+         || !(elements[index + 1].tagName === 'IMG'
+           || (elements[index + 1].tagName === 'FIGURE'
+             && elements[index + 1].querySelector('img'))
+           || (elements[index + 1].tagName === 'P'
+             && elements[index + 1].querySelector('img')
+             && elements[index + 1].children.length === 1))) {
+         if (consecutiveImages.length > 1) {
+           const innerContainer = document.createElement('div');
+           innerContainer.className = `absolute -left-[calc(50vw-24rem)] translate-x-[5vw]
+           flex flex-row gap-4 overflow-x-auto *:h-84 my-4 w-[90vw] *:mx-auto
+           snap-x snap-mandatory *:snap-center scroll-smooth relative`
+
+           consecutiveImages.forEach((img) => {
+             const imgClone = img.cloneNode(true);
+             innerContainer.appendChild(imgClone);
+             img.parentElement?.remove();
+           });
+
+           const container = document.createElement('div');
+           container.className = `relative overflow-visible`
+
+           container.appendChild(innerContainer);
+
+           contentDiv.insertBefore(container, elements[index + 1] || null);
+         }
+
+         consecutiveImages = [];
+       }
+     }
+     else {
+       consecutiveImages = [];
+     }
+   });
+ }
+
+ document.addEventListener('DOMContentLoaded', setupImageScrollContainers);
+</script>

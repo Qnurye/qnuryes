@@ -1,4 +1,5 @@
 import React from 'react';
+import { formatDate } from '@/lib/utils.ts';
 
 interface Comment {
   id: number
@@ -19,16 +20,6 @@ interface CommentItemProps {
   onReply: (id: number) => void
   onLike: (id: number) => Promise<void>
 }
-
-const formatDate = (dateString: string, locale: string): string => {
-  const date = new Date(dateString);
-  const options: Intl.DateTimeFormatOptions = {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-  };
-  return date.toLocaleDateString(locale === 'zh-cn' ? 'zh-CN' : 'en-US', options).toUpperCase();
-};
 
 const CommentItem: React.FC<CommentItemProps> = ({ comment, locale, onReply, onLike }) => (
   <div className="comment">

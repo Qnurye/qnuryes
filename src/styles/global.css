@@ -135,7 +135,7 @@
 
 @theme inline {
     --font-logo: 'Arvo Bold Italic', 'Arvo', serif;
-    --font-sans: "Nunito", sans-serif;
+    --font-sans: "Nunito", "ChillRoundF", sans-serif;
     --font-serif: "Arvo", "LXGW Neo ZhiSong", serif;
     --font-mono: 'Maple Mono NF CN', 'Maple Mono', 'Jetbrains Mono', monospace;
     --radius-sm: calc(var(--radius) - 4px);
