@@ -9,7 +9,7 @@ const locales = Astro.props.locales || ['en', 'zh-cn', 'zh-tw'];
 ---
 
 <header class="sticky top-0 z-50">
-  <div class="flex flex-row justify-between p-4 w-full">
+  <div class="flex flex-row justify-between p-4 w-full transition-all transform duration-1000 ease-in" id="nav">
     <Logo />
     <nav class="flex flex-row space-x-4 items-center">
       <a href={`/${Astro.currentLocale}#about`}>{t('nav.about')}</a>

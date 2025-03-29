@@ -51,6 +51,7 @@ export default [
       'arrow-body-style': ['error', 'as-needed'],
       '@stylistic/max-statements-per-line': ['off', { max: 2 }],
       '@stylistic/jsx-one-expression-per-line': 'off',
+      '@stylistic/brace-style': ['error', '1tbs', { allowSingleLine: true }],
 
       'camelcase': ['error', { properties: 'never' }],
       'new-cap': 'error',

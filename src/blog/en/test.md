@@ -1,11 +1,13 @@
 ---
-title: Test
+title: Kaili Blues
 created_at: 2021-01-01 00:00:00
 updated_at: 2021-01-01 00:00:00
 tags: [test, test2]
 estimated: 12
 translation_id: test
 locale: en
+cover: /assets/kaili.jpg
+description: "凯里东接台江、雷山两县。最高山峰海拔1447米，最低海拔532米，平均海拔850米，属中山、低山地貌区。凯里市属中亚热带温和湿润气候区，年平均气温为13.5°C-15.2°C。最热月为7月，平均气温为23.2°C-25.8°C。最冷月为1月，平均气温为2.6°C-5.2°C。境内气候温和，四季分明，雨量充沛，年平均降雨量为1240.1毫米，适宜于农、林、牧并发展。"
 ---
 
 # Lorem Ipsum
