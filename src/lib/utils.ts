@@ -14,3 +14,11 @@ export const formatDate = (dateString: string, locale: string): string => {
   };
   return date.toLocaleDateString(locale === 'zh-cn' ? 'zh-CN' : 'en-US', options).toUpperCase();
 };
+
+export const formatDateAsMonth = (dateString: string, locale: string): string => {
+  const date = new Date(dateString);
+  const options: Intl.DateTimeFormatOptions = {
+    month: 'long',
+  };
+  return date.toLocaleDateString(locale === 'zh-cn' ? 'zh-CN' : 'en-US', options).toUpperCase();
+};

@@ -1,18 +1,60 @@
 ---
 import Base from '@/layouts/Base.astro';
 export { getStaticPaths } from '@/i18n';
-import { getCollection } from 'astro:content';
+import { type CollectionEntry, getCollection } from 'astro:content';
+import { formatDateAsMonth } from '@/lib/utils';
+import Project from '@/components/Project.astro';
 
-const allBlogPosts = await getCollection('blog');
+const postsGroupByDate = (await getCollection('blog', p => p.data.locale === Astro.currentLocale))
+  .reduce((acc, post) => {
+    const date = new Date(post.data.created_at);
+    const year = date.getFullYear().toString();
+    const month = (date.getMonth() + 1).toString();
+
+    acc[year] = acc[year] || {};
+    acc[year][month] = acc[year][month] || [];
+    acc[year][month].push(post);
+
+    return acc;
+  }, {} as Record<string, Record<string, Array<CollectionEntry<'blog'>>>>);
 ---
 
 <Base>
-  <h1>Blog</h1>
-  <ul>
-    {allBlogPosts.map(post => (
-      <li>
-        <a href={`${post.data.translation_id || post.id}`}>{post.data.title}</a>
-      </li>
-    ))}
-  </ul>
+  <div
+    class="w-full font-serif px-24 flex flex-col gap-8 *:w-full"
+  >
+    <div class="text-6xl font-serif">
+      <h1 id="about" class="scroll-m-16">Posts</h1>
+    </div>
+    <ul>
+      {Object.entries(postsGroupByDate).map(([year, months]) => (
+        <li class="mb-4 mt-12 px-12">
+          <h2 class="text-4xl font-mono">{year}</h2>
+          <ul>
+            {Object.entries(months).map(([month, posts]) => (
+              <li class="my-4 px-12">
+                <h3 class="text-2xl font-mono my-4">{formatDateAsMonth(
+                  new Date(Number(year), Number(month)).toString(), Astro.currentLocale || 'en',
+                )}
+                </h3>
+                <div class="flex flex-wrap gap-2">
+                  {posts.map(post => (
+                    <Project
+                      key={post.id}
+                      title={post.data.title}
+                      description={post.data.description}
+                      date={post.data.created_at}
+                      cover={post.data.cover}
+                      id={post.data.translation_id || post.id}
+                      className="w-96"
+                    />
+                  ))}
+                </div>
+              </li>
+            ))}
+          </ul>
+        </li>
+      ))}
+    </ul>
+  </div>
 </Base>

@@ -12,26 +12,14 @@ import { Image } from 'astro:assets';
 export async function getStaticPaths(): Promise<GetStaticPathsResult> {
   const pages = await getCollection('blog');
 
-  return pages.map((page) => {
-    const [locale, ...slugParts] = page.id.split('/');
-    const slug = slugParts.join('/') || undefined;
-
-    const translations: { [key: string]: string } = {};
-    if (page.data.translation_id) {
-      Object.keys(locales).forEach((loc) => {
-        translations[loc] = `/blog/${page.data.translation_id}`;
-      });
-    }
-
-    return {
-      params: { locale, slug },
-      props: { page, translations },
-    };
-  });
+  return pages.map(page => ({
+    params: { locale: page.data.locale, slug: page.data.translation_id },
+    props: { page },
+  }));
 }
 
 const { locale } = Astro.params as { locale: string };
-const { page } = Astro.props as { page: CollectionEntry<'blog'>, translations: { [key: string]: string } };
+const { page } = Astro.props as { page: CollectionEntry<'blog'> };
 const formattedDate = formatDate(page.data.created_at.toLocaleString(), locale);
 const { Content } = await render(page);
 ---
@@ -59,7 +47,7 @@ const { Content } = await render(page);
       id="header"
       class={'mb-8 transition-all transform duration-1000 ease-in'
         + '*:transition-all *:transform *:duration-400 *:ease-in'
-        + '-translate-y-[calc(100%+124px)] -translate-x-[calc(50vw-24rem)] w-[calc(100vw-4rem)] text-stone-500'
+        + '-translate-y-[calc(100%+124px)] -translate-x-[calc(50vw-24rem)] w-[calc(100vw-4rem)] text-neutral-300'
         + 'mix-blend-difference'}
     >
       <div class="flex flex-row gap-16 text-sm font-mono" id="meta-data">
@@ -115,14 +103,14 @@ const { Content } = await render(page);
       document.querySelector('#header')?.classList.remove(
         '-translate-y-[calc(100%+124px)]',
         '-translate-x-[calc(50vw-24rem)]',
-        'text-stone-500', 'mix-blend-difference',
+        'text-neutral-300', 'mix-blend-difference',
       );
       document.querySelector('#header')?.classList.replace(
         'w-[calc(100vw-4rem)]',
         'w-full',
       );
       document.querySelector('#nav')?.classList.remove(
-        'text-stone-500', 'mix-blend-difference',
+        'text-neutral-300', 'mix-blend-difference',
       );
       document.querySelector('#title')?.classList.replace(
         'text-6xl', 'text-3xl',
@@ -135,12 +123,12 @@ const { Content } = await render(page);
       )
     } else {
       document.querySelector('#nav')?.classList.add(
-        'text-stone-500', 'mix-blend-difference',
+        'text-neutral-300', 'mix-blend-difference',
       );
       document.querySelector('#header')?.classList.add(
         '-translate-y-[calc(100%+124px)]',
         '-translate-x-[calc(50vw-24rem)]',
-        'text-stone-500', 'mix-blend-difference',
+        'text-neutral-300', 'mix-blend-difference',
       );
       document.querySelector('#header')?.classList.replace(
         'w-full',
