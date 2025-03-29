@@ -23,8 +23,7 @@ export function useTranslations(locale: string): {
           setT(() => translationFn)
           setIsLoading(false)
         }
-      }
-      catch (error) {
+      } catch (error) {
         console.error(`Error loading translations for locale "${locale}":`, error)
         if (isMounted) {
           setT(() => (key: string): string => key)

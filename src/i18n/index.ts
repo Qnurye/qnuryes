@@ -1,3 +1,5 @@
+import type { GetStaticPathsResult } from 'astro';
+
 export const locales = {
   'en': 'English',
   'zh-cn': '简体中文',
@@ -9,13 +11,12 @@ export const defaultLocale = 'en'
 export const getLanguageFromLocale = (locale: string): string => {
   if (!(locale in locales)) {
     return locale
-  }
-  else {
+  } else {
     return locales[locale as keyof typeof locales]
   }
 }
 
-export const staticPaths = Object.keys(locales).map(locale => ({
+export const getStaticPaths = (): GetStaticPathsResult => Object.keys(locales).map(locale => ({
   params: { locale },
 }))
 
@@ -23,8 +24,7 @@ export async function loadTranslations(locale: string | undefined) {
   try {
     const translations = await import(`./messages/${locale || 'en'}.json`)
     return (key: string): string => key.split('.').reduce((obj, i) => obj?.[i], translations.default) || ''
-  }
-  catch (error) {
+  } catch (error) {
     console.error(`Error loading translations for locale "${locale}":`, error)
     return (key: string): string => key
   }

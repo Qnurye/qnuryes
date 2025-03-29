@@ -54,12 +54,10 @@ export const useComments = (postId: string): {
       setComments(data.data);
       setTotalPages(data.total_pages);
       setError(null);
-    }
-    catch (err) {
+    } catch (err) {
       setError('Failed to fetch comments, please try again later.');
       console.error('Error fetching comments:', err);
-    }
-    finally {
+    } finally {
       setLoading(false);
     }
   };

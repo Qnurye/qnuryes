@@ -1,6 +1,6 @@
 ---
 import Base from '@/layouts/Base.astro';
-import { staticPaths } from '@/i18n';
+export { getStaticPaths } from '@/i18n';
 import { ChevronDownIcon } from 'lucide-react';
 
 import Gmail from 'simple-icons-astro/Gmail';
@@ -23,12 +23,33 @@ import FlutterIcon from 'simple-icons-astro/Flutter';
 import CmakeIcon from 'simple-icons-astro/Cmake';
 import MaterialdesignIcon from 'simple-icons-astro/Materialdesign';
 import { loadTranslations } from '@/i18n';
-import { type GetStaticPathsResult } from 'astro';
 import 'aos/dist/aos.css';
-
-export const getStaticPaths = (): GetStaticPathsResult => staticPaths;
+import { type CollectionEntry, getCollection } from 'astro:content';
 
 const t = await loadTranslations(Astro.currentLocale);
+const projectsPage = await getCollection('blog', (
+  { data }) => data.tags.includes('project') && data.locale === (Astro.currentLocale || 'en'))
+;
+let projectsCol1: Array<CollectionEntry<'blog'>> = [],
+  projectsCol2: Array<CollectionEntry<'blog'>> = [],
+  projectsCol3: Array<CollectionEntry<'blog'>> = [];
+
+if (projectsPage.length > 0) {
+  for (let index = 0; index < projectsPage.length; index++) {
+    const project = projectsPage[index];
+    if (index % 3 === 0) {
+      projectsCol1.push(project);
+    } else if (index % 3 === 1) {
+      projectsCol2.push(project);
+    } else {
+      projectsCol3.push(project);
+    }
+  }
+} else {
+  projectsCol1 = [];
+  projectsCol2 = [];
+  projectsCol3 = [];
+}
 ---
 <Base title="Qnury.e's" className="flex flex-col gap-4">
     <!-- Landing -->
@@ -83,13 +104,13 @@ const t = await loadTranslations(Astro.currentLocale);
           <div data-aos="fade-right" data-aos-delay="400">
             <h1 class="font-serif text-3xl">{t('about.contact')}</h1>
             <div class="flex flex-row gap-4">
-                        <!--<a href="https://t.me/nnnnnoremac"><Telegram /></a>-->
-                        <a href="mailto:cest@qnury.es">
-                          <Gmail />
-                        </a>
-                        <a href="https://github.com/Qnurye">
-                          <Github />
-                        </a>
+            <!--<a href="https://t.me/nnnnnoremac"><Telegram /></a>-->
+            <a href="mailto:cest@qnury.es">
+              <Gmail />
+            </a>
+            <a href="https://github.com/Qnurye">
+              <Github />
+            </a>
             </div>
           </div>
         </div>
@@ -138,29 +159,42 @@ const t = await loadTranslations(Astro.currentLocale);
       <div class="text-6xl">
         <h1 id="portfolio" class="scroll-m-16">{t('portfolio.title')}</h1>
       </div>
-      <div class="px-16 flex flex-row gap-4 justify-around *:flex *:flex-col *:gap-4">
+      <div class="px-16 flex flex-row gap-2 justify-around *:flex *:flex-col *:gap-2">
         <div data-aos="fade-up" data-aos-delay="300">
-          <Project title="Test" description="test" date={new Date()} url="https://picsum.photos/1200/1300" />
-          <Project
-            title="你好你好你好你好你好你好"
-            description="你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好"
-            date={new Date()}
-            url="https://picsum.photos/1200/1400"
-          />
-          <Project title="Test" description="test" date={new Date()} url="https://picsum.photos/1200/1100" />
-          <Project title="Test" description="test" date={new Date()} url="https://picsum.photos/1200/900" />
+          {projectsCol1.map((project, index) => (
+            <Project
+              key={index}
+              title={project.data.title}
+              description={project.data.description}
+              date={project.data.created_at}
+              cover={project.data.cover}
+              id={project.data.translation_id || project.id}
+            />
+          ))}
         </div>
         <div data-aos="fade-up" data-aos-delay="400">
-          <Project title="Test" description="test" date={new Date()} url="https://picsum.photos/1200/800" />
-          <Project title="Test" description="test" date={new Date()} url="https://picsum.photos/1200/700" />
-          <Project title="Test" description="test" date={new Date()} url="https://picsum.photos/1200/1500" />
-          <Project title="Test" description="test" date={new Date()} url="https://picsum.photos/1300/1300" />
+          {projectsCol2.map((project, index) => (
+            <Project
+              key={index}
+              title={project.data.title}
+              description={project.data.description}
+              date={project.data.created_at}
+              cover={project.data.cover}
+              id={project.data.translation_id || project.id}
+            />
+          ))}
         </div>
         <div data-aos="fade-up" data-aos-delay="500">
-          <Project title="Test" description="test" date={new Date()} url="https://picsum.photos/1100/1300" />
-          <Project title="Test" description="test" date={new Date()} url="https://picsum.photos/1000/1300" />
-          <Project title="Test" description="test" date={new Date()} url="https://picsum.photos/900/1300" />
-          <Project title="Test" description="test" date={new Date()} url="https://picsum.photos/800/1300" />
+          {projectsCol3.map((project, index) => (
+            <Project
+              key={index}
+              title={project.data.title}
+              description={project.data.description}
+              date={project.data.created_at}
+              cover={project.data.cover}
+              id={project.data.translation_id || project.id}
+            />
+          ))}
         </div>
       </div>
     </div>
@@ -189,8 +223,7 @@ window.addEventListener('scroll', () => {
   if (window.scrollY > 0) {
     moreButton.style.opacity = '0';
     moreButton.style.pointerEvents = 'none';
-  }
-  else {
+  } else {
     moreButton.style.opacity = '0.7';
     moreButton.style.pointerEvents = 'auto';
   }

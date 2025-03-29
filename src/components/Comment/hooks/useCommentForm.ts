@@ -62,12 +62,10 @@ export const useCommentForm = (postId: string, fetchComments: () => Promise<void
       });
 
       await fetchComments();
-    }
-    catch (err) {
+    } catch (err) {
       setError('Failed to submit comment, please try again later.');
       console.error('Error submitting comment:', err);
-    }
-    finally {
+    } finally {
       setLoading(false);
     }
   };

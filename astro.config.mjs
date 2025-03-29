@@ -5,7 +5,7 @@ import react from '@astrojs/react'
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://qnury.es',
+  site: 'http://localhost:4321',
   vite: {
     plugins: [tailwindcss()],
   },
@@ -15,6 +15,11 @@ export default defineConfig({
     defaultLocale: 'en',
     routing: {
       prefixDefaultLocale: true,
+    },
+  },
+  markdown: {
+    shikiConfig: {
+      theme: 'github-light',
     },
   },
 })

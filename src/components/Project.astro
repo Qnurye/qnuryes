@@ -1,5 +1,6 @@
 ---
-const { title, description, date, url } = Astro.props;
+import { getRelativeLocaleUrl } from 'astro:i18n';
+const { title, description, date, cover, id } = Astro.props;
 
 const formattedDate = new Intl.DateTimeFormat(Astro.currentLocale, {
   year: '2-digit',
@@ -8,8 +9,8 @@ const formattedDate = new Intl.DateTimeFormat(Astro.currentLocale, {
 }).format(date);
 ---
 
-<div class="relative group">
-  <img src={url} alt={title} />
+<a class="relative group block" href={getRelativeLocaleUrl(Astro.currentLocale || 'en', `/blog/${id}`)}>
+  <img src={cover} alt={title} />
   <div
     class={'transition-opacity duration-500 opacity-0 absolute top-0 left-0 size-full bg-gradient-to-b'
       + ' from-transparent to-gray-900 to-60% group-hover:opacity-70'}
@@ -28,4 +29,4 @@ const formattedDate = new Intl.DateTimeFormat(Astro.currentLocale, {
       </div>
     </div>
   </div>
-</div>
+</a>

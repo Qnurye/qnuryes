@@ -1,13 +1,9 @@
 ---
 import Base from '@/layouts/Base.astro';
-import { staticPaths } from '@/i18n';
-
+export { getStaticPaths } from '@/i18n';
 import { getCollection } from 'astro:content';
-import { type GetStaticPathsResult } from 'astro';
 
 const allBlogPosts = await getCollection('blog');
-
-export const getStaticPaths = (): GetStaticPathsResult => staticPaths;
 ---
 
 <Base>
