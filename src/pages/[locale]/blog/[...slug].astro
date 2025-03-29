@@ -59,10 +59,10 @@ const { Content } = await render(page);
       id="header"
       class={'mb-8 transition-all transform duration-1000 ease-in'
         + '*:transition-all *:transform *:duration-400 *:ease-in'
-        + '-translate-y-[calc(100%+124px)] -translate-x-[calc(50vw-24rem)] w-[calc(100vw-4rem)] text-white'
+        + '-translate-y-[calc(100%+124px)] -translate-x-[calc(50vw-24rem)] w-[calc(100vw-4rem)] text-stone-500'
         + 'mix-blend-difference'}
     >
-      <div class="flex flex-row gap-4 text-sm font-mono">
+      <div class="flex flex-row gap-16 text-sm font-mono" id="meta-data">
         <time datetime={page.data.created_at.toISOString()} class="inline-block">
           {formattedDate}
         </time>
@@ -115,14 +115,14 @@ const { Content } = await render(page);
       document.querySelector('#header')?.classList.remove(
         '-translate-y-[calc(100%+124px)]',
         '-translate-x-[calc(50vw-24rem)]',
-        'text-white', 'mix-blend-difference',
+        'text-stone-500', 'mix-blend-difference',
       );
       document.querySelector('#header')?.classList.replace(
         'w-[calc(100vw-4rem)]',
         'w-full',
       );
       document.querySelector('#nav')?.classList.remove(
-        'text-white', 'mix-blend-difference',
+        'text-stone-500', 'mix-blend-difference',
       );
       document.querySelector('#title')?.classList.replace(
         'text-6xl', 'text-3xl',
@@ -135,12 +135,12 @@ const { Content } = await render(page);
       )
     } else {
       document.querySelector('#nav')?.classList.add(
-        'text-white', 'mix-blend-difference',
+        'text-stone-500', 'mix-blend-difference',
       );
       document.querySelector('#header')?.classList.add(
         '-translate-y-[calc(100%+124px)]',
         '-translate-x-[calc(50vw-24rem)]',
-        'text-white', 'mix-blend-difference',
+        'text-stone-500', 'mix-blend-difference',
       );
       document.querySelector('#header')?.classList.replace(
         'w-full',
