@@ -1,7 +1,6 @@
 ---
 import { getCollection, render } from 'astro:content';
 import Base from '@/layouts/Base.astro';
-import { locales } from '@/i18n';
 import Section from '@/components/Comment/Section';
 import { type GetStaticPathsResult } from 'astro';
 import type { CollectionEntry } from 'astro:content';
@@ -35,7 +34,7 @@ const { Content } = await render(page);
 
   <div
     class={'absolute top-0 left-0 right-0 bottom-0 transition-opacity transform duration-1000 ease-in'
-      + ' bg-gradient-to-b from-transparent to-black opacity-70'}
+      + ' bg-gradient-to-b from-transparent to-neutral-500 from-60% opacity-50'}
     id="mask"
   >
   </div>
@@ -141,7 +140,7 @@ const { Content } = await render(page);
         'text-lg', 'text-2xl',
       );
       document.querySelector('#mask')?.classList.replace(
-        'opacity-0', 'opacity-70',
+        'opacity-0', 'opacity-50',
       )
     }
   };

@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@astrojs/react": "^4.2.1",
+    "@radix-ui/react-accordion": "^1.2.3",
     "@radix-ui/react-dialog": "^1.1.6",
     "@radix-ui/react-popover": "^1.1.6",
     "@radix-ui/react-select": "^2.1.6",
@@ -27,6 +28,7 @@
     "lucide-react": "^0.483.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-markdown": "^10.1.0",
     "sharp": "^0.33.5",
     "simple-icons-astro": "^14.11.0",
     "tailwind-merge": "^3.0.2",

@@ -1,0 +1,110 @@
+---
+import Base from '@/layouts/Base.astro';
+export { getStaticPaths } from '@/i18n';
+import { type CollectionEntry, getCollection } from 'astro:content';
+import Friend from '@/components/Friend.astro';
+import 'aos/dist/aos.css';
+import { loadTranslations } from '@/i18n';
+import Accordions from '../../../components/Accordions';
+
+const t = await loadTranslations(Astro.currentLocale);
+const links = await getCollection('link');
+let linksCol1: Array<CollectionEntry<'link'>> = [],
+  linksCol2: Array<CollectionEntry<'link'>> = [],
+  linksCol3: Array<CollectionEntry<'link'>> = [];
+
+if (links.length > 0) {
+  for (let index = 0; index < links.length; index++) {
+    const link = links[index];
+    if (index % 3 === 0) {
+      linksCol1.push(link);
+    } else if (index % 3 === 1) {
+      linksCol2.push(link);
+    } else {
+      linksCol3.push(link);
+    }
+  }
+} else {
+  linksCol1 = [];
+  linksCol2 = [];
+  linksCol3 = [];
+}
+---
+
+<Base>
+  <div
+    class="w-full px-24 flex flex-col gap-8 *:w-full"
+  >
+    <div class="text-6xl font-serif">
+      <h1 class="scroll-m-16">{t('links.title')}</h1>
+    </div>
+
+    <div class="flex flex-row gap-2 justify-around *:flex *:flex-col *:gap-2">
+      <div data-aos="fade-up" data-aos-delay="300">
+        {linksCol1.map((link, index) => (
+          <Friend
+            key={index}
+            name={link.data.name}
+            description={link.data.description[Astro.currentLocale as never] || link.data.description.en}
+            avatar={link.data.avatar}
+            url={link.data.url}
+          />
+        ))}
+      </div>
+      <div data-aos="fade-up" data-aos-delay="400">
+        {linksCol2.map((link, index) => (
+          <Friend
+            key={index}
+            name={link.data.name}
+            description={link.data.description[Astro.currentLocale as never] || link.data.description.en}
+            avatar={link.data.avatar}
+            url={link.data.url}
+          />
+        ))}
+      </div>
+      <div data-aos="fade-up" data-aos-delay="500">
+        {linksCol3.map((link, index) => (
+          <Friend
+            key={index}
+            name={link.data.name}
+            description={link.data.description[Astro.currentLocale as never] || link.data.description.en}
+            avatar={link.data.avatar}
+            url={link.data.url}
+          />
+        ))}
+      </div>
+    </div>
+
+    <div class="space-y-2 mt-12" data-aos="fade-up" data-aos-delay="1000">
+      <h2 class="scroll-m-16 text-3xl font-serif">
+        {t('links.application.about')}
+      </h2>
+      <p>
+        {t('links.application.description')}
+      </p>
+      <Accordions
+        accordions={[
+          {
+            title: t('links.application.pr.title'),
+            content: t('links.application.pr.content'),
+          },
+          {
+            title: t('links.application.email.title'),
+            content: t('links.application.email.content'),
+          },
+        ]}
+        client:load
+      />
+    </div>
+  </div>
+</Base>
+
+<script>
+import AOS from 'aos';
+
+AOS.init({
+  once: false,
+  mirror: true,
+  easing: 'ease-in-cubic',
+});
+</script>

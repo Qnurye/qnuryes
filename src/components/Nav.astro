@@ -15,9 +15,9 @@ const locales = Astro.props.locales || ['en', 'zh-cn', 'zh-tw'];
       <a href={`/${Astro.currentLocale}#about`}>{t('nav.about')}</a>
       <a href={`/${Astro.currentLocale}#portfolio`}>{t('nav.portfolio')}</a>
       <a href={getRelativeLocaleUrl(Astro.currentLocale || 'en', 'blog')}>{t('nav.blog')}</a>
+      <a href={getRelativeLocaleUrl(Astro.currentLocale || 'en', 'links')}>{t('nav.links')}</a>
       <LanguageSwitcher locales={locales} currentLocale={Astro.currentLocale || 'en'} client:load />
         <!--<a href="/#">{t('nav.notes')}</a>-->
-        <!--<a href={getRelativeLocaleUrl(Astro.currentLocale||'en', "friends")}>{t('nav.friends')}</a>-->
     </nav>
   </div>
 </header>
