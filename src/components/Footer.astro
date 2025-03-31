@@ -4,6 +4,7 @@ import { Button } from './ui/button';
 import { loadTranslations } from '@/i18n';
 import { Image } from 'astro:assets';
 import tail from '@/assets/tail.svg';
+import { Markdown } from 'astro-remote';
 
 const t = await loadTranslations(Astro.currentLocale);
 ---
@@ -24,11 +25,7 @@ const t = await loadTranslations(Astro.currentLocale);
     </Button>
   </div>
   <span class="font-mono text-sm">
-    <span>
-      {t('footer.credits_before_astro')}
-      <a href="https://astro.build">Astro</a>
-      {t('footer.credits_after_astro')}
-    </span>
+    <Markdown content={t('footer.credits')} />
   </span>
   <span class="flex gap-1 text-sm items-center">
     <CopyrightIcon size={20} strokeWidth={1} />

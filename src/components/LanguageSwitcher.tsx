@@ -5,7 +5,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command'
 import { Button } from '@/components/ui/button'
 import { CheckIcon, LanguagesIcon } from 'lucide-react'
-import { getLanguageFromLocale } from '@/i18n'
+import { getLanguageNameFromLocale } from '@/i18n'
 import { useTranslations } from '@/hooks/useTranslations'
 
 export default function LanguageSwitcher({ locales, currentLocale }: {
@@ -33,7 +33,7 @@ export default function LanguageSwitcher({ locales, currentLocale }: {
         disabled
       >
         <LanguagesIcon className="size-4" />
-        {getLanguageFromLocale(currentLocale)}
+        {getLanguageNameFromLocale(currentLocale)}
       </Button>
     )
   }
@@ -50,7 +50,7 @@ export default function LanguageSwitcher({ locales, currentLocale }: {
           className="w-fit justify-between gap-1"
         >
           <LanguagesIcon className="size-4" />
-          {getLanguageFromLocale(currentLocale)}
+          {getLanguageNameFromLocale(currentLocale)}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-fit p-0 mx-12">
@@ -66,7 +66,7 @@ export default function LanguageSwitcher({ locales, currentLocale }: {
                   onSelect={() => handleLanguageChange(locale)}
                   className="cursor-pointer"
                 >
-                  <span>{getLanguageFromLocale(locale)}</span>
+                  <span>{getLanguageNameFromLocale(locale)}</span>
                   {locale === currentLocale && (
                     <CheckIcon className="ml-auto size-4" />
                   )}

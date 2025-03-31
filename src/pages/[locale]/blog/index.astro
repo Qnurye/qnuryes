@@ -6,10 +6,11 @@ import { formatDateAsMonth } from '@/lib/utils';
 import Project from '@/components/Project.astro';
 
 const postsGroupByDate = (await getCollection('blog', p => p.data.locale === Astro.currentLocale))
+  .sort((a, b) => b.data.created_at.getTime() - a.data.created_at.getTime())
   .reduce((acc, post) => {
     const date = new Date(post.data.created_at);
     const year = date.getFullYear().toString();
-    const month = (date.getMonth() + 1).toString();
+    const month = date.getMonth().toString();
 
     acc[year] = acc[year] || {};
     acc[year][month] = acc[year][month] || [];
@@ -27,11 +28,11 @@ const postsGroupByDate = (await getCollection('blog', p => p.data.locale === Ast
       <h1 id="about" class="scroll-m-16">Posts</h1>
     </div>
     <ul>
-      {Object.entries(postsGroupByDate).map(([year, months]) => (
-        <li class="mb-4 mt-12 px-12">
+      {Object.entries(postsGroupByDate).reverse().map(([year, months]) => (
+        <li class="mb-4 px-12">
           <h2 class="text-4xl font-mono">{year}</h2>
           <ul>
-            {Object.entries(months).map(([month, posts]) => (
+            {Object.entries(months).reverse().map(([month, posts]) => (
               <li class="my-4 px-12">
                 <h3 class="text-2xl font-mono my-4">{formatDateAsMonth(
                   new Date(Number(year), Number(month)).toString(), Astro.currentLocale || 'en',

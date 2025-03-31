@@ -1,0 +1,64 @@
+[nav]
+about = "關於"
+portfolio = "作品集"
+blog = "部落格"
+notes = "筆記"
+links = "友鏈"
+
+[nav.language]
+select = "選擇語言"
+search = "搜索語言..."
+not_found = "我不會說這門語言"
+
+[footer]
+subscribe_newsletter = "訂閱郵件"
+rss = "RSS"
+source_code = "源代碼"
+credits = "Qnurye 設計開發, 自豪地由 [Astro](https://astro.build/) 驅動。"
+all_rights_reserved = "保留所有權利。"
+
+[landing]
+welcome = "歡迎光臨 Qnury.e's"
+line1 = "切斷電纜 朝霞晚風 臨時收入 臨時生活"
+line2 = "切斷電纜 數字雲煙 免費月光 免費驚險"
+
+[about]
+title = "名片"
+introduction = "簡介"
+introduction_text = "人 / 學生 / 愛好者，輕微潔癖。"
+unemployed = "待業"
+unemployed_text = "我正在尋找實習機會。"
+interests = "興趣"
+interests_text = "愛好觀影、音樂、讀書，最喜歡的樂隊是萬能青年旅店、King Crimson 和 Pink Floyd，最愛聽的古典是印象主義。"
+contact = "聯繫"
+tech_stack = "技術棧"
+tech_stack_proficient = "熟練"
+tech_stack_familiar = "略懂"
+tech_stack_beginner = "入門"
+
+[portfolio]
+title = "項目"
+
+[links]
+title = "好友"
+
+[links.application]
+about = "添加你的鏈接"
+description = "你可以參照下面的方式添加你的鏈接："
+i18n_changes = "本站點（基本不太）可能會在未來添加其他語言支持，如果這樣的情況發生，我會使用 AI 基於英文版本簡介翻譯成作新語言簡介，並會通過 GitHub 或郵件向你告知。"
+
+[links.application.pr]
+title = "創建 pull request 以添加鏈接"
+content = """
+1. 在 GitHub Fork [我的倉庫](https://github.com/Qnurye/qnuryes)
+2. 在你自己的倉庫下， `src/content/links` 中創建一個新的 json 文件，命名為你的名字，內容參考別的文件。你需要提供你的以下信息：
+    1. 名稱
+    2. 頭像 URL
+    3. 鏈接
+    4. 鏈接描述 (可能需要提供多種語言版本，但除英語外都為可空的)
+3. 提交你的修改，並在 GitHub 上創建一個 pull request 至我的倉庫。
+"""
+
+[links.application.email]
+title = "不懂上面那個 :("
+content = "你可以直接聯繫我 [contact@qnury.es](mailto:contact@qnury.es)"

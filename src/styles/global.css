@@ -251,10 +251,10 @@ code {
   @apply border-t border-gray-200;
 }
 
-ul {
+.prose ul {
   @apply list-disc pl-5 space-y-1;
 }
 
-ol {
+.prose ol {
   @apply list-decimal pl-5 space-y-1;
 }

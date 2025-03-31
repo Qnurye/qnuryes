@@ -5,7 +5,7 @@ import { type CollectionEntry, getCollection } from 'astro:content';
 import Friend from '@/components/Friend.astro';
 import 'aos/dist/aos.css';
 import { loadTranslations } from '@/i18n';
-import Accordions from '../../../components/Accordions';
+import Accordions from '@/components/Accordions';
 
 const t = await loadTranslations(Astro.currentLocale);
 const links = await getCollection('link');
