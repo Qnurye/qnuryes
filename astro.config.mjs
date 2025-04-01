@@ -2,7 +2,7 @@ import { defineConfig } from 'astro/config'
 
 import tailwindcss from '@tailwindcss/vite'
 import react from '@astrojs/react'
-import { tomlI18n } from './plugins/toml-i18n.ts';
+import tomlI18n from './integrations/toml-i18n.ts';
 
 // https://astro.build/config
 export default defineConfig({
@@ -10,10 +10,12 @@ export default defineConfig({
   vite: {
     plugins: [
       tailwindcss(),
-      tomlI18n(),
     ],
   },
-  integrations: [react()],
+  integrations: [
+    react(),
+    tomlI18n(),
+  ],
   i18n: {
     locales: ['en', 'zh-cn', 'zh-tw'],
     defaultLocale: 'en',
