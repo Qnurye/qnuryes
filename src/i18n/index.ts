@@ -40,13 +40,30 @@ export function getTranslationValue(obj: Translations, key: string): string {
   return typeof result === 'string' ? result : '';
 }
 
-export async function loadTranslations(locale: string | undefined): Promise<(key: string) => string> {
+export interface InterpolationValues {
+  [key: string]: string | number
+}
+
+export async function loadTranslations(locale: string | undefined): Promise<(
+  key: string, values?: InterpolationValues
+) => string> {
   const resolvedLocale = locale || defaultLocale;
 
   try {
     const translations = await import(`./compiled/${resolvedLocale}.json`);
 
-    return (key: string): string => getTranslationValue(translations.default, key);
+    return (key: string, values?: InterpolationValues): string => {
+      const rawText = getTranslationValue(translations.default, key);
+
+      if (!values || !rawText) {
+        return rawText;
+      }
+
+      return Object.entries(values).reduce((result, [placeholder, value]) => {
+        const pattern = new RegExp(`\\{${placeholder}\\}`, 'g');
+        return result.replace(pattern, String(value));
+      }, rawText);
+    };
   } catch (error) {
     console.error(`Error loading translations for locale "${resolvedLocale}":`, error);
     return (k: string) => k;

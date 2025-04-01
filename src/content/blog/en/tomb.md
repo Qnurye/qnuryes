@@ -5,7 +5,7 @@ updated_at: 2025-04-01 14:58:03
 tags: []
 estimated: 3
 translation_id: tomb
-original: zh-cn
+original_locale: zh-cn
 locale: en
 cover: /assets/youth.png
 description: "**In youth,** everything seems so close—that is the future. In old age, everything seems so distant—that is the past."

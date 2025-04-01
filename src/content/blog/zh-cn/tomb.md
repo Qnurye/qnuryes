@@ -5,7 +5,7 @@ updated_at: 2025-04-01 14:58:03
 tags: []
 estimated: 5
 translation_id: tomb
-original: zh-cn
+original_locale: zh-cn
 locale: zh-cn
 cover: /assets/youth.png
 description: "**年轻气盛**时，一切看上都很近，那是未来；年迈力衰时，一切看起来都很远，那是过去。"

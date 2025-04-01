@@ -15,6 +15,7 @@ export const blog = defineCollection({
     // i18n
     translation_id: z.string().optional(),
     locale: z.string().default('en'),
+    original_locale: z.string().default('en'),
 
     cover: z.string().default(''),
     description: z.string().default(''),

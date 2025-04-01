@@ -1,3 +1,8 @@
+[locales]
+en = "English"
+zh_cn = "Chinese (Simplified)"
+zh_tw = "Chinese (Traditional)"
+
 [nav]
 about = "About"
 portfolio = "Portfolio"
@@ -64,3 +69,8 @@ content = """
 [links.application.email]
 title = "I dont't know how :("
 content = "You can contact me directly at [contact@qnury.es](mailto:contact@qnury.es)"
+
+[post.translation_warning]
+title = "Translation Notice"
+content = "The following content is translated by AI, the original post is in {original}."
+

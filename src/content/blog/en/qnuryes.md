@@ -5,6 +5,7 @@ updated_at: 2025-03-29 16:37:00
 tags: [project, test]
 estimated: 12
 translation_id: qnuryes
+original_locale: zh-cn
 locale: en
 cover: /assets/qnuryes.jpg
 description: "Digital tomb of myself"

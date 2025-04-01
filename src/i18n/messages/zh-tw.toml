@@ -1,3 +1,8 @@
+[locales]
+en = "英文"
+zh_cn = "簡體中文"
+zh_tw = "繁體中文"
+
 [nav]
 about = "關於"
 portfolio = "作品集"
@@ -63,3 +68,7 @@ content = """
 [links.application.email]
 title = "不懂上面那個 :("
 content = "你可以直接聯繫我 [contact@qnury.es](mailto:contact@qnury.es)"
+
+[post.translation_warning]
+title = "譯文提醒"
+content = "下面的內容通過 AI 翻譯，原文語言為{original}。"

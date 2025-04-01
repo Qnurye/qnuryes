@@ -4,7 +4,6 @@ export { getI18nPaths as getStaticPaths } from '@/i18n';
 import { type CollectionEntry, getCollection } from 'astro:content';
 import { formatDateAsMonth } from '@/lib/utils';
 import Project from '@/components/Project.astro';
-import { getRelativeLocaleUrl } from 'astro:i18n';
 
 const postsGroupByDate = (await getCollection('blog', p => p.data.locale === Astro.currentLocale))
   .sort((a, b) => b.data.created_at.getTime() - a.data.created_at.getTime())
