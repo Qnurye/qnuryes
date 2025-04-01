@@ -1,12 +1,40 @@
 ---
-import Base from '@/layouts/Base.astro';
-export { getI18nPaths as getStaticPaths } from '@/i18n';
 import { type CollectionEntry, getCollection } from 'astro:content';
-import { formatDateAsMonth } from '@/lib/utils';
-import Project from '@/components/Project.astro';
-import { getRelativeLocaleUrl } from 'astro:i18n';
+import Base from '@/layouts/Base.astro';
+import { type GetStaticPathsResult } from 'astro';
+import { getI18nPaths } from '@/i18n';
+import Project from '../../../../components/Project.astro';
+import { formatDateAsMonth } from '../../../../lib/utils';
 
-const postsGroupByDate = (await getCollection('blog', p => p.data.locale === Astro.currentLocale))
+export async function getStaticPaths(): Promise<GetStaticPathsResult> {
+  const tags = (await getCollection('blog'))
+    .reduce((acc, page) => {
+      page.data.tags.forEach((tag) => {
+        acc = acc || [];
+        acc.unshift(tag);
+      });
+      return acc;
+    }, [] as string[]);
+
+  return tags.flatMap(tag =>
+    getI18nPaths().map(i18nPath => ({
+      params: {
+        locale: i18nPath.params.locale,
+        slug: tag,
+      },
+      props: {
+        tag: tag,
+      },
+    })),
+  );
+}
+
+const { tag } = Astro.props as { tag: string };
+
+const postsGroupByDate = (await getCollection('blog', p =>
+  p.data.locale === Astro.currentLocale
+  && p.data.tags.includes(tag),
+))
   .sort((a, b) => b.data.created_at.getTime() - a.data.created_at.getTime())
   .reduce((acc, post) => {
     const date = new Date(post.data.created_at);
@@ -26,7 +54,9 @@ const postsGroupByDate = (await getCollection('blog', p => p.data.locale === Ast
     class="w-full font-serif px-24 flex flex-col gap-8 *:w-full"
   >
     <div class="text-6xl font-serif">
-      <h1 id="about" class="scroll-m-16">Posts</h1>
+      <h1 class="scroll-m-16">
+        <span class="font-mono text-3xl">#</span>{tag}
+      </h1>
     </div>
     <ul>
       {Object.entries(postsGroupByDate).reverse().map(([year, months]) => (

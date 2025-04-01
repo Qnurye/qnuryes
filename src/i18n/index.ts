@@ -16,7 +16,7 @@ export const getLanguageNameFromLocale = (locale: string): string => {
   return locales[locale as keyof typeof locales];
 };
 
-export const getStaticPaths = (): GetStaticPathsResult =>
+export const getI18nPaths = (): GetStaticPathsResult =>
   Object.keys(locales).map(locale => ({
     params: { locale },
   }));

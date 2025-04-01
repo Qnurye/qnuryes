@@ -60,7 +60,7 @@ const { Content } = await render(page);
         {page.data.tags && (
           <div class="flex flex-wrap gap-2">
             {page.data.tags.map((tag: string) => (
-              <a href={`/${locale}/blog/tag/${tag}`}>
+              <a href={`/${locale}/blog/tags/${tag}`}>
                 {`#${tag}`}
               </a>
             ))}
