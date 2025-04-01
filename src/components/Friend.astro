@@ -1,16 +1,17 @@
 ---
 import { cn } from '../lib/utils';
+import { Markdown } from 'astro-remote';
 const { name, description, avatar, url, className } = Astro.props;
 ---
 
 <a
-  class={cn('relative group block max-w-72', className)}
+  class={cn('relative group block max-w-72 *:transition-all *:duration-500', className)}
   href={url}
 >
-  <img src={avatar} alt={name} />
+  <img src={avatar} alt={name} class="group-hover:blur-lg" />
   <div
-    class={'transition-opacity duration-500 opacity-0 absolute top-0 left-0 size-full bg-gradient-to-b'
-      + ' from-transparent to-neutral-500 from-60% group-hover:opacity-50'}
+    class={'opacity-0 absolute top-0 left-0 size-full bg-gradient-to-b'
+      + ' from-transparent to-neutral-900 group-hover:opacity-70'}
   >
   </div>
   <div
@@ -23,7 +24,9 @@ const { name, description, avatar, url, className } = Astro.props;
         <h1 class="text-3xl group-hover:text-xl text-nowrap text-ellipsis overflow-hidden font-serif">
           {name}
         </h1>
-        <p>{description}</p>
+        <div class="flex-grow overflow-hidden max-h-[6rem] line-clamp-3">
+          <Markdown content={description} />
+        </div>
         <p class="font-mono">{url}</p>
       </div>
     </div>

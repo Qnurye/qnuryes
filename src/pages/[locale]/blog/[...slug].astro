@@ -7,6 +7,7 @@ import type { CollectionEntry } from 'astro:content';
 import { formatDate } from '@/lib/utils';
 import { CopyrightIcon } from 'lucide-react';
 import { Image } from 'astro:assets';
+import { Markdown } from 'astro-remote';
 
 export async function getStaticPaths(): Promise<GetStaticPathsResult> {
   const pages = await getCollection('blog');
@@ -34,7 +35,7 @@ const { Content } = await render(page);
 
   <div
     class={'absolute top-0 left-0 right-0 bottom-0 transition-opacity transform duration-1000 ease-in'
-      + ' bg-gradient-to-b from-transparent to-neutral-500 from-60% opacity-50'}
+      + ' bg-gradient-to-b from-transparent to-neutral-600 from-70% opacity-40'}
     id="mask"
   >
   </div>
@@ -46,7 +47,7 @@ const { Content } = await render(page);
       id="header"
       class={'mb-8 transition-all transform duration-1000 ease-in'
         + '*:transition-all *:transform *:duration-400 *:ease-in'
-        + '-translate-y-[calc(100%+124px)] -translate-x-[calc(50vw-24rem)] w-[calc(100vw-4rem)] text-neutral-300'
+        + '-translate-y-[calc(100%+124px)] -translate-x-[calc(50vw-24rem)] w-[calc(100vw-4rem)] text-neutral-400'
         + 'mix-blend-difference'}
     >
       <div class="flex flex-row gap-16 text-sm font-mono" id="meta-data">
@@ -69,7 +70,7 @@ const { Content } = await render(page);
 
       <h1 class="text-6xl font-serif font-black leading-tight my-6" id="title">{page.data.title}</h1>
       <div class="font-serif text-2xl leading-relaxed mb-8" id="description">
-        <p>{page.data.description}</p>
+        <Markdown content={page.data.description} />
       </div>
     </header>
 
@@ -102,45 +103,45 @@ const { Content } = await render(page);
       document.querySelector('#header')?.classList.remove(
         '-translate-y-[calc(100%+124px)]',
         '-translate-x-[calc(50vw-24rem)]',
-        'text-neutral-300', 'mix-blend-difference',
+        'text-neutral-400', 'mix-blend-difference',
       );
       document.querySelector('#header')?.classList.replace(
         'w-[calc(100vw-4rem)]',
         'w-full',
       );
       document.querySelector('#nav')?.classList.remove(
-        'text-neutral-300', 'mix-blend-difference',
+        'text-neutral-400', 'mix-blend-difference',
       );
       document.querySelector('#title')?.classList.replace(
-        'text-6xl', 'text-3xl',
+        'text-6xl', 'text-5xl',
       );
       document.querySelector('#description')?.classList.replace(
         'text-2xl', 'text-lg',
       );
       document.querySelector('#mask')?.classList.replace(
-        'opacity-70', 'opacity-0',
+        'opacity-40', 'opacity-0',
       )
     } else {
       document.querySelector('#nav')?.classList.add(
-        'text-neutral-300', 'mix-blend-difference',
+        'text-neutral-400', 'mix-blend-difference',
       );
       document.querySelector('#header')?.classList.add(
         '-translate-y-[calc(100%+124px)]',
         '-translate-x-[calc(50vw-24rem)]',
-        'text-neutral-300', 'mix-blend-difference',
+        'text-neutral-400', 'mix-blend-difference',
       );
       document.querySelector('#header')?.classList.replace(
         'w-full',
         'w-[calc(100vw-4rem)]',
       );
       document.querySelector('#title')?.classList.replace(
-        'text-3xl', 'text-6xl',
+        'text-5xl', 'text-6xl',
       );
       document.querySelector('#description')?.classList.replace(
         'text-lg', 'text-2xl',
       );
       document.querySelector('#mask')?.classList.replace(
-        'opacity-0', 'opacity-50',
+        'opacity-0', 'opacity-40',
       )
     }
   };

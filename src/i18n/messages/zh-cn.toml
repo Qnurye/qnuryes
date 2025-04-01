@@ -16,6 +16,7 @@ rss = "RSS"
 source_code = "源代码"
 credits = "Qnurye 设计开发, 自豪地由 [Astro](https://astro.build/) 驱动。"
 all_rights_reserved = " 保留所有权利。"
+tos_pp = "用户协议和隐私政策"
 
 [landing]
 welcome = "欢迎光临 Qnury.e's"
@@ -55,7 +56,7 @@ content = """
     1. 名称
     2. 头像 URL
     3. 链接
-    4. 链接描述 (可能需要提供多种语言版本，但除英语外都为可空的)
+    4. 链接描述 (可能需要提供多种语言版本，但除英语外都为可空的。支持 Markdown。)
 3. 提交你的修改，并在 GitHub 上创建一个 pull request 至我的仓库。
 """
 

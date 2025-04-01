@@ -1,7 +1,7 @@
 ---
-
+import { getRelativeLocaleUrl } from 'astro:i18n';
 ---
 
 <div class="font-logo text-2xl font-bold italic">
-  <a href="/">qnury.es</a>
+  <a href={getRelativeLocaleUrl(Astro.currentLocale || 'en', '/')}>qnury.es</a>
 </div>

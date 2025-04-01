@@ -1,6 +1,7 @@
 ---
 import { getRelativeLocaleUrl } from 'astro:i18n';
-import { cn } from '../lib/utils';
+import { cn } from '@/lib/utils';
+import { Markdown } from 'astro-remote';
 const { title, description, date, cover, id, className } = Astro.props;
 
 const formattedDate = new Intl.DateTimeFormat(Astro.currentLocale, {
@@ -17,7 +18,7 @@ const formattedDate = new Intl.DateTimeFormat(Astro.currentLocale, {
   <img src={cover} alt={title} />
   <div
     class={'transition-opacity duration-500 opacity-0 absolute top-0 left-0 size-full bg-gradient-to-b'
-      + ' from-transparent to-neutral-500 from-60% group-hover:opacity-50'}
+      + ' bg-white group-hover:outline-1 group-hover:opacity-100'}
   >
   </div>
   <div
@@ -28,7 +29,9 @@ const formattedDate = new Intl.DateTimeFormat(Astro.currentLocale, {
         + ' group-hover:-translate-y-full *:duration-500 duration-500'}
       >
         <h1 class="text-3xl group-hover:text-xl text-nowrap text-ellipsis overflow-hidden">{title}</h1>
-        <p>{description}</p>
+        <div class="flex-grow overflow-hidden max-h-[6rem] line-clamp-3">
+          <Markdown content={description} />
+        </div>
         <p>{formattedDate}</p>
       </div>
     </div>

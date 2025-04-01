@@ -191,7 +191,7 @@
 }
 
 .prose h1 {
-  @apply font-black text-4xl font-serif mt-5;
+  @apply font-black text-4xl font-serif mt-8;
 }
 
 .prose h2 {
