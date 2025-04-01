@@ -3,21 +3,73 @@ import Logo from './Logo.astro';
 import LanguageSwitcher from './LanguageSwitcher.tsx';
 import { loadTranslations } from '@/i18n';
 import { getRelativeLocaleUrl } from 'astro:i18n';
+import { Button } from './ui/button';
+import { MenuIcon, X } from 'lucide-react';
 
 const t = await loadTranslations(Astro.currentLocale);
 const locales = Astro.props.locales || ['en', 'zh-cn', 'zh-tw'];
 ---
 
 <header class="sticky top-0 z-50">
-  <div class="flex flex-row justify-between p-4 w-full transition-all transform duration-1000 ease-in" id="nav">
+  <div class="flex justify-between items-center p-4 w-full">
     <Logo />
-    <nav class="flex flex-row space-x-4 items-center">
+
+    <Button variant="ghost" id="menu-toggle" className="lg:hidden p-2" aria-label="Toggle menu">
+      <MenuIcon />
+    </Button>
+
+    <nav class="hidden lg:flex space-x-4 items-center">
       <a href={`/${Astro.currentLocale}#about`}>{t('nav.about')}</a>
       <a href={`/${Astro.currentLocale}#portfolio`}>{t('nav.portfolio')}</a>
       <a href={getRelativeLocaleUrl(Astro.currentLocale || 'en', 'blog')}>{t('nav.blog')}</a>
       <a href={getRelativeLocaleUrl(Astro.currentLocale || 'en', 'links')}>{t('nav.links')}</a>
       <LanguageSwitcher locales={locales} currentLocale={Astro.currentLocale || 'en'} client:load />
-        <!--<a href="/#">{t('nav.notes')}</a>-->
     </nav>
   </div>
+
+  <div
+    id="mobile-menu"
+    class={'fixed top-0 right-0 w-full h-full bg-white flex flex-col items-center justify-center space-y-6'
+      + ' transform translate-x-full transition-transform duration-300 lg:hidden shadow-lg'}
+  >
+    <Button
+      variant="ghost"
+      id="menu-close"
+      className="absolute top-4 right-12 p-2"
+      aria-label="Close menu"
+    >
+      <X />
+    </Button>
+    <a
+      href={`/${Astro.currentLocale}#about`}
+      class="text-xl"
+    >{t('nav.about')}
+    </a>
+    <a
+      href={`/${Astro.currentLocale}#portfolio`}
+      class="text-xl"
+    >{t('nav.portfolio')}
+    </a>
+    <a
+      href={getRelativeLocaleUrl(Astro.currentLocale || 'en', 'blog')}
+      class="text-xl"
+    >{t('nav.blog')}
+    </a>
+    <a
+      href={getRelativeLocaleUrl(Astro.currentLocale || 'en', 'links')}
+      class="text-xl"
+    >{t('nav.links')}
+    </a>
+    <LanguageSwitcher locales={locales} currentLocale={Astro.currentLocale || 'en'} client:load />
+  </div>
 </header>
+
+<script>
+  document.getElementById('menu-toggle')?.addEventListener('click', () => {
+    document.getElementById('mobile-menu')?.classList.remove('translate-x-full');
+  });
+
+  document.getElementById('menu-close')?.addEventListener('click', () => {
+    document.getElementById('mobile-menu')?.classList.add('translate-x-full');
+  });
+</script>
