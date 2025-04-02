@@ -10,7 +10,9 @@ const t = await loadTranslations(Astro.currentLocale);
 const locales = Astro.props.locales || ['en', 'zh-cn', 'zh-tw'];
 ---
 
-<header class="sticky top-0 z-50">
+<div class="h-17"></div>
+
+<header class="fixed top-0 left-0 w-full z-50">
   <div class="flex justify-between items-center p-4 w-full">
     <Logo />
 
@@ -35,7 +37,7 @@ const locales = Astro.props.locales || ['en', 'zh-cn', 'zh-tw'];
     <Button
       variant="ghost"
       id="menu-close"
-      className="absolute top-4 right-12 p-2"
+      className="absolute top-4 right-6 p-2"
       aria-label="Close menu"
     >
       <X />
@@ -66,10 +68,16 @@ const locales = Astro.props.locales || ['en', 'zh-cn', 'zh-tw'];
 
 <script>
   document.getElementById('menu-toggle')?.addEventListener('click', () => {
-    document.getElementById('mobile-menu')?.classList.remove('translate-x-full');
+    document.getElementById('mobile-menu')?.classList.toggle('translate-x-full');
   });
 
   document.getElementById('menu-close')?.addEventListener('click', () => {
-    document.getElementById('mobile-menu')?.classList.add('translate-x-full');
+    document.getElementById('mobile-menu')?.classList.toggle('translate-x-full');
+  });
+
+  document.querySelectorAll('a').forEach((anchor) => {
+    anchor.addEventListener('click', function () {
+      document.getElementById('mobile-menu')?.classList.toggle('translate-x-full');
+    });
   });
 </script>

@@ -54,14 +54,17 @@ if (projectsPage.length > 0) {
 <Base title="Qnury.e's" className="flex flex-col gap-4">
     <!-- Landing -->
     <div
-      class="h-[80vh] w-full font-serif px-24 mb-36 flex flex-col gap-8 justify-between *:py-16 *:w-full"
+      class={'h-[80vh] w-full font-serif px-6 md:px-12 lg:px-24 mb-12 md:mb-36 flex flex-col gap-4 md:gap-8'
+        + ' justify-between *:py-8 md:*:py-16 *:w-full'}
       data-aos="fade-in"
-      data-aos-duration="1000"
+      data-aos-duration="300"
     >
-      <div class="text-3xl">
+      <div class="text-xl md:text-2xl lg:text-3xl">
         <h1>{t('landing.welcome')}</h1>
       </div>
-      <div class="text-2xl text-end *:tracking-wide *:[word-spacing:0.8rem]">
+      <div class={'text-lg md:text-xl lg:text-2xl text-end *:tracking-wide *:[word-spacing:0.5rem]'
+        + ' md:*:[word-spacing:0.8rem]'}
+      >
         <p>{t('landing.line1')}</p>
         <p>{t('landing.line2')}</p>
       </div>
@@ -78,49 +81,62 @@ if (projectsPage.length > 0) {
     </button>
 
     <!-- About -->
+    <p class="size-0" id="about"></p>
     <div
-      class="h-screen w-full font-serif px-24 flex flex-col gap-8 *:w-full"
+      class="min-h-screen w-full font-serif px-6 md:px-12 lg:px-24 flex flex-col gap-4 md:gap-8 *:w-full"
       data-aos="fade-up"
-      data-aos-duration="800"
+      data-aos-duration="500"
       data-aos-anchor-placement="top-center"
     >
-      <div class="text-6xl">
-        <h1 id="about" class="scroll-m-16">{t('about.title')}</h1>
+      <div class="text-5xl md:text-6xl lg:text-7xl">
+        <h1 class="scroll-m-16">{t('about.title')}</h1>
       </div>
-      <div class="px-16 flex flex-row justify-between *:flex *:flex-col *:gap-4">
-        <div class="*:flex *:flex-col *:gap-3 *:p-3 max-w-prose">
+      <div class={'px-2 md:px-4 lg:px-8 xl:px-16 flex gap-4 md:gap-0 flex-col lg:flex-row justify-between *:flex'
+        + ' *:flex-col *:gap-4'}
+      >
+        <div class="*:flex *:flex-col *:gap-3 *:p-3 max-w-full md:max-w-prose">
           <div data-aos="fade-right" data-aos-delay="100">
-            <h1 class="font-serif text-3xl">{t('about.introduction')}</h1>
+            <h1 class="font-serif text-2xl md:text-3xl">{t('about.introduction')}</h1>
             <p>{t('about.introduction_text')}</p>
           </div>
           <div data-aos="fade-right" data-aos-delay="200">
-            <h1 class="font-serif text-3xl">{t('about.unemployed')}</h1>
+            <h1 class="font-serif text-2xl md:text-3xl">{t('about.unemployed')}</h1>
             <p>{t('about.unemployed_text')}</p>
           </div>
           <div data-aos="fade-right" data-aos-delay="300">
-            <h1 class="font-serif text-3xl">{t('about.interests')}</h1>
+            <h1 class="font-serif text-2xl md:text-3xl">{t('about.interests')}</h1>
             <p>{t('about.interests_text')}</p>
           </div>
           <div data-aos="fade-right" data-aos-delay="400">
-            <h1 class="font-serif text-3xl">{t('about.contact')}</h1>
+            <h1 class="font-serif text-2xl md:text-3xl">{t('about.contact')}</h1>
             <div class="flex flex-row gap-4">
-            <!--<a href="https://t.me/nnnnnoremac"><Telegram /></a>-->
-            <a href="mailto:cest@qnury.es">
-              <Gmail />
-            </a>
-            <a href="https://github.com/Qnurye">
-              <Github />
-            </a>
+              <a href="mailto:cest@qnury.es">
+                <Gmail />
+              </a>
+              <a href="https://github.com/Qnurye">
+                <Github />
+              </a>
             </div>
           </div>
         </div>
-        <div class="flex-1 items-center *:flex *:flex-col *:gap-3 *:p-3">
-          <div>
-            <h1 class="font-serif text-3xl">{t('about.tech_stack')}</h1>
-            <div class="*:flex *:flex-col *:gap-2 flex flex-col gap-4">
+        <div
+          class="flex-1 items-end xl:items-center mt-4 md:mt-0 *:flex *:flex-col *:gap-3 *:p-3"
+        >
+          <div class="sm:min-w-64 flex items-end lg:items-start">
+            <h1
+              class="font-serif text-2xl md:text-3xl"
+              data-aos="fade-left"
+              data-aos-delay="500"
+            >{t('about.tech_stack')}
+            </h1>
+            <div
+              class="*:flex *:flex-col *:items-end *:lg:items-start *:gap-2 flex flex-col gap-4"
+              data-aos="fade-left"
+              data-aos-delay="600"
+            >
               <div>
                 <h2>{t('about.tech_stack_proficient')}</h2>
-                <div class="flex flex-row gap-4">
+                <div class="flex flex-wrap gap-4 justify-end lg:justify-around">
                   <AstroIcon />
                   <NextjsIcon />
                   <SpringIcon />
@@ -132,7 +148,7 @@ if (projectsPage.length > 0) {
               </div>
               <div>
                 <h2>{t('about.tech_stack_familiar')}</h2>
-                <div class="flex flex-row gap-4">
+                <div class="flex flex-wrap gap-4 justify-end lg:justify-around">
                   <LatexIcon />
                   <GinIcon />
                   <CodeigniterIcon />
@@ -142,7 +158,7 @@ if (projectsPage.length > 0) {
               </div>
               <div>
                 <h2>{t('about.tech_stack_beginner')}</h2>
-                <div class="flex flex-row gap-4">
+                <div class="flex flex-wrap gap-4 justify-end lg:justify-around">
                   <GraphqlIcon />
                   <FlutterIcon />
                   <CmakeIcon />
@@ -155,77 +171,99 @@ if (projectsPage.length > 0) {
     </div>
 
     <!-- Portfolio -->
-    <div class="w-full font-serif px-24 flex flex-col gap-8 *:w-full" data-aos="fade-up" data-aos-duration="800">
-      <div class="text-6xl">
-        <h1 id="portfolio" class="scroll-m-16">{t('portfolio.title')}</h1>
+    <p class="size-0" id="portfolio"></p>
+    <div
+      class="w-full font-serif px-6 lg:px-12 xl:px-24 flex flex-col gap-4 md:gap-8 *:w-full"
+      data-aos="fade-up"
+      data-aos-duration="600"
+    >
+      <div class="text-4xl md:text-5xl lg:text-6xl">
+        <h1 class="scroll-m-16">{t('portfolio.title')}</h1>
       </div>
-      <div class="flex flex-row gap-2 justify-around *:flex *:flex-col *:gap-2">
-        <div data-aos="fade-up" data-aos-delay="300">
-          {projectsCol1.map((project, index) => (
-            <Project
-              key={index}
-              title={project.data.title}
-              description={project.data.description}
-              date={project.data.created_at}
-              cover={project.data.cover}
-              id={project.data.translation_id || project.id}
-            />
-          ))}
-        </div>
-        <div data-aos="fade-up" data-aos-delay="400">
-          {projectsCol2.map((project, index) => (
-            <Project
-              key={index}
-              title={project.data.title}
-              description={project.data.description}
-              date={project.data.created_at}
-              cover={project.data.cover}
-              id={project.data.translation_id || project.id}
-            />
-          ))}
-        </div>
-        <div data-aos="fade-up" data-aos-delay="500">
-          {projectsCol3.map((project, index) => (
-            <Project
-              key={index}
-              title={project.data.title}
-              description={project.data.description}
-              date={project.data.created_at}
-              cover={project.data.cover}
-              id={project.data.translation_id || project.id}
-            />
-          ))}
-        </div>
-      </div>
-    </div>
 
+        <!-- Mobile Portfolio (1 column) -->
+        <div class="flex flex-col gap-4 md:hidden">
+          {[...projectsCol1, ...projectsCol2, ...projectsCol3].map((project, index) => (
+            <div data-aos="fade-up" data-aos-delay={100 * (index % 3 + 3)}>
+              <Project
+                key={index}
+                title={project.data.title}
+                description={project.data.description}
+                date={project.data.created_at}
+                cover={project.data.cover}
+                id={project.data.translation_id || project.id}
+              />
+            </div>
+          ))}
+        </div>
+
+        <!-- Desktop Portfolio (3 columns) -->
+        <div class="hidden md:flex md:flex-row gap-2 justify-around *:flex *:flex-col *:gap-2">
+          <div data-aos="fade-up" data-aos-delay="300">
+            {projectsCol1.map((project, index) => (
+              <Project
+                key={index}
+                title={project.data.title}
+                description={project.data.description}
+                date={project.data.created_at}
+                cover={project.data.cover}
+                id={project.data.translation_id || project.id}
+              />
+            ))}
+          </div>
+          <div data-aos="fade-up" data-aos-delay="400">
+            {projectsCol2.map((project, index) => (
+              <Project
+                key={index}
+                title={project.data.title}
+                description={project.data.description}
+                date={project.data.created_at}
+                cover={project.data.cover}
+                id={project.data.translation_id || project.id}
+              />
+            ))}
+          </div>
+          <div data-aos="fade-up" data-aos-delay="500">
+            {projectsCol3.map((project, index) => (
+              <Project
+                key={index}
+                title={project.data.title}
+                description={project.data.description}
+                date={project.data.created_at}
+                cover={project.data.cover}
+                id={project.data.translation_id || project.id}
+              />
+            ))}
+          </div>
+        </div>
+    </div>
 </Base>
 
 <script>
-import AOS from 'aos';
+  import AOS from 'aos';
 
-AOS.init({
-  once: false,
-  mirror: true,
-  easing: 'ease-in-cubic',
-});
-
-document.getElementById('more')?.addEventListener('click', () => {
-  window.scrollTo({
-    top: window.innerHeight,
-    behavior: 'smooth',
+  AOS.init({
+    once: false,
+    mirror: true,
+    easing: 'ease-in-cubic',
   });
-});
 
-window.addEventListener('scroll', () => {
-  const moreButton = document.getElementById('more');
-  if (!moreButton) { return; }
-  if (window.scrollY > 0) {
-    moreButton.style.opacity = '0';
-    moreButton.style.pointerEvents = 'none';
-  } else {
-    moreButton.style.opacity = '0.7';
-    moreButton.style.pointerEvents = 'auto';
-  }
-});
+  document.getElementById('more')?.addEventListener('click', () => {
+    window.scrollTo({
+      top: window.innerHeight,
+      behavior: 'smooth',
+    });
+  });
+
+  window.addEventListener('scroll', () => {
+    const moreButton = document.getElementById('more');
+    if (!moreButton) { return; }
+    if (window.scrollY > 0) {
+      moreButton.style.opacity = '0';
+      moreButton.style.pointerEvents = 'none';
+    } else {
+      moreButton.style.opacity = '0.7';
+      moreButton.style.pointerEvents = 'auto';
+    }
+  });
 </script>

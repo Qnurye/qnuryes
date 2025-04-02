@@ -2,7 +2,7 @@
 import '@/styles/global.css';
 import Nav from '@/components/Nav.astro';
 import Footer from '@/components/Footer.astro';
-import { cn } from '../lib/utils';
+import { cn } from '@/lib/utils';
 
 const { title, className } = Astro.props;
 const pageTitle = title || 'query.e\'s';
@@ -13,12 +13,12 @@ const pageTitle = title || 'query.e\'s';
   <head>
     <title>{pageTitle}</title>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
   </head>
-  <body class="px-8">
+  <body class="px-2 md:px-4 lg:px-8">
     <Nav />
-    <main class={cn(className, 'min-h-screen scroll-smooth')}>
+    <main class={cn(className, 'min-h-screen scroll-smooth max-w-full')}>
       <slot />
     </main>
     <Footer />
