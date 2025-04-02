@@ -15,7 +15,7 @@ import {
 } from '@/components/ui/alert';
 import { LanguagesIcon } from 'lucide-react';
 import { loadTranslations } from '@/i18n';
-const t = await loadTranslations(Astro.currentLocale);
+import { getReadingTime } from '@/lib/utils';
 
 export async function getStaticPaths(): Promise<GetStaticPathsResult> {
   const pages = await getCollection('blog');
@@ -26,7 +26,8 @@ export async function getStaticPaths(): Promise<GetStaticPathsResult> {
   }));
 }
 
-const { locale } = Astro.params as { locale: string };
+const locale = Astro.currentLocale || 'en';
+const t = await loadTranslations(locale);
 const { page } = Astro.props as { page: CollectionEntry<'blog'> };
 const formattedDate = formatDate(page.data.created_at.toLocaleString(), locale);
 const { Content } = await render(page);
@@ -63,7 +64,7 @@ const { Content } = await render(page);
           {formattedDate}
         </time>
         <span class="inline-block">
-          {`~ ${page.data.estimated} min`}
+          ~ {getReadingTime(page.body || '', locale)} min
         </span>
         {page.data.tags && (
           <div class="flex flex-wrap gap-2">

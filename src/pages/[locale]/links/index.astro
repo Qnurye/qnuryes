@@ -6,7 +6,6 @@ import Friend from '@/components/Friend.astro';
 import 'aos/dist/aos.css';
 import { loadTranslations } from '@/i18n';
 import Accordions from '@/components/Accordions';
-import Project from '../../../components/Project.astro';
 
 const t = await loadTranslations(Astro.currentLocale);
 const links = await getCollection('link');

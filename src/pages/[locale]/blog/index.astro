@@ -4,7 +4,10 @@ export { getI18nPaths as getStaticPaths } from '@/i18n';
 import { type CollectionEntry, getCollection } from 'astro:content';
 import { formatDateAsMonth } from '@/lib/utils';
 import Project from '@/components/Project.astro';
+import { loadTranslations } from '@/i18n';
 
+const locale = Astro.currentLocale || 'en';
+const t = await loadTranslations(locale);
 const postsGroupByDate = (await getCollection('blog', p => p.data.locale === Astro.currentLocale))
   .sort((a, b) => b.data.created_at.getTime() - a.data.created_at.getTime())
   .reduce((acc, post) => {
@@ -25,7 +28,7 @@ const postsGroupByDate = (await getCollection('blog', p => p.data.locale === Ast
     class="w-full font-serif flex flex-col gap-8 *:w-full"
   >
     <div class="text-6xl font-serif">
-      <h1 id="about" class="scroll-m-16">Posts</h1>
+      <h1 id="about" class="scroll-m-16">{t('posts.title')}</h1>
     </div>
     <ul>
       {Object.entries(postsGroupByDate).reverse().map(([year, months]) => (

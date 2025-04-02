@@ -3,7 +3,6 @@ title: 海上生明月
 created_at: 2021-01-01 00:00:00
 updated_at: 2021-01-01 00:00:00
 tags: [test, test2]
-estimated: 12
 translation_id: test
 original_locale: zh-cn
 locale: zh-cn

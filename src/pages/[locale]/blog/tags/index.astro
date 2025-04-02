@@ -2,7 +2,10 @@
 import Base from '@/layouts/Base.astro';
 export { getI18nPaths as getStaticPaths } from '@/i18n';
 import { getCollection } from 'astro:content';
+import { loadTranslations } from '@/i18n';
 
+const locale = Astro.currentLocale || 'en';
+const t = await loadTranslations(locale);
 const tags = (await getCollection('blog', p => p.data.locale === Astro.currentLocale))
   .reduce((acc, post) => {
     post.data.tags.forEach((tag) => {
@@ -19,7 +22,7 @@ const tags = (await getCollection('blog', p => p.data.locale === Astro.currentLo
     class="w-full flex flex-col gap-8 *:w-full"
   >
     <div class="text-6xl font-serif">
-      <h1 id="about" class="font-serif scroll-m-16">Tags</h1>
+      <h1 id="about" class="font-serif scroll-m-16">{t('tags.title')}</h1>
     </div>
     <ul class="mx-auto max-w-prose text-xl flex flex-col gap-4">
       {

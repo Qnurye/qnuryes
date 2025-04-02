@@ -69,6 +69,12 @@ content = """
 title = "不懂上面那个 :("
 content = "你可以直接联系我 [contact@qnury.es](mailto:contact@qnury.es)"
 
+[posts]
+title = "文章"
+
+[tags]
+title = "标签"
+
 [post.translation_warning]
 title = "译文提醒"
 content = "下面的内容通过 AI 翻译，原文语言为{original}。"

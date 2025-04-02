@@ -70,6 +70,12 @@ content = """
 title = "I dont't know how :("
 content = "You can contact me directly at [contact@qnury.es](mailto:contact@qnury.es)"
 
+[posts]
+title = "Posts"
+
+[tags]
+title = "Tags"
+
 [post.translation_warning]
 title = "Translation Notice"
 content = "The following content is translated by AI, the original post is in {original}."
