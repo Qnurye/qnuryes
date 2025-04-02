@@ -4,65 +4,11 @@
 @custom-variant dark (&:is(.dark *));
 
 @font-face {
-  font-family: 'ChillRoundF';
-  src: url("/fonts/sans/chill-round.woff2") format('woff');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-  unicode-range: U+0100-FFFF;
-}
-
-@font-face {
-  font-family: 'Nunito';
-  src: url("/fonts/sans/nunito.woff2") format('woff');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-  unicode-range: U+0000-00FF;
-}
-
-@font-face {
-  font-family: 'Maple Mono NF CN';
-  src: url("/fonts/mono/maple-mono-nf-cn.woff2") format('woff');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
   font-family: 'Maple Mono';
-  src: url("/fonts/mono/maple-mono.woff2") format('woff');
-  font-weight: normal;
   font-style: normal;
   font-display: swap;
-  unicode-range: U+0000-00FF;
-}
-
-@font-face {
-  font-family: 'Arvo Bold Italic';
-  src: url("/fonts/serif/arvo-bold-italic.woff2") format('woff');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-  unicode-range: U+0000-00FF;
-}
-
-@font-face {
-  font-family: 'Arvo';
-  src: url("/fonts/serif/arvo.woff2") format('woff');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-  unicode-range: U+0000-00FF;
-}
-
-@font-face {
-  font-family: 'LXGW Neo ZhiSong';
-  src: url("/fonts/serif/lxgw-neo-zhi-song.woff2") format('woff');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-  unicode-range: U+0100-FFFF;
+  font-weight: 400;
+  src: url(https://cdn.jsdelivr.net/fontsource/fonts/maple-mono@latest/latin-400-normal.woff2) format('woff2'), url(https://cdn.jsdelivr.net/fontsource/fonts/maple-mono@latest/latin-400-normal.woff) format('woff');
 }
 
 :root {
@@ -135,10 +81,10 @@
 }
 
 @theme inline {
-  --font-logo: 'Arvo Bold Italic', 'Arvo', serif;
-  --font-sans: "Nunito", "ChillRoundF", sans-serif;
+  --font-logo: 'Arvo', serif;
+  --font-sans: "Nunito", '寒蝉全圆体', sans-serif;
   --font-serif: "Arvo", "LXGW Neo ZhiSong", serif;
-  --font-mono: 'Maple Mono NF CN', 'Maple Mono', 'Jetbrains Mono', monospace;
+  --font-mono: 'Maple Mono CN', 'Maple Mono', 'Jetbrains Mono', monospace;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);

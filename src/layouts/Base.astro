@@ -24,52 +24,26 @@ const pageKeywords = (keywords || '').split(',').map((keyword: string) => keywor
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
 
-    <!--  Font Preloads -->
+    <!--  Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      rel="preload"
-      href="/fonts/sans/chill-round.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
+      href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
+      rel="stylesheet"
     />
+    <link rel="preconnect" href="https://fonts.googleapis.cn" />
+    <link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
     <link
-      rel="preload"
-      href="/fonts/sans/nunito.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
+      href="https://fonts.googleapis.cn/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
+      rel="stylesheet"
     />
+    <link rel="stylesheet" href="https://chinese-fonts-cdn.deno.dev/packages/LxgwNeoZhiSong/dist/LXGWNeoZhiSong/result.css" />
+    <link rel="stylesheet" href="https://chinese-fonts-cdn.deno.dev/packages/hcqyt/dist/ChillRoundFRegular/result.css" />
+    <link rel="stylesheet" href="https://chinese-fonts-cdn.deno.dev/packages/maple-mono-cn/dist/MapleMono-CN-Regular/result.css" />
+
     <link
       rel="preload"
-      href="/fonts/mono/maple-mono.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
-    <link
-      rel="preload"
-      href="/fonts/mono/maple-mono-nf-cn.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
-    <link
-      rel="preload"
-      href="/fonts/serif/arvo-bold-italic.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
-    <link
-      rel="preload"
-      href="/fonts/serif/arvo.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
-    <link
-      rel="preload"
-      href="/fonts/serif/lxgw-neo-zhi-song.woff2"
+      href="https://cdn.jsdelivr.net/fontsource/fonts/maple-mono@latest/latin-400-normal.woff2"
       as="font"
       type="font/woff2"
       crossorigin
@@ -81,7 +55,7 @@ const pageKeywords = (keywords || '').split(',').map((keyword: string) => keywor
     <meta name="keywords" content={pageKeywords} />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <link rel="icon" href="/favicon.ico" />
-    <link rel="canonical" href="https://qnury.es/" />
+    <link rel="canonical" href="https://qnury.es" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:url" content={Astro.url} />
