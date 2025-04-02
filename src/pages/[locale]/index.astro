@@ -2,6 +2,7 @@
 import Base from '@/layouts/Base.astro';
 export { getI18nPaths as getStaticPaths } from '@/i18n';
 import { ChevronDownIcon } from 'lucide-react';
+import { Markdown } from 'astro-remote';
 
 import Gmail from 'simple-icons-astro/Gmail';
 import Github from 'simple-icons-astro/Github';
@@ -60,13 +61,12 @@ if (projectsPage.length > 0) {
       data-aos-duration="300"
     >
       <div class="text-xl md:text-2xl lg:text-3xl">
-        <h1>{t('landing.welcome')}</h1>
+        <Markdown content={t('landing.welcome')} />
       </div>
       <div class={'text-lg md:text-xl lg:text-2xl text-end *:tracking-wide *:[word-spacing:0.5rem]'
         + ' md:*:[word-spacing:0.8rem]'}
       >
-        <p>{t('landing.line1')}</p>
-        <p>{t('landing.line2')}</p>
+        <Markdown content={t('landing.lines')} />
       </div>
     </div>
 

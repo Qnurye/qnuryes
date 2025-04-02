@@ -21,7 +21,7 @@ interface PaginationResponse {
   total_pages: number
 }
 
-const API_BASE_URL = 'http://localhost:3000/api';
+const API_BASE_URL = 'https://api.qnury.es/blog/api/v1';
 
 export const useComments = (postId: string): {
   comments: Comment[] | null
@@ -63,7 +63,7 @@ export const useComments = (postId: string): {
   };
 
   useEffect(() => {
-    fetchComments();
+    void fetchComments();
   }, [postId, page]);
 
   return {

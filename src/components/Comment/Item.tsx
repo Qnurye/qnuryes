@@ -56,7 +56,7 @@ const CommentItem: React.FC<CommentItemProps> = ({ comment, locale, onReply, onL
         onClick={() => onLike(comment.id)}
         onKeyDown={(e) => {
           if (e.key === 'Enter' || e.key === ' ') {
-            onLike(comment.id);
+            void onLike(comment.id);
           }
         }}
       >

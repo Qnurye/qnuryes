@@ -19,14 +19,17 @@ not_found = "我不會說這門語言"
 subscribe_newsletter = "訂閱郵件"
 rss = "RSS"
 source_code = "源代碼"
-credits = "Qnurye 設計開發, 自豪地由 [Astro](https://astro.build/) 驅動。"
+credits = "Qnurye 設計開發。*Islands join hands*，由 [Astro](https://astro.build/) 驅動。"
 all_rights_reserved = "保留所有權利。"
-tos_pp = "用戶協議和隱私政策"
+tos_pp = "用戶協議 & 隱私政策"
 
 [landing]
-welcome = "數字墓碑"
-line1 = "切斷電纜 朝霞晚風 臨時收入 臨時生活"
-line2 = "切斷電纜 數字雲煙 免費月光 免費驚險"
+welcome = "歡迎光臨 ***Qnurye's***"
+lines = """
+切斷電纜 朝霞晚風 臨時收入 臨時生活
+
+切斷電纜 數字雲煙 免費月光 免費驚險
+"""
 
 [about]
 title = "名片"
@@ -35,7 +38,9 @@ introduction_text = "人 / 學生 / 愛好者，輕微潔癖。"
 unemployed = "待業"
 unemployed_text = "我正在尋找實習機會。"
 interests = "興趣"
-interests_text = "愛好觀影、音樂、讀書，最喜歡的樂隊是萬能青年旅店、King Crimson 和 Pink Floyd，最愛聽的古典是印象主義。"
+interests_text = """
+愛好觀影、音樂、讀書，最喜歡的樂隊是萬能青年旅店、King Crimson 和 Pink Floyd 還有 Camel，偶爾也會聽印象主義古典樂。
+"""
 contact = "聯繫"
 tech_stack = "技術棧"
 tech_stack_proficient = "熟練"

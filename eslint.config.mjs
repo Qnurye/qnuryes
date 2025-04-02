@@ -5,6 +5,7 @@ import jsxA11y from 'eslint-plugin-jsx-a11y'
 import ts from 'typescript-eslint'
 import stylisticPlugin from '@stylistic/eslint-plugin'
 
+// noinspection JSUnresolvedReference
 export default [
   pluginJs.configs.recommended,
   ...ts.configs.recommended,

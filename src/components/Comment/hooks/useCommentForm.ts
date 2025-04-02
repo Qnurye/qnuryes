@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 interface CommentFormData {
   post_id: string
@@ -8,7 +8,7 @@ interface CommentFormData {
   content: string
 }
 
-const API_BASE_URL = 'http://localhost:3000/api';
+const API_BASE_URL = 'https://api.qnury.es/blog/api/v1';
 
 export const useCommentForm = (postId: string, fetchComments: () => Promise<void>): {
   formData: CommentFormData

@@ -13,20 +13,23 @@ links = "友链"
 [nav.language]
 select = "选择语言"
 search = "搜索语言..."
-not_found = "我不会说这门语言。"
+not_found = "我不会说这门语言"
 
 [footer]
 subscribe_newsletter = "订阅邮件"
 rss = "RSS"
 source_code = "源代码"
-credits = "Qnurye 设计开发, 自豪地由 [Astro](https://astro.build/) 驱动。"
+credits = "Qnurye 设计开发。*Islands join hands*，由 [Astro](https://astro.build/) 驱动。"
 all_rights_reserved = " 保留所有权利。"
-tos_pp = "用户协议和隐私政策"
+tos_pp = "用户协议 & 隐私政策"
 
 [landing]
-welcome = "数字墓碑"
-line1 = "切断电缆 朝霞晚风 临时收入 临时生活"
-line2 = "切断电缆 数字云烟 免费月光 免费惊险"
+welcome = "欢迎光临 ***Qnurye's***"
+lines = """
+切断电缆 朝霞晚风 临时收入 临时生活
+
+切断电缆 数字云烟 免费月光 免费惊险
+"""
 
 [about]
 title = "名片"
@@ -35,7 +38,9 @@ introduction_text = "人 / 学生 / 爱好者，轻微洁癖。"
 unemployed = "待业"
 unemployed_text = "我正在寻找实习机会。"
 interests = "兴趣"
-interests_text = "爱好观影、音乐、读书，最喜欢的乐队是万能青年旅店、King Crimson 和 Pink Floyd，最爱听的古典是印象主义。"
+interests_text = """
+爱好观影、音乐、读书，最喜欢的乐队是万能青年旅店、King Crimson 和 Pink Floyd 还有 Camel，偶尔也会听印象主义古典乐。
+"""
 contact = "联系"
 tech_stack = "技术栈"
 tech_stack_proficient = "熟练"
@@ -50,7 +55,7 @@ title = "好友"
 
 [links.application]
 about = "添加你的链接"
-description = "参照下面的方式，可以添加你的链接："
+description = "参照下面的方式，可以向我申请添加你的链接："
 i18n_changes = "本站点（基本不太）可能会在未来添加其他语言支持，如果这样的情况发生，我会使用 AI 基于英文版本简介翻译成作新语言简介，并会通过 GitHub 或邮件向你告知。"
 
 [links.application.pr]
@@ -67,7 +72,7 @@ content = """
 
 [links.application.email]
 title = "不懂上面那个 :("
-content = "你可以直接联系我 [contact@qnury.es](mailto:contact@qnury.es)"
+content = "你也可以直接联系我 [contact@qnury.es](mailto:contact@qnury.es)"
 
 [posts]
 title = "文章"
