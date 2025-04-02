@@ -10,6 +10,8 @@
     "lint": "eslint . --ext .astro,.js,.ts,.tsx --fix"
   },
   "dependencies": {
+    "@astro-kits/google-analytics": "^0.1.0",
+    "@astrojs/partytown": "^2.1.4",
     "@astrojs/react": "^4.2.1",
     "@astrojs/sitemap": "^3.3.0",
     "@iarna/toml": "^2.2.5",

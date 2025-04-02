@@ -9,6 +9,8 @@ import sitemap from '@astrojs/sitemap';
 
 import { loadEnv } from 'vite';
 
+import partytown from '@astrojs/partytown';
+
 const { PUBLIC_SENTRY_DSN, SENTRY_AUTH_TOKEN, NODE_ENV } = loadEnv(process.env.NODE_ENV, process.cwd(), '');
 
 export default defineConfig({
@@ -16,9 +18,10 @@ export default defineConfig({
     schema: {
       PUBLIC_SENTRY_DSN: envField.string({ context: 'server', access: 'public' }),
       SENTRY_AUTH_TOKEN: envField.string({ context: 'server', access: 'secret' }),
+      GA_ID: envField.string({ context: 'client', access: 'public' }),
     },
   },
-  site: 'https://qnury.es',
+  site: 'https://qnury.es/',
   vite: {
     plugins: [
       tailwindcss(),
@@ -38,6 +41,10 @@ export default defineConfig({
         'zh-cn': 'zh-CN',
         'zh-tw': 'zh-TW',
       },
+    },
+  }), partytown({
+    config: {
+      forward: ['dataLayer.push', 'gtag'],
     },
   })],
   i18n: {

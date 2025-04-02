@@ -3,6 +3,7 @@ import '@/styles/global.css';
 import Nav from '@/components/Nav.astro';
 import Footer from '@/components/Footer.astro';
 import { cn } from '@/lib/utils';
+import GoogleAnalytics from '@astro-kits/google-analytics';
 
 const { title, className, description, keywords } = Astro.props;
 const pageTitle = title || 'query.e\'s';
@@ -55,11 +56,14 @@ const pageKeywords = (keywords || '').split(',').map((keyword: string) => keywor
     <meta name="keywords" content={pageKeywords} />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <link rel="icon" href="/favicon.ico" />
-    <link rel="canonical" href="https://qnury.es" />
+    <link rel="canonical" href={`https://qnury.es/${Astro.currentLocale}`} />
     <meta property="og:type" content="website" />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:url" content={Astro.url} />
     <meta property="og:site_name" content={pageTitle} />
+
+    <!-- Google tag (gtag.js) -->
+    <GoogleAnalytics />
 
   </head>
   <body class="px-1 sm:px-2 md:px-4 lg:px-8">
