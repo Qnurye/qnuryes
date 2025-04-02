@@ -1,6 +1,6 @@
 ---
 import Base from '@/layouts/Base.astro';
-export { getI18nPaths } from '@/i18n';
+export { getI18nPaths as getStaticPaths } from '@/i18n';
 import { getCollection } from 'astro:content';
 
 const tags = (await getCollection('blog', p => p.data.locale === Astro.currentLocale))
@@ -16,7 +16,7 @@ const tags = (await getCollection('blog', p => p.data.locale === Astro.currentLo
 
 <Base>
   <div
-    class="w-full px-24 flex flex-col gap-8 *:w-full"
+    class="w-full flex flex-col gap-8 *:w-full"
   >
     <div class="text-6xl font-serif">
       <h1 id="about" class="font-serif scroll-m-16">Tags</h1>

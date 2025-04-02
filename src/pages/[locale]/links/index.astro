@@ -6,6 +6,7 @@ import Friend from '@/components/Friend.astro';
 import 'aos/dist/aos.css';
 import { loadTranslations } from '@/i18n';
 import Accordions from '@/components/Accordions';
+import Project from '../../../components/Project.astro';
 
 const t = await loadTranslations(Astro.currentLocale);
 const links = await getCollection('link');
@@ -33,13 +34,26 @@ if (links.length > 0) {
 
 <Base>
   <div
-    class="w-full px-24 flex flex-col gap-8 *:w-full"
+    class="w-full flex flex-col gap-8 *:w-full"
   >
     <div class="text-6xl font-serif">
       <h1 class="scroll-m-16">{t('links.title')}</h1>
     </div>
+    <div class="flex flex-col gap-4 md:hidden items-center">
+      {[...linksCol1, ...linksCol2, ...linksCol3].map((link, index) => (
+        <div data-aos="fade-up" data-aos-delay={100 * (index % 3 + 3)}>
+          <Friend
+            key={index}
+            name={link.data.name}
+            description={link.data.description[Astro.currentLocale as never] || link.data.description.en}
+            avatar={link.data.avatar}
+            url={link.data.url}
+          />
+        </div>
+      ))}
+    </div>
 
-    <div class="flex flex-row gap-2 justify-around *:flex *:flex-col *:gap-2">
+    <div class="hidden md:flex md:flex-row gap-2 justify-around *:flex *:flex-col *:gap-2">
       <div data-aos="fade-up" data-aos-delay="300">
         {linksCol1.map((link, index) => (
           <Friend
@@ -74,28 +88,28 @@ if (links.length > 0) {
         ))}
       </div>
     </div>
+  </div>
 
-    <div class="space-y-2 mt-12" data-aos="fade-up" data-aos-delay="1000">
-      <h2 class="scroll-m-16 text-3xl font-serif">
-        {t('links.application.about')}
-      </h2>
-      <p>
-        {t('links.application.description')}
-      </p>
-      <Accordions
-        accordions={[
-          {
-            title: t('links.application.pr.title'),
-            content: t('links.application.pr.content'),
-          },
-          {
-            title: t('links.application.email.title'),
-            content: t('links.application.email.content'),
-          },
-        ]}
-        client:load
-      />
-    </div>
+  <div class="space-y-2 mt-12" data-aos="fade-up" data-aos-delay="300">
+    <h2 class="scroll-m-16 text-3xl font-serif">
+      {t('links.application.about')}
+    </h2>
+    <p>
+      {t('links.application.description')}
+    </p>
+    <Accordions
+      accordions={[
+        {
+          title: t('links.application.pr.title'),
+          content: t('links.application.pr.content'),
+        },
+        {
+          title: t('links.application.email.title'),
+          content: t('links.application.email.content'),
+        },
+      ]}
+      client:load
+    />
   </div>
 </Base>
 

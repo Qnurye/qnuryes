@@ -55,10 +55,10 @@ const { Content } = await render(page);
       id="header"
       class={'mb-8 transition-all transform duration-1000 ease-in'
         + '*:transition-all *:transform *:duration-400 *:ease-in'
-        + '-translate-y-[calc(100%+124px)] -translate-x-[calc(50vw-24rem)] w-[calc(100vw-4rem)] text-neutral-400'
+        + '-translate-y-[calc(100%+124px)] md:-translate-x-[calc(50vw-24rem)] w-[calc(100vw-4rem)] text-neutral-400'
         + 'mix-blend-difference'}
     >
-      <div class="flex flex-row gap-16 text-sm font-mono" id="meta-data">
+      <div class="flex flex-row gap-8 text-xs md:gap-16 md:text-sm font-mono">
         <time datetime={page.data.created_at.toISOString()} class="inline-block">
           {formattedDate}
         </time>
@@ -76,8 +76,8 @@ const { Content } = await render(page);
         )}
       </div>
 
-      <h1 class="text-6xl font-serif font-black leading-tight my-6" id="title">{page.data.title}</h1>
-      <div class="font-serif text-2xl leading-relaxed mb-8" id="description">
+      <h1 class="text-4xl md:text-6xl font-serif font-black leading-tight my-6" id="title">{page.data.title}</h1>
+      <div class="font-serif text-xl md:text-2xl leading-relaxed mb-8" id="description">
         <Markdown content={page.data.description} />
       </div>
     </header>
@@ -121,7 +121,7 @@ const { Content } = await render(page);
     if (window.scrollY > 256) {
       document.querySelector('#header')?.classList.remove(
         '-translate-y-[calc(100%+124px)]',
-        '-translate-x-[calc(50vw-24rem)]',
+        'md:-translate-x-[calc(50vw-24rem)]',
         'text-neutral-400', 'mix-blend-difference',
       );
       document.querySelector('#header')?.classList.replace(
@@ -132,10 +132,16 @@ const { Content } = await render(page);
         'text-neutral-400', 'mix-blend-difference',
       );
       document.querySelector('#title')?.classList.replace(
-        'text-6xl', 'text-5xl',
+        'text-5xl', 'text-4xl',
+      );
+      document.querySelector('#title')?.classList.replace(
+        'md:text-6xl', 'md:text-5xl',
       );
       document.querySelector('#description')?.classList.replace(
-        'text-2xl', 'text-lg',
+        'md:text-lg', 'md:text-2xl',
+      );
+      document.querySelector('#description')?.classList.replace(
+        'text-md', 'text-xl',
       );
       document.querySelector('#mask')?.classList.replace(
         'opacity-40', 'opacity-0',
@@ -146,7 +152,7 @@ const { Content } = await render(page);
       );
       document.querySelector('#header')?.classList.add(
         '-translate-y-[calc(100%+124px)]',
-        '-translate-x-[calc(50vw-24rem)]',
+        'md:-translate-x-[calc(50vw-24rem)]',
         'text-neutral-400', 'mix-blend-difference',
       );
       document.querySelector('#header')?.classList.replace(
@@ -154,10 +160,16 @@ const { Content } = await render(page);
         'w-[calc(100vw-4rem)]',
       );
       document.querySelector('#title')?.classList.replace(
-        'text-5xl', 'text-6xl',
+        'text-4xl', 'text-5xl',
+      );
+      document.querySelector('#title')?.classList.replace(
+        'md:text-5xl', 'md:text-6xl',
       );
       document.querySelector('#description')?.classList.replace(
-        'text-lg', 'text-2xl',
+        'md:text-2xl', 'md:text-lg',
+      );
+      document.querySelector('#description')?.classList.replace(
+        'text-xl', 'text-md',
       );
       document.querySelector('#mask')?.classList.replace(
         'opacity-0', 'opacity-40',
