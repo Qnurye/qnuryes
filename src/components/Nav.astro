@@ -75,7 +75,7 @@ const locales = Astro.props.locales || ['en', 'zh-cn', 'zh-tw'];
     document.getElementById('mobile-menu')?.classList.toggle('translate-x-full');
   });
 
-  document.querySelectorAll('a').forEach((anchor) => {
+  document.querySelectorAll('#mobile-menu>a').forEach((anchor) => {
     anchor.addEventListener('click', function () {
       document.getElementById('mobile-menu')?.classList.toggle('translate-x-full');
     });

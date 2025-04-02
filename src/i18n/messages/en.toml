@@ -30,6 +30,9 @@ Confusion will be my epitaph
 
 As I crawl a cracked and broken path
 """
+page_title = "Qnury.e's"
+page_description = "Qnury.e's is Qnurye's personal website, where you can find some personal information about me, learn about my recent thoughts or projects."
+page_keywords = "about, personal website, blog, friends, portfolio, technology, programming, computer, frontend, backend"
 
 [about]
 title = "About"
@@ -53,6 +56,9 @@ title = "Projects"
 
 [links]
 title = "Friends"
+page_title = "Qnury.e's | Friends"
+page_description = "Qnurye's personal website friends links, you can also submit your link!"
+page_keywords = "personal website, blog, friends, portfolio, technology, programming, computer, frontend, backend, friends links"
 
 [links.application]
 about = "Add your link"
@@ -78,9 +84,15 @@ content = "You can contact me directly at [contact@qnury.es](mailto:contact@qnur
 
 [posts]
 title = "Posts"
+page_title = "Qnury.e's | Posts"
+page_description = "Posts published on Qnurye's personal website, where you can find his latest updates, thoughts, and projects!"
+page_keywords = "personal website, blog, friends, portfolio, technology, programming, computer, frontend, backend, projects"
 
 [tags]
 title = "Tags"
+page_title = "Qnury.e's | Tags"
+page_description = "Tags of articles published on Qnurye's personal website, where you can find his latest updates, thoughts, and projects index!"
+page_keywords = "personal website, blog, friends, portfolio, technology, programming, computer, frontend, backend, friends links, projects"
 
 [post.translation_warning]
 title = "Translation Notice"

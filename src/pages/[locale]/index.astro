@@ -52,7 +52,12 @@ if (projectsPage.length > 0) {
   projectsCol3 = [];
 }
 ---
-<Base title="Qnury.e's" className="flex flex-col gap-4">
+<Base
+  title={t('landing.page_title')}
+  description={t('landing.page_description')}
+  keywords={t('landing.page_keywords')}
+  className="flex flex-col gap-4"
+>
     <!-- Landing -->
     <div
       class={'h-[80vh] w-full font-serif mb-12 md:mb-36 flex flex-col gap-4 md:gap-8'

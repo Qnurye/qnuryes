@@ -3,8 +3,8 @@ import { type CollectionEntry, getCollection } from 'astro:content';
 import Base from '@/layouts/Base.astro';
 import { type GetStaticPathsResult } from 'astro';
 import { getI18nPaths } from '@/i18n';
-import Project from '../../../../components/Project.astro';
-import { formatDateAsMonth } from '../../../../lib/utils';
+import Project from '@/components/Project.astro';
+import { formatDateAsMonth } from '@/lib/utils';
 
 export async function getStaticPaths(): Promise<GetStaticPathsResult> {
   const tags = (await getCollection('blog'))
@@ -49,7 +49,11 @@ const postsGroupByDate = (await getCollection('blog', p =>
   }, {} as Record<string, Record<string, Array<CollectionEntry<'blog'>>>>);
 ---
 
-<Base>
+<Base
+  title={`Qnury.e's | #${tag}`}
+  description={tag}
+  keywords={tag}
+>
   <div
     class="w-full font-serif flex flex-col gap-8 *:w-full"
   >

@@ -50,7 +50,12 @@ const { Content } = await render(page);
   </div>
 </div>
 
-<Base className="mt-[100vh]">
+<Base
+  title={`Qnury.e's | ${page.data.title}`}
+  description={page.data.description}
+  keywords={`${page.data.title}, ${page.data.tags.join(',')}`}
+  className="mt-[100vh]"
+>
   <article class="max-w-3xl mx-auto px-4 py-8">
     <header
       id="header"

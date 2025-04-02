@@ -35,6 +35,7 @@
   font-weight: normal;
   font-style: normal;
   font-display: swap;
+  unicode-range: U+0000-00FF;
 }
 
 @font-face {

@@ -17,7 +17,11 @@ const tags = (await getCollection('blog', p => p.data.locale === Astro.currentLo
 
 ---
 
-<Base>
+<Base
+  title={t('tags.page_title')}
+  description={t('tags.page_description')}
+  keywords={t('tags.page_keywords')}
+>
   <div
     class="w-full flex flex-col gap-8 *:w-full"
   >

@@ -4,18 +4,89 @@ import Nav from '@/components/Nav.astro';
 import Footer from '@/components/Footer.astro';
 import { cn } from '@/lib/utils';
 
-const { title, className } = Astro.props;
+const { title, className, description, keywords } = Astro.props;
 const pageTitle = title || 'query.e\'s';
+const pageDescription = description || 'Qnury.e\'s is the personal website of Qnurye';
+const pageKeywords = (keywords || '').split(',').map((keyword: string) => keyword.trim())
+  .concat('Qnurye, Qnury.e, Qnury, query.e, qnury, qnury.e, qnury-e, qnury_e, qnury_e_, qnurye, Astro, Next.js,'
+    + ' React, Vue, Svelte, Python, Rust, Golang, C++, C#, Java, Kotlin, Dart, Flutter, WebAssembly, WebGPU, WebGL,'
+    + ' OpenGL, Vulkan, DirectX, Metal, OpenCL, CUDA')
+  .join(', ');
 ---
 
 <!doctype html>
 <html lang={Astro.currentLocale}>
   <head>
+
+    <!--  High Priority -->
     <title>{pageTitle}</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
+
+    <!--  Font Preloads -->
+    <link
+      rel="preload"
+      href="/fonts/sans/chill-round.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/sans/nunito.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/mono/maple-mono.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/mono/maple-mono-nf-cn.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/serif/arvo-bold-italic.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/serif/arvo.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/serif/lxgw-neo-zhi-song.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+
+    <!--  Low Priority -->
+    <meta name="author" content="Qnurye" />
+    <meta name="description" content={pageDescription} />
+    <meta name="keywords" content={pageKeywords} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
     <link rel="icon" href="/favicon.ico" />
+    <link rel="canonical" href="https://qnury.es/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:url" content={Astro.url} />
+    <meta property="og:site_name" content={pageTitle} />
+
   </head>
   <body class="px-1 sm:px-2 md:px-4 lg:px-8">
     <Nav />

@@ -30,6 +30,9 @@ lines = """
 
 切断电缆 数字云烟 免费月光 免费惊险
 """
+page_title = "Qnury.e's"
+page_description = "Qnury.e's 是 Qnurye 的个人网站，在这里你可以找到关于我的一些个人信息、了解到我的最近想法或项目。"
+page_keywords = "关于, 个人网站, 博客, 友链, 作品集, 技术, 编程, 计算机, 前端, 后端"
 
 [about]
 title = "名片"
@@ -52,6 +55,9 @@ title = "项目"
 
 [links]
 title = "好友"
+page_title = "Qnury.e's | 好友"
+page_description = "Qnurye 个人网站的友情链接，你也可以提交你的链接！"
+page_keywords = "个人网站, 博客, 友链, 作品集, 技术, 编程, 计算机, 前端, 后端, 友情链接"
 
 [links.application]
 about = "添加你的链接"
@@ -76,9 +82,15 @@ content = "你也可以直接联系我 [contact@qnury.es](mailto:contact@qnury.e
 
 [posts]
 title = "文章"
+page_title = "Qnury.e's | 文章"
+page_description = "Qnurye 个人网站上发表的文章，你在这里可以找到他的最新动态、想法、项目！"
+page_keywords = "个人网站, 博客, 友链, 作品集, 技术, 编程, 计算机, 前端, 后端, 友情链接, 项目"
 
 [tags]
 title = "标签"
+page_title = "Qnury.e's | 标签"
+page_description = "Qnurye 个人网站上发表的文章标签，你在这里可以找到他的最新动态、想法、项目的标签索引！"
+page_keywords = "个人网站, 博客, 友链, 作品集, 技术, 编程, 计算机, 前端, 后端, 友情链接, 项目"
 
 [post.translation_warning]
 title = "译文提醒"

@@ -23,7 +23,11 @@ const postsGroupByDate = (await getCollection('blog', p => p.data.locale === Ast
   }, {} as Record<string, Record<string, Array<CollectionEntry<'blog'>>>>);
 ---
 
-<Base>
+<Base
+  title={t('posts.page_title')}
+  description={t('posts.page_description')}
+  keywords={t('posts.page_keywords')}
+>
   <div
     class="w-full font-serif flex flex-col gap-8 *:w-full"
   >
