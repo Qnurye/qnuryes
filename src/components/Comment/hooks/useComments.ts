@@ -1,62 +1,49 @@
 import React, { useState, useEffect } from 'react';
+import type { Comment, PaginationResponse } from '@/types';
 
-interface Comment {
-  id: number
-  post_id: string
-  parent_id?: number
-  author_name: string
-  author_email?: string
-  content: string
-  country_code?: string
-  likes: number
-  created_at: string
-  replies?: Comment[]
-}
-
-interface PaginationResponse {
-  data: Comment[]
-  page: number
-  page_size: number
-  total_items: number
-  total_pages: number
-}
-
-const API_BASE_URL = 'https://api.qnury.es/blog/api/v1';
-
-export const useComments = (postId: string): {
+interface UseCommentsReturn {
   comments: Comment[] | null
   loading: boolean
-  error: string | null
+  error: { code: number, details?: string } | null
   page: number
   totalPages: number
-  replyTo: number | null
+  replyTo: Comment | null
   setPage: React.Dispatch<React.SetStateAction<number>>
-  setReplyTo: React.Dispatch<React.SetStateAction<number | null>>
+  setReplyTo: React.Dispatch<React.SetStateAction<Comment | null>>
   fetchComments: () => Promise<void>
-} => {
+}
+
+const API_BASE_URL = 'https://api.qnury.es';
+
+export const useComments = (postId: string): UseCommentsReturn => {
   const [comments, setComments] = useState<Comment[] | null>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<{ code: number, details?: string } | null>(null);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [replyTo, setReplyTo] = useState<number | null>(null);
+  const [replyTo, setReplyTo] = useState<Comment | null>(null);
 
   const fetchComments = async (): Promise<void> => {
     try {
       setLoading(true);
-      const response = await fetch(`${API_BASE_URL}/comments/${postId}?page=${page}`);
+      const response = await fetch(
+        `${API_BASE_URL}/posts/${postId}/comments?page=${page}`, {
+          mode: 'no-cors',
+        },
+      );
 
       if (!response.ok) {
-        console.error(`HTTP error! status: ${response.status}`);
+        const errorData = await response.json();
+        throw errorData;
       }
 
-      const data: PaginationResponse = await response.json();
+      const data: PaginationResponse<Comment> = await response.json();
       setComments(data.data);
-      setTotalPages(data.total_pages);
+      setTotalPages(data.totalPages);
       setError(null);
-    } catch (err) {
-      setError('Failed to fetch comments, please try again later.');
-      console.error('Error fetching comments:', err);
+    } catch (error) {
+      console.error('Error fetching comments:', error);
+      setError(error as { code: number, details?: string });
     } finally {
       setLoading(false);
     }

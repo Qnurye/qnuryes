@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { loadTranslations } from '@/i18n';
+import type { InterpolationValues } from '@/i18n';
 
 /**
  * React hook to load and use translations
@@ -7,10 +8,10 @@ import { loadTranslations } from '@/i18n';
  * @returns A translation function and loading state
  */
 export function useTranslations(locale: string): {
-  t: (key: string) => string
+  t: (key: string, values?: InterpolationValues) => string
   isLoading: boolean
 } {
-  const [t, setT] = useState<(key: string) => string>(() => (key: string): string => key);
+  const [t, setT] = useState<(key: string, values?: InterpolationValues) => string>(() => (key: string): string => key);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {

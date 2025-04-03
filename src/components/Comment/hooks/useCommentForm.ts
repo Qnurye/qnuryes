@@ -8,7 +8,7 @@ interface CommentFormData {
   content: string
 }
 
-const API_BASE_URL = 'https://api.qnury.es/blog/api/v1';
+const API_BASE_URL = 'https://api.qnury.es';
 
 export const useCommentForm = (postId: string, fetchComments: () => Promise<void>): {
   formData: CommentFormData
@@ -48,6 +48,7 @@ export const useCommentForm = (postId: string, fetchComments: () => Promise<void
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(commentData),
+        mode: 'no-cors',
       });
 
       if (!response.ok) {

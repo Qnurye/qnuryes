@@ -55,7 +55,6 @@ export default [
       '@stylistic/brace-style': ['error', '1tbs', { allowSingleLine: true }],
 
       'camelcase': ['error', { properties: 'never' }],
-      'new-cap': 'error',
 
       'indent': ['error', 2, { SwitchCase: 1 }],
       '@stylistic/indent': 'off',

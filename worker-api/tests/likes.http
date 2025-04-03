@@ -1,0 +1,57 @@
+@baseUrl = http://localhost:8787
+@contentType = application/json
+
+### Create a comment to like
+POST {{baseUrl}}/comments
+Content-Type: {{contentType}}
+
+{
+  "postId": "123",
+  "authorName": "Test User",
+  "authorEmail": "a@qnury.es"
+  "content": "This is a comment to test likes"
+}
+
+### Like the comment multiple times (should fail after first time)
+POST {{baseUrl}}/comments/1/like
+Content-Type: {{contentType}}
+
+###
+POST {{baseUrl}}/comments/1/like
+Content-Type: {{contentType}}
+
+###
+POST {{baseUrl}}/comments/1/like
+Content-Type: {{contentType}}
+
+### Unlike the comment multiple times (should fail after first time)
+DELETE {{baseUrl}}/comments/1/like
+Content-Type: {{contentType}}
+
+###
+DELETE {{baseUrl}}/comments/1/like
+Content-Type: {{contentType}}
+
+###
+DELETE {{baseUrl}}/comments/1/like
+Content-Type: {{contentType}}
+
+### Like and unlike in sequence
+POST {{baseUrl}}/comments/1/like
+Content-Type: {{contentType}}
+
+###
+DELETE {{baseUrl}}/comments/1/like
+Content-Type: {{contentType}}
+
+###
+POST {{baseUrl}}/comments/1/like
+Content-Type: {{contentType}}
+
+###
+DELETE {{baseUrl}}/comments/1/like
+Content-Type: {{contentType}}
+
+### Get comment to verify likes count
+GET {{baseUrl}}/comments/1
+Content-Type: {{contentType}} 
