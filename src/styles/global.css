@@ -13,6 +13,7 @@
 
 :root {
   --contrast-color: oklch(0.145 0 0);
+  --contrast-color-foreground: oklch(1 0 0);
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
@@ -49,6 +50,7 @@
 
 .dark {
   --contrast-color: oklch(0.985 0 0);
+  --contrast-color-foreground: oklch(0.145 0 0);
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
@@ -92,6 +94,7 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
   --color-contrast: var(--contrast-color);
+  --color-contrast-foreground: var(--contrast-color-foreground);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);

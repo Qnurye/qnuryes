@@ -47,7 +47,8 @@ export default function LanguageSwitcher({ locales, currentLocale }: {
           aria-expanded={open}
           aria-label={t('nav.language.select') || 'Select language'}
           size="sm"
-          className="w-fit justify-between gap-1"
+          className={'w-fit justify-between gap-1 border-contrast transition-colors hover:bg-contrast'
+            + ' hover:text-accent-foreground'}
         >
           <LanguagesIcon className="size-4" />
           {getLanguageNameFromLocale(currentLocale)}

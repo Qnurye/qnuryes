@@ -176,8 +176,10 @@ const { Content } = await render(page);
 
     Vibrant.from(cover.src).getPalette().then((plate) => {
       // const contrastColor = getContrastColor(plate.Vibrant?.rgb || [0, 0, 0]);
-      const hex = plate.Vibrant?.hex || 'var(--text-color)';
-      document.documentElement.style.setProperty('--contrast-color', hex);
+      document.documentElement.style.setProperty('--contrast-color', plate.Vibrant?.hex || 'var(--text-color)');
+      document.documentElement.style.setProperty(
+        '--contrast-color-foreground', plate.Vibrant?.bodyTextColor || 'var(--text-color)',
+      );
     });
   }
 
