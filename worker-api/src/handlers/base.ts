@@ -1,5 +1,5 @@
 import { Context } from 'hono';
-import type { Env } from '../types';
+import type { Env } from '@/types';
 
 export class BaseHandler {
   protected db: D1Database;
@@ -13,6 +13,6 @@ export class BaseHandler {
   }
 
   protected getCountryCode(c: Context): string {
-    return c.req.header('CF-IPCountry') || 'unknown';
+    return c.req.header('CF-IPCountry') || 'Moon';
   }
 }

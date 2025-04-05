@@ -1,16 +1,7 @@
 import { Context } from 'hono';
-import { z } from 'zod';
 import { BaseHandler } from './base';
-import type { Comment, CommentResponse, Env, PaginationResponse } from '../types';
-import { ErrorCode } from '../constants/errors';
-
-const commentRequestSchema = z.object({
-  post_id: z.string().min(1, '文章ID不能为空'),
-  parent_id: z.number().optional(),
-  author_name: z.string().min(1, '作者名称不能为空'),
-  author_email: z.string().email('无效的邮箱地址').optional(),
-  content: z.string().min(1, '评论内容不能为空'),
-});
+import { Comment, commentRequestSchema, CommentResponse, Env, PaginationResponse } from '@/types';
+import { ErrorCode } from '@/constants/errors';
 
 export class CommentHandler extends BaseHandler {
   constructor(env: Env) {

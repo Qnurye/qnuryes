@@ -1,7 +1,7 @@
 import { Context } from 'hono';
 import { BaseHandler } from './base';
-import type { Env } from '../types';
-import { ErrorCode } from '../constants/errors';
+import type { Env } from '@/types';
+import { ErrorCode } from '@/constants/errors';
 
 export class LikeHandler extends BaseHandler {
   constructor(env: Env) {
