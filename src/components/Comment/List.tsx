@@ -6,7 +6,7 @@ interface CommentListProps {
   comments: Comment[] | null
   loading: boolean
   locale: string
-  onReply: (id: number) => void
+  onReply: (id: Comment) => void
   onLike: (id: number) => Promise<void>
 }
 
@@ -28,7 +28,7 @@ const CommentList: React.FC<CommentListProps> = ({ comments, loading, locale, on
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-4">
       {comments.map(comment => (
         <CommentItem
           key={comment.id}

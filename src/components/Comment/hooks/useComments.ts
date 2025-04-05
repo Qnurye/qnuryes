@@ -7,9 +7,9 @@ interface UseCommentsReturn {
   error: ErrorResponse | null
   page: number
   totalPages: number
-  replyTo: number | null
+  replyTo: Comment | null
   setPage: React.Dispatch<React.SetStateAction<number>>
-  setReplyTo: React.Dispatch<React.SetStateAction<number | null>>
+  setReplyTo: React.Dispatch<React.SetStateAction<Comment | null>>
   fetchComments: () => Promise<void>
 }
 
@@ -19,7 +19,7 @@ export const useComments = (postId: string): UseCommentsReturn => {
   const [error, setError] = useState<ErrorResponse | null>(null);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [replyTo, setReplyTo] = useState<number | null>(null);
+  const [replyTo, setReplyTo] = useState<Comment | null>(null);
 
   const fetchComments = async (): Promise<void> => {
     try {

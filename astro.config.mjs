@@ -11,7 +11,7 @@ import { loadEnv } from 'vite';
 
 import partytown from '@astrojs/partytown';
 
-const { PUBLIC_SENTRY_DSN, SENTRY_AUTH_TOKEN, NODE_ENV } = loadEnv(
+const { PUBLIC_SENTRY_DSN, SENTRY_AUTH_TOKEN } = loadEnv(
   process.env.NODE_ENV, process.cwd(), '',
 );
 
@@ -31,7 +31,7 @@ export default defineConfig({
     ],
   },
   integrations: [react(), tomlI18n(), sentry({
-    dsn: NODE_ENV === 'development' ? PUBLIC_SENTRY_DSN : '',
+    dsn: PUBLIC_SENTRY_DSN,
     sourceMapsUploadOptions: {
       project: 'qnuryes',
       authToken: SENTRY_AUTH_TOKEN,

@@ -1,5 +1,6 @@
 import React from 'react';
-import type { ErrorResponse } from '@/types';
+import type { Comment, ErrorResponse } from '@/types';
+import Markdown from 'react-markdown';
 
 interface CommentFormData {
   post_id: string
@@ -13,7 +14,7 @@ interface CommentFormProps {
   locale: string
   loading: boolean
   error: ErrorResponse | null
-  replyTo: number | null
+  replyTo: Comment | null
   onSubmit: (e: React.FormEvent) => Promise<void>
   onCancelReply: () => void
   formData: CommentFormData
@@ -32,16 +33,23 @@ const CommentForm: React.FC<CommentFormProps> = ({
   };
 
   return (
-    <form id="comment-form" className="mb-8 p-6 bg-gray-50 rounded-lg" onSubmit={onSubmit}>
+    <form id="comment-form" className="mb-8 p-6 bg-gray-50 rounded-lg flex flex-col" onSubmit={onSubmit}>
       {replyTo && (
         <div className="bg-gray-100 p-3 mb-4 rounded-md flex justify-between items-center">
-          <span>
-            {locale === 'zh-cn' ? '回复评论' : 'Replying to comment'}
-            {' '}
-            #
-            {replyTo}
+          <span className="inline-flex items-baseline gap-1 flex-grow min-w-0">
+            <span className="flex-shrink-0">{locale === 'zh-cn' ? '回复' : 'Replying to'}</span>
+            <span className="font-serif font-bold flex-shrink-0">{replyTo.author_name}:</span>
+            <span className={'font-sans overflow-hidden text-ellipsis whitespace-nowrap min-w-0 max-w-full'
+              + ' bg-gray-200 px-2 py-1 rounded'}
+            >
+              {replyTo.content.replace(/[#*~_`]/g, '')} {/* Remove Markdown syntax */}
+            </span>
           </span>
-          <button type="button" onClick={onCancelReply} className="text-gray-600 underline cursor-pointer">
+          <button
+            type="button"
+            onClick={onCancelReply}
+            className="text-gray-600 underline cursor-pointer text-right flex-shrink-0 ml-2"
+          >
             {locale === 'zh-cn' ? '取消' : 'Cancel'}
           </button>
         </div>

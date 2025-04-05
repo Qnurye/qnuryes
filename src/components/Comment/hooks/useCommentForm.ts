@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import type { ErrorResponse } from '@/types';
+import type { Comment, ErrorResponse } from '@/types';
 
 interface CommentFormData {
   post_id: string
@@ -14,7 +14,7 @@ export const useCommentForm = (postId: string, fetchComments: () => Promise<void
   loading: boolean
   error: ErrorResponse | null
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
-  submitComment: (e: React.FormEvent, replyTo: number | null) => Promise<void>
+  submitComment: (e: React.FormEvent, replyTo: Comment | null) => Promise<void>
 } => {
   const [formData, setFormData] = useState<CommentFormData>({
     post_id: postId,
@@ -30,7 +30,7 @@ export const useCommentForm = (postId: string, fetchComments: () => Promise<void
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const submitComment = async (e: React.FormEvent, replyTo: number | null): Promise<void> => {
+  const submitComment = async (e: React.FormEvent, replyTo: Comment | null): Promise<void> => {
     e.preventDefault();
 
     try {
@@ -39,7 +39,7 @@ export const useCommentForm = (postId: string, fetchComments: () => Promise<void
 
       const commentData = { ...formData };
       if (replyTo) {
-        commentData.parent_id = replyTo;
+        commentData.parent_id = replyTo.id;
       }
 
       const response = await fetch(`${import.meta.env.PUBLIC_API_BASE_URL}/comments`, {

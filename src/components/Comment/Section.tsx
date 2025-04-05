@@ -45,16 +45,6 @@ const Section: React.FC<CommentSectionProps> = ({ postId, locale }) => {
   return (
     <section className="mt-8">
       <h2 className="text-3xl font-bold mb-8">{locale === 'zh-cn' ? '评论' : 'Comments'}</h2>
-      <CommentForm
-        locale={locale}
-        loading={formLoading}
-        error={formError}
-        replyTo={replyTo}
-        onSubmit={e => submitComment(e, replyTo)}
-        onCancelReply={() => setReplyTo(null)}
-        formData={safeFormData}
-        onInputChange={handleInputChange}
-      />
       <CommentList
         comments={comments}
         loading={loading}
@@ -68,6 +58,16 @@ const Section: React.FC<CommentSectionProps> = ({ postId, locale }) => {
         loading={loading}
         locale={locale}
         onPageChange={setPage}
+      />
+      <CommentForm
+        locale={locale}
+        loading={formLoading}
+        error={formError}
+        replyTo={replyTo}
+        onSubmit={e => submitComment(e, replyTo)}
+        onCancelReply={() => setReplyTo(null)}
+        formData={safeFormData}
+        onInputChange={handleInputChange}
       />
     </section>
   );
