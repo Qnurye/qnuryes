@@ -27,9 +27,7 @@ export const useComments = (postId: string): UseCommentsReturn => {
     try {
       setLoading(true);
       const response = await fetch(
-        `${API_BASE_URL}/posts/${postId}/comments?page=${page}`, {
-          mode: 'no-cors',
-        },
+        `${API_BASE_URL}/posts/${postId}/comments?page=${page}`,
       );
 
       if (!response.ok) {
