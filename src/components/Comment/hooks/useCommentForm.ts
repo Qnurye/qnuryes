@@ -51,8 +51,7 @@ export const useCommentForm = (postId: string, fetchComments: () => Promise<void
       });
 
       if (!response.ok) {
-        const errorData = await response.json();
-        throw errorData;
+        throw await response.json();
       }
 
       setFormData({
