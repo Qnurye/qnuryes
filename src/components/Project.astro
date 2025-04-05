@@ -18,9 +18,13 @@ const foregroundColor = p.Vibrant?.bodyTextColor || 'var(--color-background)';
 ---
 
 <a
-  class={cn('relative group block max-w-72', className)}
+  class={cn('relative group block max-w-72 border-1 rounded', className)}
   href={getRelativeLocaleUrl(Astro.currentLocale || 'en', `/blog/${id}`)}
-  style={`--vibrant-color: ${color}; --vibrant-foreground: ${foregroundColor};`}
+  style={`
+    --vibrant-color: ${color};
+    --vibrant-foreground: ${foregroundColor};
+    border-color: ${color};
+  `}
 >
   <img src={cover} alt={title} />
   <div

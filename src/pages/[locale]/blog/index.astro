@@ -45,7 +45,7 @@ const postsGroupByDate = (await getCollection('blog', p => p.data.locale === Ast
                   new Date(Number(year), Number(month)).toString(), Astro.currentLocale || 'en',
                 )}
                 </h3>
-                <div class="flex flex-wrap gap-2">
+                <div class="flex flex-wrap gap-4">
                   {posts.map(post => (
                     <Project
                       key={post.id}
