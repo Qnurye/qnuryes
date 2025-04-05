@@ -2,6 +2,8 @@
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import { cn } from '@/lib/utils';
 import { Markdown } from 'astro-remote';
+import { Vibrant } from 'node-vibrant/node';
+
 const { title, description, date, cover, id, className } = Astro.props;
 
 const formattedDate = new Intl.DateTimeFormat(Astro.currentLocale, {
@@ -9,26 +11,34 @@ const formattedDate = new Intl.DateTimeFormat(Astro.currentLocale, {
   month: 'short',
   day: 'numeric',
 }).format(date);
+
+const p = (await Vibrant.from(new URL(cover, import.meta.env.PUBLIC_BASE_URL).toString()).getPalette());
+const color = p.Vibrant?.hex || 'var(--color-foreground)';
+const foregroundColor = p.Vibrant?.bodyTextColor || 'var(--color-background)';
 ---
 
 <a
   class={cn('relative group block max-w-72', className)}
   href={getRelativeLocaleUrl(Astro.currentLocale || 'en', `/blog/${id}`)}
+  style={`--vibrant-color: ${color}; --vibrant-foreground: ${foregroundColor};`}
 >
   <img src={cover} alt={title} />
   <div
-    class={'transition-opacity duration-500 opacity-0 absolute top-0 left-0 size-full bg-gradient-to-b'
-      + ' bg-white group-hover:outline-1 group-hover:opacity-100'}
-  >
-  </div>
-  <div
-    class="flex flex-col justify-end p-2 absolute size-full top-0 left-0 z-10 overflow-hidden mix-blend-difference"
+    class={'flex flex-col justify-end p-2 absolute size-full top-0 left-0 z-10 overflow-hidden transition-all'
+      + ' duration-500'
+      + ' group-hover:[background-color:var(--vibrant-color)]'}
   >
     <div class="translate-y-full">
-      <div class={'flex flex-col justify-end gap-2 text-white transition-all *:transition-all z-10 -translate-y-8'
-        + ' group-hover:-translate-y-full *:duration-500 duration-500'}
+      <div
+        class={'flex flex-col justify-end gap-2 text-[var(--vibrant-color)]'
+          + ' group-hover:text-[var(--vibrant-foreground)] transition-all *:transition-all z-10'
+          + ' group-hover:-translate-y-full *:duration-500 duration-500'}
       >
-        <h1 class="text-3xl group-hover:text-xl text-nowrap text-ellipsis overflow-hidden">{title}</h1>
+        <h1 class={'text-3xl -translate-y-full group-hover:translate-y-0 group-hover:text-xl'
+          + ' group-hover:text-ellipsis group-hover:overflow-hidden'}
+        >
+          {title}
+        </h1>
         <div class="flex-grow overflow-hidden max-h-[6rem] line-clamp-3">
           <Markdown content={description} />
         </div>
