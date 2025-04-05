@@ -25,7 +25,7 @@ export const useComments = (postId: string): UseCommentsReturn => {
     try {
       setLoading(true);
       const response = await fetch(
-        `${import.meta.env.API_BASE_URL}/posts/${postId}/comments?page=${page}`,
+        `${import.meta.env.PUBLIC_API_BASE_URL}/posts/${postId}/comments?page=${page}`,
       );
 
       if (!response.ok) {

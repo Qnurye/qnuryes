@@ -17,7 +17,7 @@ export const useCommentLike = (fetchComments: () => Promise<void>): useCommentLi
       setLoading(true);
       setError(null);
 
-      const response = await fetch(`${import.meta.env.API_BASE_URL}/comments/${commentId}/like`, {
+      const response = await fetch(`${import.meta.env.PUBLIC_API_BASE_URL}/comments/${commentId}/like`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -43,7 +43,7 @@ export const useCommentLike = (fetchComments: () => Promise<void>): useCommentLi
       setLoading(true);
       setError(null);
 
-      const response = await fetch(`${import.meta.env.API_BASE_URL}/comments/${commentId}/like`, {
+      const response = await fetch(`${import.meta.env.PUBLIC_API_BASE_URL}/comments/${commentId}/like`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',

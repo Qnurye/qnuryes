@@ -11,7 +11,9 @@ import { loadEnv } from 'vite';
 
 import partytown from '@astrojs/partytown';
 
-const { PUBLIC_SENTRY_DSN, SENTRY_AUTH_TOKEN, NODE_ENV } = loadEnv(process.env.NODE_ENV, process.cwd(), '');
+const { PUBLIC_SENTRY_DSN, SENTRY_AUTH_TOKEN, NODE_ENV } = loadEnv(
+  process.env.NODE_ENV, process.cwd(), '',
+);
 
 export default defineConfig({
   env: {
@@ -19,7 +21,7 @@ export default defineConfig({
       PUBLIC_SENTRY_DSN: envField.string({ context: 'server', access: 'public' }),
       SENTRY_AUTH_TOKEN: envField.string({ context: 'server', access: 'secret' }),
       GA_ID: envField.string({ context: 'client', access: 'public' }),
-      API_BASE_URL: envField.string({ context: 'client', access: 'public' }),
+      PUBLIC_API_BASE_URL: envField.string({ context: 'client', access: 'public' }),
     },
   },
   site: 'https://qnury.es/',

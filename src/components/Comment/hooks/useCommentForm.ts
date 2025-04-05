@@ -42,7 +42,7 @@ export const useCommentForm = (postId: string, fetchComments: () => Promise<void
         commentData.parent_id = replyTo;
       }
 
-      const response = await fetch(`${import.meta.env.API_BASE_URL}/comments`, {
+      const response = await fetch(`${import.meta.env.PUBLIC_API_BASE_URL}/comments`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
