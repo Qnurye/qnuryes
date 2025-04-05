@@ -1,16 +1,14 @@
 export interface Comment {
   id: number
-  postId: string
-  parentId?: number
-  authorName: string
-  authorEmail?: string
-  authorIp?: string
+  post_id: string
+  parent_id?: number
+  author_name: string
+  author_email?: string
   content: string
-  countryCode?: string
+  country_code?: string
   likes: number
   status: string
-  createdAt: Date
-  updatedAt: Date
+  created_at: string
   replies?: Comment[]
 }
 
@@ -32,4 +30,9 @@ export interface PaginationResponse<T> {
   pageSize: number
   totalItems: number
   totalPages: number
+}
+
+export interface ErrorResponse {
+  code: number
+  details?: string
 }

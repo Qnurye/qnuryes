@@ -30,7 +30,7 @@ export class LikeHandler extends BaseHandler {
 
       // Check if already liked
       const existingLike = await this.db.prepare(
-        'SELECT 1 FROM comment_likes WHERE comment_id = ? AND author_ip = ?',
+        'SELECT 1 FROM comment_likes WHERE comment_id = ? AND user_identifier = ?',
       )
         .bind(id, clientIP)
         .first();
@@ -41,7 +41,7 @@ export class LikeHandler extends BaseHandler {
 
       // Add like
       await this.db.prepare(
-        'INSERT INTO comment_likes (comment_id, author_ip) VALUES (?, ?)',
+        'INSERT INTO comment_likes (comment_id, user_identifier) VALUES (?, ?)',
       )
         .bind(id, clientIP)
         .run();
@@ -71,7 +71,7 @@ export class LikeHandler extends BaseHandler {
     try {
       // Check if like exists
       const like = await this.db.prepare(
-        'SELECT 1 FROM comment_likes WHERE comment_id = ? AND author_ip = ?',
+        'SELECT 1 FROM comment_likes WHERE comment_id = ? AND user_identifier = ?',
       )
         .bind(id, clientIP)
         .first();
@@ -82,7 +82,7 @@ export class LikeHandler extends BaseHandler {
 
       // Remove like
       await this.db.prepare(
-        'DELETE FROM comment_likes WHERE comment_id = ? AND author_ip = ?',
+        'DELETE FROM comment_likes WHERE comment_id = ? AND user_identifier = ?',
       )
         .bind(id, clientIP)
         .run();

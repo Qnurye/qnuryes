@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import type { ErrorResponse } from '@/types';
 
 interface CommentFormData {
   post_id: string
@@ -8,12 +9,10 @@ interface CommentFormData {
   content: string
 }
 
-const API_BASE_URL = 'https://api.qnury.es';
-
 export const useCommentForm = (postId: string, fetchComments: () => Promise<void>): {
   formData: CommentFormData
   loading: boolean
-  error: string | null
+  error: ErrorResponse | null
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
   submitComment: (e: React.FormEvent, replyTo: number | null) => Promise<void>
 } => {
@@ -24,7 +23,7 @@ export const useCommentForm = (postId: string, fetchComments: () => Promise<void
     content: '',
   });
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<ErrorResponse | null>(null);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
     const { name, value } = e.target;
@@ -36,13 +35,14 @@ export const useCommentForm = (postId: string, fetchComments: () => Promise<void
 
     try {
       setLoading(true);
+      setError(null);
 
       const commentData = { ...formData };
       if (replyTo) {
         commentData.parent_id = replyTo;
       }
 
-      const response = await fetch(`${API_BASE_URL}/comments`, {
+      const response = await fetch(`${import.meta.env.API_BASE_URL}/comments`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -51,7 +51,8 @@ export const useCommentForm = (postId: string, fetchComments: () => Promise<void
       });
 
       if (!response.ok) {
-        console.error(`HTTP error! status: ${response.status}`);
+        const errorData = await response.json();
+        throw errorData;
       }
 
       setFormData({
@@ -63,8 +64,8 @@ export const useCommentForm = (postId: string, fetchComments: () => Promise<void
 
       await fetchComments();
     } catch (err) {
-      setError('Failed to submit comment, please try again later.');
       console.error('Error submitting comment:', err);
+      setError(err as ErrorResponse);
     } finally {
       setLoading(false);
     }

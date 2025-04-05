@@ -1,38 +1,35 @@
-import React, { useState, useEffect } from 'react';
-import type { Comment, PaginationResponse } from '@/types';
+import React, { useEffect, useState } from 'react';
+import type { Comment, ErrorResponse, PaginationResponse } from '@/types';
 
 interface UseCommentsReturn {
   comments: Comment[] | null
   loading: boolean
-  error: { code: number, details?: string } | null
+  error: ErrorResponse | null
   page: number
   totalPages: number
-  replyTo: Comment | null
+  replyTo: number | null
   setPage: React.Dispatch<React.SetStateAction<number>>
-  setReplyTo: React.Dispatch<React.SetStateAction<Comment | null>>
+  setReplyTo: React.Dispatch<React.SetStateAction<number | null>>
   fetchComments: () => Promise<void>
 }
-
-const API_BASE_URL = 'https://api.qnury.es';
 
 export const useComments = (postId: string): UseCommentsReturn => {
   const [comments, setComments] = useState<Comment[] | null>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<{ code: number, details?: string } | null>(null);
+  const [error, setError] = useState<ErrorResponse | null>(null);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [replyTo, setReplyTo] = useState<Comment | null>(null);
+  const [replyTo, setReplyTo] = useState<number | null>(null);
 
   const fetchComments = async (): Promise<void> => {
     try {
       setLoading(true);
       const response = await fetch(
-        `${API_BASE_URL}/posts/${postId}/comments?page=${page}`,
+        `${import.meta.env.API_BASE_URL}/posts/${postId}/comments?page=${page}`,
       );
 
       if (!response.ok) {
-        const errorData = await response.json();
-        throw errorData;
+        throw await response.json();
       }
 
       const data: PaginationResponse<Comment> = await response.json();
@@ -41,7 +38,7 @@ export const useComments = (postId: string): UseCommentsReturn => {
       setError(null);
     } catch (error) {
       console.error('Error fetching comments:', error);
-      setError(error as { code: number, details?: string });
+      setError(error as ErrorResponse);
     } finally {
       setLoading(false);
     }

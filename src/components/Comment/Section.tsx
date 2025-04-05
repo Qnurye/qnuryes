@@ -1,7 +1,7 @@
-import '@/styles/comments.css';
 import React from 'react';
 import { useComments } from './hooks/useComments';
 import { useCommentForm } from './hooks/useCommentForm';
+import { useCommentLike } from './hooks/useCommentLike';
 import CommentForm from './Form';
 import CommentList from './List';
 import Pagination from './Pagination';
@@ -31,9 +31,20 @@ const Section: React.FC<CommentSectionProps> = ({ postId, locale }) => {
     submitComment,
   } = useCommentForm(postId, fetchComments);
 
+  const {
+    likeComment,
+  } = useCommentLike(fetchComments);
+
+  const safeFormData = formData || {
+    post_id: postId,
+    author_name: '',
+    author_email: '',
+    content: '',
+  };
+
   return (
-    <section className="comments">
-      <h2>{locale === 'zh-cn' ? '评论' : 'Comments'}</h2>
+    <section className="mt-8">
+      <h2 className="text-3xl font-bold mb-8">{locale === 'zh-cn' ? '评论' : 'Comments'}</h2>
       <CommentForm
         locale={locale}
         loading={formLoading}
@@ -41,7 +52,7 @@ const Section: React.FC<CommentSectionProps> = ({ postId, locale }) => {
         replyTo={replyTo}
         onSubmit={e => submitComment(e, replyTo)}
         onCancelReply={() => setReplyTo(null)}
-        formData={formData}
+        formData={safeFormData}
         onInputChange={handleInputChange}
       />
       <CommentList
@@ -49,7 +60,7 @@ const Section: React.FC<CommentSectionProps> = ({ postId, locale }) => {
         loading={loading}
         locale={locale}
         onReply={setReplyTo}
-        onLike={fetchComments}
+        onLike={likeComment}
       />
       <Pagination
         page={page}

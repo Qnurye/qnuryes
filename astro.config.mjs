@@ -19,6 +19,7 @@ export default defineConfig({
       PUBLIC_SENTRY_DSN: envField.string({ context: 'server', access: 'public' }),
       SENTRY_AUTH_TOKEN: envField.string({ context: 'server', access: 'secret' }),
       GA_ID: envField.string({ context: 'client', access: 'public' }),
+      API_BASE_URL: envField.string({ context: 'client', access: 'public' }),
     },
   },
   site: 'https://qnury.es/',
