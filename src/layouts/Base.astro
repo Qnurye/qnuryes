@@ -4,6 +4,7 @@ import Nav from '@/components/Nav.astro';
 import Footer from '@/components/Footer.astro';
 import { cn } from '@/lib/utils';
 import GoogleAnalytics from '@astro-kits/google-analytics';
+import { getAbsoluteLocaleUrl } from 'astro:i18n';
 
 const { title, className, description, keywords } = Astro.props;
 const pageTitle = title || 'query.e\'s';
@@ -61,6 +62,12 @@ const pageKeywords = (keywords || '').split(',').map((keyword: string) => keywor
     <meta property="og:title" content={pageTitle} />
     <meta property="og:url" content={Astro.url} />
     <meta property="og:site_name" content={pageTitle} />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="pageTitle"
+      href={getAbsoluteLocaleUrl(Astro.currentLocale || 'en', 'rss.xml')}
+    />
 
     <!-- Google tag (gtag.js) -->
     <GoogleAnalytics />
