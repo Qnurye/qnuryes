@@ -23,10 +23,13 @@ const t = await loadTranslations(Astro.currentLocale);
       <RssIcon />
       {t('footer.rss')}
     </a>
-    <Button variant="outline">
+    <a
+      href="https://github.com/Qnurye/qnuryes"
+      class={buttonVariants({ variant: 'outline' })}
+    >
       <CodeIcon />
       {t('footer.source_code')}
-    </Button>
+    </a>
   </div>
   <span class="font-mono text-sm">
     <Markdown content={t('footer.credits')} />
