@@ -1,6 +1,7 @@
 import React from 'react';
 import type { Comment, ErrorResponse } from '@/types';
-import Markdown from 'react-markdown';
+import { useTranslations } from '@/hooks/useTranslations.ts';
+import { Button } from '@/components/ui/button.tsx';
 
 interface CommentFormData {
   post_id: string
@@ -24,7 +25,7 @@ interface CommentFormProps {
 const CommentForm: React.FC<CommentFormProps> = ({
   locale, loading, error, replyTo, onSubmit, onCancelReply, formData, onInputChange,
 }) => {
-  // Ensure formData has default values if it's undefined
+  const { t } = useTranslations(locale)
   const safeFormData = {
     post_id: formData?.post_id || '',
     author_name: formData?.author_name || '',
@@ -37,7 +38,7 @@ const CommentForm: React.FC<CommentFormProps> = ({
       {replyTo && (
         <div className="bg-gray-100 p-3 mb-4 rounded-md flex justify-between items-center">
           <span className="inline-flex items-baseline gap-1 flex-grow min-w-0">
-            <span className="flex-shrink-0">{locale === 'zh-cn' ? '回复' : 'Replying to'}</span>
+            <span className="flex-shrink-0">{t('comment.reply_to')}</span>
             <span className="font-serif font-bold flex-shrink-0">{replyTo.author_name}:</span>
             <span className={'font-sans overflow-hidden text-ellipsis whitespace-nowrap min-w-0 max-w-full'
               + ' bg-gray-200 px-2 py-1 rounded'}
@@ -45,13 +46,12 @@ const CommentForm: React.FC<CommentFormProps> = ({
               {replyTo.content.replace(/[#*~_`]/g, '')} {/* Remove Markdown syntax */}
             </span>
           </span>
-          <button
-            type="button"
+          <Button
+            variant="link"
             onClick={onCancelReply}
-            className="text-gray-600 underline cursor-pointer text-right flex-shrink-0 ml-2"
           >
-            {locale === 'zh-cn' ? '取消' : 'Cancel'}
-          </button>
+            {t('comment.cancel')}
+          </Button>
         </div>
       )}
 
@@ -61,7 +61,7 @@ const CommentForm: React.FC<CommentFormProps> = ({
           name="author_name"
           value={safeFormData.author_name}
           onChange={onInputChange}
-          placeholder={locale === 'zh-cn' ? '您的名字' : 'Your name'}
+          placeholder={t('comment.name')}
           required
           className="w-full p-3 border border-gray-300 rounded-md text-base"
         />
@@ -73,7 +73,7 @@ const CommentForm: React.FC<CommentFormProps> = ({
           name="author_email"
           value={safeFormData.author_email}
           onChange={onInputChange}
-          placeholder={locale === 'zh-cn' ? '您的邮箱（可选）' : 'Your email (optional)'}
+          placeholder={t('comment.email')}
           className="w-full p-3 border border-gray-300 rounded-md text-base"
         />
       </div>
@@ -83,25 +83,24 @@ const CommentForm: React.FC<CommentFormProps> = ({
           name="content"
           value={safeFormData.content}
           onChange={onInputChange}
-          placeholder={locale === 'zh-cn' ? '评论内容' : 'Your comment'}
+          placeholder={t('comment.content')}
           required
           rows={4}
           className="w-full p-3 border border-gray-300 rounded-md text-base resize-y min-h-[100px]"
         />
       </div>
 
-      <button
+      <Button
+        variant="default"
         type="submit"
         disabled={loading}
-        className={'bg-gray-800 text-white border-none py-3 px-6 rounded-md cursor-pointer text-base'
-          + 'transition-colors hover:bg-gray-700 disabled:bg-gray-400 disabled:cursor-not-allowed'}
       >
         {loading
-          ? (locale === 'zh-cn' ? '提交中...' : 'Submitting...')
-          : (locale === 'zh-cn' ? '提交评论' : 'Submit Comment')}
-      </button>
+          ? t('comment.loading')
+          : t('comment.submit')}
+      </Button>
 
-      {error && <div className="text-red-600 mt-4">{error.details || 'An error occurred'}</div>}
+      {error && <div className="text-red-600 mt-4">{error.details || t('comment.error')}</div>}
     </form>
   );
 };

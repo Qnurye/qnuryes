@@ -1,4 +1,7 @@
 import React from 'react';
+import { useTranslations } from '@/hooks/useTranslations.ts';
+import { Button } from '@/components/ui/button.tsx';
+import { ArrowLeftIcon, ArrowRightIcon } from 'lucide-react';
 
 interface PaginationProps {
   page: number
@@ -9,31 +12,32 @@ interface PaginationProps {
 }
 
 const Pagination: React.FC<PaginationProps> = ({ page, totalPages, loading, locale, onPageChange }) => {
+  const { t } = useTranslations(locale)
   if (totalPages <= 1) { return null; }
 
   return (
-    <div className="flex justify-center items-center mt-8 gap-4">
-      <button
+    <div className="flex justify-between items-center my-8 gap-4">
+      <Button
+        variant="secondary"
         onClick={() => onPageChange(Math.max(page - 1, 1))}
         disabled={page === 1 || loading}
-        className={' bg-gray-100 border-none py-2 px-4 rounded-md cursor-pointer transition-colors hover:bg-gray-200'
-          + ' disabled:opacity-50 disabled:cursor-not-allowed'}
       >
-        {locale === 'zh-cn' ? '上一页' : 'Previous'}
-      </button>
+        <ArrowLeftIcon size={14} />
+        {t('comment.previous')}
+      </Button>
 
-      <span className="text-gray-600">
-        {locale === 'zh-cn' ? `第 ${page} 页，共 ${totalPages} 页` : `Page ${page} of ${totalPages}`}
+      <span className="text-gray-600 text-sm">
+        {t('comment.pages', { current: page, total: totalPages })}
       </span>
 
-      <button
+      <Button
+        variant="secondary"
         onClick={() => onPageChange(Math.min(page + 1, totalPages))}
         disabled={page === totalPages || loading}
-        className={'bg-gray-100 border-none py-2 px-4 rounded-md cursor-pointer transition-colors hover:bg-gray-200'
-          + ' disabled:opacity-50 disabled:cursor-not-allowed'}
       >
-        {locale === 'zh-cn' ? '下一页' : 'Next'}
-      </button>
+        {t('comment.next')}
+        <ArrowRightIcon size={14} />
+      </Button>
     </div>
   );
 };

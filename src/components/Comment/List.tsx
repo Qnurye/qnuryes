@@ -1,6 +1,7 @@
 import React from 'react';
 import CommentItem from './Item';
 import type { Comment } from '@/types';
+import { useTranslations } from '@/hooks/useTranslations.ts';
 
 interface CommentListProps {
   comments: Comment[] | null
@@ -11,10 +12,11 @@ interface CommentListProps {
 }
 
 const CommentList: React.FC<CommentListProps> = ({ comments, loading, locale, onReply, onLike }) => {
+  const { t } = useTranslations(locale)
   if (loading) {
     return (
       <div className="text-center py-8 text-gray-600">
-        {locale === 'zh-cn' ? '加载评论中...' : 'Loading comments...'}
+        {t('comment.loading')}
       </div>
     );
   }
@@ -22,7 +24,7 @@ const CommentList: React.FC<CommentListProps> = ({ comments, loading, locale, on
   if (!comments || comments.length === 0) {
     return (
       <div className="text-center py-8 text-gray-600">
-        {locale === 'zh-cn' ? '快来评论吧' : 'No replies yet'}
+        {t('comment.no_comments')}
       </div>
     );
   }
