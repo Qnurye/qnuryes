@@ -35,19 +35,14 @@ const { Content } = await render(page);
 
 <div class="absolute left-0 top-0 ">
   <Image
+    id="cover"
     src={page.data.cover}
     alt=""
     height={1080}
     width={1920}
     class="h-screen w-screen -z-10 object-cover"
+    loading="eager"
   />
-
-  <div
-    class={'absolute top-0 left-0 right-0 bottom-0 transition-opacity transform duration-1000 ease-in'
-      + ' bg-gradient-to-b from-transparent to-neutral-600 from-70% opacity-40'}
-    id="mask"
-  >
-  </div>
 </div>
 
 <Base
@@ -61,8 +56,7 @@ const { Content } = await render(page);
       id="header"
       class={'mb-8 transition-all transform duration-1000 ease-in'
         + '*:transition-all *:transform *:duration-400 *:ease-in'
-        + '-translate-y-[calc(100%+124px)] md:-translate-x-[calc(50vw-24rem)] w-[calc(100vw-4rem)] text-neutral-400'
-        + 'mix-blend-difference'}
+        + '-translate-y-[calc(100%+124px)] md:-translate-x-[calc(50vw-24rem)] w-[calc(100vw-4rem)] text-contrast'}
     >
       <div class="flex flex-row gap-8 text-xs md:gap-16 md:text-sm font-mono">
         <time datetime={page.data.created_at.toISOString()} class="inline-block">
@@ -123,19 +117,18 @@ const { Content } = await render(page);
 </Base>
 
 <script>
+  import { Vibrant } from 'node-vibrant/browser';
+  // import { getContrastColor } from '@/lib/color';
+
   const handleScroll = (): undefined => {
-    if (window.scrollY > 256) {
+    if (window.scrollY > (window.innerHeight - 256)) {
       document.querySelector('#header')?.classList.remove(
         '-translate-y-[calc(100%+124px)]',
         'md:-translate-x-[calc(50vw-24rem)]',
-        'text-neutral-400', 'mix-blend-difference',
       );
       document.querySelector('#header')?.classList.replace(
         'w-[calc(100vw-4rem)]',
         'w-full',
-      );
-      document.querySelector('#nav')?.classList.remove(
-        'text-neutral-400', 'mix-blend-difference',
       );
       document.querySelector('#title')?.classList.replace(
         'text-5xl', 'text-4xl',
@@ -149,17 +142,11 @@ const { Content } = await render(page);
       document.querySelector('#description')?.classList.replace(
         'text-md', 'text-xl',
       );
-      document.querySelector('#mask')?.classList.replace(
-        'opacity-40', 'opacity-0',
-      )
+      document.documentElement.style.setProperty('--contrast-color', 'var(--text-color)');
     } else {
-      document.querySelector('#nav')?.classList.add(
-        'text-neutral-400', 'mix-blend-difference',
-      );
       document.querySelector('#header')?.classList.add(
         '-translate-y-[calc(100%+124px)]',
         'md:-translate-x-[calc(50vw-24rem)]',
-        'text-neutral-400', 'mix-blend-difference',
       );
       document.querySelector('#header')?.classList.replace(
         'w-full',
@@ -177,14 +164,22 @@ const { Content } = await render(page);
       document.querySelector('#description')?.classList.replace(
         'text-xl', 'text-md',
       );
-      document.querySelector('#mask')?.classList.replace(
-        'opacity-0', 'opacity-40',
-      )
+      loadContrastColor();
     }
   };
 
-  handleScroll(); // Initial call
+  handleScroll();
   window.addEventListener('scroll', handleScroll);
+
+  function loadContrastColor(): void {
+    const cover = document.querySelector('#cover') as HTMLImageElement;
+
+    Vibrant.from(cover.src).getPalette().then((plate) => {
+      // const contrastColor = getContrastColor(plate.Vibrant?.rgb || [0, 0, 0]);
+      const hex = plate.Vibrant?.hex || 'var(--text-color)';
+      document.documentElement.style.setProperty('--contrast-color', hex);
+    });
+  }
 
   function setupImageScrollContainers(): undefined {
     const contentDiv = document.querySelector('.prose');

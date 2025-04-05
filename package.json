@@ -35,6 +35,7 @@
     "cmdk": "1.0.0",
     "lucide-react": "^0.483.0",
     "markdown-it": "^14.1.0",
+    "node-vibrant": "^4.0.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-markdown": "^10.1.0",
@@ -59,5 +60,13 @@
     "globals": "^16.0.0",
     "typescript-eslint": "^8.26.1",
     "vite": "^6.2.4"
+  },
+  "pnpm": {
+    "ignoredBuiltDependencies": [
+      "canvas"
+    ],
+    "onlyBuiltDependencies": [
+      "canvas"
+    ]
   }
 }
