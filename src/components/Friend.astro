@@ -38,7 +38,7 @@ const foregroundColor = p.Vibrant?.bodyTextColor || 'var(--color-background)';
     border-color: ${color};
   `}
 >
-  <img src={avatar} alt={name} />
+  <img src={avatar} alt={name} class="min-w-64" />
   <div
     class={'flex flex-col justify-end p-2 absolute size-full top-0 left-0 z-10 overflow-hidden transition-all'
       + ' duration-500'
@@ -51,7 +51,7 @@ const foregroundColor = p.Vibrant?.bodyTextColor || 'var(--color-background)';
           + ' group-hover:-translate-y-full *:duration-500 duration-500'}
       >
         <p class={'text-3xl -translate-y-full group-hover:translate-y-0 group-hover:text-xl'
-          + ' group-hover:text-ellipsis group-hover:overflow-hidden'}
+          + ' group-hover:text-ellipsis group-hover:overflow-hidden font-serif'}
         >
           {name}
         </p>
