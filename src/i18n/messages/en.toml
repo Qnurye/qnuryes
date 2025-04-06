@@ -57,31 +57,41 @@ title = "Projects"
 [links]
 title = "Friends"
 page_title = "Qnury.e's | Friends"
-page_description = "Qnurye's personal website friends links, you can also submit your link!"
-page_keywords = "personal website, blog, friends, portfolio, technology, programming, computer, frontend, backend, friends links"
+page_description = "Friend links on Qnurye's personal website, you can also submit your link!"
+page_keywords = "personal website, blog, friends, portfolio, technology, programming, computer, frontend, backend, friend links"
 
 [links.application]
 about = "Add your link"
-description = "You can add your link as follows:"
-i18n_changes = "This site may (but not likely) add support for other languages in the future. If that happens, I will use AI to translate the English version of the description into the new language and notify you via GitHub or email."
+
+[links.application.why]
+title = "Where do friend links come from?"
+content = """
+> [Link best practices for Google](https://developers.google.com/search/docs/crawling-indexing/links-crawlable#external-links)
+>
+> Linking to other sites isn't something to be scared of; in fact, using external links can help establish trustworthiness (for example, citing your sources). Link out to external sites when it makes sense, and provide context to your readers about what they can expect.
+
+Friend links are an ancient ritual of the internet community. According to Google's famous PageRank algorithm, the importance of a webpage is not only determined by its own content but also by the quality and quantity of other webpages linking to it. Early internet natives linked to each other, creating another layer of network in terms of behavior. This tradition has continued. In my opinion, its modern significance has evolved into a piece of memory film from the non-recommendation algorithm mainstream era.
+"""
 
 [links.application.pr]
-title = "Create a pull request to add a link"
+title = "Submit your link application on GitHub"
 content = """
 1. Fork [my repository](https://github.com/Qnurye/qnuryes) on GitHub
-2. In your own repository, create a new json file in `src/content/links`, name it after yourself, and refer to other files for content. You need to provide the following information:
+2. In your repository, create a new JSON file in `src/content/links`, named after your name, and refer to other files for content. You need to provide the following information:
     1. Name
     2. Avatar URL
     3. Link
-    4. Link description (you may need to provide multiple language versions, but all except English are optional.
-    Markdown is supported)
+    4. Link description (may need to provide versions in multiple languages, but all except English are optional. Markdown supported.)
 3. Submit your changes and create a pull request to my repository on GitHub.
 """
 
 [links.application.email]
-title = "I dont't know how :("
-content = "You can contact me directly at [contact@qnury.es](mailto:contact@qnury.es)"
+title = "Don't understand the above :( but I still want to add my link!"
+content = "You can also contact me directly at [contact@qnury.es](mailto:contact@qnury.es)"
 
+[links.application.update]
+title = "Do I need to update later?"
+content = "In the extremely unlikely event that this site may add support for other languages in the future. If this happens, I will use AI to translate the new version of the description based on the English description and will notify you via GitHub or email."
 [posts]
 title = "Timeline"
 page_title = "Qnury.e's | Timeline"

@@ -176,7 +176,7 @@
 }
 
 .prose blockquote {
-  @apply border-l-4 border-gray-500 pl-4 italic text-gray-600 dark:text-gray-400;
+  @apply border-l-4 border-gray-500 pl-4 italic text-gray-600 dark:text-gray-400 my-2;
 }
 
 code {
