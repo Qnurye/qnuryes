@@ -18,7 +18,7 @@ const foregroundColor = p.Vibrant?.bodyTextColor || 'var(--color-background)';
 ---
 
 <a
-  class={cn('relative group block max-w-72 border-1 rounded', className)}
+  class={cn('relative group block max-w-72 border-2 rounded', className)}
   href={getRelativeLocaleUrl(Astro.currentLocale || 'en', `/blog/${id}`)}
   style={`
     --vibrant-color: ${color};
@@ -46,7 +46,7 @@ const foregroundColor = p.Vibrant?.bodyTextColor || 'var(--color-background)';
         <div class="flex-grow overflow-hidden max-h-[6rem] line-clamp-3">
           <Markdown content={description} />
         </div>
-        <p>{formattedDate}</p>
+        <p class="font-mono">{formattedDate}</p>
       </div>
     </div>
   </div>
