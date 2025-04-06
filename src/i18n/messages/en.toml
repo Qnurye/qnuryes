@@ -24,7 +24,7 @@ all_rights_reserved = "All rights reserved."
 tos_pp = "Terms of service and privacy policy"
 
 [landing]
-welcome = "Welcome to ***Qnurye's***"
+welcome = "# Welcome to ***Qnurye's***"
 lines = """
 Confusion will be my epitaph
 
@@ -83,8 +83,8 @@ title = "I dont't know how :("
 content = "You can contact me directly at [contact@qnury.es](mailto:contact@qnury.es)"
 
 [posts]
-title = "Posts"
-page_title = "Qnury.e's | Posts"
+title = "Timeline"
+page_title = "Qnury.e's | Timeline"
 page_description = "Posts published on Qnurye's personal website, where you can find his latest updates, thoughts, and projects!"
 page_keywords = "personal website, blog, friends, portfolio, technology, programming, computer, frontend, backend, projects"
 

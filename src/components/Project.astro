@@ -38,11 +38,11 @@ const foregroundColor = p.Vibrant?.bodyTextColor || 'var(--color-background)';
           + ' group-hover:text-[var(--vibrant-foreground)] transition-all *:transition-all z-10'
           + ' group-hover:-translate-y-full *:duration-500 duration-500'}
       >
-        <h1 class={'text-3xl -translate-y-full group-hover:translate-y-0 group-hover:text-xl'
+        <p class={'text-3xl -translate-y-full group-hover:translate-y-0 group-hover:text-xl'
           + ' group-hover:text-ellipsis group-hover:overflow-hidden'}
         >
           {title}
-        </h1>
+        </p>
         <div class="flex-grow overflow-hidden max-h-[6rem] line-clamp-3">
           <Markdown content={description} />
         </div>

@@ -1,26 +1,11 @@
 ---
 import Base from '@/layouts/Base.astro';
 export { getI18nPaths as getStaticPaths } from '@/i18n';
-import { type CollectionEntry, getCollection } from 'astro:content';
-import { formatDateAsMonth } from '@/lib/utils';
-import Project from '@/components/Project.astro';
 import { loadTranslations } from '@/i18n';
+import Timeline from './partial/timeline.astro';
 
 const locale = Astro.currentLocale || 'en';
 const t = await loadTranslations(locale);
-const postsGroupByDate = (await getCollection('blog', p => p.data.locale === Astro.currentLocale))
-  .sort((a, b) => b.data.created_at.getTime() - a.data.created_at.getTime())
-  .reduce((acc, post) => {
-    const date = new Date(post.data.created_at);
-    const year = date.getFullYear().toString();
-    const month = date.getMonth().toString();
-
-    acc[year] = acc[year] || {};
-    acc[year][month] = acc[year][month] || [];
-    acc[year][month].push(post);
-
-    return acc;
-  }, {} as Record<string, Record<string, Array<CollectionEntry<'blog'>>>>);
 ---
 
 <Base
@@ -28,41 +13,5 @@ const postsGroupByDate = (await getCollection('blog', p => p.data.locale === Ast
   description={t('posts.page_description')}
   keywords={t('posts.page_keywords')}
 >
-  <div
-    class="w-full font-serif flex flex-col gap-8 *:w-full"
-  >
-    <div class="text-6xl font-serif">
-      <h1 id="about" class="scroll-m-16">{t('posts.title')}</h1>
-    </div>
-    <ul>
-      {Object.entries(postsGroupByDate).reverse().map(([year, months]) => (
-        <li class="mb-4 px-4 md:px-8 xl:px-12">
-          <h2 class="text-4xl font-mono">{year}</h2>
-          <ul>
-            {Object.entries(months).reverse().map(([month, posts]) => (
-              <li class="my-4 px-4 md:px-8 xl:px-12">
-                <h3 class="text-2xl font-mono my-4">{formatDateAsMonth(
-                  new Date(Number(year), Number(month)).toString(), Astro.currentLocale || 'en',
-                )}
-                </h3>
-                <div class="flex flex-wrap gap-4">
-                  {posts.map(post => (
-                    <Project
-                      key={post.id}
-                      title={post.data.title}
-                      description={post.data.description}
-                      date={post.data.created_at}
-                      cover={post.data.cover}
-                      id={post.data.translation_id || post.id}
-                      className="w-96"
-                    />
-                  ))}
-                </div>
-              </li>
-            ))}
-          </ul>
-        </li>
-      ))}
-    </ul>
-  </div>
+  <Timeline />
 </Base>

@@ -7,7 +7,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "lint": "eslint . --ext .astro,.js,.ts,.tsx --fix"
+    "lint": "eslint . --ext .astro,.js,.ts,.tsx --fix",
+    "deploy": "pnpm build && wrangler pages deploy ./dist"
   },
   "dependencies": {
     "@astro-kits/google-analytics": "^0.1.0",

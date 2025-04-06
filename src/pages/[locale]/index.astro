@@ -62,14 +62,22 @@ if (projectsPage.length > 0) {
     <div
       class={'h-[80vh] w-full font-serif mb-12 md:mb-36 flex flex-col gap-4 md:gap-8'
         + ' justify-between *:py-8 md:*:py-16 *:w-full'}
-      data-aos="fade-in"
-      data-aos-duration="300"
     >
-      <div class="text-xl md:text-2xl lg:text-3xl">
+      <div
+        class="text-xl md:text-2xl lg:text-3xl"
+        data-aos="fade-right"
+        data-aos-duration="2048"
+        data-aos-easing="ease-out-cubic"
+      >
         <Markdown content={t('landing.welcome')} />
       </div>
-      <div class={'text-lg md:text-xl lg:text-2xl text-end *:tracking-wide *:[word-spacing:0.5rem]'
-        + ' md:*:[word-spacing:0.8rem]'}
+      <div
+        class={'text-lg md:text-xl lg:text-2xl text-end *:tracking-wide *:[word-spacing:0.5rem]'
+          + ' md:*:[word-spacing:0.8rem]'}
+        data-aos="fade-left"
+        data-aos-anchor-placement="bottom-bottom"
+        data-aos-duration="2048"
+        data-aos-easing="ease-out-cubic"
       >
         <Markdown content={t('landing.lines')} />
       </div>
@@ -90,7 +98,7 @@ if (projectsPage.length > 0) {
     <div
       class="min-h-screen w-full font-serif flex flex-col gap-4 md:gap-8 *:w-full"
       data-aos="fade-up"
-      data-aos-duration="500"
+      data-aos-duration="1024"
       data-aos-anchor-placement="top-center"
     >
       <div class="text-5xl md:text-6xl lg:text-7xl">
@@ -100,20 +108,20 @@ if (projectsPage.length > 0) {
         + ' *:flex-col *:gap-4'}
       >
         <div class="*:flex *:flex-col *:gap-3 *:p-3 max-w-full md:max-w-prose">
-          <div data-aos="fade-right" data-aos-delay="100">
-            <h1 class="font-serif text-2xl md:text-3xl">{t('about.introduction')}</h1>
+          <div data-aos="fade-right" data-aos-delay="16">
+            <h2 class="font-serif text-2xl md:text-3xl">{t('about.introduction')}</h2>
             <p>{t('about.introduction_text')}</p>
           </div>
-          <div data-aos="fade-right" data-aos-delay="200">
-            <h1 class="font-serif text-2xl md:text-3xl">{t('about.unemployed')}</h1>
+          <div data-aos="fade-right" data-aos-delay="32">
+            <h2 class="font-serif text-2xl md:text-3xl">{t('about.unemployed')}</h2>
             <p>{t('about.unemployed_text')}</p>
           </div>
-          <div data-aos="fade-right" data-aos-delay="300">
-            <h1 class="font-serif text-2xl md:text-3xl">{t('about.interests')}</h1>
+          <div data-aos="fade-right" data-aos-delay="64">
+            <h2 class="font-serif text-2xl md:text-3xl">{t('about.interests')}</h2>
             <p>{t('about.interests_text')}</p>
           </div>
-          <div data-aos="fade-right" data-aos-delay="400">
-            <h1 class="font-serif text-2xl md:text-3xl">{t('about.contact')}</h1>
+          <div data-aos="fade-right" data-aos-delay="128">
+            <h2 class="font-serif text-2xl md:text-3xl">{t('about.contact')}</h2>
             <div class="flex flex-row gap-4">
               <a href="mailto:contact@qnury.es">
                 <Gmail />
@@ -131,15 +139,16 @@ if (projectsPage.length > 0) {
             <h1
               class="font-serif text-2xl md:text-3xl"
               data-aos="fade-left"
-              data-aos-delay="500"
+              data-aos-delay="216"
             >{t('about.tech_stack')}
             </h1>
             <div
               class="*:flex *:flex-col *:items-end *:lg:items-start *:gap-2 flex flex-col gap-4"
-              data-aos="fade-left"
-              data-aos-delay="600"
             >
-              <div>
+              <div
+                data-aos="fade-left"
+                data-aos-delay="232"
+              >
                 <h2>{t('about.tech_stack_proficient')}</h2>
                 <div class="flex flex-wrap gap-4 justify-end lg:justify-start">
                   <AstroIcon />
@@ -151,7 +160,10 @@ if (projectsPage.length > 0) {
                   <MaterialdesignIcon />
                 </div>
               </div>
-              <div>
+              <div
+                data-aos="fade-left"
+                data-aos-delay="264"
+              >
                 <h2>{t('about.tech_stack_familiar')}</h2>
                 <div class="flex flex-wrap gap-4 justify-end lg:justify-start">
                   <LatexIcon />
@@ -161,7 +173,10 @@ if (projectsPage.length > 0) {
                   <FigmaIcon />
                 </div>
               </div>
-              <div>
+              <div
+                data-aos="fade-left"
+                data-aos-delay="328"
+              >
                 <h2>{t('about.tech_stack_beginner')}</h2>
                 <div class="flex flex-wrap gap-4 justify-end lg:justify-start">
                   <GraphqlIcon />
@@ -176,70 +191,125 @@ if (projectsPage.length > 0) {
     </div>
 
     <!-- Portfolio -->
-    <p class="size-0" id="portfolio"></p>
-    <div
-      class="w-full font-serif flex flex-col gap-4 md:gap-8 *:w-full"
-      data-aos="fade-up"
-      data-aos-duration="600"
-    >
-      <div class="text-4xl md:text-5xl lg:text-6xl">
-        <h1 class="scroll-m-16">{t('portfolio.title')}</h1>
-      </div>
+    {projectsCol1.length > 0 && (
+      <p class="size-0" id="portfolio"></p>
+      <div
+        class="w-full font-serif flex flex-col gap-4 md:gap-8 *:w-full"
+        data-aos="fade-up"
+        data-aos-duration="1024"
+      >
+        <div class="text-4xl md:text-5xl lg:text-6xl">
+          <h1 class="scroll-m-16">{t('portfolio.title')}</h1>
+        </div>
 
-      <div class="flex flex-col gap-4 md:hidden items-center">
-        {[...projectsCol1, ...projectsCol2, ...projectsCol3].map((project, index) => (
-          <div data-aos="fade-up" data-aos-delay={100 * (index % 3 + 3)}>
-            <Project
-              key={index}
-              title={project.data.title}
-              description={project.data.description}
-              date={project.data.created_at}
-              cover={project.data.cover}
-              id={project.data.translation_id || project.id}
-            />
+        <div class="flex flex-col gap-4 md:hidden items-center">
+          {[...projectsCol1, ...projectsCol2, ...projectsCol3].map((project, index) => (
+            <div data-aos="fade-up" data-aos-delay={100 * (index % 3 + 3)}>
+              <Project
+                key={index}
+                title={project.data.title}
+                description={project.data.description}
+                date={project.data.created_at}
+                cover={project.data.cover}
+                id={project.data.translation_id || project.id}
+              />
+            </div>
+          ))}
+        </div>
+
+        <div class="hidden md:flex md:flex-row gap-2 justify-around *:flex *:flex-col *:gap-2">
+          <div data-aos="fade-up" data-aos-delay="300">
+            {projectsCol1.map((project, index) => (
+              <Project
+                key={index}
+                title={project.data.title}
+                description={project.data.description}
+                date={project.data.created_at}
+                cover={project.data.cover}
+                id={project.data.translation_id || project.id}
+              />
+            ))}
           </div>
-        ))}
-      </div>
+          <div data-aos="fade-up" data-aos-delay="400">
+            {projectsCol2.map((project, index) => (
+              <Project
+                key={index}
+                title={project.data.title}
+                description={project.data.description}
+                date={project.data.created_at}
+                cover={project.data.cover}
+                id={project.data.translation_id || project.id}
+              />
+            ))}
+          </div>
+          <div data-aos="fade-up" data-aos-delay="500">
+            {projectsCol3.map((project, index) => (
+              <Project
+                key={index}
+                title={project.data.title}
+                description={project.data.description}
+                date={project.data.created_at}
+                cover={project.data.cover}
+                id={project.data.translation_id || project.id}
+              />
+            ))}
+          </div>
+        </div>
+      </div>)}
 
-      <div class="hidden md:flex md:flex-row gap-2 justify-around *:flex *:flex-col *:gap-2">
-        <div data-aos="fade-up" data-aos-delay="300">
-          {projectsCol1.map((project, index) => (
-            <Project
-              key={index}
-              title={project.data.title}
-              description={project.data.description}
-              date={project.data.created_at}
-              cover={project.data.cover}
-              id={project.data.translation_id || project.id}
-            />
-          ))}
-        </div>
-        <div data-aos="fade-up" data-aos-delay="400">
-          {projectsCol2.map((project, index) => (
-            <Project
-              key={index}
-              title={project.data.title}
-              description={project.data.description}
-              date={project.data.created_at}
-              cover={project.data.cover}
-              id={project.data.translation_id || project.id}
-            />
-          ))}
-        </div>
-        <div data-aos="fade-up" data-aos-delay="500">
-          {projectsCol3.map((project, index) => (
-            <Project
-              key={index}
-              title={project.data.title}
-              description={project.data.description}
-              date={project.data.created_at}
-              cover={project.data.cover}
-              id={project.data.translation_id || project.id}
-            />
-          ))}
-        </div>
-      </div>
+    <!-- Timeline -->
+    <div
+      data-aos="fade-up"
+      data-aos-duration="1024"
+      id="timeline_wrapper"
+    >
     </div>
+    <script is:inline type="module">
+      const wrapper = document.getElementById('timeline_wrapper');
+      const originalPath = window.location.pathname;
+      const blogPath = originalPath + 'blog';
+
+      // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+      const pushStateOnce = (path) => {
+        if (window.location.pathname !== path) {
+          history.pushState({}, '', path);
+        }
+      };
+
+      window.addEventListener('popstate', () => {
+        if (window.location.pathname === originalPath) {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else if (window.location.pathname === blogPath) {
+          wrapper.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+
+      const observer = new IntersectionObserver(async ([entry]) => {
+        if (entry.isIntersecting) {
+          wrapper.innerHTML = await fetch('blog/partial/timeline')
+            .then(res => res.text());
+
+          wrapper.classList.remove('opacity-0');
+          wrapper.classList.remove('translate-y-12');
+          pushStateOnce(blogPath);
+          observer.disconnect();
+
+          // 可见性 observer，监听滑出时路由回退
+          const visibilityObserver = new IntersectionObserver(([entry]) => {
+            if (entry.isIntersecting) {
+              pushStateOnce(blogPath);
+            } else {
+              pushStateOnce(originalPath);
+            }
+          }, { threshold: 0.1 });
+
+          visibilityObserver.observe(wrapper);
+        }
+      }, { threshold: 0.3 });
+
+      observer.observe(wrapper);
+    </script>
+
 </Base>
 
 <script>
