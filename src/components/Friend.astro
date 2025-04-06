@@ -7,8 +7,7 @@ const { name, description, avatar, url, className } = Astro.props;
 
 let p;
 try {
-  // 必须先用 sharp  将图片转换为 png 格式，否则 vibrant 无法处理 webp
-  const response = await fetch(new URL(avatar, import.meta.env.PUBLIC_BASE_URL).toString());
+  const response = await fetch(avatar);
 
   const arrayBuffer = await response.arrayBuffer();
   const buffer = Buffer.from(arrayBuffer);

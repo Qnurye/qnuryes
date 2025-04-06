@@ -7,6 +7,7 @@ translation_id: tomb
 original_locale: zh-cn
 locale: zh-cn
 cover: /assets/youth.png
+cover_credit: Paolo Sorrentino
 description: "**年轻气盛**时，一切看上都很近，那是未来；年迈力衰时，一切看起来都很远，那是过去。"
 ---
 

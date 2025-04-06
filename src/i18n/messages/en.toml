@@ -38,12 +38,16 @@ page_keywords = "about, personal website, blog, friends, portfolio, technology, 
 title = "About"
 introduction = "Introduction"
 introduction_text = "Person / Student / Enthusiast, slightly obsessive-compulsive."
-unemployed = "Unemployed"
-unemployed_text = "I am looking for an internship opportunity."
+unemployed = "Open To Work"
+unemployed_text = "I am looking for an internship opportunity. If you are interested, please contact me."
 interests = "Interests"
 interests_text = """
-Hobbies include cinema, music, reading. My favorite bands are Omnipotent Youth Society, King Crimson,
-Pink Floyd, and Camel. Occasionally, I also listen to impressionist classical music.
+Hobbies include cinema, music, reading. My favorite bands are
+[Omnipotent Youth Society](https://open.spotify.com/artist/4ntvojSPscU3PxselAEeY2),
+[King Crimson](https://open.spotify.com/artist/7M1FPw29m5FbicYzS2xdpi),
+[Pink Floyd](https://open.spotify.com/artist/0k17h0D3J5VfsdmQ1iZtE9),
+and [Camel](https://open.spotify.com/artist/3Uz6jx81OY2J5K8Z4wmy2P). Occasionally, I also listen to impressionist
+classical music.
 """
 contact = "Contact"
 
@@ -128,11 +132,13 @@ content = "You can also contact me directly at [contact@qnury.es](mailto:contact
 [links.application.update]
 title = "Do I need to update later?"
 content = "In the extremely unlikely event that this site may add support for other languages in the future. If this happens, I will use AI to translate the new version of the description based on the English description and will notify you via GitHub or email."
+
 [posts]
 title = "Timeline"
 page_title = "Qnury.e's | Timeline"
 page_description = "Posts published on Qnurye's personal website, where you can find his latest updates, thoughts, and projects!"
 page_keywords = "personal website, blog, friends, portfolio, technology, programming, computer, frontend, backend, projects"
+cover_by = "Cover by"
 
 [tags]
 title = "Tags"

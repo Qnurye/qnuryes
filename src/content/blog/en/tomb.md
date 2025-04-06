@@ -7,6 +7,7 @@ translation_id: tomb
 original_locale: zh-cn
 locale: en
 cover: /assets/youth.png
+cover_credit: "Paolo Sorrentino"
 description: "**In youth,** everything seems so close—that is the future. In old age, everything seems so distant—that is the past."
 ---
 

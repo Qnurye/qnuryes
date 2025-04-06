@@ -5,7 +5,7 @@ import Section from '@/components/Comment/Section';
 import { type GetStaticPathsResult } from 'astro';
 import type { CollectionEntry } from 'astro:content';
 import { formatDate } from '@/lib/utils';
-import { CopyrightIcon } from 'lucide-react';
+import { AtSignIcon, CopyrightIcon } from 'lucide-react';
 import { Image } from 'astro:assets';
 import { Markdown } from 'astro-remote';
 import {
@@ -33,24 +33,40 @@ const formattedDate = formatDate(page.data.created_at.toLocaleString(), locale);
 const { Content } = await render(page);
 ---
 
-<div class="absolute left-0 top-0 ">
-  <Image
-    id="cover"
-    src={page.data.cover}
-    alt=""
-    height={1080}
-    width={1920}
-    class="h-screen w-screen -z-10 object-cover"
-    loading="eager"
-  />
-</div>
-
 <Base
   title={`Qnury.e's | ${page.data.title}`}
   description={page.data.description}
   keywords={`${page.data.title}, ${page.data.tags.join(',')}`}
   className="mt-[100vh]"
 >
+  <div class="absolute left-0 top-0 ">
+    <Image
+      id="cover"
+      src={page.data.cover}
+      alt=""
+      height={1080}
+      width={1920}
+      class="h-screen w-screen -z-10 object-cover"
+      loading="eager"
+    />
+    {page.data.cover_credit
+      && (
+        <p
+          class={'bg-contrast  text-contrast-foreground p-8 w-full transition-colors duration-1000 flex'
+            + ' items-center gap-1'}
+        >
+          <span>{t('posts.cover_by')}</span>
+          {page.data.cover_credit.includes('@')
+            ? (
+              <AtSignIcon className="size-4 inline" />
+              <a href={page.data.cover_credit}>
+                {page.data.cover_credit.split('@')[1]}
+              </a>
+            )
+            : page.data.cover_credit}
+        </p>
+      )}
+  </div>
   <article class="max-w-3xl mx-auto px-4 py-8">
     <header
       id="header"

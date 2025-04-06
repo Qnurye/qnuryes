@@ -127,11 +127,13 @@ content = "你也可以直接聯繫我 [contact@qnury.es](mailto:contact@qnury.e
 [links.application.update]
 title = "後續是否需要更新？"
 content = "在極小概率的情況下，本站可能會在未來添加其他語言支持。如果這樣的情況發生，我會使用 AI 基於英文簡介翻譯得新版本簡介，並會通過 GitHub 或郵件向你告知。"
+
 [posts]
 title = "時間線"
 page_title = "Qnury.e's | 時間線"
 page_description = "Qnurye 個人網站上發表的文章，你在這裡可以找到他的最新動態、想法、項目！"
 keywords = "個人網站, 部落格, 友鏈, 作品集, 技術, 編程, 計算機, 前端, 後端, 友情鏈接, 項目"
+cover_by = "封面圖片來源"
 
 [tags]
 title = "標籤"

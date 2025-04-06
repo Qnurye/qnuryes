@@ -3,6 +3,7 @@ import { getRelativeLocaleUrl } from 'astro:i18n';
 import { cn } from '@/lib/utils';
 import { Markdown } from 'astro-remote';
 import { Vibrant } from 'node-vibrant/node';
+import sharp from 'sharp';
 
 const { title, description, date, cover, id, className } = Astro.props;
 
@@ -12,7 +13,25 @@ const formattedDate = new Intl.DateTimeFormat(Astro.currentLocale, {
   day: 'numeric',
 }).format(date);
 
-const p = (await Vibrant.from(new URL(cover, import.meta.env.PUBLIC_BASE_URL).toString()).getPalette());
+let p;
+try {
+  // FIXME)) We need to deploy the site twice to get it correct
+  const response = await fetch(new URL(cover, import.meta.env.PUBLIC_BASE_URL));
+
+  const arrayBuffer = await response.arrayBuffer();
+  const buffer = Buffer.from(arrayBuffer);
+
+  p = await Vibrant.from(await sharp(buffer).toFormat('png').toBuffer()).getPalette();
+} catch (e) {
+  console.warn('Error fetching vibrant palette:', e);
+  p = {
+    Vibrant: {
+      hex: 'var(--color-foreground)',
+      bodyTextColor: 'var(--color-background)',
+    },
+  };
+}
+
 const color = p.Vibrant?.hex || 'var(--color-foreground)';
 const foregroundColor = p.Vibrant?.bodyTextColor || 'var(--color-background)';
 ---

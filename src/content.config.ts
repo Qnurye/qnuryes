@@ -16,6 +16,7 @@ export const blog = defineCollection({
 
     cover: z.string().default(''),
     description: z.string().default(''),
+    cover_credit: z.string().optional(),
   }),
 })
 

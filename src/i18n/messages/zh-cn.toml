@@ -42,7 +42,12 @@ unemployed = "待业"
 unemployed_text = "我正在寻找实习机会。"
 interests = "兴趣"
 interests_text = """
-爱好观影、音乐、读书，最喜欢的乐队是万能青年旅店、King Crimson 和 Pink Floyd 还有 Camel，偶尔也会听印象主义古典乐。
+我的兴趣是传统的书影音三件套。我最喜欢的乐队有
+[万能青年旅店](https://open.spotify.com/artist/4ntvojSPscU3PxselAEeY2)、
+[King Crimson](https://open.spotify.com/artist/7M1FPw29m5FbicYzS2xdpi)、
+[Pink Floyd](https://open.spotify.com/artist/0k17h0D3J5VfsdmQ1iZtE9)、
+和 [Camel](https://open.spotify.com/artist/3Uz6jx81OY2J5K8Z4wmy2P)。偶尔，我也会听印象派
+古典音乐。
 """
 contact = "联系"
 
@@ -134,6 +139,7 @@ title = "时间线"
 page_title = "Qnury.e's | 时间线"
 page_description = "Qnurye 个人网站上发表的文章，你在这里可以找到他的最新动态、想法、项目！"
 page_keywords = "个人网站, 博客, 友链, 作品集, 技术, 编程, 计算机, 前端, 后端, 友情链接, 项目"
+cover_by = "封面图片来自"
 
 [tags]
 title = "标签"
