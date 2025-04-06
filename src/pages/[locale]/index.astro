@@ -2,30 +2,34 @@
 import Base from '@/layouts/Base.astro';
 export { getI18nPaths as getStaticPaths } from '@/i18n';
 import { ChevronDownIcon } from 'lucide-react';
+import TechStack from '@/components/TechStack';
 import { Markdown } from 'astro-remote';
+import {
+  SiGmail,
+  SiGithub,
+  SiAstro,
+  SiNextdotjs,
+  SiSpring,
+  SiLaravel,
+  SiFastapi,
+  SiWechat,
+  SiMaterialdesign,
+  SiLatex,
+  SiGin,
+  SiVuedotjs,
+  SiFigma,
+  SiFlutter,
+  SiBun,
+  SiCloudflare,
+  SiNestjs,
+  SiHono,
+  SiRust,
+} from '@icons-pack/react-simple-icons';
 
-import Gmail from 'simple-icons-astro/Gmail';
-import Github from 'simple-icons-astro/Github';
-import Project from '@/components/Project.astro';
-
-import AstroIcon from 'simple-icons-astro/Astro';
-import NextjsIcon from 'simple-icons-astro/Nextdotjs';
-import SpringIcon from 'simple-icons-astro/Spring';
-import LaravelIcon from 'simple-icons-astro/Laravel';
-import VueIcon from 'simple-icons-astro/Vuedotjs';
-import FastapiIcon from 'simple-icons-astro/Fastapi';
-import FigmaIcon from 'simple-icons-astro/Figma';
-import WechatIcon from 'simple-icons-astro/Wechat';
-import GinIcon from 'simple-icons-astro/Gin';
-import CodeigniterIcon from 'simple-icons-astro/Codeigniter';
-import LatexIcon from 'simple-icons-astro/Latex';
-import GraphqlIcon from 'simple-icons-astro/Graphql';
-import FlutterIcon from 'simple-icons-astro/Flutter';
-import CmakeIcon from 'simple-icons-astro/Cmake';
-import MaterialdesignIcon from 'simple-icons-astro/Materialdesign';
 import { loadTranslations } from '@/i18n';
 import 'aos/dist/aos.css';
 import { type CollectionEntry, getCollection } from 'astro:content';
+import Project from '@/components/Project.astro';
 
 const t = await loadTranslations(Astro.currentLocale);
 const projectsPage = await getCollection('blog', (
@@ -124,10 +128,10 @@ if (projectsPage.length > 0) {
             <h2 class="font-serif text-2xl md:text-3xl">{t('about.contact')}</h2>
             <div class="flex flex-row gap-4">
               <a href="mailto:contact@qnury.es">
-                <Gmail />
+                <SiGmail color="default" title="contact@qnury.es" />
               </a>
               <a href="https://github.com/Qnurye">
-                <Github />
+                <SiGithub color="default" title="Qnurye" />
               </a>
             </div>
           </div>
@@ -140,7 +144,7 @@ if (projectsPage.length > 0) {
               class="font-serif text-2xl md:text-3xl"
               data-aos="fade-left"
               data-aos-delay="216"
-            >{t('about.tech_stack')}
+            >{t('about.tech_stack.title')}
             </h1>
             <div
               class="*:flex *:flex-col *:items-end *:lg:items-start *:gap-2 flex flex-col gap-4"
@@ -149,39 +153,162 @@ if (projectsPage.length > 0) {
                 data-aos="fade-left"
                 data-aos-delay="232"
               >
-                <h2>{t('about.tech_stack_proficient')}</h2>
+                <h2>{t('about.tech_stack.proficient')}</h2>
+
                 <div class="flex flex-wrap gap-4 justify-end lg:justify-start">
-                  <AstroIcon />
-                  <NextjsIcon />
-                  <SpringIcon />
-                  <LaravelIcon />
-                  <FastapiIcon />
-                  <WechatIcon title="微信小程序" fill="currentColor" />
-                  <MaterialdesignIcon />
+                  <TechStack
+                    title={t('about.tech_stack.astro_title')}
+                    description={t('about.tech_stack.astro_description')}
+                    url="https://astro.build/"
+                    client:load
+                  >
+                    <SiAstro color="default" />
+                  </TechStack>
+                  <TechStack
+                    title={t('about.tech_stack.nextjs_title')}
+                    description={t('about.tech_stack.nextjs_description')}
+                    url="https://nextjs.org/"
+                    client:load
+                  >
+                    <SiNextdotjs color="default" />
+                  </TechStack>
+                  <TechStack
+                    title={t('about.tech_stack.spring_title')}
+                    description={t('about.tech_stack.spring_description')}
+                    url="https://spring.io/projects/spring-boot"
+                    client:load
+                  >
+                    <SiSpring color="default" />
+                  </TechStack>
+                  <TechStack
+                    title={t('about.tech_stack.laravel_title')}
+                    description={t('about.tech_stack.laravel_description')}
+                    url="https://laravel.com/"
+                    client:load
+                  >
+                    <SiLaravel color="default" />
+                  </TechStack>
+                  <TechStack
+                    title={t('about.tech_stack.wechat_title')}
+                    description={t('about.tech_stack.wechat_description')}
+                    url="https://developers.weixin.qq.com/miniprogram/en/dev/"
+                    client:load
+                  >
+                    <SiWechat color="default" />
+                  </TechStack>
                 </div>
+
               </div>
               <div
                 data-aos="fade-left"
                 data-aos-delay="264"
               >
-                <h2>{t('about.tech_stack_familiar')}</h2>
+                <h2>{t('about.tech_stack.familiar')}</h2>
                 <div class="flex flex-wrap gap-4 justify-end lg:justify-start">
-                  <LatexIcon />
-                  <GinIcon />
-                  <CodeigniterIcon />
-                  <VueIcon />
-                  <FigmaIcon />
+                  <TechStack
+                    title={t('about.tech_stack.vuejs_title')}
+                    description={t('about.tech_stack.vuejs_description')}
+                    url="https://vuejs.org/"
+                    client:load
+                  >
+                    <SiVuedotjs color="default" />
+                  </TechStack>
+                  <TechStack
+                    title={t('about.tech_stack.cloudflare_title')}
+                    description={t('about.tech_stack.cloudflare_description')}
+                    url="https://www.cloudflare.com/"
+                    client:load
+                  >
+                    <SiCloudflare color="default" />
+                  </TechStack>
+                  <TechStack
+                    title={t('about.tech_stack.gin_title')}
+                    description={t('about.tech_stack.gin_description')}
+                    url="https://gin-gonic.com/"
+                    client:load
+                  >
+                    <SiGin color="default" />
+                  </TechStack>
+                  <TechStack
+                    title={t('about.tech_stack.materialdesign_title')}
+                    description={t('about.tech_stack.materialdesign_description')}
+                    url="https://material.io/"
+                    client:load
+                  >
+                    <SiMaterialdesign color="default" />
+                  </TechStack>
+                  <TechStack
+                    title={t('about.tech_stack.figma_title')}
+                    description={t('about.tech_stack.figma_description')}
+                    url="https://www.figma.com/"
+                    client:load
+                  >
+                    <SiFigma color="default" />
+                  </TechStack>
+                  <TechStack
+                    title={t('about.tech_stack.fastapi_title')}
+                    description={t('about.tech_stack.fastapi_description')}
+                    url="https://fastapi.tiangolo.com/"
+                    client:load
+                  >
+                    <SiFastapi color="default" />
+                  </TechStack>
+                  <TechStack
+                    title={t('about.tech_stack.nestjs_title')}
+                    description={t('about.tech_stack.nestjs_description')}
+                    url="https://nestjs.com/"
+                    client:load
+                  >
+                    <SiNestjs color="default" />
+                  </TechStack>
+                  <TechStack
+                    title={t('about.tech_stack.latex_title')}
+                    description={t('about.tech_stack.latex_description')}
+                    url="https://www.latex-project.org/"
+                    client:load
+                  >
+                    <SiLatex color="default" />
+                  </TechStack>
                 </div>
               </div>
               <div
                 data-aos="fade-left"
                 data-aos-delay="328"
               >
-                <h2>{t('about.tech_stack_beginner')}</h2>
+                <h2>{t('about.tech_stack.beginner')}</h2>
                 <div class="flex flex-wrap gap-4 justify-end lg:justify-start">
-                  <GraphqlIcon />
-                  <FlutterIcon />
-                  <CmakeIcon />
+                  <TechStack
+                    title={t('about.tech_stack.flutter_title')}
+                    description={t('about.tech_stack.flutter_description')}
+                    url="https://flutter.dev/"
+                    client:load
+                  >
+                    <SiFlutter color="default" />
+                  </TechStack>
+                  <TechStack
+                    title={t('about.tech_stack.bun_title')}
+                    description={t('about.tech_stack.bun_description')}
+                    url="https://bun.sh/"
+                    client:load
+                  >
+                    <SiBun color="default" />
+                  </TechStack>
+                  <TechStack
+                    title={t('about.tech_stack.hono_title')}
+                    description={t('about.tech_stack.hono_description')}
+                    url="https://hono.dev/"
+                    client:load
+                  >
+                    <SiHono color="default" />
+                  </TechStack>
+                  <TechStack
+                    title={t('about.tech_stack.actixweb_title')}
+                    description={t('about.tech_stack.actixweb_description')}
+                    url="https://actix.rs/"
+                    client:load
+                  >
+                    <SiRust color="default" />
+                  </TechStack>
                 </div>
               </div>
             </div>
