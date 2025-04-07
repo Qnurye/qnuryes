@@ -56,14 +56,13 @@ export default defineConfig({
     locales: ['en', 'zh-cn', 'zh-tw'],
     defaultLocale: 'en',
     routing: {
-      fallbackType: 'redirect',
-      prefixDefaultLocale: true,
+      fallbackType: 'rewrite',
       redirectToDefaultLocale: true,
     },
-    fallback: {
-      'zh-tw': 'zh-cn',
-      'zh-cn': 'en',
-    },
+    // fallback: {
+    //   'zh-tw': 'zh-cn',
+    //   'zh-cn': 'en',
+    // },
   },
   markdown: {
     shikiConfig: {

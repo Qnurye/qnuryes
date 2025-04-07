@@ -1,0 +1,13 @@
+---
+import { getCollection } from 'astro:content';
+import { type GetStaticPathsResult } from 'astro';
+
+export async function getStaticPaths(): Promise<GetStaticPathsResult> {
+  const pages = await getCollection('blog');
+
+  return pages.map(page => ({
+    params: { slug: page.data.translation_id },
+    props: { page },
+  }));
+}
+---

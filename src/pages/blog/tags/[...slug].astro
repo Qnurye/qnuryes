@@ -1,0 +1,23 @@
+---
+import { getCollection } from 'astro:content';
+import { type GetStaticPathsResult } from 'astro';
+export async function getStaticPaths(): Promise<GetStaticPathsResult> {
+  const tags = (await getCollection('blog'))
+    .reduce((acc, page) => {
+      page.data.tags.forEach((tag) => {
+        acc = acc || [];
+        acc.unshift(tag);
+      });
+      return acc;
+    }, [] as string[]);
+
+  return tags.map(tag => ({
+    params: {
+      slug: tag,
+    },
+    props: {
+      tag: tag,
+    },
+  }));
+}
+---

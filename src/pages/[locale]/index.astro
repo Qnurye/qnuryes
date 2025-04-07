@@ -394,7 +394,7 @@ if (projectsPage.length > 0) {
     <script is:inline type="module">
       const wrapper = document.getElementById('timeline_wrapper');
       const originalPath = window.location.pathname;
-      const blogPath = originalPath + 'blog';
+      const blogPath = originalPath.endsWith('/') ? originalPath + 'blog' : originalPath + '/blog';
 
       // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
       const pushStateOnce = (path) => {
