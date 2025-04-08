@@ -48,7 +48,7 @@ const Section: React.FC<CommentSectionProps> = ({ postId, locale }) => {
   return isLoading
     ? (
       <section className="mt-8">
-        <div className="flex justify-center items-center animate-spin text-gray-400">
+        <div className="flex justify-center items-center animate-spin text-ring">
           <Loader2Icon />
         </div>
       </section>

@@ -11,7 +11,5 @@ export const onRequest = defineMiddleware(async (context, next) => {
   const pathname = url.pathname;
   if (!pathname.match(matcher)) { return next(); }
   if (hasLocale.test(pathname)) { return next() }
-
-  console.log(`${pathname} -> /${defaultLocale}${pathname}`);
   return context.rewrite(new URL(`/${defaultLocale}${pathname}`, context.request.url));
 });

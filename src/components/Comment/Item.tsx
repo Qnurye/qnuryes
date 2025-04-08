@@ -22,14 +22,14 @@ const CommentItem: React.FC<CommentItemProps> = ({ comment, locale, onReply, onL
           <span className="font-serif">{comment.author_name}</span>
           {comment.author_email && (
             <a
-              className="text-sm font-mono font-light text-gray-600 ml-2"
+              className="text-sm font-mono font-light text-primary ml-2"
               href={`mailto:${comment.author_email}}`}
             >
               {comment.author_email}
             </a>
           )}
         </div>
-        <div className="text-gray-600 text-sm">
+        <div className="text-primary text-sm">
           {comment.country_code && (
             <span className="mr-2 font-mono">{comment.country_code}</span>
           )}
@@ -37,22 +37,14 @@ const CommentItem: React.FC<CommentItemProps> = ({ comment, locale, onReply, onL
         </div>
       </div>
 
-      <div className="mb-2 leading-relaxed">
+      <div className="pl-2 mb-2 leading-relaxed">
         <Markdown>{comment.content}</Markdown>
       </div>
 
       <div className="flex items-center">
         <Button
           variant="ghost"
-          className="text-gray-600 text-sm"
-          onClick={() => onReply(comment)}
-        >
-          <ReplyIcon size={14} />
-          {t('comment.reply')}
-        </Button>
-        <Button
-          variant="ghost"
-          className="ml-auto text-gray-600 text-sm"
+          className="text-sm"
           tabIndex={0}
           onClick={() => onLike(comment.id)}
           onKeyDown={(e) => {
@@ -64,10 +56,18 @@ const CommentItem: React.FC<CommentItemProps> = ({ comment, locale, onReply, onL
           {comment.likes}
           <ThumbsUpIcon size={14} />
         </Button>
+        <Button
+          variant="ghost"
+          className="text-sm"
+          onClick={() => onReply(comment)}
+        >
+          <ReplyIcon size={14} />
+          {t('comment.reply')}
+        </Button>
       </div>
 
       {comment.replies && comment.replies.length > 0 && (
-        <div className="ml-2 pl-4 border-l-2 border-gray-200 pt-2 mt-2">
+        <div className="ml-2 pl-4 border-l-2 border-sidebar-border pt-2 mt-2">
           {comment.replies.map(reply => (
             <CommentItem
               key={reply.id}

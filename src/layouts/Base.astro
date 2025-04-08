@@ -73,7 +73,7 @@ const pageKeywords = (keywords || '').split(',').map((keyword: string) => keywor
     <GoogleAnalytics />
 
   </head>
-  <body class="px-1 sm:px-2 md:px-4 lg:px-8">
+  <body class="px-1 sm:px-2 md:px-4 lg:px-8 size-full">
     <Nav />
     <main class={cn(className, 'min-h-screen scroll-smooth max-w-full px-4 sm:px-6 md:px-12 lg:px-24')}>
       <slot />
@@ -81,3 +81,23 @@ const pageKeywords = (keywords || '').split(',').map((keyword: string) => keywor
     <Footer />
   </body>
 </html>
+
+<script is:inline>
+  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+  const getThemePreference = () => {
+    if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+      return localStorage.getItem('theme');
+    }
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  };
+  const isDark = getThemePreference() === 'dark';
+  document.documentElement.classList[isDark ? 'add' : 'remove']('dark');
+
+  if (typeof localStorage !== 'undefined') {
+    const observer = new MutationObserver(() => {
+      const isDark = document.documentElement.classList.contains('dark');
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    });
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+  }
+</script>

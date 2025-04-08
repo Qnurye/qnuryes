@@ -15,6 +15,13 @@ select = "Select language"
 search = "Search language..."
 not_found = "I don't speak this language"
 
+[nav.appearance]
+label = "Appearance"
+light = "Light"
+dark = "Dark"
+system = "System"
+toggle = "Toggle appearance"
+
 [footer]
 subscribe_newsletter = "subscribe newsletter"
 rss = "RSS"

@@ -5,6 +5,7 @@ import { loadTranslations } from '@/i18n';
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import { Button } from './ui/button';
 import { MenuIcon, X } from 'lucide-react';
+import { ColorModeToggle } from './ColorModeToggle';
 
 const t = await loadTranslations(Astro.currentLocale);
 const locales = Astro.props.locales || ['en', 'zh-cn', 'zh-tw'];
@@ -20,18 +21,28 @@ const locales = Astro.props.locales || ['en', 'zh-cn', 'zh-tw'];
       <MenuIcon />
     </Button>
 
-    <nav class="hidden lg:flex space-x-4 items-center">
+    <nav class="lg:flex flex flex-row gap-4 items-center">
       <a href={`/${Astro.currentLocale}#about`}>{t('nav.about')}</a>
       <a href={`/${Astro.currentLocale}#portfolio`}>{t('nav.portfolio')}</a>
       <a href={getRelativeLocaleUrl(Astro.currentLocale || 'en', 'blog')}>{t('nav.blog')}</a>
       <a href={getRelativeLocaleUrl(Astro.currentLocale || 'en', 'links')}>{t('nav.links')}</a>
+      <ColorModeToggle
+        t={{
+          label: t('nav.appearance.label'),
+          light: t('nav.appearance.light'),
+          dark: t('nav.appearance.dark'),
+          system: t('nav.appearance.system'),
+          toggle: t('nav.appearance.toggle'),
+        }}
+        client:load
+      />
       <LanguageSwitcher locales={locales} currentLocale={Astro.currentLocale || 'en'} client:load />
     </nav>
   </div>
 
   <div
     id="mobile-menu"
-    class={'fixed top-0 right-0 w-full h-full bg-white flex flex-col items-center justify-center space-y-6'
+    class={'fixed top-0 right-0 w-full h-full bg-background flex flex-col items-center justify-center gap-y-6'
       + ' transform translate-x-full transition-transform duration-300 lg:hidden shadow-lg'}
   >
     <Button
@@ -62,6 +73,16 @@ const locales = Astro.props.locales || ['en', 'zh-cn', 'zh-tw'];
       class="text-xl"
     >{t('nav.links')}
     </a>
+    <ColorModeToggle
+      t={{
+        label: t('nav.appearance.label'),
+        light: t('nav.appearance.light'),
+        dark: t('nav.appearance.dark'),
+        system: t('nav.appearance.system'),
+        toggle: t('nav.appearance.toggle'),
+      }}
+      client:load
+    />
     <LanguageSwitcher locales={locales} currentLocale={Astro.currentLocale || 'en'} client:load />
   </div>
 </header>

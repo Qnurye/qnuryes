@@ -3,6 +3,8 @@ import type { Comment, ErrorResponse } from '@/types';
 import { useTranslations } from '@/hooks/useTranslations.ts';
 import { Button } from '@/components/ui/button.tsx';
 
+// TODO)) Implement shadcn form
+
 interface CommentFormData {
   post_id: string
   parent_id?: number
@@ -34,14 +36,14 @@ const CommentForm: React.FC<CommentFormProps> = ({
   };
 
   return (
-    <form id="comment-form" className="mb-8 p-6 bg-gray-50 rounded-lg flex flex-col" onSubmit={onSubmit}>
+    <form id="comment-form" className="mb-8 p-6 bg-secondary rounded-lg flex flex-col" onSubmit={onSubmit}>
       {replyTo && (
-        <div className="bg-gray-100 p-3 mb-4 rounded-md flex justify-between items-center">
+        <div className="bg-card p-3 mb-4 rounded-md flex justify-between items-center">
           <span className="inline-flex items-baseline gap-1 flex-grow min-w-0">
             <span className="flex-shrink-0">{t('comment.reply_to')}</span>
             <span className="font-serif font-bold flex-shrink-0">{replyTo.author_name}:</span>
             <span className={'font-sans overflow-hidden text-ellipsis whitespace-nowrap min-w-0 max-w-full'
-              + ' bg-gray-200 px-2 py-1 rounded'}
+              + ' bg-input px-2 py-1 rounded'}
             >
               {replyTo.content.replace(/[#*~_`]/g, '')} {/* Remove Markdown syntax */}
             </span>
@@ -63,7 +65,7 @@ const CommentForm: React.FC<CommentFormProps> = ({
           onChange={onInputChange}
           placeholder={t('comment.name')}
           required
-          className="w-full p-3 border border-gray-300 rounded-md text-base"
+          className="w-full p-3 border border-input dark:bg-input rounded-md text-base"
         />
       </div>
 
@@ -74,7 +76,7 @@ const CommentForm: React.FC<CommentFormProps> = ({
           value={safeFormData.author_email}
           onChange={onInputChange}
           placeholder={t('comment.email')}
-          className="w-full p-3 border border-gray-300 rounded-md text-base"
+          className="w-full p-3 border border-input dark:bg-input rounded-md text-base"
         />
       </div>
 
@@ -86,7 +88,7 @@ const CommentForm: React.FC<CommentFormProps> = ({
           placeholder={t('comment.content')}
           required
           rows={4}
-          className="w-full p-3 border border-gray-300 rounded-md text-base resize-y min-h-[100px]"
+          className="w-full p-3 border border-input dark:bg-input rounded-md text-base resize-y min-h-[100px]"
         />
       </div>
 
@@ -100,7 +102,7 @@ const CommentForm: React.FC<CommentFormProps> = ({
           : t('comment.submit')}
       </Button>
 
-      {error && <div className="text-red-600 mt-4">{error.details || t('comment.error')}</div>}
+      {error && <div className="text-destructive mt-4">{error.details || t('comment.error')}</div>}
     </form>
   );
 };

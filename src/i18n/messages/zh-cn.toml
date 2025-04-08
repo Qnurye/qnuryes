@@ -15,6 +15,13 @@ select = "选择语言"
 search = "搜索语言..."
 not_found = "我不会说这门语言"
 
+[nav.appearance]
+label = "显示模式"
+light = "亮色"
+dark = "暗色"
+system = "跟随系统"
+toggle = "切换外观"
+
 [footer]
 subscribe_newsletter = "订阅邮件"
 rss = "RSS"

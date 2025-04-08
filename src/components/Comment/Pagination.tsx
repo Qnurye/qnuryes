@@ -26,7 +26,7 @@ const Pagination: React.FC<PaginationProps> = ({ page, totalPages, loading, loca
         {t('comment.previous')}
       </Button>
 
-      <span className="text-gray-600 text-sm">
+      <span className="text-sm">
         {t('comment.pages', { current: page, total: totalPages })}
       </span>
 
