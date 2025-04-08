@@ -21,7 +21,7 @@ const locales = Astro.props.locales || ['en', 'zh-cn', 'zh-tw'];
       <MenuIcon />
     </Button>
 
-    <nav class="lg:flex flex flex-row gap-4 items-center">
+    <nav class="lg:flex hidden flex-row gap-4 items-center">
       <a href={`/${Astro.currentLocale}#about`}>{t('nav.about')}</a>
       <a href={`/${Astro.currentLocale}#portfolio`}>{t('nav.portfolio')}</a>
       <a href={getRelativeLocaleUrl(Astro.currentLocale || 'en', 'blog')}>{t('nav.blog')}</a>
