@@ -11,6 +11,8 @@ import { loadEnv } from 'vite';
 
 import partytown from '@astrojs/partytown';
 
+import umami from '@yeskunall/astro-umami';
+
 const { PUBLIC_SENTRY_DSN, SENTRY_AUTH_TOKEN, PUBLIC_BASE_URL } = loadEnv(
   process.env.NODE_ENV, process.cwd(), '',
 );
@@ -51,6 +53,8 @@ export default defineConfig({
     config: {
       forward: ['dataLayer.push', 'gtag'],
     },
+  }), umami({
+    id: '0f9ad313-d104-4f58-8478-b793118af4a4',
   })],
   i18n: {
     locales: ['en', 'zh-cn', 'zh-tw'],
@@ -59,10 +63,9 @@ export default defineConfig({
       fallbackType: 'rewrite',
       redirectToDefaultLocale: true,
     },
-    // fallback: {
-    //   'zh-tw': 'zh-cn',
-    //   'zh-cn': 'en',
-    // },
+    fallback: {
+      'zh-tw': 'zh-cn',
+    },
   },
   markdown: {
     shikiConfig: {
