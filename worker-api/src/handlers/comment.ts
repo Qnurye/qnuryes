@@ -16,7 +16,6 @@ export class CommentHandler extends BaseHandler {
 
     const page = parseInt(c.req.query('page') || '1');
     const pageSize = parseInt(c.req.query('limit') || '20');
-
     if (page < 1) {
       return c.json({ code: ErrorCode.INVALID_PAGE_NUMBER }, 400);
     }
@@ -37,35 +36,41 @@ export class CommentHandler extends BaseHandler {
       const totalItems = countResult?.total || 0;
       const totalPages = Math.ceil(totalItems / pageSize);
 
-      // Get top-level comments
       const comments = await this.db.prepare(
-        `SELECT *
-         FROM comments
-         WHERE post_id = ?
-           AND parent_id IS NULL
-           AND status = ?
-         ORDER BY created_at DESC
+        `SELECT c.*,
+                (SELECT COUNT(*) FROM comments r WHERE r.parent_id = c.id AND r.status = ?) as replyCount
+         FROM comments c
+         WHERE c.post_id = ?
+           AND c.parent_id IS NULL
+           AND c.status = ?
+         ORDER BY c.created_at DESC
          LIMIT ? OFFSET ?`,
       )
-        .bind(postId, 'approved', pageSize, offset)
-        .all<Comment>();
+        .bind('approved', postId, 'approved', pageSize, offset)
+        .all<Comment & { replyCount: number }>();
 
-      // Get replies for each comment
+      // Immediate replies for each comment
       const commentsWithReplies = await Promise.all(
         comments.results.map(async (comment) => {
+          const { replyCount, ...commentData } = comment;
           const replies = await this.db.prepare(
-            `SELECT *
-             FROM comments
-             WHERE parent_id = ?
-               AND status = ?
-             ORDER BY created_at`,
+            `SELECT c.*,
+                    (SELECT COUNT(*) FROM comments r WHERE r.parent_id = c.id AND r.status = ?) as replyCount
+             FROM comments c
+             WHERE c.parent_id = ?
+               AND c.status = ?
+             ORDER BY c.created_at`,
           )
-            .bind(comment.id, 'approved')
-            .all<Comment>();
+            .bind('approved', comment.id, 'approved')
+            .all<Comment & { replyCount: number }>();
 
           return {
-            ...comment,
-            replies: replies.results,
+            ...commentData,
+            replyCount,
+            replies: replies.results.map(({ replyCount, ...reply }) => ({
+              ...reply,
+              replyCount,
+            })),
           };
         }),
       );
@@ -79,6 +84,34 @@ export class CommentHandler extends BaseHandler {
       };
 
       return c.json(response);
+    } catch (error) {
+      console.error('Database error:', error);
+      return c.json({ code: ErrorCode.DATABASE_ERROR }, 500);
+    }
+  }
+
+  async getCommentReplies(c: Context): Promise<Response> {
+    const commentId = parseInt(c.req.param('id'));
+    if (isNaN(commentId)) {
+      return c.json({ code: ErrorCode.INVALID_COMMENT_ID }, 400);
+    }
+
+    try {
+      const replies = await this.db.prepare(
+        `SELECT c.*,
+                (SELECT COUNT(*) FROM comments r WHERE r.parent_id = c.id AND r.status = ?) as replyCount
+         FROM comments c
+         WHERE c.parent_id = ?
+           AND c.status = ?
+         ORDER BY c.created_at`,
+      )
+        .bind('approved', commentId, 'approved')
+        .all<Comment & { replyCount: number }>();
+
+      return c.json(replies.results.map(({ replyCount, ...reply }) => ({
+        ...reply,
+        replyCount,
+      })));
     } catch (error) {
       console.error('Database error:', error);
       return c.json({ code: ErrorCode.DATABASE_ERROR }, 500);

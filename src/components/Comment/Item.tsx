@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { formatDate } from '@/lib/utils.ts';
 import type { Comment } from '@/types';
 import Markdown from 'react-markdown';
-import { ReplyIcon, ThumbsUpIcon } from 'lucide-react';
+import { ReplyIcon, ThumbsUpIcon, ChevronDownIcon, ChevronRightIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button.tsx';
 import { useTranslations } from '@/hooks/useTranslations.ts';
 
@@ -13,8 +13,47 @@ interface CommentItemProps {
   onLike: (id: number) => Promise<void>
 }
 
-const CommentItem: React.FC<CommentItemProps> = ({ comment, locale, onReply, onLike }) => {
+const CommentItem: React.FC<CommentItemProps> = ({
+  comment,
+  locale,
+  onReply,
+  onLike,
+}) => {
   const { t } = useTranslations(locale)
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [replies, setReplies] = useState<Comment[]>(comment.replies || []);
+  const [loadingReplies, setLoadingReplies] = useState(false);
+  const hasReplies = (comment.replyCount ?? 0) > 0;
+
+  const loadReplies = async (): Promise<void> => {
+    if (loadingReplies) { return; }
+
+    setLoadingReplies(true);
+    try {
+      const response = await fetch(
+        `${import.meta.env.PUBLIC_API_BASE_URL}/comments/${comment.id}/replies`,
+      );
+
+      if (!response.ok) {
+        throw new Error('Failed to load replies');
+      }
+
+      const data = await response.json();
+      setReplies(data);
+    } catch (error) {
+      console.error('Error loading replies:', error);
+    } finally {
+      setLoadingReplies(false);
+    }
+  };
+
+  const handleExpand = (): void => {
+    if (!isExpanded && replies.length === 0) {
+      void loadReplies();
+    }
+    setIsExpanded(!isExpanded);
+  };
+
   return (
     <div className="pb-4">
       <div className="flex justify-between mb-2">
@@ -41,7 +80,7 @@ const CommentItem: React.FC<CommentItemProps> = ({ comment, locale, onReply, onL
         <Markdown>{comment.content}</Markdown>
       </div>
 
-      <div className="flex items-center">
+      <div className="flex items-center gap-2">
         <Button
           variant="ghost"
           className="text-sm"
@@ -64,11 +103,31 @@ const CommentItem: React.FC<CommentItemProps> = ({ comment, locale, onReply, onL
           <ReplyIcon size={14} />
           {t('comment.reply')}
         </Button>
+        {hasReplies && (
+          <Button
+            variant="ghost"
+            className="text-sm"
+            onClick={handleExpand}
+            disabled={loadingReplies}
+          >
+            {isExpanded
+              ? (
+                <ChevronDownIcon size={14} />
+              )
+              : (
+                <ChevronRightIcon size={14} />
+              )}
+            {loadingReplies
+              ? t('comment.loading')
+              : isExpanded
+                ? t('comment.hide_replies')
+                : t('comment.show_replies', { count: comment.replyCount ?? 0 })}
+          </Button>
+        )}
       </div>
-
-      {comment.replies && comment.replies.length > 0 && (
+      {isExpanded && replies.length > 0 && (
         <div className="ml-2 pl-4 border-l-2 border-sidebar-border pt-2 mt-2">
-          {comment.replies.map(reply => (
+          {replies.map(reply => (
             <CommentItem
               key={reply.id}
               comment={reply}

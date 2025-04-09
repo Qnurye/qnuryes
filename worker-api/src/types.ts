@@ -15,6 +15,7 @@ export interface Comment {
   createdAt: Date
   updatedAt: Date
   replies?: Comment[]
+  replyCount?: number
 }
 
 export const commentRequestSchema = z.object({
@@ -36,6 +37,7 @@ export interface CommentResponse {
   likes: number
   createdAt: Date
   replies?: CommentResponse[]
+  replyCount?: number
 }
 
 export interface PaginationResponse<T> {

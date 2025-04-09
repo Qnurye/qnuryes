@@ -34,6 +34,11 @@ app.get('/comments/:id', async (c) => {
   return handler.getCommentById(c);
 });
 
+app.get('/comments/:id/replies', async (c) => {
+  const handler = c.get('commentHandler' as never) as CommentHandler;
+  return handler.getCommentReplies(c);
+});
+
 app.post('/comments', async (c) => {
   const handler = c.get('commentHandler' as never) as CommentHandler;
   return handler.createComment(c);

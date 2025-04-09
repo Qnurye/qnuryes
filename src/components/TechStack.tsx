@@ -10,8 +10,11 @@ const TechStack = ({ children, title, description, url }: {
   url: string
 }): React.ReactElement => (
   <HoverCard>
-    <HoverCardTrigger className="dark:bg-border dark:rounded-md dark:p-1">
-      {children}
+    <HoverCardTrigger className="dark:bg-border dark:rounded-md dark:p-1" asChild>
+      {/* Avoid `<a />` generated that affect SEO */}
+      <div>
+        {children}
+      </div>
     </HoverCardTrigger>
     <HoverCardContent className="w-80">
       <div className="space-y-1">

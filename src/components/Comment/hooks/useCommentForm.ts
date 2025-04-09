@@ -1,43 +1,49 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import type { Comment, ErrorResponse } from '@/types';
+import { z } from 'zod';
+import { toast } from 'sonner';
+import { useTranslations } from '@/hooks/useTranslations';
 
-interface CommentFormData {
-  post_id: string
-  parent_id?: number
-  author_name: string
-  author_email: string
-  content: string
-}
+export const formSchema = z.object({
+  post_id: z.string(),
+  parent_id: z.number().optional(),
+  author_name: z.string().min(1, 'Name is required'),
+  author_email: z.string().email('Invalid email address').optional().or(z.literal('')),
+  content: z.string().min(1, 'Comment is required'),
+});
 
-export const useCommentForm = (postId: string, fetchComments: () => Promise<void>): {
-  formData: CommentFormData
+export type FormData = z.infer<typeof formSchema>;
+
+export const useCommentForm = (postId: string, locale: string, fetchComments: () => Promise<void>): {
+  formData: FormData
   loading: boolean
   error: ErrorResponse | null
-  handleInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
-  submitComment: (e: React.FormEvent, replyTo: Comment | null) => Promise<void>
+  submitComment: (data: FormData, replyTo: Comment | null) => Promise<void>
+  resetForm: () => void
 } => {
-  const [formData, setFormData] = useState<CommentFormData>({
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<ErrorResponse | null>(null);
+  const { t } = useTranslations(locale);
+
+  const defaultFormData: FormData = {
     post_id: postId,
     author_name: '',
     author_email: '',
     content: '',
-  });
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<ErrorResponse | null>(null);
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const submitComment = async (e: React.FormEvent, replyTo: Comment | null): Promise<void> => {
-    e.preventDefault();
+  const [formData, setFormData] = useState<FormData>(defaultFormData);
 
+  const resetForm = (): void => {
+    setFormData(defaultFormData);
+  };
+
+  const submitComment = async (data: FormData, replyTo: Comment | null): Promise<void> => {
     try {
       setLoading(true);
       setError(null);
 
-      const commentData = { ...formData };
+      const commentData = { ...data };
       if (replyTo) {
         commentData.parent_id = replyTo.id;
       }
@@ -54,17 +60,14 @@ export const useCommentForm = (postId: string, fetchComments: () => Promise<void
         throw await response.json();
       }
 
-      setFormData({
-        post_id: postId,
-        author_name: '',
-        author_email: '',
-        content: '',
-      });
+      toast.success(t('comment.submit_success'));
 
+      setFormData(defaultFormData);
       await fetchComments();
     } catch (err) {
       console.error('Error submitting comment:', err);
       setError(err as ErrorResponse);
+      toast.error(t('comment.submit_error'));
     } finally {
       setLoading(false);
     }
@@ -74,7 +77,7 @@ export const useCommentForm = (postId: string, fetchComments: () => Promise<void
     formData,
     loading,
     error,
-    handleInputChange,
     submitComment,
+    resetForm,
   };
 };

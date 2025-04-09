@@ -10,6 +10,7 @@ export interface Comment {
   status: string
   created_at: string
   replies?: Comment[]
+  replyCount?: number
 }
 
 export interface CommentRequest {

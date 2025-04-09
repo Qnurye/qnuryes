@@ -2,7 +2,7 @@ import { defineConfig, envField } from 'astro/config'
 import tailwindcss from '@tailwindcss/vite'
 import react from '@astrojs/react'
 import tomlI18n from './integrations/toml-i18n.ts';
-// import sentry from '@sentry/astro';
+import sentry from '@sentry/astro';
 // import spotlightjs from '@spotlightjs/astro';
 import process from 'node:process';
 import sitemap from '@astrojs/sitemap';
@@ -34,14 +34,17 @@ export default defineConfig({
     ],
   },
   integrations: [react(), tomlI18n(),
-    // 狗屎 Spotlight，Dev 分分钟吃五六G内存，打包还慢得要死
-    // sentry({
-    //   dsn: PUBLIC_SENTRY_DSN,
-    //   sourceMapsUploadOptions: {
-    //     project: 'qnuryes',
-    //     authToken: SENTRY_AUTH_TOKEN,
-    //   },
-    // }),
+    // Passing DSN directly to sentry integration will be deprecated in the future
+    // https://docs.sentry.io/platforms/javascript/guides/astro/#astro-integration-setup
+    // However, it causes issue if I setup `sentry.client.config.js` and `sentry.server.config.js`.
+    // Maybe caused by the `loadEnv` function.
+    sentry({
+      dsn: PUBLIC_SENTRY_DSN,
+      sourceMapsUploadOptions: {
+        project: 'qnuryes',
+        authToken: SENTRY_AUTH_TOKEN,
+      },
+    }),
     // spotlightjs(),
     sitemap({
       i18n: {

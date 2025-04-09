@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useComments } from './hooks/useComments';
-import { useCommentForm } from './hooks/useCommentForm';
+import { useCommentForm, type FormData } from './hooks/useCommentForm';
 import { useCommentLike } from './hooks/useCommentLike';
 import CommentForm from './Form';
 import CommentList from './List';
@@ -26,23 +26,26 @@ const Section: React.FC<CommentSectionProps> = ({ postId, locale }) => {
     fetchComments,
   } = useComments(postId);
 
+  useEffect(() => {
+    if (replyTo) {
+      document.getElementById('comment-form')?.scrollIntoView();
+    }
+  }, [replyTo]);
+
   const {
     formData,
     loading: formLoading,
     error: formError,
-    handleInputChange,
     submitComment,
-  } = useCommentForm(postId, fetchComments);
+  } = useCommentForm(postId, locale, fetchComments);
 
   const {
     likeComment,
   } = useCommentLike(fetchComments);
 
-  const safeFormData = formData || {
-    post_id: postId,
-    author_name: '',
-    author_email: '',
-    content: '',
+  const handleSubmit = async (data: FormData): Promise<void> => {
+    await submitComment(data, replyTo);
+    setReplyTo(null);
   };
 
   return isLoading
@@ -75,10 +78,15 @@ const Section: React.FC<CommentSectionProps> = ({ postId, locale }) => {
           loading={formLoading}
           error={formError}
           replyTo={replyTo}
-          onSubmit={e => submitComment(e, replyTo)}
-          onCancelReply={() => setReplyTo(null)}
-          formData={safeFormData}
-          onInputChange={handleInputChange}
+          onSubmit={handleSubmit}
+          onCancelReply={() => {
+            setReplyTo(null);
+            // Reset form when canceling reply
+            formData.author_name = '';
+            formData.author_email = '';
+            formData.content = '';
+          }}
+          formData={formData}
         />
       </section>
     );
