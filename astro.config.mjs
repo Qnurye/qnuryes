@@ -2,8 +2,8 @@ import { defineConfig, envField } from 'astro/config'
 import tailwindcss from '@tailwindcss/vite'
 import react from '@astrojs/react'
 import tomlI18n from './integrations/toml-i18n.ts';
-import sentry from '@sentry/astro';
-import spotlightjs from '@spotlightjs/astro';
+// import sentry from '@sentry/astro';
+// import spotlightjs from '@spotlightjs/astro';
 import process from 'node:process';
 import sitemap from '@astrojs/sitemap';
 
@@ -33,29 +33,33 @@ export default defineConfig({
       tailwindcss(),
     ],
   },
-  integrations: [react(), tomlI18n(), sentry({
-    dsn: PUBLIC_SENTRY_DSN,
-    sourceMapsUploadOptions: {
-      project: 'qnuryes',
-      authToken: SENTRY_AUTH_TOKEN,
-    },
-  }), spotlightjs(), sitemap({
-    i18n: {
-      defaultLocale: 'en',
-      locales: {
-        'en': 'en-US',
-        'zh-cn': 'zh-CN',
-        'zh-tw': 'zh-TW',
+  integrations: [react(), tomlI18n(),
+    // 狗屎 Spotlight，Dev 分分钟吃五六G内存，打包还慢得要死
+    // sentry({
+    //   dsn: PUBLIC_SENTRY_DSN,
+    //   sourceMapsUploadOptions: {
+    //     project: 'qnuryes',
+    //     authToken: SENTRY_AUTH_TOKEN,
+    //   },
+    // }),
+    // spotlightjs(),
+    sitemap({
+      i18n: {
+        defaultLocale: 'en',
+        locales: {
+          'en': 'en-US',
+          'zh-cn': 'zh-CN',
+          'zh-tw': 'zh-TW',
+        },
       },
-    },
-    xslURL: '/rss/pretty-feed-v3.xsl',
-  }), partytown({
-    config: {
-      forward: ['dataLayer.push', 'gtag'],
-    },
-  }), umami({
-    id: '0f9ad313-d104-4f58-8478-b793118af4a4',
-  })],
+      xslURL: '/rss/pretty-feed-v3.xsl',
+    }), partytown({
+      config: {
+        forward: ['dataLayer.push', 'gtag'],
+      },
+    }), umami({
+      id: '0f9ad313-d104-4f58-8478-b793118af4a4',
+    })],
   i18n: {
     locales: ['en', 'zh-cn', 'zh-tw'],
     defaultLocale: 'en',

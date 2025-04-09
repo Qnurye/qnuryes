@@ -4,6 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
+    "dev:inspect": "node --inspect ./node_modules/astro/astro.js dev",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
@@ -68,13 +69,5 @@
     "globals": "^16.0.0",
     "typescript-eslint": "^8.26.1",
     "vite": "^6.2.4"
-  },
-  "pnpm": {
-    "ignoredBuiltDependencies": [
-      "canvas"
-    ],
-    "onlyBuiltDependencies": [
-      "canvas"
-    ]
   }
 }
