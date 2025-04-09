@@ -34,9 +34,7 @@ export function ColorModeToggle({ t }: {
   }, [theme])
 
   return (
-    // Configure modal to false to prevent `body[data-scroll-locked]` applied
-    // https://github.com/radix-ui/primitives/discussions/2873#discussioncomment-11485033
-    <DropdownMenu modal={false}>
+    <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
           variant="outline"

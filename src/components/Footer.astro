@@ -1,23 +1,22 @@
 ---
-import { CopyrightIcon, CodeIcon, MailboxIcon, RssIcon } from 'lucide-react';
+import { CopyrightIcon, CodeIcon, RssIcon } from 'lucide-react';
 import { Button, buttonVariants } from './ui/button';
 import { loadTranslations } from '@/i18n';
 import { Image } from 'astro:assets';
 import tail from '@/assets/tail.svg';
 import { Markdown } from 'astro-remote';
 import { getAbsoluteLocaleUrl, getRelativeLocaleUrl } from 'astro:i18n';
+import Newsletter from './Newsletter';
 
-const t = await loadTranslations(Astro.currentLocale);
+const locale = Astro.currentLocale || 'en';
+const t = await loadTranslations(locale);
 ---
 
 <footer class="pt-8 px-2 mt-16 flex flex-col gap-4 border-t">
   <div class="flex flex-wrap gap-4 items-end">
-    <Button variant="outline">
-      <MailboxIcon />
-      {t('footer.subscribe_newsletter')}
-    </Button>
+    <Newsletter locale={locale} client:load />
     <a
-      href={getAbsoluteLocaleUrl(Astro.currentLocale || 'en', 'rss.xml')}
+      href={getAbsoluteLocaleUrl(locale, 'rss.xml')}
       class={buttonVariants({ variant: 'outline' })}
     >
       <RssIcon />
@@ -40,7 +39,7 @@ const t = await loadTranslations(Astro.currentLocale);
     2025
       {t('footer.all_rights_reserved')}
     </span>
-    <a href={getRelativeLocaleUrl(Astro.currentLocale || 'en', 'blog/terms')}>
+    <a href={getRelativeLocaleUrl(locale, 'blog/terms')}>
       <Button variant="link" asChild={true}>
         {t('footer.tos_pp')}
       </Button>

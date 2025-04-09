@@ -215,3 +215,8 @@ code {
 .prose ol {
   @apply list-decimal pl-5 space-y-1;
 }
+
+/* Avoid body padding been messed up by `modal` */
+body[data-scroll-locked] {
+  @apply px-1! sm:px-2! md:px-4! lg:px-8! size-full!;
+}
