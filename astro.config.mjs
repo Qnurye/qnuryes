@@ -13,7 +13,7 @@ import partytown from '@astrojs/partytown';
 
 import umami from '@yeskunall/astro-umami';
 
-const { PUBLIC_SENTRY_DSN, SENTRY_AUTH_TOKEN, PUBLIC_BASE_URL } = loadEnv(
+const { PUBLIC_SENTRY_DSN, SENTRY_AUTH_TOKEN, PUBLIC_BASE_URL, NODE_ENV } = loadEnv(
   process.env.NODE_ENV, process.cwd(), '',
 );
 
@@ -40,6 +40,7 @@ export default defineConfig({
     // Maybe caused by the `loadEnv` function.
     sentry({
       dsn: PUBLIC_SENTRY_DSN,
+      enabled: NODE_ENV === 'production',
       sourceMapsUploadOptions: {
         project: 'qnuryes',
         authToken: SENTRY_AUTH_TOKEN,
