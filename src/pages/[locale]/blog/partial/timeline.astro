@@ -4,6 +4,7 @@ export { getI18nPaths as getStaticPaths } from '@/i18n';
 import { formatDateAsMonth } from '@/lib/utils';
 import Project from '@/components/Project.astro';
 import { loadTranslations } from '@/i18n';
+import { getAbsoluteLocaleUrl } from 'astro:i18n';
 
 const locale = Astro.currentLocale || 'en';
 const t = await loadTranslations(locale);
@@ -25,8 +26,12 @@ const postsGroupByDate = (await getCollection('blog', p => p.data.locale === Ast
 <div
   class="w-full font-serif flex flex-col gap-8 *:w-full"
 >
-  <div class="text-6xl font-serif">
-    <h1 class="scroll-m-16">{t('posts.title')}</h1>
+  <div class="font-serif flex flex-row items-end gap-2 *:inline">
+    <h1 class="scroll-m-16 text-6xl">{t('posts.title')}</h1>
+    <span class="font-mono">/</span>
+    <a href={getAbsoluteLocaleUrl(locale, 'blog/tags')}>{t('tags.title')}</a>
+    <span class="font-mono">/</span>
+    <a href={getAbsoluteLocaleUrl(locale, 'blog/issues')}>{t('issues.title')}</a>
   </div>
   <ul>
     {Object.entries(postsGroupByDate).reverse().map(([year, months]) => (

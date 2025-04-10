@@ -4,6 +4,7 @@ export { getI18nPaths as getStaticPaths } from '@/i18n';
 import { getCollection } from 'astro:content';
 import { loadTranslations } from '@/i18n';
 import { dateToIssue } from '@/lib/utils';
+import { getAbsoluteLocaleUrl } from 'astro:i18n';
 
 const locale = Astro.currentLocale || 'en';
 const t = await loadTranslations(locale);
@@ -26,16 +27,20 @@ const issues = (await getCollection('blog', p => p.data.locale === Astro.current
   <div
     class="w-full flex flex-col gap-8 *:w-full"
   >
-    <div class="text-6xl font-serif">
-      <h1 id="about" class="font-serif scroll-m-16">{t('issues.title')}</h1>
+    <div class="font-serif flex flex-row items-end gap-2 *:inline">
+      <h1 class="scroll-m-16 text-6xl">{t('issues.title')}</h1>
+      <span class="font-mono">/</span>
+      <a href={getAbsoluteLocaleUrl(locale, 'blog')}>{t('posts.title')}</a>
+      <span class="font-mono">/</span>
+      <a href={getAbsoluteLocaleUrl(locale, 'blog/tags')}>{t('tags.title')}</a>
     </div>
     <ul class="mx-auto max-w-prose text-xl flex flex-col gap-4">
       {
         Object.entries(issues)
           .sort(([a], [b]) => Number(a) - Number(b))
-          .map(([tag, count]) => (
+          .map(([issue, count]) => (
             <li class="flex justify-between font-mono items-center gap-16">
-              <a href={`issues/${tag}`}>Vol.{tag}</a>
+              <a href={getAbsoluteLocaleUrl(locale, `blog/issues/${issue}`)}>Vol.{issue}</a>
               <div class="grow border-dashed border-1 border-neutral-100"></div>
               <span>{count}</span>
             </li>
