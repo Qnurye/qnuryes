@@ -155,6 +155,9 @@ page_description = "訂閱本站郵件列表後，歷史發送的新聞郵件合
 page_keywords = "personal website, blog, friends, portfolio, technology, programming, computer, frontend, backend, friends links, projects"
 read_more = "閱讀原文"
 
+[email]
+problem = "郵件沒有正常顯示？點擊鏈接查看網頁版："
+
 [post.translation_warning]
 title = "譯文提醒"
 content = "下面的內容通過 AI 翻譯，原文語言為{original}。"

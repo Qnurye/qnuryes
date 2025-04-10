@@ -1,24 +1,32 @@
 {
   "name": "worker-api",
-  "version": "1.0.0",
-  "description": "Comment API using Cloudflare Workers and D1",
-  "main": "src/index.ts",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
-    "dev": "wrangler dev",
     "deploy": "wrangler deploy",
-    "test": "jest",
-    "migrate": "wrangler d1 migrations apply qnuryes-comments"
+    "dev": "wrangler dev",
+    "start": "wrangler dev",
+    "dev:email": "email dev --dir=./src/emails/dev",
+    "test": "jest"
   },
   "dependencies": {
-    "hono": "^3.12.8",
-    "zod": "^3.22.4"
+    "@hono/node-server": "^1.8.1",
+    "@react-email/components": "^0.0.36",
+    "@react-email/render": "^1.0.6",
+    "hono": "^4.0.0",
+    "marked": "^15.0.8",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "resend": "^3.0.0",
+    "sanitize-html": "^2.15.0"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240208.0",
-    "@types/jest": "^29.5.12",
-    "jest": "^29.7.0",
-    "ts-jest": "^29.1.2",
-    "typescript": "^5.3.3",
-    "wrangler": "^3.28.1"
+    "@types/marked": "^6.0.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "react-email": "4.0.7",
+    "typescript": "^5.0.2",
+    "wrangler": "^3.0.0"
   }
 }

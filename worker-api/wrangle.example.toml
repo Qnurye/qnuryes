@@ -6,3 +6,13 @@ compatibility_date = "2024-03-27"
 binding = "DB"
 database_name = ""
 database_id = ""
+
+[vars]
+RESEND_API_KEY = "re_xxx"
+WEBSITE_BASE_URL = "http://localhost:4321"
+NEWSLETTER_TO_EMAIL = "a@b.c"
+RESEND_AUDIENCE_ID = "000-xxx-xxx-xxx-xxx"
+RESEND_FROM = "Qnurye <noreply@qnury.es>"
+
+[triggers]
+crons = ["0 0 1 * *"]

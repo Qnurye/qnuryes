@@ -160,6 +160,9 @@ page_description = "Newsletters I've sent out"
 page_keywords = "personal website, blog, friends, portfolio, technology, programming, computer, frontend, backend, friends links, projects"
 read_more = "Read more"
 
+[email]
+problem = "Email not displaying correctly? Click the link to view the web version:"
+
 [post.translation_warning]
 title = "Translation Notice"
 content = "The following content is translated by AI, the original post is in {original}."

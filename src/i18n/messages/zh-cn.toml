@@ -161,6 +161,9 @@ page_description = "订阅本站邮件列表后，历史发送的新闻邮件合
 page_keywords = "personal website, blog, friends, portfolio, technology, programming, computer, frontend, backend, friends links, projects"
 read_more = "阅读原文"
 
+[email]
+problem = "邮件没有正常显示？点击链接查看网页版："
+
 [post.translation_warning]
 title = "译文提醒"
 content = "下面的内容通过 AI 翻译，原文语言为{original}。"

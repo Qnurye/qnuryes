@@ -16,7 +16,6 @@ const issues = (await getCollection('blog', p => p.data.locale === Astro.current
     acc[issue] = (acc[issue] || 0) + 1;
     return acc;
   }, {} as Record<string, number>);
-
 ---
 
 <Base

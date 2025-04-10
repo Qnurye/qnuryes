@@ -6,6 +6,8 @@ import Project from '@/components/Project.astro';
 import { loadTranslations } from '@/i18n';
 import { getAbsoluteLocaleUrl } from 'astro:i18n';
 
+export const partial = true;
+
 const locale = Astro.currentLocale || 'en';
 const t = await loadTranslations(locale);
 const postsGroupByDate = (await getCollection('blog', p => p.data.locale === Astro.currentLocale))
