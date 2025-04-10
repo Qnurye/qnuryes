@@ -38,6 +38,7 @@ const newsletterSchema = z.object({
 })
 
 const NewsletterForm: React.FC<{ locale: keyof typeof locales }> = ({ locale }) => {
+  const { t } = useTranslations(locale);
   const form = useForm<z.infer<typeof newsletterSchema>>({
     resolver: zodResolver(newsletterSchema),
     defaultValues: {
@@ -60,9 +61,9 @@ const NewsletterForm: React.FC<{ locale: keyof typeof locales }> = ({ locale }) 
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>邮箱地址</FormLabel>
+              <FormLabel>{t('newsletter.email_label')}</FormLabel>
               <FormControl>
-                <Input placeholder="your@email.com" {...field} />
+                <Input placeholder={t('newsletter.email_placeholder')} {...field} />
               </FormControl>
             </FormItem>
           )}
@@ -73,9 +74,9 @@ const NewsletterForm: React.FC<{ locale: keyof typeof locales }> = ({ locale }) 
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>姓名（可选）</FormLabel>
+                <FormLabel>{t('newsletter.name_label')}</FormLabel>
                 <FormControl>
-                  <Input placeholder="可留空" {...field} />
+                  <Input placeholder={t('newsletter.name_placeholder')} {...field} />
                 </FormControl>
               </FormItem>
             )}
@@ -85,11 +86,11 @@ const NewsletterForm: React.FC<{ locale: keyof typeof locales }> = ({ locale }) 
             name="locale"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>偏好语言</FormLabel>
+                <FormLabel>{t('newsletter.language_label')}</FormLabel>
                 <Select onValueChange={field.onChange} value={field.value}>
                   <FormControl>
                     <SelectTrigger className="w-full">
-                      <SelectValue placeholder="请选择语言" />
+                      <SelectValue placeholder={t('newsletter.language_placeholder')} />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
@@ -118,16 +119,16 @@ const NewsletterForm: React.FC<{ locale: keyof typeof locales }> = ({ locale }) 
               </FormControl>
               <div className="space-y-1 leading-none">
                 <FormLabel>
-                  同意提供以上信息用于订阅邮件
+                  {t('newsletter.consent_label')}
                 </FormLabel>
                 <FormDescription>
-                  本站使用第三方服务提供商（Kit）处理邮件订阅，本站将与其共享用户邮箱地址。请查看 <a href="https://kit.com/privacy" target="_blank" rel="noopener noreferrer" className="underline">Kit 的隐私政策</a>以了解更多信息。
+                  <span dangerouslySetInnerHTML={{ __html: t('newsletter.consent_description') }} />
                 </FormDescription>
               </div>
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full">提交</Button>
+        <Button type="submit" className="w-full">{t('newsletter.submit_button')}</Button>
       </form>
     </Form>
   )
@@ -145,21 +146,21 @@ const Newsletter: React.FC<{ locale: string }> = ({ locale }) => {
       </DrawerTrigger>
       <DrawerContent className="p-1 sm:p-2 md:p-4">
         <DrawerHeader>
-          <DrawerTitle className="text-2xl font-serif">订阅新闻邮件</DrawerTitle>
+          <DrawerTitle className="text-2xl font-serif">{t('newsletter.title')}</DrawerTitle>
           <DrawerDescription className="font-serif">
-            提交邮箱地址后，你将收到我的每月更新合集。如果希望收到更频繁的更新提醒，请订阅我的 RSS。
+            {t('newsletter.description')}
           </DrawerDescription>
         </DrawerHeader>
         <NewsletterForm locale={locale as keyof typeof locales} />
         <DrawerFooter className="flex-wrap md:flex-row gap-2 justify-between items-center hidden">
-          <span>请检查你的收件箱（或垃圾箱），查看刚刚发出的确认邮件。点击邮件中的链接以完成订阅。</span>
+          <span>{t('newsletter.check_inbox')}</span>
           <div className="flex w-full md:w-auto flex-wrap gap-2 justify-end">
             <Button className="grow">
-              去看看
+              {t('newsletter.check_button')}
             </Button>
             <DrawerClose asChild>
               <Button variant="outline">
-                我知道了
+                {t('newsletter.close_button')}
               </Button>
             </DrawerClose>
           </div>

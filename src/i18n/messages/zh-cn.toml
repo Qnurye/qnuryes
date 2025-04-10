@@ -154,6 +154,13 @@ page_title = "Qnury.e's | 标签"
 page_description = "Qnurye 个人网站上发表的文章标签，你在这里可以找到他的最新动态、想法、项目的标签索引！"
 page_keywords = "个人网站, 博客, 友链, 作品集, 技术, 编程, 计算机, 前端, 后端, 友情链接, 项目"
 
+[issues]
+title = "合集"
+page_title = "Qnury.e's | 合集"
+page_description = "订阅本站邮件列表后，历史发送的新闻邮件合集在这里可以找到。"
+page_keywords = "personal website, blog, friends, portfolio, technology, programming, computer, frontend, backend, friends links, projects"
+read_more = "阅读原文"
+
 [post.translation_warning]
 title = "译文提醒"
 content = "下面的内容通过 AI 翻译，原文语言为{original}。"
@@ -194,3 +201,19 @@ show_replies = "显示 {count} 条回复"
 hide_replies = "隐藏回复"
 submit_success = "评论提交成功"
 submit_error = "评论提交失败，请重试"
+
+[newsletter]
+title = "订阅新闻邮件"
+description = "提交邮箱地址后，你将收到我的每月更新合集。如果希望收到更频繁的更新提醒，请订阅我的 RSS。"
+email_label = "邮箱地址"
+email_placeholder = "your@email.com"
+name_label = "姓名（可选）"
+name_placeholder = "可留空"
+language_label = "偏好语言"
+language_placeholder = "请选择语言"
+consent_label = "同意提供以上信息用于订阅邮件"
+consent_description = "本站使用第三方邮件订阅服务提供商，并将与其共享用户邮箱地址。请查看 <a href=\"https://resend.com/legal/privacy-policy\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"underline\">Resend 的隐私政策</a>以了解更多信息。"
+submit_button = "看起来没问题"
+check_inbox = "请检查你的收件箱（或垃圾箱），查看刚刚发出的确认邮件。点击邮件中的链接以完成订阅。"
+check_button = "去看看"
+close_button = "我知道了"

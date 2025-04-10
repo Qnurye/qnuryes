@@ -1,0 +1,46 @@
+---
+import Base from '@/layouts/Base.astro';
+export { getI18nPaths as getStaticPaths } from '@/i18n';
+import { getCollection } from 'astro:content';
+import { loadTranslations } from '@/i18n';
+import { dateToIssue } from '@/lib/utils';
+
+const locale = Astro.currentLocale || 'en';
+const t = await loadTranslations(locale);
+const issues = (await getCollection('blog', p => p.data.locale === Astro.currentLocale))
+  .reduce((acc, post) => {
+    const issue = dateToIssue(post.data.created_at);
+
+    acc = acc || {};
+    acc[issue] = (acc[issue] || 0) + 1;
+    return acc;
+  }, {} as Record<string, number>);
+
+---
+
+<Base
+  title={t('issues.page_title')}
+  description={t('issues.page_description')}
+  keywords={t('issues.page_keywords')}
+>
+  <div
+    class="w-full flex flex-col gap-8 *:w-full"
+  >
+    <div class="text-6xl font-serif">
+      <h1 id="about" class="font-serif scroll-m-16">{t('issues.title')}</h1>
+    </div>
+    <ul class="mx-auto max-w-prose text-xl flex flex-col gap-4">
+      {
+        Object.entries(issues)
+          .sort(([a], [b]) => Number(a) - Number(b))
+          .map(([tag, count]) => (
+            <li class="flex justify-between font-mono items-center gap-16">
+              <a href={`issues/${tag}`}>Vol.{tag}</a>
+              <div class="grow border-dashed border-1 border-neutral-100"></div>
+              <span>{count}</span>
+            </li>
+          ))
+      }
+    </ul>
+  </div>
+</Base>

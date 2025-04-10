@@ -1,6 +1,6 @@
 import { type ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
-import { type SupportedLanguages, readingTime } from 'reading-time-estimator';
+import { readingTime, type SupportedLanguages } from 'reading-time-estimator';
 
 export function cn(...inputs: ClassValue[]): string {
   return twMerge(clsx(inputs))
@@ -38,3 +38,9 @@ export const readingTimeLocales = {
 
 export const getReadingTime = (text: string, locale: string): number =>
   readingTime(text, wpm[locale], readingTimeLocales[locale]).minutes
+
+export const dateToIssue = (date: Date): string => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  return `${year}${month}`;
+};

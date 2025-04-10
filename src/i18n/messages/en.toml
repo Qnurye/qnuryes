@@ -23,7 +23,7 @@ system = "System"
 toggle = "Toggle appearance"
 
 [footer]
-subscribe_newsletter = "subscribe newsletter"
+subscribe_newsletter = "Newsletter"
 rss = "RSS"
 source_code = "source code"
 credits = "Designed and built by Qnurye. *Islands join hands*, powered [Astro](https://astro.build/)."
@@ -153,6 +153,13 @@ page_title = "Qnury.e's | Tags"
 page_description = "Tags of articles published on Qnurye's personal website, where you can find his latest updates, thoughts, and projects index!"
 page_keywords = "personal website, blog, friends, portfolio, technology, programming, computer, frontend, backend, friends links, projects"
 
+[issues]
+title = "Issues"
+page_title = "Qnury.e's | Issues"
+page_description = "Newsletters I've sent out"
+page_keywords = "personal website, blog, friends, portfolio, technology, programming, computer, frontend, backend, friends links, projects"
+read_more = "Read more"
+
 [post.translation_warning]
 title = "Translation Notice"
 content = "The following content is translated by AI, the original post is in {original}."
@@ -193,3 +200,19 @@ show_replies = "Show {count} replies"
 hide_replies = "Hide replies"
 submit_success = "Comment submitted successfully"
 submit_error = "Failed to submit comment. Please try again."
+
+[newsletter]
+title = "Subscribe to Newsletter"
+description = "After submitting your email address, you will receive my monthly updates. If you want more frequent updates, please subscribe to my RSS."
+email_label = "Email Address"
+email_placeholder = "your@email.com"
+name_label = "Name (Optional)"
+name_placeholder = "Leave empty if you want"
+language_label = "Preferred Language"
+language_placeholder = "Select a language"
+consent_label = "I agree to provide the above information for newsletter subscription"
+consent_description = "This site uses a third-party email subscription service provider and will share your email address with them. Please check <a href=\"https://resend.com/legal/privacy-policy\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"underline\">Resend's Privacy Policy</a> for more information."
+submit_button = "Looks good"
+check_inbox = "Please check your inbox (or spam folder) for the confirmation email we just sent. Click the link in the email to complete your subscription."
+check_button = "Check it out"
+close_button = "Got it"

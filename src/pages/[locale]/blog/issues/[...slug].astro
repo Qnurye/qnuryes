@@ -1,0 +1,71 @@
+---
+import { type CollectionEntry, getCollection } from 'astro:content';
+import Base from '@/layouts/Base.astro';
+import { type GetStaticPathsResult } from 'astro';
+import { getI18nPaths, loadTranslations } from '@/i18n';
+import { dateToIssue } from '@/lib/utils';
+import IssueCard from '@/components/IssueCard.astro';
+
+export async function getStaticPaths(): Promise<GetStaticPathsResult> {
+  const issues = (await getCollection('blog'))
+    .reduce((acc, post) => {
+      const issue = dateToIssue(post.data.created_at);
+
+      acc = acc || [];
+      acc.unshift(issue);
+      return acc;
+    }, [] as string[]);
+
+  return issues.flatMap(issue =>
+    getI18nPaths().map(i18nPath => ({
+      params: {
+        locale: i18nPath.params.locale,
+        slug: issue,
+      },
+      props: {
+        issue: issue,
+      },
+    })),
+  );
+}
+const locale = Astro.currentLocale || 'en';
+const t = await loadTranslations(locale);
+
+const { issue } = Astro.props as { issue: string };
+
+// TODO)) Sort by umami traffic via worker api
+const posts = (await getCollection('blog', p =>
+  p.data.locale === locale
+  && dateToIssue(p.data.created_at) === issue,
+))
+  .sort((a, b) => b.data.created_at.getTime() - a.data.created_at.getTime())
+  .reduce((acc, post) => {
+    acc = acc || [];
+    acc.unshift(post);
+    return acc;
+  }, [] as Array<CollectionEntry<'blog'>>);
+---
+
+<Base
+  title={t('issues.page_title')}
+  description={t('issues.page_description')}
+  keywords={t('issues.page_keywords')}
+>
+  <div
+    class="w-full font-serif flex flex-col gap-8 *:w-full"
+  >
+    <div class="text-4xl md:text-8xl font-mono mb-8 md:mb-12">
+      <h1 class="scroll-m-16">
+        <span class="text-2xl md:text-5xl">Vol.</span>{issue}
+      </h1>
+    </div>
+    <div class="flex flex-col gap-32">
+      {posts.map(post => (
+        <IssueCard
+          key={post.id}
+          post={post}
+        />
+      ))}
+    </div>
+  </div>
+</Base>
