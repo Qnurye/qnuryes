@@ -21,11 +21,12 @@ import {
   FormDescription,
   FormField,
   FormItem,
-  FormLabel,
+  FormLabel, FormMessage,
 } from '@/components/ui/form.tsx';
 import { Input } from '@/components/ui/input.tsx';
 import { Checkbox } from '@/components/ui/checkbox.tsx';
 import { locales } from '@/i18n';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select.tsx';
 const localeOptions = Object.keys(locales) as [keyof typeof locales, ...Array<keyof typeof locales>];
 
 const newsletterSchema = z.object({
@@ -42,14 +43,15 @@ const NewsletterForm: React.FC<{
   onSubmit: (value: z.infer<typeof newsletterSchema>) => void
   disabled?: boolean
   loading?: boolean
-}> = ({ locale, onSubmit, disabled = false, loading = false }) => {
+  error?: boolean
+}> = ({ locale, onSubmit, disabled = false, loading = false, error = false }) => {
   const { t } = useTranslations(locale);
   const form = useForm<z.infer<typeof newsletterSchema>>({
     resolver: zodResolver(newsletterSchema),
     defaultValues: {
       email: '',
       name: undefined,
-      locale: 'en',
+      locale: locale,
       consent: false,
     },
   });
@@ -82,6 +84,30 @@ const NewsletterForm: React.FC<{
               </FormItem>
             )}
           />
+          <FormField
+            control={form.control}
+            name="locale"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{t('newsletter.language_label')}</FormLabel>
+                <Select onValueChange={field.onChange} value={field.value}>
+                  <FormControl>
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder={t('newsletter.language_placeholder')} />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {Object.entries(locales).map(([key, label]) => (
+                      <SelectItem key={key} value={key}>
+                        {label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
         </div>
         <FormField
           control={form.control}
@@ -106,21 +132,19 @@ const NewsletterForm: React.FC<{
             </FormItem>
           )}
         />
+        <FormMessage className={`text-destructive` + (!error && ' hidden')}>{t('newsletter.error')}</FormMessage>
         <Button
           type="submit"
           className={'w-full' + ((disabled && !loading) ? ' hidden' : '')}
           disabled={disabled}
         >
-          {loading
-            ? (
-              <Loader2Icon className="animate-spin" />
-            )
-            : (t('newsletter.submit_button'))}
+          {loading ? (<Loader2Icon className="animate-spin" />) : (t('newsletter.submit_button'))}
         </Button>
       </form>
     </Form>
   )
 }
+
 const mailWebLinks: Record<string, string> = {
   'gmail.com': 'https://mail.google.com',
   'outlook.com': 'https://outlook.live.com',
@@ -149,18 +173,30 @@ const Newsletter: React.FC<{ locale: string }> = ({ locale }) => {
   const { t } = useTranslations(locale)
   const [formState, setFormState] = useState<'loading' | 'successful' | 'input'>('input')
   const [mailTarget, setMailTarget] = useState<string | null>(null)
+  const [isError, setIsError] = useState<boolean>(false)
 
-  const onSubmit = (value: z.infer<typeof newsletterSchema>): void => {
+  const onSubmit = async (value: z.infer<typeof newsletterSchema>): Promise<void> => {
     setFormState('loading');
-    setTimeout(() => {
-      setFormState('successful');
 
-      const email = value.email.split('@')[1];
-      if (mailWebLinks[email]) {
-        setMailTarget(mailWebLinks[email]);
-      }
-      console.log(value);
-    }, 2000);
+    const response = await fetch(`${import.meta.env.PUBLIC_API_BASE_URL}/subscription`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(value),
+    })
+
+    if (!response.ok) {
+      setIsError(true)
+      setMailTarget(null);
+      return;
+    }
+
+    setFormState('successful');
+    const email = value.email.split('@')[1];
+    if (mailWebLinks[email]) {
+      setMailTarget(mailWebLinks[email]);
+    }
   };
 
   return (
@@ -183,6 +219,7 @@ const Newsletter: React.FC<{ locale: string }> = ({ locale }) => {
           onSubmit={onSubmit}
           disabled={formState !== 'input'}
           loading={formState === 'loading'}
+          error={isError}
         />
         <DrawerFooter
           className={`flex flex-col gap-2 ${formState !== 'successful'

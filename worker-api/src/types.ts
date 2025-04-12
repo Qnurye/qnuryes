@@ -1,4 +1,4 @@
-import { D1Database } from '@cloudflare/workers-types';
+import { D1Database, KVNamespace } from '@cloudflare/workers-types';
 import { z } from 'zod';
 
 export interface Comment {
@@ -50,12 +50,14 @@ export interface PaginationResponse<T> {
 
 export interface Env {
   DB: D1Database
+  BASE_URL: string
   RESEND_API_KEY: string
   NEWSLETTER_RECIPIENTS: string
   WEBSITE_BASE_URL: string
   NEWSLETTER_TO_EMAIL: string
   RESEND_AUDIENCE_ID: string
   RESEND_FROM: string
+  subscription: KVNamespace
   [key: string]: unknown
 }
 
@@ -67,31 +69,4 @@ export interface Post {
   updated_at: string
   tags: string[]
   content: string
-}
-
-export interface Contact {
-  id: string
-  email: string
-  first_name?: string
-  last_name?: string
-  created_at: string
-  unsubscribed: boolean
-}
-
-export interface BatchEmail {
-  from: string
-  to: string[]
-  subject: string
-  html: string
-}
-
-export interface ListContactsResponse {
-  object: string
-  data: Contact[]
-}
-
-export interface BatchEmailResponse {
-  data: Array<{
-    id: string
-  }>
 }

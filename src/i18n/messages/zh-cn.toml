@@ -220,3 +220,9 @@ submit_button = "看起来没问题"
 check_inbox = "请检查你的收件箱（或垃圾箱），查看我们刚刚发出的确认邮件。点击邮件中的链接以完成订阅。"
 check_button = "去看看"
 close_button = "我知道了"
+error = "坏了，好像有问题。不过我已经意识到了，会尽快处理 QAQ"
+
+[newsletter.success]
+title = "订阅成功！"
+description = "感谢你的订阅！接下来每个月我都会向你汇报我的最新动态。"
+backToHome = "返回首页"

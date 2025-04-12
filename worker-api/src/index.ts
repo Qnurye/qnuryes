@@ -2,6 +2,7 @@ import { Hono } from 'hono';
 import { cors } from 'hono/cors';
 import { CommentHandler } from '@/handlers/comment';
 import { LikeHandler } from '@/handlers/like';
+import { SubscriptionHandler } from '@/handlers/subscription';
 import type { Env, Post } from '@/types';
 import { Resend } from 'resend';
 import Newsletter from './emails/Newsletter';
@@ -20,8 +21,10 @@ app.use('*', cors({
 app.use('*', async (c, next) => {
   const commentHandler = new CommentHandler(c.env as unknown as Env);
   const likeHandler = new LikeHandler(c.env as unknown as Env);
+  const subscriptionHandler = new SubscriptionHandler(c.env as unknown as Env);
   c.set('commentHandler' as never, commentHandler as never);
   c.set('likeHandler' as never, likeHandler as never);
+  c.set('subscriptionHandler' as never, subscriptionHandler as never);
   await next();
 });
 
@@ -57,12 +60,23 @@ app.delete('/comments/:id/like', async (c) => {
   return handler.unlikeComment(c);
 });
 
+app.post('/subscription', async (c) => {
+  const handler = c.get('subscriptionHandler' as never) as SubscriptionHandler;
+  return handler.subscribe(c);
+});
+
+app.get('/subscription/confirmation', async (c) => {
+  const handler = c.get('subscriptionHandler' as never) as SubscriptionHandler;
+  return handler.confirm(c);
+});
+
 app.get('/', c => c.text('Hello Hono!'));
 
 export default {
   fetch: app.fetch,
   async scheduled(event: ScheduledEvent, env: Env): Promise<void> {
     try {
+      // eslint-disable-next-line no-console
       console.log('Starting newsletter job at ', new Date(event.scheduledTime).toISOString());
 
       const now = new Date();

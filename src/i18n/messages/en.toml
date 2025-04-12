@@ -219,3 +219,11 @@ submit_button = "Looks good"
 check_inbox = "Please check your inbox (or spam folder) for the confirmation email we just sent. Click the link in the email to complete your subscription."
 check_button = "Check it out"
 close_button = "Got it"
+error = "Ouch. Something went wrong. I'm aware of this issue and will fix it ASAP."
+
+[newsletter.success]
+title = "Subscription Confirmed!"
+description = """
+Thank you for subscribing to my newsletter. You will receive updates about my new posts.
+"""
+backToHome = "Back to Home"

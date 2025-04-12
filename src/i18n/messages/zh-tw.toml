@@ -212,5 +212,11 @@ consent_label = "同意提供以上信息用於訂閱郵件"
 consent_description = "本站使用第三方郵件訂閱服務提供商，並將與其共享用戶郵箱地址。請查看 <a href=\"https://resend.com/legal/privacy-policy\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"underline\">Resend 的隱私政策</a>以了解更多信息。"
 submit_button = "看起來沒問題"
 check_inbox = "請檢查你的收件箱（或垃圾箱），查看剛剛我們發出的確認郵件。點擊郵件中的鏈接以完成訂閱。"
-check_button = "去看看"
+check_button = "檢查一下"
 close_button = "我知道了"
+error = "糟糕，好像出了問題。我已經注意到，會盡快處理 QAQ"
+
+[newsletter.success]
+title = "訂閱成功！"
+description = "感謝你的訂閱！接下來每個月我都會向你匯報我的最新動態。"
+backToHome = "返回首頁"
