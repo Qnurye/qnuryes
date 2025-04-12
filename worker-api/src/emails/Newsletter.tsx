@@ -35,7 +35,7 @@ export const Newsletter = ({ issue, posts, locale, baseUrl }: NewsletterProps): 
       <Head>
         <Fonts />
       </Head>
-      <Preview>Vol.{issue}</Preview>
+      <Preview>{`Hi {{{FIRST_NAME|there}}}, here is my latest updates. check Vol.${issue}!`}</Preview>
       <Tailwind
         config={{
           theme: {
