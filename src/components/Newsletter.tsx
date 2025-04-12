@@ -208,38 +208,40 @@ const Newsletter: React.FC<{ locale: string }> = ({ locale }) => {
         </Button>
       </DrawerTrigger>
       <DrawerContent className="p-1 sm:p-2 md:p-4">
-        <DrawerHeader>
-          <DrawerTitle className="text-2xl font-serif">{t('newsletter.title')}</DrawerTitle>
-          <DrawerDescription className="font-serif">
-            {t('newsletter.description')}
-          </DrawerDescription>
-        </DrawerHeader>
-        <NewsletterForm
-          locale={locale as keyof typeof locales}
-          onSubmit={onSubmit}
-          disabled={formState !== 'input'}
-          loading={formState === 'loading'}
-          error={isError}
-        />
-        <DrawerFooter
-          className={`flex flex-col gap-2 ${formState !== 'successful'
-            ? ' hidden'
-            : ''}`}
-        >
-          <span>{t('newsletter.check_inbox')}</span>
-          <div className="flex w-full grow md:w-auto flex-wrap gap-2 justify-end">
-            <Button className={`grow ${mailTarget ? '' : ' hidden'}`} asChild>
-              <a href={mailTarget || '#'} target="_blank" rel="noopener noreferrer">
-                {t('newsletter.check_button')}
-              </a>
-            </Button>
-            <DrawerClose asChild>
-              <Button variant="outline">
-                {t('newsletter.close_button')}
+        <div className="overflow-y-auto scroll-smooth pb-24 sm:pb-16 md:pb-0">
+          <DrawerHeader>
+            <DrawerTitle className="text-2xl font-serif">{t('newsletter.title')}</DrawerTitle>
+            <DrawerDescription className="font-serif">
+              {t('newsletter.description')}
+            </DrawerDescription>
+          </DrawerHeader>
+          <NewsletterForm
+            locale={locale as keyof typeof locales}
+            onSubmit={onSubmit}
+            disabled={formState !== 'input'}
+            loading={formState === 'loading'}
+            error={isError}
+          />
+          <DrawerFooter
+            className={`flex flex-col gap-2 ${formState !== 'successful'
+              ? ' hidden'
+              : ''}`}
+          >
+            <span>{t('newsletter.check_inbox')}</span>
+            <div className="flex w-full grow md:w-auto flex-wrap gap-2 justify-end">
+              <Button className={`grow ${mailTarget ? '' : ' hidden'}`} asChild>
+                <a href={mailTarget || '#'} target="_blank" rel="noopener noreferrer">
+                  {t('newsletter.check_button')}
+                </a>
               </Button>
-            </DrawerClose>
-          </div>
-        </DrawerFooter>
+              <DrawerClose asChild>
+                <Button variant="outline">
+                  {t('newsletter.close_button')}
+                </Button>
+              </DrawerClose>
+            </div>
+          </DrawerFooter>
+        </div>
       </DrawerContent>
     </Drawer>
   )

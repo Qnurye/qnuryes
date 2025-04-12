@@ -17,7 +17,7 @@ const translations = {
   'zh-tw': zhTW,
 };
 
-export const Newsletter = ({ firstName, locale, url }: NewsletterProps): React.ReactElement => {
+export const Subscribe = ({ firstName, locale, url }: NewsletterProps): React.ReactElement => {
   const t = translations[locale];
 
   return (
@@ -66,11 +66,10 @@ export const Newsletter = ({ firstName, locale, url }: NewsletterProps): React.R
   );
 };
 
-export default Newsletter;
+export default Subscribe;
 
-Newsletter.PreviewProps = {
-  email: 'qnurye@gmail.com',
+Subscribe.PreviewProps = {
   firstName: 'Qnurye',
   locale: 'en',
-  baseUrl: 'https://qnury.es',
+  url: 'https://qnury.es',
 }
