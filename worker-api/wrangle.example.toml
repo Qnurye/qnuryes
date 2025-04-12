@@ -7,7 +7,12 @@ binding = "DB"
 database_name = ""
 database_id = ""
 
+[[kv_namespaces]]
+binding = "subscription"
+id = ""
+
 [vars]
+BASE_URL = "http://localhost:8787"
 RESEND_API_KEY = "re_xxx"
 WEBSITE_BASE_URL = "http://localhost:4321"
 NEWSLETTER_TO_EMAIL = "a@b.c"

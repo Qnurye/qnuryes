@@ -40,7 +40,7 @@ export const getReadingTime = (text: string, locale: string): number =>
   readingTime(text, wpm[locale], readingTimeLocales[locale]).minutes
 
 export const dateToIssue = (date: Date): string => {
-  const year = date.getFullYear();
+  const year = String(date.getFullYear()).slice(-2);
   const month = String(date.getMonth() + 1).padStart(2, '0');
   return `${year}${month}`;
 };

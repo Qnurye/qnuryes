@@ -80,11 +80,18 @@ export default {
       console.log('Starting newsletter job at ', new Date(event.scheduledTime).toISOString());
 
       const now = new Date();
-      const issue = `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}`;
+      now.setMonth(now.getMonth() - 1);
+      const year = String(now.getFullYear()).slice(-2)
+      const month = String(now.getMonth() + 1).padStart(2, '0')
+      const issue = `${year}${month}`;
 
       const locale = 'en';
       const response = await fetch(`${env.WEBSITE_BASE_URL}/${locale}/blog/issues/newsletter/${issue}`);
       if (!response.ok) {
+        if (response.status === 404) {
+          console.warn('lazy dog');
+          return;
+        }
         console.error(`Failed to fetch posts for locale ${locale}: ${response.statusText}`);
       }
 
