@@ -18,12 +18,11 @@
     "marked": "^15.0.8",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "resend": "^3.0.0",
+    "resend": "^4.2.0",
     "sanitize-html": "^2.15.0"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240208.0",
-    "@types/marked": "^6.0.0",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
     "react-email": "4.0.7",

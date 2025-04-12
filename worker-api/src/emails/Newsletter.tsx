@@ -35,7 +35,7 @@ export const Newsletter = ({ issue, posts, locale, baseUrl }: NewsletterProps): 
       <Head>
         <Fonts />
       </Head>
-      <Preview>{t.newsletter.title} - Vol.{issue}</Preview>
+      <Preview>Vol.{issue}</Preview>
       <Tailwind
         config={{
           theme: {
@@ -63,11 +63,16 @@ export const Newsletter = ({ issue, posts, locale, baseUrl }: NewsletterProps): 
             <Text className="text-primary flex flex-row gap-2 text-4xl items-end my-4 font-mono">
               <span className="text-2xl font-mono">Vol.</span>{issue}
             </Text>
+            <Text>
+              简体中文读者请查看<Link href={`${baseUrl}/zh-cn/blog/issues/${issue}`}>简体中文版本</Link>。
+              <br />
+              繁體中文讀者請查看<Link href={`${baseUrl}/zh-tw/blog/issues/${issue}`}>繁體中文版本</Link>。
+            </Text>
 
             {posts.map(post => (
               <NewsletterCard
                 key={post.id}
-                url={`${baseUrl}${locale}/blog/${post.id}`}
+                url={`${baseUrl}/${locale}/blog/${post.id}`}
                 title={post.title}
                 description={post.description}
                 content={post.content}
@@ -90,7 +95,7 @@ export const Newsletter = ({ issue, posts, locale, baseUrl }: NewsletterProps): 
                 {
                   t.newsletter.unsubscribe
                 }{' '}
-                <Link href="https://api.qnury.es/unsubscribe">unsubscribe</Link>
+                <Link href="{{{RESEND_UNSUBSCRIBE_URL}}}">unsubscribe</Link>
               </Text>
             </Section>
           </Container>
@@ -141,5 +146,5 @@ Newsletter.PreviewProps = {
     },
   ],
   locale: 'en',
-  baseUrl: 'https://qnury.es/',
+  baseUrl: 'https://qnury.es',
 }

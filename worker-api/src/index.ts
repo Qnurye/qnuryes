@@ -2,9 +2,8 @@ import { Hono } from 'hono';
 import { cors } from 'hono/cors';
 import { CommentHandler } from '@/handlers/comment';
 import { LikeHandler } from '@/handlers/like';
-import type { Env, Post, Contact, BatchEmail, BatchEmailResponse } from '@/types';
+import type { Env, Post } from '@/types';
 import { Resend } from 'resend';
-import { render } from '@react-email/render';
 import Newsletter from './emails/Newsletter';
 
 const app = new Hono<{ Bindings: Env }>();
@@ -68,81 +67,43 @@ export default {
 
       const now = new Date();
       const issue = `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}`;
+
+      const locale = 'en';
+      const response = await fetch(`${env.WEBSITE_BASE_URL}/${locale}/blog/issues/newsletter/${issue}`);
+      if (!response.ok) {
+        console.error(`Failed to fetch posts for locale ${locale}: ${response.statusText}`);
+      }
+
+      const posts = await response.json() as Post[];
+
+      if (posts.length === 0) {
+        console.warn(`No posts found for locale ${locale} in issue ${issue}`);
+      }
+
+      const emailReact = Newsletter({
+        issue,
+        posts,
+        baseUrl: env.WEBSITE_BASE_URL,
+        locale: locale as 'zh-cn' | 'en' | 'zh-tw',
+      });
+
       const resend = new Resend(env.RESEND_API_KEY);
-
-      // Fetch contacts from Resend
-      const data = await resend.contacts.list({
+      const broadcastResponse = await resend.broadcasts.create({
+        name: `Vol. ${issue}`,
         audienceId: env.RESEND_AUDIENCE_ID,
-      })
-      const contactsResponse = data.data
-
-      if (!contactsResponse?.data) {
-        console.error('failed to fetch contacts');
-        return;
+        from: env.RESEND_FROM,
+        subject: `Qnury.e's Newsletter`,
+        react: emailReact,
+      });
+      if (!broadcastResponse.data || !broadcastResponse.data.id) {
+        console.error(`Failed to send newsletter for issue ${issue}:`, broadcastResponse.error);
+        return
       }
 
-      // Group contacts by locale and filter out unsubscribed
-      const contactsByLocale = contactsResponse.data.reduce((acc: Record<string, string[]>, contact: Contact) => {
-        if (!contact.unsubscribed && contact.last_name) {
-          const locale = contact.last_name;
-          acc[locale] = acc[locale] || [];
-          acc[locale].push(contact.email);
-        }
-        return acc;
-      }, {});
-
-      // Prepare batch emails for each locale
-      const batchEmails: BatchEmail[] = [];
-      for (const [locale, emails] of Object.entries(contactsByLocale)) {
-        const response = await fetch(`${env.WEBSITE_BASE_URL}/${locale}/blog/issues/newsletter/${issue}`);
-        if (!response.ok) {
-          console.error(`Failed to fetch posts for locale ${locale}: ${response.statusText}`);
-          continue;
-        }
-
-        const posts = await response.json() as Post[];
-
-        if (posts.length === 0) {
-          console.warn(`No posts found for locale ${locale} in issue ${issue}`);
-          continue;
-        }
-
-        const emailHtml = await render(
-          Newsletter({
-            issue,
-            posts,
-            baseUrl: env.WEBSITE_BASE_URL,
-            locale: locale as 'zh-cn' | 'en' | 'zh-tw',
-          }),
-        );
-
-        batchEmails.push({
-          from: env.RESEND_FROM,
-          to: emails,
-          subject: `Qnury.e's - Vol.${issue}`,
-          html: emailHtml,
-        });
-      }
-
-      if (batchEmails.length > 0) {
-        const chunkSize = 100;
-        const chunks = [];
-        for (let i = 0; i < batchEmails.length; i += chunkSize) {
-          chunks.push(batchEmails.slice(i, i + chunkSize));
-        }
-
-        for (const chunk of chunks) {
-          const { error } = await resend.batch.send(chunk) as {
-              data: BatchEmailResponse
-              error: Error | null
-            };
-
-          if (error) {
-            console.error('Failed to send batch email:', error);
-          }
-        }
-      } else {
-        console.warn('No emails to send for this issue');
+      const sendResponse = await resend.broadcasts.send(broadcastResponse.data.id);
+      if (sendResponse.error) {
+        console.error(`Failed to send newsletter for issue ${issue}:`, sendResponse.error);
+        return
       }
     } catch (error) {
       console.error('Failed to send newsletter:', error);
