@@ -6,12 +6,13 @@
     "deploy": "wrangler deploy",
     "dev": "wrangler dev",
     "start": "wrangler dev",
-    "dev:email": "email dev --dir=./src/emails/dev",
+    "dev:email": "email dev --dir=./src/emails",
     "test": "jest"
   },
   "dependencies": {
     "@hono/node-server": "^1.8.1",
     "@react-email/components": "^0.0.36",
+    "@react-email/font": "0.0.9",
     "@react-email/render": "^1.0.6",
     "hono": "^4.0.0",
     "marked": "^15.0.8",

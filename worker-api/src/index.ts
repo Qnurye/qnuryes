@@ -64,7 +64,7 @@ export default {
   fetch: app.fetch,
   async scheduled(event: ScheduledEvent, env: Env): Promise<void> {
     try {
-      console.warn('Starting newsletter job at ', new Date(event.scheduledTime).toISOString());
+      console.log('Starting newsletter job at ', new Date(event.scheduledTime).toISOString());
 
       const now = new Date();
       const issue = `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}`;
@@ -108,9 +108,10 @@ export default {
         }
 
         const emailHtml = await render(
-          await Newsletter({
+          Newsletter({
             issue,
             posts,
+            baseUrl: env.WEBSITE_BASE_URL,
             locale: locale as 'zh-cn' | 'en' | 'zh-tw',
           }),
         );

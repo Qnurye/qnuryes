@@ -1,10 +1,8 @@
 export const zhCN = {
   newsletter: {
-    title: 'Qnurye 的月度通讯',
-    issue: '期数',
+    title: 'Qnury.e\'s',
     readMore: '阅读更多',
-    thanks: '感谢阅读！你可以在 {link} 找到更多内容',
-    website: 'qnurye.com',
-    tags: '标签',
+    thanks: '感谢你的阅读，这个月就是这些了，下个月见！',
+    unsubscribe: '如果这封邮件让你感到烦恼，请点击链接取消订阅：',
   },
 };

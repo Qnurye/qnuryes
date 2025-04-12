@@ -1,20 +1,10 @@
-import {
-  Body,
-  Button,
-  Container,
-  Head,
-  Heading,
-  Html,
-  Markdown,
-  Preview,
-  Section,
-  Tailwind,
-  Text,
-} from '@react-email/components';
+import { Body, Container, Head, Heading, Html, Link, Preview, Section, Tailwind, Text } from '@react-email/components';
 import React from 'react';
 import { zhCN } from '@/i18n/zh-cn';
 import { en } from '@/i18n/en';
 import { zhTW } from '@/i18n/zh-tw';
+import NewsletterCard from './_components/NewsletterCard';
+import Fonts from '@/emails/_components/Fonts';
 
 export interface NewsletterProps {
   issue: string
@@ -22,12 +12,13 @@ export interface NewsletterProps {
     id: string
     title: string
     description: string
-    created_at: Date
-    updated_at: Date
+    created_at: string
+    updated_at: string
     tags: string[]
     content: string
   }>
   locale: 'zh-cn' | 'en' | 'zh-tw'
+  baseUrl: string
 }
 
 const translations = {
@@ -36,98 +27,70 @@ const translations = {
   'zh-tw': zhTW,
 };
 
-export const Newsletter = ({ issue, posts, locale }: NewsletterProps): React.ReactElement => {
+export const Newsletter = ({ issue, posts, locale, baseUrl }: NewsletterProps): React.ReactElement => {
   const t = translations[locale];
 
   return (
     <Html>
-      <Head />
-      <Preview>{t.newsletter.title} - {issue}</Preview>
+      <Head>
+        <Fonts />
+      </Head>
+      <Preview>{t.newsletter.title} - Vol.{issue}</Preview>
       <Tailwind
-        config={{ theme: { extend: { colors: {
-          primary: '#000000',
-          secondary: '#444444',
-          background: '#ffffff',
-          border: '#dedede',
-        } } } }}
+        config={{
+          theme: {
+            extend: {
+              colors: {
+                primary: '#000000',
+                secondary: '#444444',
+                background: '#ffffff',
+                border: '#dedede',
+              },
+              fontFamily: {
+                sans: ['Nunito', 'sans-serif'],
+                mono: ['Maple Mono', 'monospace'],
+                serif: ['Arvo', 'serif'],
+              },
+            },
+          },
+        }}
       >
         <Body className="bg-background font-sans">
-          <Container className="mx-auto max-w-[580px] py-5 px-0">
-            <Heading className="text-primary text-2xl font-bold my-10 text-center">
+          <Container className="mx-auto max-w-[580px] py-5 px-2">
+            <Heading className="text-secondary text-sm font-bold my-4 font-serif">
               {t.newsletter.title}
             </Heading>
-            <Text className="text-secondary text-base leading-6 my-4">
-              {t.newsletter.issue}: {issue}
+            <Text className="text-primary flex flex-row gap-2 text-4xl items-end my-4 font-mono">
+              <span className="text-2xl font-mono">Vol.</span>{issue}
             </Text>
 
             {posts.map(post => (
-              <Section key={post.id} className="p-6 border border-border rounded mb-5 text-center">
-                <Heading className="text-primary text-xl font-bold mb-2.5">
-                  {post.title}
-                </Heading>
-                <Markdown
-                  markdownContainerStyles={{
-                    color: '#444',
-                    fontSize: '16px',
-                    lineHeight: '24px',
-                    margin: '16px 0',
-                    textAlign: 'left',
-                  }}
-                  markdownCustomStyles={{
-                    p: { color: '#444', fontSize: '16px', lineHeight: '24px', margin: '16px 0' },
-                    h1: {
-                      color: '#000',
-                      fontSize: '24px',
-                      fontWeight: 'bold',
-                      margin: '40px 0',
-                      padding: '0',
-                      textAlign: 'center',
-                    },
-                    h2: { color: '#000', fontSize: '20px', fontWeight: 'bold', margin: '0 0 10px', padding: '0' },
-                    h3: { color: '#000', fontSize: '20px', fontWeight: 'bold', margin: '0 0 10px', padding: '0' },
-                  }}
-                >
-                  {post.description}
-                </Markdown>
-                <Markdown
-                  markdownContainerStyles={{
-                    color: '#444',
-                    fontSize: '16px',
-                    lineHeight: '24px',
-                    margin: '16px 0',
-                    textAlign: 'left',
-                  }}
-                  markdownCustomStyles={{
-                    p: { color: '#444', fontSize: '16px', lineHeight: '24px', margin: '16px 0' },
-                    h1: {
-                      color: '#000',
-                      fontSize: '24px',
-                      fontWeight: 'bold',
-                      margin: '40px 0',
-                      padding: '0',
-                      textAlign: 'center',
-                    },
-                    h2: { color: '#000', fontSize: '20px', fontWeight: 'bold', margin: '0 0 10px', padding: '0' },
-                    h3: { color: '#000', fontSize: '20px', fontWeight: 'bold', margin: '0 0 10px', padding: '0' },
-                  }}
-                >
-                  {post.content}
-                </Markdown>
-                <Text className="text-secondary text-base leading-6 my-4">
-                  {t.newsletter.tags}: {post.tags.join(', ')}
-                </Text>
-                <Button
-                  href={`https://qnurye.com/blog/${post.id}`}
-                  className="bg-primary text-white text-base no-underline text-center block py-3 px-4 my-5 rounded"
-                >
-                  {t.newsletter.readMore}
-                </Button>
-              </Section>
+              <NewsletterCard
+                key={post.id}
+                url={`${baseUrl}${locale}/blog/${post.id}`}
+                title={post.title}
+                description={post.description}
+                content={post.content}
+                tags={post.tags}
+                readMoreText={t.newsletter.readMore}
+                time={new Date(post.created_at).toLocaleDateString(locale, {
+                  year: '2-digit',
+                  month: 'short',
+                  day: '2-digit',
+                })}
+              />
             ))}
-
-            <Section className="p-6 border border-border rounded mb-5 text-center">
+            <Section className="p-6 border border-border rounded mb-5 text-pretty">
               <Text className="text-secondary text-base leading-6 my-4">
-                {t.newsletter.thanks.replace('{link}', t.newsletter.website)}
+                {
+                  t.newsletter.thanks
+                }
+              </Text>
+              <Text className="text-secondary text-base leading-6 my-4">
+                {
+                  t.newsletter.unsubscribe
+                }{' '}
+                <Link href="https://api.qnury.es/unsubscribe">unsubscribe</Link>
               </Text>
             </Section>
           </Container>
@@ -138,3 +101,45 @@ export const Newsletter = ({ issue, posts, locale }: NewsletterProps): React.Rea
 };
 
 export default Newsletter;
+
+Newsletter.PreviewProps = {
+  issue: '202504',
+  posts: [
+    {
+      id: 'tomb',
+      title: 'Digital Tombstone',
+      description: '**In youth,** everything seems so close—that is the future. In old age, everything seems so'
+        + ' distant—that is the past.',
+      created_at: new Date('2025-04-01T00:32:00.000Z'),
+      updated_at: new Date('2025-04-01T14:58:03.000Z'),
+      tags: ['foo', 'bar'],
+      content: 'Qui ad commodo nisi nostrud aliquip quis tempor amet culpa non adipisicing eiusmod ipsum nisi.'
+        + ' Lorem id quis tempor veniam velit sunt nostrud culpa aute adipisicing sit in consequat. Aliqua non anim'
+        + ' et sit duis nostrud velit cupidatat sint est irure. Sint nisi do ad elit tempor deserunt pariatur.'
+        + ' Aliquip laboris cupidatat duis sunt amet.\n\n'
+        + ' Lorem id quis tempor veniam velit sunt nostrud culpa aute adipisicing sit in consequat. Aliqua non anim'
+        + ' et sit duis nostrud velit cupidatat sint est irure. Sint nisi do ad elit tempor deserunt pariatur.'
+        + ' Aliquip laboris cupidatat duis sunt amet.\n\n'
+        + ' Lorem id quis tempor veniam velit sunt nostrud culpa aute adipisicing sit in consequat. Aliqua non anim'
+        + ' et sit duis nostrud velit cupidatat sint est irure. Sint nisi do ad elit tempor deserunt pariatur.'
+        + ' Aliquip laboris cupidatat duis sunt amet.\n\n'
+        + ' Lorem id quis tempor veniam velit sunt nostrud culpa aute adipisicing sit in consequat. Aliqua non anim'
+        + ' et sit duis nostrud velit cupidatat sint est irure. Sint nisi do ad elit tempor deserunt pariatur.'
+        + ' Aliquip laboris cupidatat duis sunt amet.\n\n'
+        + ' Lorem id quis tempor veniam velit sunt nostrud culpa aute adipisicing sit in consequat. Aliqua non anim'
+        + ' et sit duis nostrud velit cupidatat sint est irure. Sint nisi do ad elit tempor deserunt pariatur.'
+        + ' Aliquip laboris cupidatat duis sunt amet.\n\n',
+    },
+    {
+      id: 'terms',
+      title: 'Terms of Service & Privacy Policy',
+      description: 'Read the following terms of service and privacy policy carefully before using this site.',
+      created_at: new Date('2025-04-01T00:00:00.000Z'),
+      updated_at: new Date('2025-04-01T00:00:03.000Z'),
+      tags: [],
+      content: 'Exercitation mollit qui exercitation sint deserunt est proident ut fugiat aliqua.',
+    },
+  ],
+  locale: 'en',
+  baseUrl: 'https://qnury.es/',
+}
