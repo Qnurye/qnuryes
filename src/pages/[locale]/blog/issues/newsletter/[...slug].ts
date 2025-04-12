@@ -13,7 +13,7 @@ export const GET: APIRoute = async ({ params }) => {
   ))
     .sort((a, b) => b.data.created_at.getTime() - a.data.created_at.getTime())
     .map(post => ({
-      id: post.id,
+      id: post.data.translation_id,
       title: post.data.title,
       description: post.data.description,
       created_at: post.data.created_at,
