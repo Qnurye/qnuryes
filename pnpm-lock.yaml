@@ -15,7 +15,7 @@ importers:
         specifier: ^5.8.3
         version: 5.8.3
 
-  apps/astro:
+  astro:
     dependencies:
       '@astro-kits/google-analytics':
         specifier: ^0.1.0
@@ -187,7 +187,7 @@ importers:
         specifier: ^6.2.6
         version: 6.2.6(@types/node@22.14.1)(jiti@2.4.2)(lightningcss@1.29.2)
 
-  apps/worker-api:
+  worker-api:
     dependencies:
       '@hono/node-server':
         specifier: ^1.14.1
