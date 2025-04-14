@@ -1,0 +1,72 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { cn } from '@/lib/utils';
+import { Markdown } from 'astro-remote';
+import { Vibrant } from 'node-vibrant/node';
+import sharp from 'sharp';
+
+const { title, description, date, cover, id, className } = Astro.props;
+
+const formattedDate = new Intl.DateTimeFormat(Astro.currentLocale, {
+  year: '2-digit',
+  month: 'short',
+  day: 'numeric',
+}).format(date);
+
+let p;
+try {
+  // FIXME)) We need to deploy the site twice to get it correct
+  const response = await fetch(new URL(cover, import.meta.env.PUBLIC_BASE_URL));
+
+  const arrayBuffer = await response.arrayBuffer();
+  const buffer = Buffer.from(arrayBuffer);
+
+  p = await Vibrant.from(await sharp(buffer).toFormat('png').toBuffer()).getPalette();
+} catch (e) {
+  console.warn('Error fetching vibrant palette:', e);
+  p = {
+    Vibrant: {
+      hex: 'var(--color-foreground)',
+      bodyTextColor: 'var(--color-background)',
+    },
+  };
+}
+
+const color = p.Vibrant?.hex || 'var(--color-foreground)';
+const foregroundColor = p.Vibrant?.bodyTextColor || 'var(--color-background)';
+---
+
+<a
+  class={cn('relative group block max-w-72 border-2 rounded', className)}
+  href={getRelativeLocaleUrl(Astro.currentLocale || 'en', `/blog/${id}`)}
+  style={`
+    --vibrant-color: ${color};
+    --vibrant-foreground: ${foregroundColor};
+    border-color: ${color};
+  `}
+>
+  <img src={cover} alt={title} />
+  <div
+    class={'flex flex-col justify-end p-2 absolute size-full top-0 left-0 z-10 overflow-hidden transition-all'
+      + ' duration-500'
+      + ' group-hover:[background-color:var(--vibrant-color)]'}
+  >
+    <div class="translate-y-full">
+      <div
+        class={'flex flex-col justify-end gap-2 text-[var(--vibrant-color)]'
+          + ' group-hover:text-[var(--vibrant-foreground)] transition-all *:transition-all z-10'
+          + ' group-hover:-translate-y-full *:duration-500 duration-500'}
+      >
+        <p class={'text-3xl -translate-y-full group-hover:translate-y-0 group-hover:text-xl'
+          + ' group-hover:text-ellipsis group-hover:overflow-hidden'}
+        >
+          {title}
+        </p>
+        <div class="flex-grow overflow-hidden max-h-[6rem] line-clamp-3">
+          <Markdown content={description} />
+        </div>
+        <p class="font-mono">{formattedDate}</p>
+      </div>
+    </div>
+  </div>
+</a>

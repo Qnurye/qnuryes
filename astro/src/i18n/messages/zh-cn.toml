@@ -1,0 +1,228 @@
+[locales]
+en = "英文"
+zh_cn = "简体中文"
+zh_tw = "繁体中文"
+
+[nav]
+about = "关于"
+portfolio = "作品集"
+blog = "博客"
+notes = "笔记"
+links = "友链"
+
+[nav.language]
+select = "选择语言"
+search = "搜索语言..."
+not_found = "我不会说这门语言"
+
+[nav.appearance]
+label = "显示模式"
+light = "亮色"
+dark = "暗色"
+system = "跟随系统"
+toggle = "切换外观"
+
+[footer]
+subscribe_newsletter = "订阅邮件"
+rss = "RSS"
+source_code = "源代码"
+credits = "Qnurye 设计开发。*Islands join hands*，由 [Astro](https://astro.build/) 驱动。"
+all_rights_reserved = " 保留所有权利。"
+tos_pp = "用户协议 & 隐私政策"
+
+[landing]
+welcome = "欢迎光临 ***Qnurye's***"
+lines = """
+切断电缆 朝霞晚风 临时收入 临时生活
+
+切断电缆 数字云烟 免费月光 免费惊险
+"""
+page_title = "Qnury.e's"
+page_description = "Qnury.e's 是 Qnurye 的个人网站，在这里你可以找到关于我的一些个人信息、了解到我的最近想法或项目。"
+page_keywords = "关于, 个人网站, 博客, 友链, 作品集, 技术, 编程, 计算机, 前端, 后端"
+
+[about]
+title = "名片"
+introduction = "简介"
+introduction_text = "人 / 学生 / 爱好者，轻微洁癖。"
+unemployed = "待业"
+unemployed_text = "我正在寻找实习机会。"
+interests = "兴趣"
+interests_text = """
+我的兴趣是传统的书影音三件套。我最喜欢的乐队有
+[万能青年旅店](https://open.spotify.com/artist/4ntvojSPscU3PxselAEeY2)、
+[King Crimson](https://open.spotify.com/artist/7M1FPw29m5FbicYzS2xdpi)、
+[Pink Floyd](https://open.spotify.com/artist/0k17h0D3J5VfsdmQ1iZtE9)、
+和 [Camel](https://open.spotify.com/artist/3Uz6jx81OY2J5K8Z4wmy2P)。偶尔，我也会听印象派
+古典音乐。
+"""
+contact = "联系"
+
+[about.tech_stack]
+title = "技术栈"
+proficient = "熟练"
+familiar = "略懂"
+beginner = "入门"
+astro_title = "Astro"
+astro_description = "内容驱动型网站的网页框架"
+nextjs_title = "Next.js"
+nextjs_description = "生产级 React 框架"
+spring_title = "Spring Boot"
+spring_description = "现代应用程序的 Java 框架"
+laravel_title = "Laravel"
+laravel_description = "Web 工匠的 PHP 框架"
+wechat_title = "微信小程序"
+wechat_description = "Vue.js"
+vuejs_title = "Vue.js"
+vuejs_description = "渐进式 JavaScript 框架"
+cloudflare_title = "Cloudflare"
+cloudflare_description = "互联网大善人"
+gin_title = "Gin"
+gin_description = "用 Go 编写的 HTTP Web 框架"
+materialdesign_title = "Material Design"
+materialdesign_description = "由 Google 开发的设计语言"
+figma_title = "Figma"
+figma_description = "协作界面设计工具"
+fastapi_title = "FastAPI"
+fastapi_description = "现代、快速的 Python Web 框架"
+nestjs_title = "Nest.js"
+nestjs_description = "渐进式 Node.js 框架"
+latex_title = "LaTeX"
+latex_description = "文档准备系统"
+flutter_title = "Flutter"
+flutter_description = "构建原生编译应用程序的 UI 工具包"
+bun_title = "Bun"
+bun_description = "全功能 JavaScript 运行时"
+hono_title = "Hono"
+hono_description = "专用于 Cloudflare Workers 的边缘 Web 框架"
+actixweb_title = "Actix Web"
+actixweb_description = "强大、实用的 Rust Web 框架"
+
+[portfolio]
+title = "项目"
+
+[links]
+title = "好友"
+page_title = "Qnury.e's | 好友"
+page_description = "Qnurye 个人网站的友情链接，你也可以提交你的链接！"
+page_keywords = "个人网站, 博客, 友链, 作品集, 技术, 编程, 计算机, 前端, 后端, 友情链接"
+
+[links.application]
+about = "添加你的链接"
+
+[links.application.why]
+title = "友链从何而来？"
+content = """
+> [Link best practices for Google](https://developers.google.com/search/docs/crawling-indexing/links-crawlable#external-links)
+>
+> Linking to other sites isn't something to be scared of; in fact, using external links can help establish trustworthiness (for example, citing your sources). Link out to external sites when it makes sense, and provide context to your readers about what they can expect.
+
+友情链接是互联网社区的一种古早仪式。根据 Google 大名鼎鼎的 PageRank
+算法，一个网页的重要性不仅仅取决于其自身的内容，还取决于指向它的其他网页的质量和数量。早期互联网原住民互相链接，建立起行为意义上的另一层网络。这个传统一直延续。它的现代意义，在我看来已经演变成非推荐算法主流时代的一块记忆胶片。
+"""
+
+[links.application.pr]
+title = "在 GitHub 提交你的链接申请"
+content = """
+1. 在 GitHub Fork [我的仓库](https://github.com/Qnurye/qnuryes)
+2. 在你的仓库下， `src/content/links` 中创建一个新的 json 文件，命名为你的名字，内容请参考别的文件。你需要提供你的以下信息：
+    1. 名称
+    2. 头像 URL
+    3. 链接
+    4. 链接描述 (可能需要提供多种语言版本，但除英语外都为可空的。支持 Markdown。)
+3. 提交你的修改，并在 GitHub 上创建一个 pull request 至我的仓库。
+"""
+
+[links.application.email]
+title = "不懂上面那个 :( 但我仍然希望添加我的链接！"
+content = "你也可以直接联系我 [contact@qnury.es](mailto:contact@qnury.es)"
+
+[links.application.update]
+title = "后续是否需要更新？"
+content = "在极小概率的情况下，本站可能会在未来添加其他语言支持。如果这样的情况发生，我会使用 AI 基于英文简介翻译得新版本简介，并会通过 GitHub 或邮件向你告知。"
+
+[posts]
+title = "时间线"
+page_title = "Qnury.e's | 时间线"
+page_description = "Qnurye 个人网站上发表的文章，你在这里可以找到他的最新动态、想法、项目！"
+page_keywords = "个人网站, 博客, 友链, 作品集, 技术, 编程, 计算机, 前端, 后端, 友情链接, 项目"
+cover_by = "封面图片来自"
+
+[tags]
+title = "标签"
+page_title = "Qnury.e's | 标签"
+page_description = "Qnurye 个人网站上发表的文章标签，你在这里可以找到他的最新动态、想法、项目的标签索引！"
+page_keywords = "个人网站, 博客, 友链, 作品集, 技术, 编程, 计算机, 前端, 后端, 友情链接, 项目"
+
+[issues]
+title = "合集"
+page_title = "Qnury.e's | 合集"
+page_description = "订阅本站邮件列表后，历史发送的新闻邮件合集在这里可以找到。"
+page_keywords = "personal website, blog, friends, portfolio, technology, programming, computer, frontend, backend, friends links, projects"
+read_more = "阅读原文"
+
+[email]
+problem = "邮件没有正常显示？点击链接查看网页版："
+
+[post.translation_warning]
+title = "译文提醒"
+content = "下面的内容通过 AI 翻译，原文语言为{original}。"
+
+[errors]
+invalid_post_id = "无效的文章ID"
+invalid_comment_id = "无效的评论ID"
+invalid_page_number = "无效的页码"
+invalid_page_size = "无效的每页数量"
+invalid_email = "无效的邮箱地址"
+missing_required_fields = "缺少必填字段"
+parent_comment_not_found = "父评论不存在或已被删除"
+comment_not_found = "评论不存在"
+already_liked = "已经点赞过该评论"
+not_liked = "未点赞过该评论"
+database_error = "数据库错误"
+unknown_error = "未知错误"
+
+[comment]
+title = "评论"
+no_comments = "暂无评论"
+write_comment = "写评论"
+reply = "回复"
+like = "点赞"
+unlike = "取消点赞"
+submit = "提交"
+name = "名称"
+email = "邮箱（选填）"
+content = "内容（支持 Markdown）"
+reply_to = "回复"
+loading = "加载中..."
+error = "错误"
+success = "成功"
+previous = "前一页"
+next = "后一页"
+pages = "第 {current} 页，共 {total} 页"
+show_replies = "显示 {count} 条回复"
+hide_replies = "隐藏回复"
+submit_success = "评论提交成功"
+submit_error = "评论提交失败，请重试"
+
+[newsletter]
+title = "订阅新闻邮件"
+description = "提交邮箱地址后，你将收到我的每月更新合集。如果希望收到更频繁的更新提醒，请订阅我的 RSS。"
+email_label = "邮箱地址"
+email_placeholder = "your@email.com"
+name_label = "姓名（可选）"
+name_placeholder = "可留空"
+language_label = "偏好语言"
+language_placeholder = "请选择语言"
+consent_label = "同意提供以上信息用于订阅邮件"
+consent_description = "本站使用第三方邮件订阅服务提供商，并将与其共享用户邮箱地址。请查看 <a href=\"https://resend.com/legal/privacy-policy\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"underline\">Resend 的隐私政策</a>以了解更多信息。"
+submit_button = "看起来没问题"
+check_inbox = "请检查你的收件箱（或垃圾箱），查看我们刚刚发出的确认邮件。点击邮件中的链接以完成订阅。"
+check_button = "去看看"
+close_button = "我知道了"
+error = "坏了，好像有问题。不过我已经意识到了，会尽快处理 QAQ"
+
+[newsletter.success]
+title = "订阅成功！"
+description = "感谢你的订阅！接下来每个月我都会向你汇报我的最新动态。"
+backToHome = "返回首页"

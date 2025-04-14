@@ -1,0 +1,17 @@
+---
+import Base from '@/layouts/Base.astro';
+export { getI18nPaths as getStaticPaths } from '@/i18n';
+import { loadTranslations } from '@/i18n';
+import Timeline from './partial/timeline.astro';
+
+const locale = Astro.currentLocale || 'en';
+const t = await loadTranslations(locale);
+---
+
+<Base
+  title={t('posts.page_title')}
+  description={t('posts.page_description')}
+  keywords={t('posts.page_keywords')}
+>
+  <Timeline />
+</Base>

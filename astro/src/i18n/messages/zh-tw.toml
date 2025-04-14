@@ -1,0 +1,222 @@
+[locales]
+en = "英文"
+zh_cn = "簡體中文"
+zh_tw = "繁體中文"
+
+[nav]
+about = "關於"
+portfolio = "作品集"
+blog = "部落格"
+notes = "筆記"
+links = "友鏈"
+
+[nav.language]
+select = "選擇語言"
+search = "搜索語言..."
+not_found = "我不會說這門語言"
+
+[nav.appearance]
+label = "顯示模式"
+light = "亮色"
+dark = "暗色"
+system = "跟隨系統"
+toggle = "切換外觀"
+
+[footer]
+subscribe_newsletter = "訂閱郵件"
+rss = "RSS"
+source_code = "源代碼"
+credits = "Qnurye 設計開發。*Islands join hands*，由 [Astro](https://astro.build/) 驅動。"
+all_rights_reserved = "保留所有權利。"
+tos_pp = "用戶協議 & 隱私政策"
+
+[landing]
+welcome = "歡迎光臨 ***Qnurye's***"
+lines = """
+切斷電纜 朝霞晚風 臨時收入 臨時生活
+
+切斷電纜 數字雲煙 免費月光 免費驚險
+"""
+page_title = "Qnury.e's"
+page_description = "Qnury.e's 是 Qnurye 的個人網站，在這裡你可以找到關於我的一些個人信息、了解到我的最近想法或項目。"
+page_keywords = "關於, 個人網站, 部落格, 友鏈, 作品集, 技術, 編程, 計算機, 前端, 後端"
+
+[about]
+title = "名片"
+introduction = "簡介"
+introduction_text = "人 / 學生 / 愛好者，輕微潔癖。"
+unemployed = "待業"
+unemployed_text = "我正在尋找實習機會。"
+interests = "興趣"
+interests_text = """
+愛好觀影、音樂、讀書，最喜歡的樂隊是萬能青年旅店、King Crimson 和 Pink Floyd 還有 Camel，偶爾也會聽印象主義古典樂。
+"""
+contact = "聯繫"
+
+[about.tech_stack]
+title = "技術棧"
+proficient = "熟練"
+familiar = "略懂"
+beginner = "入門"
+astro_title = "Astro"
+astro_description = "內容驅動型網站的網頁框架"
+nextjs_title = "Next.js"
+nextjs_description = "生產級 React 框架"
+spring_title = "Spring Boot"
+spring_description = "現代應用程式的 Java 框架"
+laravel_title = "Laravel"
+laravel_description = "Web 工匠的 PHP 框架"
+wechat_title = "微信小程序"
+wechat_description = "微信生態系統的應用平台"
+vuejs_title = "Vue.js"
+vuejs_description = "漸進式 JavaScript 框架"
+cloudflare_title = "Cloudflare"
+cloudflare_description = "網絡效能與安全服務公司"
+gin_title = "Gin"
+gin_description = "用 Go 編寫的 HTTP Web 框架"
+materialdesign_title = "Material Design"
+materialdesign_description = "由 Google 開發的設計語言"
+figma_title = "Figma"
+figma_description = "協作界面設計工具"
+fastapi_title = "FastAPI"
+fastapi_description = "現代、快速的 Python Web 框架"
+nestjs_title = "Nest.js"
+nestjs_description = "漸進式 Node.js 框架"
+latex_title = "LaTeX"
+latex_description = "文檔準備系統"
+flutter_title = "Flutter"
+flutter_description = "構建原生編譯應用程式的 UI 工具包"
+bun_title = "Bun"
+bun_description = "全功能 JavaScript 執行環境"
+hono_title = "Hono"
+hono_description = "專為 Cloudflare Workers 設計的邊緣 Web 框架"
+actixweb_title = "Actix Web"
+actixweb_description = "強大、實用的 Rust Web 框架"
+[portfolio]
+title = "項目"
+
+[links]
+title = "好友"
+page_title = "Qnury.e's | 好友"
+page_description = "Qnurye 個人網站的友情鏈接，你也可以提交你的鏈接！"
+page_keywords = "個人網站, 部落格, 友鏈, 作品集, 技術, 編程, 計算機, 前端, 後端, 友情鏈接"
+
+[links.application]
+about = "添加你的鏈接"
+
+[links.application.why]
+title = "友鏈從何而來？"
+content = """
+> [Link best practices for Google](https://developers.google.com/search/docs/crawling-indexing/links-crawlable#external-links)
+>
+> Linking to other sites isn't something to be scared of; in fact, using external links can help establish trustworthiness (for example, citing your sources). Link out to external sites when it makes sense, and provide context to your readers about what they can expect.
+
+友情鏈接是互聯網社區的一種古早儀式。根據 Google 大名鼎鼎的 PageRank
+算法，一個網頁的重要性不僅僅取決於其自身的內容，還取決於指向它的其他網頁的質量和數量。早期互聯網原住民互相鏈接，建立起行為意義上的另一層網絡。這個傳統一直延續。它的現代意義，在我看來已經演變成非推薦算法主流時代的一塊記憶膠片。
+"""
+
+[links.application.pr]
+title = "在 GitHub 提交你的鏈接申請"
+content = """
+1. 在 GitHub Fork [我的倉庫](https://github.com/Qnurye/qnuryes)
+2. 在你的倉庫下， `src/content/links` 中創建一個新的 json 文件，命名為你的名字，內容請參考別的文件。你需要提供你的以下信息：
+    1. 名稱
+    2. 頭像 URL
+    3. 鏈接
+    4. 鏈接描述 (可能需要提供多種語言版本，但除英語外都為可空的。支持 Markdown。)
+3. 提交你的修改，並在 GitHub 上創建一個 pull request 至我的倉庫。
+"""
+
+[links.application.email]
+title = "不懂上面那個 :( 但我仍然希望添加我的鏈接！"
+content = "你也可以直接聯繫我 [contact@qnury.es](mailto:contact@qnury.es)"
+
+[links.application.update]
+title = "後續是否需要更新？"
+content = "在極小概率的情況下，本站可能會在未來添加其他語言支持。如果這樣的情況發生，我會使用 AI 基於英文簡介翻譯得新版本簡介，並會通過 GitHub 或郵件向你告知。"
+
+[posts]
+title = "時間線"
+page_title = "Qnury.e's | 時間線"
+page_description = "Qnurye 個人網站上發表的文章，你在這裡可以找到他的最新動態、想法、項目！"
+keywords = "個人網站, 部落格, 友鏈, 作品集, 技術, 編程, 計算機, 前端, 後端, 友情鏈接, 項目"
+cover_by = "封面圖片來源"
+
+[tags]
+title = "標籤"
+page_title = "Qnury.e's | 標籤"
+page_description = "Qnurye 個人網站上發表的文章標籤，你在這裡可以找到他的最新動態、想法、項目的標籤索引！"
+page_keywords = "個人網站, 部落格, 友鏈, 作品集, 技術, 編程, 計算機, 前端, 後端, 友情鏈接, 項目"
+
+[issues]
+title = "合輯"
+page_title = "Qnury.e's | 合輯"
+page_description = "訂閱本站郵件列表後，歷史發送的新聞郵件合輯在這裡可以找到。"
+page_keywords = "personal website, blog, friends, portfolio, technology, programming, computer, frontend, backend, friends links, projects"
+read_more = "閱讀原文"
+
+[email]
+problem = "郵件沒有正常顯示？點擊鏈接查看網頁版："
+
+[post.translation_warning]
+title = "譯文提醒"
+content = "下面的內容通過 AI 翻譯，原文語言為{original}。"
+
+[errors]
+invalid_post_id = "無效的文章ID"
+invalid_comment_id = "無效的評論ID"
+invalid_page_number = "無效的頁碼"
+invalid_page_size = "無效的每頁數量"
+invalid_email = "無效的郵箱地址"
+missing_required_fields = "缺少必填欄位"
+parent_comment_not_found = "父評論不存在或已被刪除"
+comment_not_found = "評論不存在"
+already_liked = "已經點讚過該評論"
+not_liked = "未點讚過該評論"
+database_error = "數據庫錯誤"
+unknown_error = "未知錯誤"
+
+[comment]
+title = "評論"
+no_comments = "暫無評論"
+write_comment = "寫評論"
+reply = "回覆"
+like = "點讚"
+unlike = "取消點讚"
+submit = "提交"
+name = "名稱"
+email = "郵箱（選填）"
+content = "內容（支援 Markdown）"
+reply_to = "回覆"
+loading = "加載中..."
+error = "錯誤"
+success = "成功"
+previous = "上一頁"
+next = "下一頁"
+pages = "第 {current} 頁，共 {total} 頁"
+show_replies = "顯示 {count} 條回覆"
+hide_replies = "隱藏回覆"
+submit_success = "評論提交成功"
+submit_error = "評論提交失敗，請重試"
+
+[newsletter]
+title = "訂閱新聞郵件"
+description = "提交郵箱地址後，你將收到我的每月更新合集。如果希望收到更頻繁的更新提醒，請訂閱我的 RSS。"
+email_label = "郵箱地址"
+email_placeholder = "your@email.com"
+name_label = "姓名（可選）"
+name_placeholder = "可留空"
+language_label = "偏好語言"
+language_placeholder = "請選擇語言"
+consent_label = "同意提供以上信息用於訂閱郵件"
+consent_description = "本站使用第三方郵件訂閱服務提供商，並將與其共享用戶郵箱地址。請查看 <a href=\"https://resend.com/legal/privacy-policy\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"underline\">Resend 的隱私政策</a>以了解更多信息。"
+submit_button = "看起來沒問題"
+check_inbox = "請檢查你的收件箱（或垃圾箱），查看剛剛我們發出的確認郵件。點擊郵件中的鏈接以完成訂閱。"
+check_button = "檢查一下"
+close_button = "我知道了"
+error = "糟糕，好像出了問題。我已經注意到，會盡快處理 QAQ"
+
+[newsletter.success]
+title = "訂閱成功！"
+description = "感謝你的訂閱！接下來每個月我都會向你匯報我的最新動態。"
+backToHome = "返回首頁"

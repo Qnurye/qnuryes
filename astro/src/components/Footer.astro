@@ -1,0 +1,53 @@
+---
+import { CopyrightIcon, CodeIcon, RssIcon } from 'lucide-react';
+import { Button, buttonVariants } from './ui/button';
+import { loadTranslations } from '@/i18n';
+import { Image } from 'astro:assets';
+import tail from '@/assets/tail.svg';
+import { Markdown } from 'astro-remote';
+import { getAbsoluteLocaleUrl, getRelativeLocaleUrl } from 'astro:i18n';
+import Newsletter from './Newsletter';
+
+const locale = Astro.currentLocale || 'en';
+const t = await loadTranslations(locale);
+---
+
+<footer class="pt-8 px-2 mt-16 flex flex-col gap-4 border-t">
+  <div class="flex flex-wrap gap-4 items-end">
+    <Newsletter locale={locale} client:load />
+    <a
+      href={getAbsoluteLocaleUrl(locale, 'rss.xml')}
+      class={buttonVariants({ variant: 'outline' })}
+    >
+      <RssIcon />
+      {t('footer.rss')}
+    </a>
+    <a
+      href="https://github.com/Qnurye/qnuryes"
+      class={buttonVariants({ variant: 'outline' })}
+    >
+      <CodeIcon />
+      {t('footer.source_code')}
+    </a>
+  </div>
+  <span class="font-mono text-sm">
+    <Markdown content={t('footer.credits')} />
+  </span>
+  <span class="flex gap-1 text-sm items-center">
+    <CopyrightIcon size={16} strokeWidth={1} />
+    <span>
+    2025
+      {t('footer.all_rights_reserved')}
+    </span>
+    <a href={getRelativeLocaleUrl(locale, 'blog/terms')}>
+      <Button variant="link" asChild={true}>
+        {t('footer.tos_pp')}
+      </Button>
+    </a>
+  </span>
+  <div class="w-full flex flex-row justify-center gap-8 h-2 overflow-auto">
+    {Array(12).fill({}).map((_, __) =>
+      (<Image src={tail} alt="" />),
+    )}
+  </div>
+</footer>

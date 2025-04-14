@@ -1,0 +1,50 @@
+---
+import Base from '@/layouts/Base.astro';
+export { getI18nPaths as getStaticPaths } from '@/i18n';
+import { getCollection } from 'astro:content';
+import { loadTranslations } from '@/i18n';
+import { getAbsoluteLocaleUrl } from 'astro:i18n';
+
+const locale = Astro.currentLocale || 'en';
+const t = await loadTranslations(locale);
+const tags = (await getCollection('blog', p => p.data.locale === Astro.currentLocale))
+  .reduce((acc, post) => {
+    post.data.tags.forEach((tag) => {
+      acc[tag] = (acc[tag] || 0) + 1;
+    });
+
+    return acc;
+  }, {} as Record<string, number>);
+
+---
+
+<Base
+  title={t('tags.page_title')}
+  description={t('tags.page_description')}
+  keywords={t('tags.page_keywords')}
+>
+  <div
+    class="w-full flex flex-col gap-8 *:w-full"
+  >
+    <div class="font-serif flex flex-row items-end gap-2 *:inline">
+      <h1 class="scroll-m-16 text-6xl">{t('tags.title')}</h1>
+      <span class="font-mono">/</span>
+      <a href={getAbsoluteLocaleUrl(locale, 'blog')}>{t('posts.title')}</a>
+      <span class="font-mono">/</span>
+      <a href={getAbsoluteLocaleUrl(locale, 'blog/issues')}>{t('issues.title')}</a>
+    </div>
+    <ul class="mx-auto max-w-prose text-xl flex flex-col gap-4">
+      {
+        Object.entries(tags)
+          .sort(([, countA], [, countB]) => countB - countA)
+          .map(([tag, count]) => (
+            <li class="flex justify-between font-mono items-center gap-16">
+              <a href={`tags/${tag}`}>#{tag}</a>
+              <div class="grow border-dashed border-1 border-neutral-100"></div>
+              <span>{count}</span>
+            </li>
+          ))
+      }
+    </ul>
+  </div>
+</Base>

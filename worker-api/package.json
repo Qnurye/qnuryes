@@ -1,32 +1,38 @@
 {
-  "name": "worker-api",
+  "name": "@qnury-es/worker-api",
   "version": "0.0.0",
   "private": true,
   "scripts": {
     "deploy": "wrangler deploy",
-    "dev": "wrangler dev",
-    "start": "wrangler dev",
+    "dev": "wrangler dev --test-scheduled -e dev",
     "dev:email": "email dev --dir=./src/emails",
-    "test": "jest"
+    "lint": "eslint . --ext .js,.ts,.tsx --fix"
   },
   "dependencies": {
-    "@hono/node-server": "^1.8.1",
+    "@hono/node-server": "^1.14.1",
     "@react-email/components": "^0.0.36",
     "@react-email/font": "0.0.9",
     "@react-email/render": "^1.0.6",
-    "hono": "^4.0.0",
+    "hono": "^4.7.6",
     "marked": "^15.0.8",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
     "resend": "^4.2.0",
-    "sanitize-html": "^2.15.0"
+    "sanitize-html": "^2.15.0",
+    "zod": "^3.24.2"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20240208.0",
-    "@types/react": "^18.2.0",
-    "@types/react-dom": "^18.2.0",
+    "@cloudflare/workers-types": "^4.20250414.0",
+    "@eslint/js": "^9.24.0",
+    "@stylistic/eslint-plugin": "^4.2.0",
+    "@types/react": "^19.1.1",
+    "@types/react-dom": "^19.1.2",
+    "@typescript-eslint/parser": "^8.29.1",
+    "eslint": "^9.24.0",
+    "globals": "^16.0.0",
     "react-email": "4.0.7",
-    "typescript": "^5.0.2",
-    "wrangler": "^3.0.0"
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.29.1",
+    "wrangler": "^4.10.0"
   }
 }

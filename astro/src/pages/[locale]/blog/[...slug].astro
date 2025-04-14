@@ -1,0 +1,261 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '@/layouts/Base.astro';
+import Section from '@/components/Comment/Section';
+import { type GetStaticPathsResult } from 'astro';
+import type { CollectionEntry } from 'astro:content';
+import { formatDate } from '@/lib/utils';
+import { AtSignIcon, CopyrightIcon } from 'lucide-react';
+import { Image } from 'astro:assets';
+import { Markdown } from 'astro-remote';
+import {
+  Alert,
+  AlertDescription,
+  AlertTitle,
+} from '@/components/ui/alert';
+import { LanguagesIcon } from 'lucide-react';
+import { loadTranslations } from '@/i18n';
+import { getReadingTime } from '@/lib/utils';
+
+export async function getStaticPaths(): Promise<GetStaticPathsResult> {
+  const pages = await getCollection('blog');
+
+  return pages.map(page => ({
+    params: { locale: page.data.locale, slug: page.data.translation_id },
+    props: { page },
+  }));
+}
+
+const locale = Astro.currentLocale || 'en';
+const t = await loadTranslations(locale);
+const { page } = Astro.props as { page: CollectionEntry<'blog'> };
+const formattedDate = formatDate(page.data.created_at.toLocaleString(), locale);
+const { Content } = await render(page);
+---
+
+<Base
+  title={`Qnury.e's | ${page.data.title}`}
+  description={page.data.description}
+  keywords={`${page.data.title}, ${page.data.tags.join(',')}`}
+  className="mt-[100vh]"
+>
+  <div class="absolute left-0 top-0 ">
+    <Image
+      id="cover"
+      src={page.data.cover}
+      alt=""
+      height={1080}
+      width={1920}
+      class="h-screen w-screen -z-10 object-cover"
+      loading="eager"
+    />
+    {page.data.cover_credit
+      && (
+        <p
+          class={'bg-contrast text-contrast-foreground p-8 w-full'
+            + ' transition-colors duration-1000 flex items-center gap-1'}
+        >
+          <span>{t('posts.cover_by')}</span>
+          {page.data.cover_credit.includes('@')
+            ? (
+              <AtSignIcon className="size-4 inline" />
+              <a href={page.data.cover_credit}>
+                {page.data.cover_credit.split('@')[1]}
+              </a>
+            )
+            : page.data.cover_credit}
+        </p>
+      )}
+  </div>
+  <article class="max-w-3xl mx-auto px-4 py-8">
+    <header
+      id="header"
+      class={'mb-8 transition-all transform duration-1000 ease-in'
+        + '*:transition-all *:transform *:duration-400 *:ease-in'
+        + '-translate-y-[calc(100%+124px)] md:-translate-x-[calc(50vw-24rem)] w-[calc(100vw-4rem)] text-contrast'}
+    >
+      <div class="flex flex-row gap-8 text-xs md:gap-16 md:text-sm font-mono">
+        <time datetime={page.data.created_at.toISOString()} class="inline-block">
+          {formattedDate}
+        </time>
+        <span class="inline-block">
+          ~ {getReadingTime(page.body || '', locale)} min
+        </span>
+        {page.data.tags && (
+          <div class="flex flex-wrap gap-2">
+            {page.data.tags.map((tag: string) => (
+              <a href={`/${locale}/blog/tags/${tag}`}>
+                {`#${tag}`}
+              </a>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <h1 class="text-4xl md:text-6xl font-serif font-black leading-tight my-6" id="title">{page.data.title}</h1>
+      <div class="font-serif text-xl md:text-2xl leading-relaxed mb-8" id="description">
+        <Markdown content={page.data.description} />
+      </div>
+    </header>
+
+    <div class="prose max-w-none mb-12 space-y-4">
+      {page.data.locale !== page.data.original_locale && (
+        <Alert>
+          <LanguagesIcon className="h-4 w-4" />
+          <AlertTitle>{t('post.translation_warning.title')}</AlertTitle>
+          <AlertDescription>
+            {t('post.translation_warning.content', {
+              original: t(`locales.${page.data.original_locale.replace('-', '_')}`),
+            })}
+          </AlertDescription>
+        </Alert>
+      )}
+      <Content />
+    </div>
+
+    <footer class="mt-12 pt-4 flex justify-center">
+      <div class="text-sm">
+        <a
+          href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
+          target="_blank"
+          rel="noopener"
+          class="no-underline flex gap-1 items-center justify-center"
+        >
+          <CopyrightIcon strokeWidth={1} size={20} className="inline" />
+          <span>BY-NC-SA</span>
+        </a>
+      </div>
+    </footer>
+
+    <hr class="border-t border-foreground mt-6 mb-12" />
+    <Section client:load postId={page.data.translation_id || page.id} locale={locale} client:load />
+  </article>
+</Base>
+
+<script>
+  import { Vibrant } from 'node-vibrant/browser';
+  // import { getContrastColor } from '@/lib/color';
+
+  const handleScroll = (): undefined => {
+    if (window.scrollY > (window.innerHeight - 256)) {
+      document.querySelector('#header')?.classList.remove(
+        '-translate-y-[calc(100%+124px)]',
+        'md:-translate-x-[calc(50vw-24rem)]',
+      );
+      document.querySelector('#header')?.classList.replace(
+        'w-[calc(100vw-4rem)]',
+        'w-full',
+      );
+      document.querySelector('#title')?.classList.replace(
+        'text-5xl', 'text-4xl',
+      );
+      document.querySelector('#title')?.classList.replace(
+        'md:text-6xl', 'md:text-5xl',
+      );
+      document.querySelector('#description')?.classList.replace(
+        'md:text-lg', 'md:text-2xl',
+      );
+      document.querySelector('#description')?.classList.replace(
+        'text-md', 'text-xl',
+      );
+      document.documentElement.style.setProperty('--contrast-color', 'var(--foreground)');
+      document.documentElement.style.setProperty('--contrast-color-foreground', 'var(--background)');
+    } else {
+      document.querySelector('#header')?.classList.add(
+        '-translate-y-[calc(100%+124px)]',
+        'md:-translate-x-[calc(50vw-24rem)]',
+      );
+      document.querySelector('#header')?.classList.replace(
+        'w-full',
+        'w-[calc(100vw-4rem)]',
+      );
+      document.querySelector('#title')?.classList.replace(
+        'text-4xl', 'text-5xl',
+      );
+      document.querySelector('#title')?.classList.replace(
+        'md:text-5xl', 'md:text-6xl',
+      );
+      document.querySelector('#description')?.classList.replace(
+        'md:text-2xl', 'md:text-lg',
+      );
+      document.querySelector('#description')?.classList.replace(
+        'text-xl', 'text-md',
+      );
+      loadContrastColor();
+    }
+  };
+
+  handleScroll();
+  window.addEventListener('scroll', handleScroll);
+
+  function loadContrastColor(): void {
+    const cover = document.querySelector('#cover') as HTMLImageElement;
+
+    Vibrant.from(cover.src).getPalette().then((plate) => {
+      // const contrastColor = getContrastColor(plate.Vibrant?.rgb || [0, 0, 0]);
+      document.documentElement.style.setProperty('--contrast-color', plate.Vibrant?.hex || 'var(--background)');
+      document.documentElement.style.setProperty(
+        '--contrast-color-foreground', plate.Vibrant?.bodyTextColor || 'var(--foreground)',
+      );
+    });
+  }
+
+  function setupImageScrollContainers(): undefined {
+    const contentDiv = document.querySelector('.prose');
+    if (!contentDiv) {
+      return;
+    }
+
+    let consecutiveImages: Element[] = [];
+    const elements = Array.from(contentDiv.children);
+
+    elements.forEach((element, index) => {
+      const el = element.firstElementChild;
+      if (!el) {
+        return;
+      }
+      const isImageElement = el.tagName === 'IMG'
+        || (el.tagName === 'FIGURE' && el.querySelector('img'))
+        || (el.tagName === 'P' && el.querySelector('img') && el.children.length === 1);
+
+      if (isImageElement) {
+        consecutiveImages.push(el);
+
+        if (index === elements.length - 1
+          || !(elements[index + 1].tagName === 'IMG'
+            || (elements[index + 1].tagName === 'FIGURE'
+              && elements[index + 1].querySelector('img'))
+            || (elements[index + 1].tagName === 'P'
+              && elements[index + 1].querySelector('img')
+              && elements[index + 1].children.length === 1))) {
+          if (consecutiveImages.length > 1) {
+            const innerContainer = document.createElement('div');
+            innerContainer.className = `absolute -left-[calc(50vw-24rem)] translate-x-[5vw]
+           flex flex-row gap-2 overflow-x-auto
+           *:h-84 my-4 w-[90vw] *:mx-auto *:rounded
+           snap-x snap-mandatory *:snap-center scroll-smooth relative`
+
+            consecutiveImages.forEach((img) => {
+              const imgClone = img.cloneNode(true);
+              innerContainer.appendChild(imgClone);
+              img.parentElement?.remove();
+            });
+
+            const container = document.createElement('div');
+            container.className = `relative overflow-visible`
+
+            container.appendChild(innerContainer);
+
+            contentDiv.insertBefore(container, elements[index + 1] || null);
+          }
+
+          consecutiveImages = [];
+        }
+      } else {
+        consecutiveImages = [];
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', setupImageScrollContainers);
+</script>
