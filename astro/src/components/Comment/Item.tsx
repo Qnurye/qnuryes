@@ -25,7 +25,7 @@ const CommentHeader: React.FC<CommentHeaderProps> = ({ comment, locale }) => (
       {comment.author_email && (
         <a
           className="text-sm font-mono font-light text-primary ml-2"
-          href={`mailto:${comment.author_email}}`}
+          href={`mailto:${comment.author_email}`}
         >
           {comment.author_email}
         </a>
