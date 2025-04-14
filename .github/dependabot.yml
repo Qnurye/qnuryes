@@ -1,0 +1,42 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "javascript"
+    groups:
+      astro-dependencies:
+        patterns:
+          - "@astrojs/*"
+          - "astro"
+          - "@sentry/astro"
+          - "@spotlightjs/astro"
+          - "astro-*"
+        directory: "/astro"
+      react-dependencies:
+        patterns:
+          - "react"
+          - "react-*"
+          - "@radix-ui/react-*"
+        directory: "/astro"
+      worker-dependencies:
+        patterns:
+          - "@cloudflare/*"
+          - "wrangler"
+          - "hono"
+          - "@react-email/*"
+        directory: "/worker-api"
+      dev-dependencies:
+        patterns:
+          - "@types/*"
+          - "typescript*"
+          - "eslint*"
+          - "prettier*"
+        directory: "/" 
