@@ -1,11 +1,10 @@
 import globals from 'globals'
 import pluginJs from '@eslint/js'
+import ts from 'typescript-eslint'
 import astro from 'eslint-plugin-astro'
 import jsxA11y from 'eslint-plugin-jsx-a11y'
-import ts from 'typescript-eslint'
 import stylisticPlugin from '@stylistic/eslint-plugin'
 
-// noinspection JSUnresolvedReference
 export default [
   pluginJs.configs.recommended,
   ...ts.configs.recommended,
@@ -13,7 +12,7 @@ export default [
   jsxA11y.flatConfigs.recommended,
   stylisticPlugin.configs.recommended,
   {
-    ignores: ['dist/', 'node_modules/', '.astro/', 'src/env.d.ts'],
+    ignores: ['**/dist/', '**/node_modules/', '**/.astro/'],
   },
   {
     files: ['**/*.{js,mjs,cjs,mts,ts,tsx,jsx,astro}'],
@@ -36,12 +35,6 @@ export default [
       '@typescript-eslint/ban-ts-comment': 'error',
 
       '@stylistic/semi': 'off',
-
-      'astro/semi': [
-        'error',
-        'always',
-        { omitLastInOneLineBlock: true },
-      ],
       'curly': ['error', 'all'],
       'eqeqeq': ['error', 'always'],
       'no-var': 'error',
@@ -69,11 +62,18 @@ export default [
       }],
       'comma-dangle': ['error', 'always-multiline'],
       'no-multiple-empty-lines': ['error', { max: 1, maxEOF: 1 }],
+
+      'astro/semi': [
+        'error',
+        'always',
+        { omitLastInOneLineBlock: true },
+      ],
     },
-    languageOptions: { globals: globals.browser },
-    settings: {
-      tailwindcss: {
-        whitelist: ['hide-scrollbars', 'collapsible.*'],
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+        ...globals.node,
+        ...globals.es2021,
       },
     },
   },
