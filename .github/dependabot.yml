@@ -2,6 +2,7 @@ version: 2
 updates:
   - package-ecosystem: "npm"
     directory: "/astro"
+    target-branch: "dev"
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 10
@@ -26,6 +27,7 @@ updates:
           - "@radix-ui/react-*"
   - package-ecosystem: "npm"
     directory: "/worker-api"
+    target-branch: "dev"
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 10
@@ -44,6 +46,7 @@ updates:
           - "@react-email/*"
   - package-ecosystem: "npm"
     directory: "/"
+    target-branch: "dev"
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 10
