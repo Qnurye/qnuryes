@@ -4,6 +4,7 @@ interface ImportMetaEnv {
   readonly GA_ID: string
   readonly PUBLIC_API_BASE_URL: string
   readonly PUBLIC_BASE_URL: string
+  readonly UMAMI_ID: string
 }
 
 interface ImportMeta {

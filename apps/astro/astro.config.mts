@@ -13,8 +13,8 @@ import partytown from '@astrojs/partytown';
 
 import umami from '@yeskunall/astro-umami';
 
-const { PUBLIC_SENTRY_DSN, SENTRY_AUTH_TOKEN, PUBLIC_BASE_URL, NODE_ENV } = loadEnv(
-  process.env.NODE_ENV, process.cwd(), '',
+const { PUBLIC_SENTRY_DSN, SENTRY_AUTH_TOKEN, PUBLIC_BASE_URL, NODE_ENV, UMAMI_ID } = loadEnv(
+  process.env.NODE_ENV || 'development', process.cwd(), '',
 );
 
 export default defineConfig({
@@ -25,6 +25,7 @@ export default defineConfig({
       GA_ID: envField.string({ context: 'client', access: 'public' }),
       PUBLIC_API_BASE_URL: envField.string({ context: 'client', access: 'public' }),
       PUBLIC_BASE_URL: envField.string({ context: 'client', access: 'public' }),
+      UMAMI_ID: envField.string({ context: 'client', access: 'public' }),
     },
   },
   site: PUBLIC_BASE_URL,
@@ -62,7 +63,7 @@ export default defineConfig({
         forward: ['dataLayer.push', 'gtag'],
       },
     }), umami({
-      id: '0f9ad313-d104-4f58-8478-b793118af4a4',
+      id: UMAMI_ID,
     })],
   i18n: {
     locales: ['en', 'zh-cn', 'zh-tw'],
