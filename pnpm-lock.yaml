@@ -191,7 +191,7 @@ importers:
     dependencies:
       '@hono/node-server':
         specifier: ^1.14.1
-        version: 1.14.1(hono@4.7.6)
+        version: 1.14.1(hono@4.7.7)
       '@react-email/components':
         specifier: ^0.0.36
         version: 0.0.36(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -202,8 +202,8 @@ importers:
         specifier: ^1.0.6
         version: 1.0.6(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       hono:
-        specifier: ^4.7.6
-        version: 4.7.6
+        specifier: ^4.7.7
+        version: 4.7.7
       marked:
         specifier: ^15.0.8
         version: 15.0.8
@@ -3726,8 +3726,8 @@ packages:
   hastscript@9.0.1:
     resolution: {integrity: sha512-g7df9rMFX/SPi34tyGCyUBREQoKkapwdY/T04Qn9TDWfHhAYt4/I0gMVirzK5wEzeUqIjEB+LXC/ypb7Aqno5w==}
 
-  hono@4.7.6:
-    resolution: {integrity: sha512-564rVzELU+9BRqqx5k8sT2NFwGD3I3Vifdb6P7CmM6FiarOSY+fDC+6B+k9wcCb86ReoayteZP2ki0cRLN1jbw==}
+  hono@4.7.7:
+    resolution: {integrity: sha512-2PCpQRbN87Crty8/L/7akZN3UyZIAopSoRxCwRbJgUuV1+MHNFHzYFxZTg4v/03cXUm+jce/qa2VSBZpKBm3Qw==}
     engines: {node: '>=16.9.0'}
 
   html-escaper@3.0.3:
@@ -6176,9 +6176,9 @@ snapshots:
 
   '@floating-ui/utils@0.2.9': {}
 
-  '@hono/node-server@1.14.1(hono@4.7.6)':
+  '@hono/node-server@1.14.1(hono@4.7.7)':
     dependencies:
-      hono: 4.7.6
+      hono: 4.7.7
 
   '@hookform/resolvers@5.0.1(react-hook-form@7.55.0(react@19.1.0))':
     dependencies:
@@ -9451,7 +9451,7 @@ snapshots:
       property-information: 7.0.0
       space-separated-tokens: 2.0.2
 
-  hono@4.7.6: {}
+  hono@4.7.7: {}
 
   html-escaper@3.0.3: {}
 
