@@ -77,7 +77,7 @@ export default {
   async scheduled(event: ScheduledEvent, env: Env): Promise<void> {
     try {
       // eslint-disable-next-line no-console
-      console.log('Starting newsletter job at ', new Date(event.scheduledTime).toISOString());
+      console.log({ scheduledTime: new Date(event.scheduledTime).toISOString() });
 
       const now = new Date();
       now.setMonth(now.getMonth() - 1);
@@ -89,10 +89,10 @@ export default {
       const response = await fetch(`${env.WEBSITE_BASE_URL}/${locale}/blog/issues/newsletter/${issue}`);
       if (!response.ok) {
         if (response.status === 404) {
-          console.warn('lazy dog');
+          console.warn('Seems somebody wrote no shit for this month');
           return;
         }
-        console.error(`Failed to fetch posts for locale ${locale}: ${response.statusText}`);
+        console.error(response);
       }
 
       const posts = await response.json() as Post[];
@@ -117,17 +117,17 @@ export default {
         react: emailReact,
       });
       if (!broadcastResponse.data || !broadcastResponse.data.id) {
-        console.error(`Failed to send newsletter for issue ${issue}:`, broadcastResponse.error);
+        console.error(broadcastResponse);
         return
       }
 
       const sendResponse = await resend.broadcasts.send(broadcastResponse.data.id);
       if (sendResponse.error) {
-        console.error(`Failed to send newsletter for issue ${issue}:`, sendResponse.error);
+        console.error(sendResponse);
         return
       }
     } catch (error) {
-      console.error('Failed to send newsletter:', error);
+      console.error(error);
     }
   },
 };

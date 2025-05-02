@@ -2,7 +2,7 @@
   "name": "qnury-es",
   "private": true,
   "version": "0.0.0",
-  "description": "Qnury's personal website and API",
+  "description": "Qnurye's personal website and API",
   "scripts": {
     "dev:astro": "pnpm --filter @qnury-es/astro dev",
     "dev:api": "pnpm --filter @qnury-es/worker-api dev",
@@ -10,8 +10,8 @@
     "build": "pnpm --filter @qnury-es/astro build",
     "preview": "pnpm --filter @qnury-es/astro preview",
     "lint": "pnpm --filter @qnury-es/astro lint; pnpm --filter @qnury-es/worker-api lint",
-    "deploy": "pnpm --filter @qnury-es/astro deploy",
-    "deploy:api": "pnpm --filter @qnury-es/worker-api deploy"
+    "deploy": "pnpm --filter @qnury-es/astro run deploy",
+    "deploy:api": "pnpm --filter @qnury-es/worker-api run deploy"
   },
   "keywords": [
     "astro",
