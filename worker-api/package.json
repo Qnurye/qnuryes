@@ -23,7 +23,7 @@
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20250430.0",
-    "@eslint/js": "^9.24.0",
+    "@eslint/js": "^9.25.1",
     "@stylistic/eslint-plugin": "^4.2.0",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.3",
