@@ -76,8 +76,22 @@ export default {
   fetch: app.fetch,
   async scheduled(event: ScheduledEvent, env: Env): Promise<void> {
     try {
+      const kv = env.subscription
+      const bounce = (await kv.get('triggered_broadcast') === event.cron);
+      if (bounce) {
+        // eslint-disable-next-line no-console
+        console.log({ scheduledTime: new Date(event.scheduledTime).toISOString(), status: 'canceled' });
+        return;
+      }
+
+      await kv.put(
+        `triggered_broadcast`,
+        event.cron,
+        { expirationTtl: 120 },
+      );
+
       // eslint-disable-next-line no-console
-      console.log({ scheduledTime: new Date(event.scheduledTime).toISOString() });
+      console.log({ scheduledTime: new Date(event.scheduledTime).toISOString(), status: 'running' });
 
       const now = new Date();
       now.setMonth(now.getMonth() - 1);
@@ -90,15 +104,17 @@ export default {
       if (!response.ok) {
         if (response.status === 404) {
           console.warn('Seems somebody wrote no shit for this month');
-          return;
         }
         console.error(response);
+        await kv.delete('triggered_broadcast');
+        return;
       }
 
       const posts = await response.json() as Post[];
 
       if (posts.length === 0) {
         console.warn(`No posts found for locale ${locale} in issue ${issue}`);
+        return;
       }
 
       const emailReact = Newsletter({
@@ -118,14 +134,19 @@ export default {
       });
       if (!broadcastResponse.data || !broadcastResponse.data.id) {
         console.error(broadcastResponse);
-        return
+        await kv.delete('triggered_broadcast');
+        return;
       }
 
       const sendResponse = await resend.broadcasts.send(broadcastResponse.data.id);
       if (sendResponse.error) {
         console.error(sendResponse);
-        return
+        await kv.delete('triggered_broadcast');
+        return;
       }
+
+      // eslint-disable-next-line no-console
+      console.log({ scheduledTime: new Date(event.scheduledTime).toISOString(), status: 'done' });
     } catch (error) {
       console.error(error);
     }
