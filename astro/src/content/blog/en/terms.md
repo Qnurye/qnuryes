@@ -2,7 +2,7 @@
 title: Terms of Service & Privacy Policy
 created_at: 2025-04-01 00:00:00
 updated_at: 2025-04-01 00:00:03
-tags: []
+tags: [privacy]
 translation_id: terms
 original_locale: zh-cn
 locale: en
