@@ -21,3 +21,6 @@ RESEND_FROM = "Qnurye <noreply@qnury.es>"
 
 [triggers]
 crons = ["0 0 1 * *"]
+
+[observability]
+enabled = true
