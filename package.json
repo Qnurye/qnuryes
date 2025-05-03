@@ -28,6 +28,7 @@
   },
   "packageManager": "pnpm@10.8.0",
   "devDependencies": {
+    "wrangler": "^4.10.0",
     "@types/node": "^22.15.3",
     "typescript": "^5.8.3"
   }

@@ -62,4 +62,4 @@ updates:
           - "@types/*"
           - "typescript*"
           - "eslint*"
-          - "prettier*"
+          - "prettier*" 

@@ -22,3 +22,5 @@ pnpm-debug.log*
 .idea/
 .vscode/
 .wrangler/
+.actrc
+.envrc
