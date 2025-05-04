@@ -77,7 +77,8 @@ export default {
   async scheduled(event: ScheduledEvent, env: Env): Promise<void> {
     try {
       const kv = env.subscription
-      const bounce = (await kv.get('triggered_broadcast') === event.cron);
+      const TRIGGERED_BROADCAST = 'triggered_broadcast';
+      const bounce = (await kv.get(TRIGGERED_BROADCAST) === event.cron);
       if (bounce) {
         // eslint-disable-next-line no-console
         console.log({ scheduledTime: new Date(event.scheduledTime).toISOString(), status: 'canceled' });
@@ -85,7 +86,7 @@ export default {
       }
 
       await kv.put(
-        `triggered_broadcast`,
+        TRIGGERED_BROADCAST,
         event.cron,
         { expirationTtl: 120 },
       );
@@ -106,7 +107,7 @@ export default {
           console.warn('Seems somebody wrote no shit for this month');
         }
         console.error(response);
-        await kv.delete('triggered_broadcast');
+        await kv.delete(TRIGGERED_BROADCAST);
         return;
       }
 
@@ -134,14 +135,14 @@ export default {
       });
       if (!broadcastResponse.data || !broadcastResponse.data.id) {
         console.error(broadcastResponse);
-        await kv.delete('triggered_broadcast');
+        await kv.delete(TRIGGERED_BROADCAST);
         return;
       }
 
       const sendResponse = await resend.broadcasts.send(broadcastResponse.data.id);
       if (sendResponse.error) {
         console.error(sendResponse);
-        await kv.delete('triggered_broadcast');
+        await kv.delete(TRIGGERED_BROADCAST);
         return;
       }
 
