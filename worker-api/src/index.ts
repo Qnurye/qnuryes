@@ -77,7 +77,6 @@ export default {
   async scheduled(event: ScheduledEvent, env: Env): Promise<void> {
     try {
       const kv = env.subscription
-      const TRIGGERED_BROADCAST = 'triggered_broadcast';
       const bounce = (await kv.get(TRIGGERED_BROADCAST) === event.cron);
       if (bounce) {
         // eslint-disable-next-line no-console
