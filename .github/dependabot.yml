@@ -29,8 +29,6 @@ updates:
     versioning-strategy: "increase-if-necessary"
     labels:
       - "dependencies"
-      - "npm"
-      - "astro"
     commit-message:
       prefix: "chore"
       include: "scope"
@@ -47,8 +45,6 @@ updates:
     versioning-strategy: "increase-if-necessary"
     labels:
       - "dependencies"
-      - "npm"
-      - "worker-api"
     commit-message:
       prefix: "chore"
       include: "scope"
@@ -64,7 +60,6 @@ updates:
     open-pull-requests-limit: 5
     labels:
       - "dependencies"
-      - "github-actions"
     commit-message:
       prefix: "chore"
       include: "scope"
