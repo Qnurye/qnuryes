@@ -5,25 +5,42 @@ updates:
     target-branch: "dev"
     schedule:
       interval: "weekly"
-      day: "monday"
-      time: "21:40"
+      day: "tuesday"
+      time: "03:35"
       timezone: "Asia/Shanghai"
     open-pull-requests-limit: 10
     versioning-strategy: "increase-if-necessary"
     labels:
       - "dependencies"
-      - "npm"
     commit-message:
       prefix: "chore"
       include: "scope"
+    groups:
+      react:
+        patterns:
+          - "react"
+          - "react-dom"
+          - "@types/react"
+          - "@types/react-dom"
+      typescript:
+        patterns:
+          - "typescript"
+          - "@typescript-eslint/*"
+          - "@types/*"
+      eslint:
+        patterns:
+          - "eslint"
+          - "@eslint/*"
+          - "eslint-*"
+          - "globals"
 
   - package-ecosystem: "npm"
     directory: "/astro"
     target-branch: "dev"
     schedule:
       interval: "weekly"
-      day: "monday"
-      time: "21:40"
+      day: "tuesday"
+      time: "03:35"
       timezone: "Asia/Shanghai"
     open-pull-requests-limit: 10
     versioning-strategy: "increase-if-necessary"
@@ -32,14 +49,35 @@ updates:
     commit-message:
       prefix: "chore"
       include: "scope"
+    groups:
+      astro:
+        patterns:
+          - "astro"
+          - "@astrojs/*"
+          - "@astro-kits/*"
+      ui:
+        patterns:
+          - "@radix-ui/*"
+          - "tailwind*"
+          - "class-variance-authority"
+          - "clsx"
+          - "lucide-react"
+          - "vaul"
+          - "cmdk"
+      analytics:
+        patterns:
+          - "@sentry/*"
+          - "@spotlightjs/*"
+          - "@yeskunall/*"
+          - "@astro-kits/google-analytics"
 
   - package-ecosystem: "npm"
     directory: "/worker-api"
     target-branch: "dev"
     schedule:
       interval: "weekly"
-      day: "monday"
-      time: "21:40"
+      day: "tuesday"
+      time: "03:35"
       timezone: "Asia/Shanghai"
     open-pull-requests-limit: 10
     versioning-strategy: "increase-if-necessary"
@@ -48,14 +86,29 @@ updates:
     commit-message:
       prefix: "chore"
       include: "scope"
+    groups:
+      cloudflare:
+        patterns:
+          - "@cloudflare/*"
+          - "wrangler"
+      email:
+        patterns:
+          - "@react-email/*"
+          - "react-email"
+          - "resend"
+      api:
+        patterns:
+          - "hono"
+          - "@hono/*"
+          - "marked"
 
   - package-ecosystem: "github-actions"
     directory: "/"
     target-branch: "dev"
     schedule:
       interval: "weekly"
-      day: "monday"
-      time: "21:40"
+      day: "tuesday"
+      time: "03:35"
       timezone: "Asia/Shanghai"
     open-pull-requests-limit: 5
     labels:
