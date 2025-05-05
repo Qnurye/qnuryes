@@ -46,7 +46,7 @@
     "node-vibrant": "^4.0.3",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "react-hook-form": "^7.56.1",
+    "react-hook-form": "^7.56.2",
     "react-markdown": "^10.1.0",
     "reading-time-estimator": "^1.14.0",
     "sanitize-html": "^2.16.0",
