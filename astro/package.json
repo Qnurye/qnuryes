@@ -15,7 +15,7 @@
   "dependencies": {
     "@astro-kits/google-analytics": "^0.1.0",
     "@astrojs/partytown": "^2.1.4",
-    "@astrojs/react": "^4.2.5",
+    "@astrojs/react": "^4.2.7",
     "@astrojs/rss": "^4.0.11",
     "@astrojs/sitemap": "^3.3.1",
     "@hookform/resolvers": "^5.0.1",
