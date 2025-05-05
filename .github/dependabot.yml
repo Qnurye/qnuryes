@@ -6,7 +6,7 @@ updates:
     schedule:
       interval: "weekly"
       day: "tuesday"
-      time: "03:35"
+      time: "03:40"
       timezone: "Asia/Shanghai"
     open-pull-requests-limit: 10
     versioning-strategy: "increase-if-necessary"
@@ -72,12 +72,12 @@ updates:
           - "@astro-kits/google-analytics"
 
   - package-ecosystem: "npm"
-    directory: "/worker-api"
+    directory: "/astro"
     target-branch: "dev"
     schedule:
       interval: "weekly"
       day: "tuesday"
-      time: "03:35"
+      time: "03:40"
       timezone: "Asia/Shanghai"
     open-pull-requests-limit: 10
     versioning-strategy: "increase-if-necessary"
@@ -108,7 +108,7 @@ updates:
     schedule:
       interval: "weekly"
       day: "tuesday"
-      time: "03:35"
+      time: "03:40"
       timezone: "Asia/Shanghai"
     open-pull-requests-limit: 5
     labels:
