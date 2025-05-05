@@ -2,11 +2,10 @@ version: 2
 updates:
   - package-ecosystem: "npm"
     directory: "/"
-    target-branch: "dev"
     schedule:
       interval: "weekly"
-      day: "tuesday"
-      time: "03:42"
+      day: "monday"
+      time: "08:00"
       timezone: "Asia/Shanghai"
     open-pull-requests-limit: 10
     versioning-strategy: "increase-if-necessary"
@@ -70,11 +69,10 @@ updates:
 
   - package-ecosystem: "github-actions"
     directory: "/"
-    target-branch: "dev"
     schedule:
       interval: "weekly"
-      day: "tuesday"
-      time: "03:42"
+      day: "monday"
+      time: "08:00"
       timezone: "Asia/Shanghai"
     open-pull-requests-limit: 5
     labels:
