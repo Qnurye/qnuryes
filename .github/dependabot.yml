@@ -6,7 +6,7 @@ updates:
     schedule:
       interval: "weekly"
       day: "tuesday"
-      time: "03:40"
+      time: "03:42"
       timezone: "Asia/Shanghai"
     open-pull-requests-limit: 10
     versioning-strategy: "increase-if-necessary"
@@ -33,23 +33,6 @@ updates:
           - "@eslint/*"
           - "eslint-*"
           - "globals"
-
-  - package-ecosystem: "npm"
-    directory: "/astro"
-    target-branch: "dev"
-    schedule:
-      interval: "weekly"
-      day: "tuesday"
-      time: "03:35"
-      timezone: "Asia/Shanghai"
-    open-pull-requests-limit: 10
-    versioning-strategy: "increase-if-necessary"
-    labels:
-      - "dependencies"
-    commit-message:
-      prefix: "chore"
-      include: "scope"
-    groups:
       astro:
         patterns:
           - "astro"
@@ -70,23 +53,6 @@ updates:
           - "@spotlightjs/*"
           - "@yeskunall/*"
           - "@astro-kits/google-analytics"
-
-  - package-ecosystem: "npm"
-    directory: "/astro"
-    target-branch: "dev"
-    schedule:
-      interval: "weekly"
-      day: "tuesday"
-      time: "03:40"
-      timezone: "Asia/Shanghai"
-    open-pull-requests-limit: 10
-    versioning-strategy: "increase-if-necessary"
-    labels:
-      - "dependencies"
-    commit-message:
-      prefix: "chore"
-      include: "scope"
-    groups:
       cloudflare:
         patterns:
           - "@cloudflare/*"
@@ -108,7 +74,7 @@ updates:
     schedule:
       interval: "weekly"
       day: "tuesday"
-      time: "03:40"
+      time: "03:42"
       timezone: "Asia/Shanghai"
     open-pull-requests-limit: 5
     labels:
