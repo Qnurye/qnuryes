@@ -5,66 +5,80 @@ updates:
     target-branch: "dev"
     schedule:
       interval: "weekly"
-      day: "monday"
-      time: "21:40"
+      day: "tuesday"
+      time: "03:42"
       timezone: "Asia/Shanghai"
     open-pull-requests-limit: 10
     versioning-strategy: "increase-if-necessary"
     labels:
       - "dependencies"
-      - "npm"
     commit-message:
       prefix: "chore"
       include: "scope"
-
-  - package-ecosystem: "npm"
-    directory: "/astro"
-    target-branch: "dev"
-    schedule:
-      interval: "weekly"
-      day: "monday"
-      time: "21:40"
-      timezone: "Asia/Shanghai"
-    open-pull-requests-limit: 10
-    versioning-strategy: "increase-if-necessary"
-    labels:
-      - "dependencies"
-      - "npm"
-      - "astro"
-    commit-message:
-      prefix: "chore"
-      include: "scope"
-
-  - package-ecosystem: "npm"
-    directory: "/worker-api"
-    target-branch: "dev"
-    schedule:
-      interval: "weekly"
-      day: "monday"
-      time: "21:40"
-      timezone: "Asia/Shanghai"
-    open-pull-requests-limit: 10
-    versioning-strategy: "increase-if-necessary"
-    labels:
-      - "dependencies"
-      - "npm"
-      - "worker-api"
-    commit-message:
-      prefix: "chore"
-      include: "scope"
+    groups:
+      react:
+        patterns:
+          - "react"
+          - "react-dom"
+          - "@types/react"
+          - "@types/react-dom"
+      typescript:
+        patterns:
+          - "typescript"
+          - "@typescript-eslint/*"
+          - "@types/*"
+      eslint:
+        patterns:
+          - "eslint"
+          - "@eslint/*"
+          - "eslint-*"
+          - "globals"
+      astro:
+        patterns:
+          - "astro"
+          - "@astrojs/*"
+          - "@astro-kits/*"
+      ui:
+        patterns:
+          - "@radix-ui/*"
+          - "tailwind*"
+          - "class-variance-authority"
+          - "clsx"
+          - "lucide-react"
+          - "vaul"
+          - "cmdk"
+      analytics:
+        patterns:
+          - "@sentry/*"
+          - "@spotlightjs/*"
+          - "@yeskunall/*"
+          - "@astro-kits/google-analytics"
+      cloudflare:
+        patterns:
+          - "@cloudflare/*"
+          - "wrangler"
+      email:
+        patterns:
+          - "@react-email/*"
+          - "react-email"
+          - "resend"
+      api:
+        patterns:
+          - "hono"
+          - "@hono/*"
+          - "marked"
 
   - package-ecosystem: "github-actions"
     directory: "/"
     target-branch: "dev"
     schedule:
       interval: "weekly"
-      day: "monday"
-      time: "21:40"
+      day: "tuesday"
+      time: "03:42"
       timezone: "Asia/Shanghai"
     open-pull-requests-limit: 5
     labels:
       - "dependencies"
-      - "github-actions"
     commit-message:
       prefix: "chore"
       include: "scope"
