@@ -10,8 +10,8 @@ permissions:
   repository-projects: write
 
 env:
-  DEPS_SCOPE: 'production'
-  MAJOR_UPDATE: 'false'
+  DEPS_SCOPE: "development"
+  MAJOR_UPDATE: "false"
 
 jobs:
   dependabot:
