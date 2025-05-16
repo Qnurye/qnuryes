@@ -54,7 +54,6 @@ export interface Env {
   RESEND_API_KEY: string
   NEWSLETTER_RECIPIENTS: string
   WEBSITE_BASE_URL: string
-  NEWSLETTER_TO_EMAIL: string
   RESEND_AUDIENCE_ID: string
   RESEND_FROM: string
   subscription: KVNamespace

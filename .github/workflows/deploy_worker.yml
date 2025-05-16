@@ -1,0 +1,58 @@
+name: deploy worker
+
+on:
+  push:
+    branches: [ production ]
+
+permissions:
+  contents: read
+  deployments: write
+
+jobs:
+  deploy-worker:
+    environment: production
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
+        with:
+          run_install: false
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Deploy Worker
+        uses: cloudflare/wrangler-action@v3
+        with:
+          packageManager: pnpm
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: 'worker-api'
+          preCommands: |
+            cp wrangle.example.toml wrangler.toml
+            ls -la # Verify the file exists
+            sed -i 's/^name = ".*"$/name = "${{ secrets.CLOUDFLARE_WORKER_NAME }}"/g' wrangler.toml
+            sed -i 's/^compatibility_date = ".*"$/compatibility_date = "2024-03-27"/g' wrangler.toml
+            sed -i '/\[\[d1_databases\]\]/,/database_id = ""/s/database_name = ""/database_name = "${{ secrets.D1_DATABASE_NAME }}"/g' wrangler.toml
+            sed -i '/\[\[d1_databases\]\]/,/database_id = ""/s/database_id = ""/database_id = "${{ secrets.D1_DATABASE_ID }}"/g' wrangler.toml
+            sed -i '/\[\[kv_namespaces\]\]/,/id = ""/s/id = ""/id = "${{ secrets.KV_NAMESPACE_ID }}"/g' wrangler.toml
+            sed -i '/^\[vars\]/,/^$/ s#^BASE_URL = ".*"$#BASE_URL = "${{ secrets.PUBLIC_API_BASE_URL }}"#g' wrangler.toml
+            sed -i '/^\[vars\]/,/^$/ s#^RESEND_API_KEY = ".*"$#RESEND_API_KEY = "${{ secrets.RESEND_API_KEY }}"#g' wrangler.toml
+            sed -i '/^\[vars\]/,/^$/ s#^WEBSITE_BASE_URL = ".*"$#WEBSITE_BASE_URL = "${{ secrets.PUBLIC_BASE_URL }}"#g' wrangler.toml
+            sed -i '/^\[vars\]/,/^$/ s#^NEWSLETTER_TO_EMAIL = ".*"$#NEWSLETTER_TO_EMAIL = "${{ secrets.NEWSLETTER_TO_EMAIL }}"#g' wrangler.toml
+            sed -i '/^\[vars\]/,/^$/ s#^RESEND_AUDIENCE_ID = ".*"$#RESEND_AUDIENCE_ID = "${{ secrets.RESEND_AUDIENCE_ID }}"#g' wrangler.toml
+            sed -i '/^\[vars\]/,/^$/ s#^RESEND_FROM = ".*"$#RESEND_FROM = "${{ secrets.RESEND_FROM }}"#g' wrangler.toml
+            sed -i '/^\[triggers\]/,/^$/ s#^crons = \[".*"\]$#crons = ["${{ secrets.CLOUDFLARE_WORKER_TRIGGER }}"]#g' wrangler.toml
+
+            echo "=== Final wrangler.toml configuration ==="
+            cat wrangler.toml
+          command: deploy
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
