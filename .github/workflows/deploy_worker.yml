@@ -36,11 +36,9 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           workingDirectory: 'worker-api'
-          command: deploy ./src/index.ts --name ${{ secrets.CLOUDFLARE_WORKER_NAME }} --compatibility-date 2024-03-27
+          command: "deploy ./src/index.ts --name ${{ secrets.CLOUDFLARE_WORKER_NAME }} --compatibility-date 
+          2024-03-27 --triggers ${{ secrets.CLOUDFLARE_WORKER_TRIGGER }} --keep-vars true
+          --var RESEND_API_KEY ${{ secrets.RESEND_API_KEY }} BASE_URL ${{ secrets.PUBLIC_API_BASE_URL }} 
+          WEBSITE_BASE_URL ${{ secrets.PUBLIC_BASE_URL }} RESEND_AUDIENCE_ID ${{ secrets.RESEND_AUDIENCE_ID }} 
+          RESEND_FROM ${{ secrets.RESEND_FROM }}"
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
-        env:
-          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
-          BASE_URL: ${{ secrets.PUBLIC_API_BASE_URL }}
-          WEBSITE_BASE_URL: ${{ secrets.PUBLIC_BASE_URL }}
-          RESEND_AUDIENCE_ID: ${{ secrets.RESEND_AUDIENCE_ID }}
-          RESEND_FROM: ${{ secrets.RESEND_FROM }}
