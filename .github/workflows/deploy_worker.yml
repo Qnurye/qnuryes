@@ -1,15 +1,15 @@
-name: deploy astro
+name: deploy worker
 
 on:
   push:
-    branches: [ production ]
+    branches: [ production, "feat/action/worker" ]
 
 permissions:
   contents: read
   deployments: write
 
 jobs:
-  deploy-astro:
+  deploy-worker:
     environment: production
     runs-on: ubuntu-latest
     steps:
@@ -29,21 +29,18 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Build
-        run: pnpm --filter @qnury-es/astro build
-        env:
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-          PUBLIC_SENTRY_DSN: ${{ secrets.PUBLIC_SENTRY_DSN }}
-          GA_ID: ${{ secrets.GA_ID }}
-          PUBLIC_API_BASE_URL: ${{ secrets.PUBLIC_API_BASE_URL }}
-          PUBLIC_BASE_URL: ${{ secrets.PUBLIC_BASE_URL }}
-          UMAMI_ID: ${{ secrets.UMAMI_ID }}
-
-      - name: Deploy Pages
+      - name: Deploy Worker
         uses: cloudflare/wrangler-action@v3
         with:
           packageManager: pnpm
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy ./astro/dist --project-name=${{ secrets.CLOUDFLARE_ASTRO_PROJECT_NAME }}
+          workingDirectory: 'worker-api'
+          command: deploy
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          BASE_URL: ${{ secrets.PUBLIC_API_BASE_URL }}
+          WEBSITE_BASE_URL: ${{ secrets.PUBLIC_BASE_URL }}
+          RESEND_AUDIENCE_ID: ${{ secrets.RESEND_AUDIENCE_ID }}
+          RESEND_FROM: ${{ secrets.RESEND_FROM }}
