@@ -2,7 +2,7 @@ name: deploy worker
 
 on:
   push:
-    branches: [ production, "feat/action/worker" ]
+    branches: [ production ]
 
 permissions:
   contents: read
