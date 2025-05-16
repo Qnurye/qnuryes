@@ -51,15 +51,15 @@ jobs:
             sed -i '/\[\[kv_namespaces\]\]/,/id = ""/s/id = ""/id = "${{ secrets.KV_NAMESPACE_ID }}"/g' wrangler.toml
             
             # Configure environment variables
-            sed -i '/^\[vars\]/,/^$/ s/^BASE_URL = ".*"$/BASE_URL = "${{ secrets.PUBLIC_API_BASE_URL }}"/g' wrangler.toml
-            sed -i '/^\[vars\]/,/^$/ s/^RESEND_API_KEY = ".*"$/RESEND_API_KEY = "${{ secrets.RESEND_API_KEY }}"/g' wrangler.toml
-            sed -i '/^\[vars\]/,/^$/ s/^WEBSITE_BASE_URL = ".*"$/WEBSITE_BASE_URL = "${{ secrets.PUBLIC_BASE_URL }}"/g' wrangler.toml
-            sed -i '/^\[vars\]/,/^$/ s/^NEWSLETTER_TO_EMAIL = ".*"$/NEWSLETTER_TO_EMAIL = "${{ secrets.NEWSLETTER_TO_EMAIL }}"/g' wrangler.toml
-            sed -i '/^\[vars\]/,/^$/ s/^RESEND_AUDIENCE_ID = ".*"$/RESEND_AUDIENCE_ID = "${{ secrets.RESEND_AUDIENCE_ID }}"/g' wrangler.toml
-            sed -i '/^\[vars\]/,/^$/ s/^RESEND_FROM = ".*"$/RESEND_FROM = "${{ secrets.RESEND_FROM }}"/g' wrangler.toml
+            sed -i '/^\[vars\]/,/^$/ s#^BASE_URL = ".*"$#BASE_URL = "${{ secrets.PUBLIC_API_BASE_URL }}"#g' wrangler.toml
+            sed -i '/^\[vars\]/,/^$/ s#^RESEND_API_KEY = ".*"$#RESEND_API_KEY = "${{ secrets.RESEND_API_KEY }}"#g' wrangler.toml
+            sed -i '/^\[vars\]/,/^$/ s#^WEBSITE_BASE_URL = ".*"$#WEBSITE_BASE_URL = "${{ secrets.PUBLIC_BASE_URL }}"#g' wrangler.toml
+            sed -i '/^\[vars\]/,/^$/ s#^NEWSLETTER_TO_EMAIL = ".*"$#NEWSLETTER_TO_EMAIL = "${{ secrets.NEWSLETTER_TO_EMAIL }}"#g' wrangler.toml
+            sed -i '/^\[vars\]/,/^$/ s#^RESEND_AUDIENCE_ID = ".*"$#RESEND_AUDIENCE_ID = "${{ secrets.RESEND_AUDIENCE_ID }}"#g' wrangler.toml
+            sed -i '/^\[vars\]/,/^$/ s#^RESEND_FROM = ".*"$#RESEND_FROM = "${{ secrets.RESEND_FROM }}"#g' wrangler.toml
             
             # Configure triggers
-            sed -i '/^\[triggers\]/,/^$/ s/^crons = \[".*"\]$/crons = ["${{ secrets.CLOUDFLARE_WORKER_TRIGGER }}"]/g' wrangler.toml
+            sed -i '/^\[triggers\]/,/^$/ s#^crons = \[".*"\]$#crons = ["${{ secrets.CLOUDFLARE_WORKER_TRIGGER }}"]#g' wrangler.toml
             
             # Display final configuration for debugging
             echo "=== Final wrangler.toml configuration ==="
