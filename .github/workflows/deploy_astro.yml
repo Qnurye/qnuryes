@@ -45,5 +45,6 @@ jobs:
           packageManager: pnpm
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy ./astro/dist --project-name=${{ secrets.CLOUDFLARE_ASTRO_PROJECT_NAME }}
+          workingDirectory: 'astro'
+          command: pages deploy ./dist --project-name=${{ secrets.CLOUDFLARE_ASTRO_PROJECT_NAME }}
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
