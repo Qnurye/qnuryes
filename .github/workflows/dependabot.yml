@@ -40,7 +40,6 @@ jobs:
 
       - name: Define Dependencies scope
         run: |
-          echo "DEPS_SCOPE=${{ steps.metadata.outputs.dependency-type == 'direct:development' && 'development' || 'production' }}" >> $GITHUB_ENV
           echo "MAJOR_UPDATE=${{ steps.metadata.outputs.update-type == 'version-update:semver-major' && 'true' || 'false' }}" >> $GITHUB_ENV
 
       - name: Create ${{ env.DEPS_SCOPE }} label
