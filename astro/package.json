@@ -33,7 +33,7 @@
     "@sentry/astro": "^9.15.0",
     "@spotlightjs/astro": "^3.2.3",
     "@tailwindcss/vite": "^4.1.5",
-    "@yeskunall/astro-umami": "^0.0.5",
+    "@yeskunall/astro-umami": "^0.0.6",
     "aos": "^2.3.4",
     "astro": "^5.7.10",
     "astro-remote": "^0.3.4",
