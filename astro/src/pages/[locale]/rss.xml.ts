@@ -15,7 +15,13 @@ export const GET: APIRoute = async (context): Promise<Response> => {
     title: t('landing.page_title'),
     description: t('landing.page_description'),
     site: context.site || new URL('https://qnury.es/'),
-    customData: `<language>${locale}</language>`,
+    customData: `
+<language>${locale}</language>
+<follow_challenge>
+    <feedId>150883479454923776</feedId>
+    <userId>150882805993620480</userId>
+</follow_challenge>
+`,
     items: blog.map(post => ({
       title: post.data.title,
       pubDate: post.data.created_at,
