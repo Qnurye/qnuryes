@@ -56,6 +56,8 @@
   },
   "devDependencies": {
     "@types/eslint-plugin-jsx-a11y": "^6.10.0",
+    "@types/markdown-it": "^14.1.2",
+    "@types/sanitize-html": "^2.16.0",
     "eslint-plugin-astro": "^1.3.1",
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "vite": "^6.2.7"
