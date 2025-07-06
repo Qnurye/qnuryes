@@ -14,7 +14,7 @@ export const blog = defineCollection({
     locale: z.string().default('en'),
     original_locale: z.string().default('en'),
 
-    cover: z.string().default(''),
+    cover: z.string().optional(),
     description: z.string().default(''),
     cover_credit: z.string().optional(),
   }),

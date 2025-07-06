@@ -40,15 +40,20 @@ const { Content } = await render(page);
   className="mt-[100vh]"
 >
   <div class="absolute left-0 top-0 ">
-    <Image
-      id="cover"
-      src={page.data.cover}
-      alt=""
-      height={1080}
-      width={1920}
-      class="h-screen w-screen -z-10 object-cover"
-      loading="eager"
-    />
+    {
+      page.data.cover
+      && (
+        <Image
+          id="cover"
+          src={page.data.cover}
+          alt=""
+          height={1080}
+          width={1920}
+          class="h-screen w-screen -z-10 object-cover"
+          loading="eager"
+        />
+      )
+    }
     {page.data.cover_credit
       && (
         <p
@@ -190,6 +195,7 @@ const { Content } = await render(page);
 
   function loadContrastColor(): void {
     const cover = document.querySelector('#cover') as HTMLImageElement;
+    if (!cover) { return; }
 
     Vibrant.from(cover.src).getPalette().then((plate) => {
       // const contrastColor = getContrastColor(plate.Vibrant?.rgb || [0, 0, 0]);
