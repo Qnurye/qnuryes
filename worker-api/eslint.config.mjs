@@ -45,8 +45,8 @@ export default [
 
       'camelcase': ['error', { properties: 'never' }],
 
-      'indent': ['error', 2, { SwitchCase: 1 }],
-      '@stylistic/indent': 'off',
+      'indent': 'off',
+      '@stylistic/indent': ['error', 2, { SwitchCase: 1 }],
       'max-len': ['error', { code: 120, ignoreUrls: true }],
       'object-curly-spacing': ['error', 'always'],
       'array-bracket-spacing': ['error', 'never'],
