@@ -19,6 +19,6 @@
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20250505.0",
-    "react-email": "4.2.8"
+    "react-email": "4.2.11"
   }
 }
