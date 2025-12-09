@@ -45,7 +45,7 @@ export interface InterpolationValues {
 }
 
 export async function loadTranslations(locale: string | undefined): Promise<(
-  key: string, values?: InterpolationValues
+  key: string, values?: InterpolationValues,
 ) => string> {
   const resolvedLocale = locale || defaultLocale;
 
