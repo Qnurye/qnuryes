@@ -1,14 +1,14 @@
 ---
-import Logo from "./Logo.astro";
-import LanguageSwitcher from "./LanguageSwitcher.tsx";
-import { loadTranslations } from "@/i18n";
-import { getRelativeLocaleUrl } from "astro:i18n";
-import { Button } from "./ui/button";
-import { MenuIcon, X } from "lucide-react";
-import { ColorModeToggle } from "./ColorModeToggle";
+import Logo from './Logo.astro';
+import LanguageSwitcher from './LanguageSwitcher.tsx';
+import { loadTranslations } from '@/i18n';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { Button } from './ui/button';
+import { MenuIcon, X } from 'lucide-react';
+import { ColorModeToggle } from './ColorModeToggle';
 
 const t = await loadTranslations(Astro.currentLocale);
-const locales = Astro.props.locales || ["en", "zh-cn", "zh-tw"];
+const locales = Astro.props.locales || ['en', 'zh-cn', 'zh-tw'];
 ---
 
 <div class="h-17"></div>
