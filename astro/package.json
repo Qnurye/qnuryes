@@ -35,7 +35,7 @@
     "@tailwindcss/vite": "^4.1.18",
     "@yeskunall/astro-umami": "^0.0.7",
     "aos": "^2.3.4",
-    "astro": "^5.16.11",
+    "astro": "^5.15.9",
     "astro-remote": "^0.3.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
