@@ -14,11 +14,20 @@ const locales = Astro.props.locales || ['en', 'zh-cn', 'zh-tw'];
 <div class="h-17"></div>
 
 <header class="fixed top-0 left-0 w-full z-50">
-    <div
-        class="flex justify-between items-center p-4 w-full text-contrast transition-colors"
-        id="nav"
+  <div
+    class="flex justify-between items-center p-4 w-full text-contrast transition-colors"
+    id="nav"
+  >
+    <Logo />
+
+    <Button
+      variant="ghost"
+      id="menu-toggle"
+      className="lg:hidden p-2"
+      aria-label="Toggle menu"
     >
-        <Logo />
+      <MenuIcon />
+    </Button>
 
         <Button
             variant="ghost"
@@ -108,23 +117,23 @@ const locales = Astro.props.locales || ['en', 'zh-cn', 'zh-tw'];
 </header>
 
 <script>
-    document.getElementById("menu-toggle")?.addEventListener("click", () => {
-        document
-            .getElementById("mobile-menu")
-            ?.classList.toggle("translate-x-full");
+    document.getElementById('menu-toggle')?.addEventListener('click', () => {
+      document
+        .getElementById('mobile-menu')
+        ?.classList.toggle('translate-x-full');
     });
 
-    document.getElementById("menu-close")?.addEventListener("click", () => {
-        document
-            .getElementById("mobile-menu")
-            ?.classList.toggle("translate-x-full");
+    document.getElementById('menu-close')?.addEventListener('click', () => {
+      document
+        .getElementById('mobile-menu')
+        ?.classList.toggle('translate-x-full');
     });
 
-    document.querySelectorAll("#mobile-menu>a").forEach((anchor) => {
-        anchor.addEventListener("click", function () {
-            document
-                .getElementById("mobile-menu")
-                ?.classList.toggle("translate-x-full");
-        });
+    document.querySelectorAll('#mobile-menu>a').forEach((anchor) => {
+      anchor.addEventListener('click', function () {
+        document
+          .getElementById('mobile-menu')
+          ?.classList.toggle('translate-x-full');
+      });
     });
 </script>
