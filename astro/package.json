@@ -35,7 +35,7 @@
     "@tailwindcss/vite": "^4.1.18",
     "@yeskunall/astro-umami": "^0.0.7",
     "aos": "^2.3.4",
-    "astro": "^5.16.11",
+    "astro": "^5.16.12",
     "astro-remote": "^0.3.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -55,6 +55,7 @@
     "vaul": "^1.1.2"
   },
   "devDependencies": {
+    "@konghayao/cn-font-split": "^4.15.0",
     "@types/eslint-plugin-jsx-a11y": "^6.10.1",
     "@types/markdown-it": "^14.1.2",
     "@types/sanitize-html": "^2.16.0",
