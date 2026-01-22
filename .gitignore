@@ -24,3 +24,5 @@ pnpm-debug.log*
 .wrangler/
 .actrc
 .envrc
+
+astro/fonts/
