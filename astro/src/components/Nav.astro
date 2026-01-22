@@ -40,13 +40,9 @@ const locales = Astro.props.locales || ['en', 'zh-cn', 'zh-tw'];
 
     <nav class="lg:flex hidden flex-row gap-4 items-center">
       <a href={`/${Astro.currentLocale}#about`}>{t('nav.about')}</a>
-      <a href={`/${Astro.currentLocale}#portfolio`}>{t('nav.portfolio')}
-      </a>
-      <a href={getRelativeLocaleUrl(Astro.currentLocale || 'en', 'blog')}>{t('nav.blog')}
-      </a>
-      <a href="https://pad.qnury.es">{t('nav.notes')} </a>
-      <a href={getRelativeLocaleUrl(Astro.currentLocale || 'en', 'links')}>{t('nav.links')}
-      </a>
+      <a href={`/${Astro.currentLocale}#portfolio`}>{t('nav.portfolio')}</a>
+      <a href={getRelativeLocaleUrl(Astro.currentLocale || 'en', 'blog')}>{t('nav.blog')}</a>
+      <a href="https://pad.qnury.es">{t('nav.notes')}</a>
       <ColorModeToggle
         t={{
           label: t('nav.appearance.label'),
@@ -78,27 +74,10 @@ const locales = Astro.props.locales || ['en', 'zh-cn', 'zh-tw'];
     >
       <X />
     </Button>
-    <a
-      href={`/${Astro.currentLocale}#about`}
-      class="text-xl"
-    >{t('nav.about')}
-    </a>
-    <a
-      href={`/${Astro.currentLocale}#portfolio`}
-      class="text-xl"
-    >{t('nav.portfolio')}
-    </a>
-    <a
-      href={getRelativeLocaleUrl(Astro.currentLocale || 'en', 'blog')}
-      class="text-xl"
-    >{t('nav.blog')}
-    </a>
-    <a href="https://notes.qnury.es" class="text-xl">{t('nav.notes')} </a>
-    <a
-      href={getRelativeLocaleUrl(Astro.currentLocale || 'en', 'links')}
-      class="text-xl"
-    >{t('nav.links')}
-    </a>
+    <a href={`/${Astro.currentLocale}#about`} class="text-xl">{t('nav.about')}</a>
+    <a href={`/${Astro.currentLocale}#portfolio`} class="text-xl">{t('nav.portfolio')}</a>
+    <a href={getRelativeLocaleUrl(Astro.currentLocale || 'en', 'blog')} class="text-xl">{t('nav.blog')}</a>
+    <a href="https://pad.qnury.es" class="text-xl">{t('nav.notes')}</a>
     <ColorModeToggle
       t={{
         label: t('nav.appearance.label'),
