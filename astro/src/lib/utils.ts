@@ -1,9 +1,9 @@
-import { type ClassValue, clsx } from 'clsx'
-import { twMerge } from 'tailwind-merge'
+import { type ClassValue, clsx } from 'clsx';
 import { readingTime, type SupportedLanguages } from 'reading-time-estimator';
+import { twMerge } from 'tailwind-merge';
 
 export function cn(...inputs: ClassValue[]): string {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
 }
 
 export const formatDate = (dateString: string, locale: string): string => {
@@ -25,19 +25,19 @@ export const formatDateAsMonth = (dateString: string, locale: string): string =>
 };
 
 export const wpm = {
-  'en': 200,
+  en: 200,
   'zh-cn': 300,
   'zh-tw': 300,
 } as Record<string, number>;
 
 export const readingTimeLocales = {
-  'en': 'en',
+  en: 'en',
   'zh-cn': 'cn',
   'zh-tw': 'cn',
-} as Record<string, SupportedLanguages>
+} as Record<string, SupportedLanguages>;
 
 export const getReadingTime = (text: string, locale: string): number =>
-  readingTime(text, wpm[locale], readingTimeLocales[locale]).minutes
+  readingTime(text, wpm[locale], readingTimeLocales[locale]).minutes;
 
 export const dateToIssue = (date: Date): string => {
   const year = String(date.getFullYear()).slice(-2);

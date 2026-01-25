@@ -1,20 +1,19 @@
-import { defineConfig, envField } from 'astro/config'
-import tailwindcss from '@tailwindcss/vite'
-import react from '@astrojs/react'
-import tomlI18n from './integrations/toml-i18n.ts';
-import sentry from '@sentry/astro';
 // import spotlightjs from '@spotlightjs/astro';
 import process from 'node:process';
-import sitemap from '@astrojs/sitemap';
-
-import { loadEnv } from 'vite';
-
 import partytown from '@astrojs/partytown';
-
+import react from '@astrojs/react';
+import sitemap from '@astrojs/sitemap';
+import sentry from '@sentry/astro';
+import tailwindcss from '@tailwindcss/vite';
 import umami from '@yeskunall/astro-umami';
+import { defineConfig, envField } from 'astro/config';
+import { loadEnv } from 'vite';
+import tomlI18n from './integrations/toml-i18n.ts';
 
 const { PUBLIC_SENTRY_DSN, SENTRY_AUTH_TOKEN, PUBLIC_BASE_URL, NODE_ENV, UMAMI_ID } = loadEnv(
-  process.env.NODE_ENV || 'development', process.cwd(), '',
+  process.env.NODE_ENV || 'development',
+  process.cwd(),
+  '',
 );
 
 export default defineConfig({
@@ -30,11 +29,11 @@ export default defineConfig({
   },
   site: PUBLIC_BASE_URL,
   vite: {
-    plugins: [
-      tailwindcss(),
-    ],
+    plugins: [tailwindcss()],
   },
-  integrations: [react(), tomlI18n(),
+  integrations: [
+    react(),
+    tomlI18n(),
     // Passing DSN directly to sentry integration will be deprecated in the future
     // https://docs.sentry.io/platforms/javascript/guides/astro/#astro-integration-setup
     // However, it causes issue if I setup `sentry.client.config.js` and `sentry.server.config.js`.
@@ -52,19 +51,22 @@ export default defineConfig({
       i18n: {
         defaultLocale: 'en',
         locales: {
-          'en': 'en-US',
+          en: 'en-US',
           'zh-cn': 'zh-CN',
           'zh-tw': 'zh-TW',
         },
       },
       xslURL: '/rss/pretty-feed-v3.xsl',
-    }), partytown({
+    }),
+    partytown({
       config: {
         forward: ['dataLayer.push', 'gtag'],
       },
-    }), umami({
+    }),
+    umami({
       id: UMAMI_ID,
-    })],
+    }),
+  ],
   i18n: {
     locales: ['en', 'zh-cn', 'zh-tw'],
     defaultLocale: 'en',

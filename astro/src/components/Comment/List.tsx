@@ -1,19 +1,19 @@
-import React from 'react';
-import CommentItem from './Item';
-import type { Comment } from '@/types';
-import { useTranslations } from '@/hooks/useTranslations.ts';
 import { Loader2Icon } from 'lucide-react';
+import type React from 'react';
+import { useTranslations } from '@/hooks/useTranslations.ts';
+import type { Comment } from '@/types';
+import CommentItem from './Item';
 
 interface CommentListProps {
-  comments: Comment[] | null
-  loading: boolean
-  locale: string
-  onReply: (id: Comment) => void
-  onLike: (id: number) => Promise<void>
+  comments: Comment[] | null;
+  loading: boolean;
+  locale: string;
+  onReply: (id: Comment) => void;
+  onLike: (id: number) => Promise<void>;
 }
 
 const CommentList: React.FC<CommentListProps> = ({ comments, loading, locale, onReply, onLike }) => {
-  const { t } = useTranslations(locale)
+  const { t } = useTranslations(locale);
   if (loading) {
     return (
       <div className="text-center py-8 flex justify-center items-center gap-2">
@@ -24,23 +24,13 @@ const CommentList: React.FC<CommentListProps> = ({ comments, loading, locale, on
   }
 
   if (!comments || comments.length === 0) {
-    return (
-      <div className="text-center py-8">
-        {t('comment.no_comments')}
-      </div>
-    );
+    return <div className="text-center py-8">{t('comment.no_comments')}</div>;
   }
 
   return (
     <div className="space-y-4">
-      {comments.map(comment => (
-        <CommentItem
-          key={comment.id}
-          comment={comment}
-          locale={locale}
-          onReply={onReply}
-          onLike={onLike}
-        />
+      {comments.map((comment) => (
+        <CommentItem key={comment.id} comment={comment} locale={locale} onReply={onReply} onLike={onLike} />
       ))}
     </div>
   );

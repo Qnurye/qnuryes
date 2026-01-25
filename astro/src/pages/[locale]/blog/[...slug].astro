@@ -1,26 +1,20 @@
 ---
-import { getCollection, render } from 'astro:content';
-import Base from '@/layouts/Base.astro';
-import Section from '@/components/Comment/Section';
-import { type GetStaticPathsResult } from 'astro';
-import type { CollectionEntry } from 'astro:content';
-import { formatDate } from '@/lib/utils';
-import { AtSignIcon, CopyrightIcon } from 'lucide-react';
 import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import { getCollection, render } from 'astro:content';
+import type { GetStaticPathsResult } from 'astro';
 import { Markdown } from 'astro-remote';
-import {
-  Alert,
-  AlertDescription,
-  AlertTitle,
-} from '@/components/ui/alert';
-import { LanguagesIcon } from 'lucide-react';
+import { AtSignIcon, CopyrightIcon, LanguagesIcon } from 'lucide-react';
+import Section from '@/components/Comment/Section';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { loadTranslations } from '@/i18n';
-import { getReadingTime } from '@/lib/utils';
+import Base from '@/layouts/Base.astro';
+import { formatDate, getReadingTime } from '@/lib/utils';
 
 export async function getStaticPaths(): Promise<GetStaticPathsResult> {
   const pages = await getCollection('blog');
 
-  return pages.map(page => ({
+  return pages.map((page) => ({
     params: { locale: page.data.locale, slug: page.data.translation_id },
     props: { page },
   }));

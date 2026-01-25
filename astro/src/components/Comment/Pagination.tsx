@@ -1,34 +1,30 @@
-import React from 'react';
-import { useTranslations } from '@/hooks/useTranslations.ts';
-import { Button } from '@/components/ui/button.tsx';
 import { ArrowLeftIcon, ArrowRightIcon } from 'lucide-react';
+import type React from 'react';
+import { Button } from '@/components/ui/button.tsx';
+import { useTranslations } from '@/hooks/useTranslations.ts';
 
 interface PaginationProps {
-  page: number
-  totalPages: number
-  loading: boolean
-  locale: string
-  onPageChange: (newPage: number) => void
+  page: number;
+  totalPages: number;
+  loading: boolean;
+  locale: string;
+  onPageChange: (newPage: number) => void;
 }
 
 const Pagination: React.FC<PaginationProps> = ({ page, totalPages, loading, locale, onPageChange }) => {
-  const { t } = useTranslations(locale)
-  if (totalPages <= 1) { return null; }
+  const { t } = useTranslations(locale);
+  if (totalPages <= 1) {
+    return null;
+  }
 
   return (
     <div className="flex justify-between items-center my-8 gap-4">
-      <Button
-        variant="secondary"
-        onClick={() => onPageChange(Math.max(page - 1, 1))}
-        disabled={page === 1 || loading}
-      >
+      <Button variant="secondary" onClick={() => onPageChange(Math.max(page - 1, 1))} disabled={page === 1 || loading}>
         <ArrowLeftIcon size={14} />
         {t('comment.previous')}
       </Button>
 
-      <span className="text-sm">
-        {t('comment.pages', { current: page, total: totalPages })}
-      </span>
+      <span className="text-sm">{t('comment.pages', { current: page, total: totalPages })}</span>
 
       <Button
         variant="secondary"

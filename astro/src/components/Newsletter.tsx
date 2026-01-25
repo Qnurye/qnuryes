@@ -1,49 +1,54 @@
 'use client';
 
-import { useTranslations } from '@/hooks/useTranslations.ts';
-import React, { useState } from 'react';
-import { Button } from '@/components/ui/button.tsx';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader2Icon, MailboxIcon } from 'lucide-react';
+import type React from 'react';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { Button } from '@/components/ui/button.tsx';
+import { Checkbox } from '@/components/ui/checkbox.tsx';
 import {
-  Drawer, DrawerClose,
+  Drawer,
+  DrawerClose,
   DrawerContent,
-  DrawerDescription, DrawerFooter,
+  DrawerDescription,
+  DrawerFooter,
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
 } from '@/components/ui/drawer.tsx';
-import { z } from 'zod';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
 import {
   Form,
   FormControl,
   FormDescription,
   FormField,
   FormItem,
-  FormLabel, FormMessage,
+  FormLabel,
+  FormMessage,
 } from '@/components/ui/form.tsx';
 import { Input } from '@/components/ui/input.tsx';
-import { Checkbox } from '@/components/ui/checkbox.tsx';
-import { locales } from '@/i18n';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select.tsx';
+import { useTranslations } from '@/hooks/useTranslations.ts';
+import { locales } from '@/i18n';
+
 const localeOptions = Object.keys(locales) as [keyof typeof locales, ...Array<keyof typeof locales>];
 
 const newsletterSchema = z.object({
   email: z.string().email(),
   name: z.string().min(1).optional(),
   locale: z.enum(localeOptions),
-  consent: z.boolean().refine(val => val, {
+  consent: z.boolean().refine((val) => val, {
     message: 'You must accept the terms and conditions',
   }),
-})
+});
 
 const NewsletterForm: React.FC<{
-  locale: keyof typeof locales
-  onSubmit: (value: z.infer<typeof newsletterSchema>) => void
-  disabled?: boolean
-  loading?: boolean
-  error?: boolean
+  locale: keyof typeof locales;
+  onSubmit: (value: z.infer<typeof newsletterSchema>) => void;
+  disabled?: boolean;
+  loading?: boolean;
+  error?: boolean;
 }> = ({ locale, onSubmit, disabled = false, loading = false, error = false }) => {
   const { t } = useTranslations(locale);
   const form = useForm<z.infer<typeof newsletterSchema>>({
@@ -115,16 +120,10 @@ const NewsletterForm: React.FC<{
           render={({ field }) => (
             <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4 shadow">
               <FormControl>
-                <Checkbox
-                  checked={field.value}
-                  onCheckedChange={field.onChange}
-                  disabled={disabled}
-                />
+                <Checkbox checked={field.value} onCheckedChange={field.onChange} disabled={disabled} />
               </FormControl>
               <div className="space-y-1 leading-none">
-                <FormLabel>
-                  {t('newsletter.consent_label')}
-                </FormLabel>
+                <FormLabel>{t('newsletter.consent_label')}</FormLabel>
                 <FormDescription>
                   <span dangerouslySetInnerHTML={{ __html: t('newsletter.consent_description') }} />
                 </FormDescription>
@@ -133,17 +132,13 @@ const NewsletterForm: React.FC<{
           )}
         />
         <FormMessage className={`text-destructive` + (!error && ' hidden')}>{t('newsletter.error')}</FormMessage>
-        <Button
-          type="submit"
-          className={'w-full' + ((disabled && !loading) ? ' hidden' : '')}
-          disabled={disabled}
-        >
-          {loading ? (<Loader2Icon className="animate-spin" />) : (t('newsletter.submit_button'))}
+        <Button type="submit" className={'w-full' + (disabled && !loading ? ' hidden' : '')} disabled={disabled}>
+          {loading ? <Loader2Icon className="animate-spin" /> : t('newsletter.submit_button')}
         </Button>
       </form>
     </Form>
-  )
-}
+  );
+};
 
 const mailWebLinks: Record<string, string> = {
   'gmail.com': 'https://mail.google.com',
@@ -170,10 +165,10 @@ const mailWebLinks: Record<string, string> = {
 };
 
 const Newsletter: React.FC<{ locale: string }> = ({ locale }) => {
-  const { t } = useTranslations(locale)
-  const [formState, setFormState] = useState<'loading' | 'successful' | 'input'>('input')
-  const [mailTarget, setMailTarget] = useState<string | null>(null)
-  const [isError, setIsError] = useState<boolean>(false)
+  const { t } = useTranslations(locale);
+  const [formState, setFormState] = useState<'loading' | 'successful' | 'input'>('input');
+  const [mailTarget, setMailTarget] = useState<string | null>(null);
+  const [isError, setIsError] = useState<boolean>(false);
 
   const onSubmit = async (value: z.infer<typeof newsletterSchema>): Promise<void> => {
     setFormState('loading');
@@ -184,10 +179,10 @@ const Newsletter: React.FC<{ locale: string }> = ({ locale }) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(value),
-    })
+    });
 
     if (!response.ok) {
-      setIsError(true)
+      setIsError(true);
       setMailTarget(null);
       return;
     }
@@ -211,9 +206,7 @@ const Newsletter: React.FC<{ locale: string }> = ({ locale }) => {
         <div className="overflow-y-auto scroll-smooth pb-24 sm:pb-16 md:pb-0">
           <DrawerHeader>
             <DrawerTitle className="text-2xl font-serif">{t('newsletter.title')}</DrawerTitle>
-            <DrawerDescription className="font-serif">
-              {t('newsletter.description')}
-            </DrawerDescription>
+            <DrawerDescription className="font-serif">{t('newsletter.description')}</DrawerDescription>
           </DrawerHeader>
           <NewsletterForm
             locale={locale as keyof typeof locales}
@@ -222,11 +215,7 @@ const Newsletter: React.FC<{ locale: string }> = ({ locale }) => {
             loading={formState === 'loading'}
             error={isError}
           />
-          <DrawerFooter
-            className={`flex flex-col gap-2 ${formState !== 'successful'
-              ? ' hidden'
-              : ''}`}
-          >
+          <DrawerFooter className={`flex flex-col gap-2 ${formState !== 'successful' ? ' hidden' : ''}`}>
             <span>{t('newsletter.check_inbox')}</span>
             <div className="flex w-full grow md:w-auto flex-wrap gap-2 justify-end">
               <Button className={`grow ${mailTarget ? '' : ' hidden'}`} asChild>
@@ -235,16 +224,14 @@ const Newsletter: React.FC<{ locale: string }> = ({ locale }) => {
                 </a>
               </Button>
               <DrawerClose asChild>
-                <Button variant="outline">
-                  {t('newsletter.close_button')}
-                </Button>
+                <Button variant="outline">{t('newsletter.close_button')}</Button>
               </DrawerClose>
             </div>
           </DrawerFooter>
         </div>
       </DrawerContent>
     </Drawer>
-  )
-}
+  );
+};
 
 export default Newsletter;

@@ -1,18 +1,22 @@
 ---
 import '@/styles/global.css';
-import Nav from '@/components/Nav.astro';
-import Footer from '@/components/Footer.astro';
-import { cn } from '@/lib/utils';
-import GoogleAnalytics from '@astro-kits/google-analytics';
 import { getAbsoluteLocaleUrl } from 'astro:i18n';
+import GoogleAnalytics from '@astro-kits/google-analytics';
+import Footer from '@/components/Footer.astro';
+import Nav from '@/components/Nav.astro';
+import { cn } from '@/lib/utils';
 
 const { title, className, description, keywords } = Astro.props;
-const pageTitle = title || 'query.e\'s';
-const pageDescription = description || 'Qnury.e\'s is the personal website of Qnurye';
-const pageKeywords = (keywords || '').split(',').map((keyword: string) => keyword.trim())
-  .concat('Qnurye, Qnury.e, Qnury, query.e, qnury, qnury.e, qnury-e, qnury_e, qnury_e_, qnurye, Astro, Next.js,'
-    + ' React, Vue, Svelte, Python, Rust, Golang, C++, C#, Java, Kotlin, Dart, Flutter, WebAssembly, WebGPU, WebGL,'
-    + ' OpenGL, Vulkan, DirectX, Metal, OpenCL, CUDA')
+const pageTitle = title || "query.e's";
+const pageDescription = description || "Qnury.e's is the personal website of Qnurye";
+const pageKeywords = (keywords || '')
+  .split(',')
+  .map((keyword: string) => keyword.trim())
+  .concat(
+    'Qnurye, Qnury.e, Qnury, query.e, qnury, qnury.e, qnury-e, qnury_e, qnury_e_, qnurye, Astro, Next.js,' +
+      ' React, Vue, Svelte, Python, Rust, Golang, C++, C#, Java, Kotlin, Dart, Flutter, WebAssembly, WebGPU, WebGL,' +
+      ' OpenGL, Vulkan, DirectX, Metal, OpenCL, CUDA',
+  )
   .join(', ');
 ---
 

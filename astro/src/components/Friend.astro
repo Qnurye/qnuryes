@@ -1,8 +1,9 @@
 ---
-import { cn } from '@/lib/utils';
 import { Markdown } from 'astro-remote';
 import { Vibrant } from 'node-vibrant/node';
 import sharp from 'sharp';
+import { cn } from '@/lib/utils';
+
 const { name, description, avatar, url, className } = Astro.props;
 
 let p;
@@ -25,7 +26,6 @@ try {
 
 const color = p.Vibrant?.hex || 'var(--color-foreground)';
 const foregroundColor = p.Vibrant?.bodyTextColor || 'var(--color-background)';
-
 ---
 
 <a

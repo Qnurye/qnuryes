@@ -1,12 +1,12 @@
 ---
-import { CopyrightIcon, CodeIcon, RssIcon } from 'lucide-react';
-import { Button, buttonVariants } from './ui/button';
-import { loadTranslations } from '@/i18n';
 import { Image } from 'astro:assets';
-import tail from '@/assets/tail.svg';
-import { Markdown } from 'astro-remote';
 import { getAbsoluteLocaleUrl, getRelativeLocaleUrl } from 'astro:i18n';
+import { Markdown } from 'astro-remote';
+import { CodeIcon, CopyrightIcon, RssIcon } from 'lucide-react';
+import tail from '@/assets/tail.svg';
+import { loadTranslations } from '@/i18n';
 import Newsletter from './Newsletter';
+import { Button, buttonVariants } from './ui/button';
 
 const locale = Astro.currentLocale || 'en';
 const t = await loadTranslations(locale);

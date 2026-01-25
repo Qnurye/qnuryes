@@ -1,9 +1,7 @@
-import React from 'react';
-import Newsletter, { NewsletterProps } from '@/emails/Newsletter';
+import type React from 'react';
+import Newsletter, { type NewsletterProps } from '@/emails/Newsletter';
 
-export const NewsletterZhCn = (props: NewsletterProps): React.ReactElement => (
-  <Newsletter {...props} />
-)
+export const NewsletterZhCn = (props: NewsletterProps): React.ReactElement => <Newsletter {...props} />;
 
 export default NewsletterZhCn;
 
@@ -13,8 +11,9 @@ NewsletterZhCn.PreviewProps = {
     {
       id: 'tomb',
       title: '数字坟墓',
-      description: 'Lorem ipsum *dolor sit amet*, consectetur adipiscing elit.'
-        + ' 这是一段用于占位的文本，通常用于设计和排版中。它的目的是展示字体、布局和设计效果，而不涉及实际内容。',
+      description:
+        'Lorem ipsum *dolor sit amet*, consectetur adipiscing elit.' +
+        ' 这是一段用于占位的文本，通常用于设计和排版中。它的目的是展示字体、布局和设计效果，而不涉及实际内容。',
       created_at: new Date('2025-04-01T00:32:00.000Z'),
       updated_at: new Date('2025-04-01T14:58:03.000Z'),
       tags: ['foo', 'bar'],
@@ -45,4 +44,4 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. 这是一段用于占�
   ],
   locale: 'zh-cn',
   baseUrl: 'https://qnury.es/',
-}
+};

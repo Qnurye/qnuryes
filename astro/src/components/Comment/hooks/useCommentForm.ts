@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import type { Comment, ErrorResponse } from '@/types';
-import { z } from 'zod';
 import { toast } from 'sonner';
+import { z } from 'zod';
 import { useTranslations } from '@/hooks/useTranslations';
+import type { Comment, ErrorResponse } from '@/types';
 
 export const formSchema = z.object({
   post_id: z.string(),
@@ -14,12 +14,16 @@ export const formSchema = z.object({
 
 export type FormData = z.infer<typeof formSchema>;
 
-export const useCommentForm = (postId: string, locale: string, fetchComments: () => Promise<void>): {
-  formData: FormData
-  loading: boolean
-  error: ErrorResponse | null
-  submitComment: (data: FormData, replyTo: Comment | null) => Promise<void>
-  resetForm: () => void
+export const useCommentForm = (
+  postId: string,
+  locale: string,
+  fetchComments: () => Promise<void>,
+): {
+  formData: FormData;
+  loading: boolean;
+  error: ErrorResponse | null;
+  submitComment: (data: FormData, replyTo: Comment | null) => Promise<void>;
+  resetForm: () => void;
 } => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<ErrorResponse | null>(null);

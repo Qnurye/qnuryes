@@ -1,16 +1,16 @@
 ---
+import { type CollectionEntry, render } from 'astro:content';
 import { getAbsoluteLocaleUrl } from 'astro:i18n';
-import { cn } from '@/lib/utils';
+import Image from 'astro/components/Image.astro';
 import { Markdown } from 'astro-remote';
+import { ChevronRightIcon } from 'lucide-react';
 import { Vibrant } from 'node-vibrant/node';
 import sharp from 'sharp';
-import Image from 'astro/components/Image.astro';
-import { type CollectionEntry, render } from 'astro:content';
-import { ChevronRightIcon } from 'lucide-react';
 import { loadTranslations } from '@/i18n';
+import { cn } from '@/lib/utils';
 
 const { post } = Astro.props as {
-  post: CollectionEntry<'blog'>
+  post: CollectionEntry<'blog'>;
 };
 
 const locale = Astro.currentLocale || 'en';

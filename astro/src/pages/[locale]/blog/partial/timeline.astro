@@ -1,28 +1,33 @@
 ---
 import { type CollectionEntry, getCollection } from 'astro:content';
+
 export { getI18nPaths as getStaticPaths } from '@/i18n';
-import { formatDateAsMonth } from '@/lib/utils';
+
+import { getAbsoluteLocaleUrl } from 'astro:i18n';
 import Project from '@/components/Project.astro';
 import { loadTranslations } from '@/i18n';
-import { getAbsoluteLocaleUrl } from 'astro:i18n';
+import { formatDateAsMonth } from '@/lib/utils';
 
 export const partial = true;
 
 const locale = Astro.currentLocale || 'en';
 const t = await loadTranslations(locale);
-const postsGroupByDate = (await getCollection('blog', p => p.data.locale === Astro.currentLocale))
+const postsGroupByDate = (await getCollection('blog', (p) => p.data.locale === Astro.currentLocale))
   .sort((a, b) => b.data.created_at.getTime() - a.data.created_at.getTime())
-  .reduce((acc, post) => {
-    const date = new Date(post.data.created_at);
-    const year = date.getFullYear().toString();
-    const month = date.getMonth().toString();
+  .reduce(
+    (acc, post) => {
+      const date = new Date(post.data.created_at);
+      const year = date.getFullYear().toString();
+      const month = date.getMonth().toString();
 
-    acc[year] = acc[year] || {};
-    acc[year][month] = acc[year][month] || [];
-    acc[year][month].push(post);
+      acc[year] = acc[year] || {};
+      acc[year][month] = acc[year][month] || [];
+      acc[year][month].push(post);
 
-    return acc;
-  }, {} as Record<string, Record<string, Array<CollectionEntry<'blog'>>>>);
+      return acc;
+    },
+    {} as Record<string, Record<string, Array<CollectionEntry<'blog'>>>>,
+  );
 ---
 
 <div

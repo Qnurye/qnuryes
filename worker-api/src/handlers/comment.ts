@@ -1,7 +1,7 @@
-import { Context } from 'hono';
-import { BaseHandler } from './base';
-import { Comment, commentRequestSchema, CommentResponse, Env, PaginationResponse } from '@/types';
+import type { Context } from 'hono';
 import { ErrorCode } from '@/constants/errors';
+import { type Comment, type CommentResponse, commentRequestSchema, type Env, type PaginationResponse } from '@/types';
+import { BaseHandler } from './base';
 
 export class CommentHandler extends BaseHandler {
   constructor(env: Env) {
@@ -27,17 +27,17 @@ export class CommentHandler extends BaseHandler {
 
     try {
       // Get total count
-      const countResult = await this.db.prepare(
-        'SELECT COUNT(*) as total FROM comments WHERE post_id = ? AND parent_id IS NULL AND status = ?',
-      )
+      const countResult = await this.db
+        .prepare('SELECT COUNT(*) as total FROM comments WHERE post_id = ? AND parent_id IS NULL AND status = ?')
         .bind(postId, 'approved')
         .first<{ total: number }>();
 
       const totalItems = countResult?.total || 0;
       const totalPages = Math.ceil(totalItems / pageSize);
 
-      const comments = await this.db.prepare(
-        `SELECT c.*,
+      const comments = await this.db
+        .prepare(
+          `SELECT c.*,
                 (SELECT COUNT(*) FROM comments r WHERE r.parent_id = c.id AND r.status = ?) as replyCount
          FROM comments c
          WHERE c.post_id = ?
@@ -45,7 +45,7 @@ export class CommentHandler extends BaseHandler {
            AND c.status = ?
          ORDER BY c.created_at DESC
          LIMIT ? OFFSET ?`,
-      )
+        )
         .bind('approved', postId, 'approved', pageSize, offset)
         .all<Comment & { replyCount: number }>();
 
@@ -53,14 +53,15 @@ export class CommentHandler extends BaseHandler {
       const commentsWithReplies = await Promise.all(
         comments.results.map(async (comment) => {
           const { replyCount, ...commentData } = comment;
-          const replies = await this.db.prepare(
-            `SELECT c.*,
+          const replies = await this.db
+            .prepare(
+              `SELECT c.*,
                     (SELECT COUNT(*) FROM comments r WHERE r.parent_id = c.id AND r.status = ?) as replyCount
              FROM comments c
              WHERE c.parent_id = ?
                AND c.status = ?
              ORDER BY c.created_at`,
-          )
+            )
             .bind('approved', comment.id, 'approved')
             .all<Comment & { replyCount: number }>();
 
@@ -97,21 +98,24 @@ export class CommentHandler extends BaseHandler {
     }
 
     try {
-      const replies = await this.db.prepare(
-        `SELECT c.*,
+      const replies = await this.db
+        .prepare(
+          `SELECT c.*,
                 (SELECT COUNT(*) FROM comments r WHERE r.parent_id = c.id AND r.status = ?) as replyCount
          FROM comments c
          WHERE c.parent_id = ?
            AND c.status = ?
          ORDER BY c.created_at`,
-      )
+        )
         .bind('approved', commentId, 'approved')
         .all<Comment & { replyCount: number }>();
 
-      return c.json(replies.results.map(({ replyCount, ...reply }) => ({
-        ...reply,
-        replyCount,
-      })));
+      return c.json(
+        replies.results.map(({ replyCount, ...reply }) => ({
+          ...reply,
+          replyCount,
+        })),
+      );
     } catch (error) {
       console.error('Database error:', error);
       return c.json({ code: ErrorCode.DATABASE_ERROR }, 500);
@@ -125,9 +129,8 @@ export class CommentHandler extends BaseHandler {
     }
 
     try {
-      const comment = await this.db.prepare(
-        'SELECT * FROM comments WHERE id = ? AND status = ?',
-      )
+      const comment = await this.db
+        .prepare('SELECT * FROM comments WHERE id = ? AND status = ?')
         .bind(id, 'approved')
         .first<Comment>();
 
@@ -136,13 +139,14 @@ export class CommentHandler extends BaseHandler {
       }
 
       if (comment.parentId === null) {
-        const replies = await this.db.prepare(
-          `SELECT *
+        const replies = await this.db
+          .prepare(
+            `SELECT *
            FROM comments
            WHERE parent_id = ?
              AND status = ?
            ORDER BY created_at`,
-        )
+          )
           .bind(comment.id, 'approved')
           .all<Comment>();
 
@@ -161,14 +165,21 @@ export class CommentHandler extends BaseHandler {
     const validation = commentRequestSchema.safeParse(body);
 
     if (!validation.success) {
-      return c.json({
-        code: ErrorCode.MISSING_REQUIRED_FIELDS,
-        details: validation.error.errors[0].message,
-      }, 400);
+      return c.json(
+        {
+          code: ErrorCode.MISSING_REQUIRED_FIELDS,
+          details: validation.error.errors[0].message,
+        },
+        400,
+      );
     }
 
     const {
-      post_id: postId, parent_id: parentId, author_name: authorName, author_email: authorEmail, content,
+      post_id: postId,
+      parent_id: parentId,
+      author_name: authorName,
+      author_email: authorEmail,
+      content,
     } = validation.data;
 
     const clientIP = this.getClientIP(c);
@@ -176,9 +187,8 @@ export class CommentHandler extends BaseHandler {
 
     try {
       if (parentId) {
-        const parentExists = await this.db.prepare(
-          'SELECT 1 FROM comments WHERE id = ? AND status = ?',
-        )
+        const parentExists = await this.db
+          .prepare('SELECT 1 FROM comments WHERE id = ? AND status = ?')
           .bind(parentId, 'approved')
           .first();
 
@@ -186,38 +196,27 @@ export class CommentHandler extends BaseHandler {
           return c.json({ code: ErrorCode.PARENT_COMMENT_NOT_FOUND }, 400);
         }
 
-        const result = await this.db.prepare(
-          `INSERT INTO comments (post_id, parent_id, author_name, author_email, author_ip,
+        const result = await this.db
+          .prepare(
+            `INSERT INTO comments (post_id, parent_id, author_name, author_email, author_ip,
                                  content, country_code, status, created_at, updated_at)
            VALUES (?, ?, ?, ?, ?, ?, ?, ?, datetime('now'), datetime('now'))
            RETURNING *`,
-        ).bind(
-          postId,
-          parentId,
-          authorName,
-          authorEmail,
-          clientIP,
-          content,
-          countryCode,
-          'approved',
-        ).first<Comment>();
+          )
+          .bind(postId, parentId, authorName, authorEmail, clientIP, content, countryCode, 'approved')
+          .first<Comment>();
 
         return c.json(result, 201);
       } else {
-        const result = await this.db.prepare(
-          `INSERT INTO comments (post_id, author_name, author_email, author_ip,
+        const result = await this.db
+          .prepare(
+            `INSERT INTO comments (post_id, author_name, author_email, author_ip,
                                  content, country_code, status, created_at, updated_at)
            VALUES (?, ?, ?, ?, ?, ?, ?, datetime('now'), datetime('now'))
            RETURNING *`,
-        ).bind(
-          postId,
-          authorName,
-          authorEmail,
-          clientIP,
-          content,
-          countryCode,
-          'approved',
-        ).first<Comment>();
+          )
+          .bind(postId, authorName, authorEmail, clientIP, content, countryCode, 'approved')
+          .first<Comment>();
 
         return c.json(result, 201);
       }

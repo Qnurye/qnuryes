@@ -1,4 +1,4 @@
-import { Context } from 'hono';
+import type { Context } from 'hono';
 import type { Env } from '@/types';
 
 export class BaseHandler {

@@ -1,23 +1,22 @@
 ---
 import { type CollectionEntry, getCollection } from 'astro:content';
-import Base from '@/layouts/Base.astro';
-import { type GetStaticPathsResult } from 'astro';
-import { getI18nPaths } from '@/i18n';
+import type { GetStaticPathsResult } from 'astro';
 import Project from '@/components/Project.astro';
+import { getI18nPaths } from '@/i18n';
+import Base from '@/layouts/Base.astro';
 import { formatDateAsMonth } from '@/lib/utils';
 
 export async function getStaticPaths(): Promise<GetStaticPathsResult> {
-  const tags = (await getCollection('blog'))
-    .reduce((acc, page) => {
-      page.data.tags.forEach((tag) => {
-        acc = acc || [];
-        acc.unshift(tag);
-      });
-      return acc;
-    }, [] as string[]);
+  const tags = (await getCollection('blog')).reduce((acc, page) => {
+    page.data.tags.forEach((tag) => {
+      acc = acc || [];
+      acc.unshift(tag);
+    });
+    return acc;
+  }, [] as string[]);
 
-  return tags.flatMap(tag =>
-    getI18nPaths().map(i18nPath => ({
+  return tags.flatMap((tag) =>
+    getI18nPaths().map((i18nPath) => ({
       params: {
         locale: i18nPath.params.locale,
         slug: tag,
@@ -31,22 +30,24 @@ export async function getStaticPaths(): Promise<GetStaticPathsResult> {
 
 const { tag } = Astro.props as { tag: string };
 
-const postsGroupByDate = (await getCollection('blog', p =>
-  p.data.locale === Astro.currentLocale
-  && p.data.tags.includes(tag),
-))
+const postsGroupByDate = (
+  await getCollection('blog', (p) => p.data.locale === Astro.currentLocale && p.data.tags.includes(tag))
+)
   .sort((a, b) => b.data.created_at.getTime() - a.data.created_at.getTime())
-  .reduce((acc, post) => {
-    const date = new Date(post.data.created_at);
-    const year = date.getFullYear().toString();
-    const month = date.getMonth().toString();
+  .reduce(
+    (acc, post) => {
+      const date = new Date(post.data.created_at);
+      const year = date.getFullYear().toString();
+      const month = date.getMonth().toString();
 
-    acc[year] = acc[year] || {};
-    acc[year][month] = acc[year][month] || [];
-    acc[year][month].push(post);
+      acc[year] = acc[year] || {};
+      acc[year][month] = acc[year][month] || [];
+      acc[year][month].push(post);
 
-    return acc;
-  }, {} as Record<string, Record<string, Array<CollectionEntry<'blog'>>>>);
+      return acc;
+    },
+    {} as Record<string, Record<string, Array<CollectionEntry<'blog'>>>>,
+  );
 ---
 
 <Base

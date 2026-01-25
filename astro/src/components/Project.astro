@@ -1,9 +1,9 @@
 ---
 import { getRelativeLocaleUrl } from 'astro:i18n';
-import { cn } from '@/lib/utils';
 import { Markdown } from 'astro-remote';
 import { Vibrant } from 'node-vibrant/node';
 import sharp from 'sharp';
+import { cn } from '@/lib/utils';
 
 const { title, description, date, cover, id, className } = Astro.props;
 
@@ -16,7 +16,7 @@ const formattedDate = new Intl.DateTimeFormat(Astro.currentLocale, {
 let p;
 if (cover) {
   try {
-  // FIXME)) We need to deploy the site twice to get it correct
+    // FIXME)) We need to deploy the site twice to get it correct
     const response = await fetch(new URL(cover, import.meta.env.PUBLIC_BASE_URL));
 
     const arrayBuffer = await response.arrayBuffer();

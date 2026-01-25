@@ -1,20 +1,14 @@
-import {
-  Button,
-  Heading, Hr, Link,
-  Markdown,
-  Section,
-  Text,
-} from '@react-email/components';
-import React from 'react';
+import { Button, Heading, Hr, Link, Markdown, Section, Text } from '@react-email/components';
+import type React from 'react';
 
 export interface NewsletterCardProps {
-  url: string
-  title: string
-  description: string
-  content: string
-  time: string
-  tags: string[]
-  readMoreText: string
+  url: string;
+  title: string;
+  description: string;
+  content: string;
+  time: string;
+  tags: string[];
+  readMoreText: string;
 }
 
 export const NewsletterCard = ({
@@ -28,13 +22,13 @@ export const NewsletterCard = ({
 }: NewsletterCardProps): React.ReactElement => (
   <Section className="p-6 border border-border rounded mb-5">
     <Hr />
-    <Heading className="text-primary text-xl font-bold font-serif mb-2.5">
-      {title}
-    </Heading>
+    <Heading className="text-primary text-xl font-bold font-serif mb-2.5">{title}</Heading>
     <Text className="flex flex-wrap gap-3 font-serif text-secondary text-sm">
       {time}
-      {tags.map(tag => (
-        <span className="font-mono" key={tag}>#{tag}</span>
+      {tags.map((tag) => (
+        <span className="font-mono" key={tag}>
+          #{tag}
+        </span>
       ))}
     </Text>
     <Markdown
@@ -101,11 +95,7 @@ export const NewsletterCard = ({
     >
       {readMoreText}
     </Button>
-    <Link
-      href={url}
-    >
-      {readMoreText}
-    </Link>
+    <Link href={url}>{readMoreText}</Link>
   </Section>
 );
 

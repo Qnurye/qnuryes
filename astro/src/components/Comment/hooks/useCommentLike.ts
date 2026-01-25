@@ -2,10 +2,10 @@ import { useState } from 'react';
 import type { ErrorResponse } from '@/types';
 
 interface useCommentLikeReturn {
-  loading: boolean
-  error: ErrorResponse | null
-  likeComment: (commentId: number) => Promise<void>
-  unlikeComment: (commentId: number) => Promise<void>
+  loading: boolean;
+  error: ErrorResponse | null;
+  likeComment: (commentId: number) => Promise<void>;
+  unlikeComment: (commentId: number) => Promise<void>;
 }
 
 export const useCommentLike = (fetchComments: () => Promise<void>): useCommentLikeReturn => {

@@ -1,6 +1,7 @@
 ---
-import Base from '@/layouts/Base.astro';
 import { loadTranslations } from '@/i18n';
+import Base from '@/layouts/Base.astro';
+
 export { getI18nPaths as getStaticPaths } from '@/i18n';
 
 const t = await loadTranslations(Astro.currentLocale);

@@ -1,8 +1,8 @@
-import { Context } from 'hono';
-import { Env } from '@/types';
+import type { KVNamespace } from '@cloudflare/workers-types';
+import type { Context } from 'hono';
 import { Resend } from 'resend';
-import { KVNamespace } from '@cloudflare/workers-types';
 import Subscribe from '@/emails/Subscribe';
+import type { Env } from '@/types';
 
 export class SubscriptionHandler {
   private kv: KVNamespace;
@@ -20,11 +20,7 @@ export class SubscriptionHandler {
       const token = crypto.randomUUID();
       const confirmationLink = `${c.env.BASE_URL}/subscription/confirmation?token=${token}`;
 
-      await this.kv.put(
-        `subscription:${token}`,
-        JSON.stringify({ email, name, locale }),
-        { expirationTtl: 900 },
-      );
+      await this.kv.put(`subscription:${token}`, JSON.stringify({ email, name, locale }), { expirationTtl: 900 });
 
       const emailReact = Subscribe({
         firstName: name,
@@ -74,7 +70,7 @@ export class SubscriptionHandler {
       id: contact.data.id,
       audienceId: c.env.RESEND_AUDIENCE_ID,
       unsubscribed: false,
-    })
+    });
 
     await this.kv.delete(`subscription:${token}`);
 

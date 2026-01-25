@@ -1,19 +1,19 @@
 import { Body, Container, Head, Heading, Html, Link, Preview, Tailwind, Text } from '@react-email/components';
-import React from 'react';
-import { zhCN } from '@/i18n/zh-cn';
-import { en } from '@/i18n/en';
-import { zhTW } from '@/i18n/zh-tw';
+import type React from 'react';
 import Fonts from '@/emails/_components/Fonts';
+import { en } from '@/i18n/en';
+import { zhCN } from '@/i18n/zh-cn';
+import { zhTW } from '@/i18n/zh-tw';
 
 export interface NewsletterProps {
-  firstName?: string
-  locale: 'zh-cn' | 'en' | 'zh-tw'
-  url: string
+  firstName?: string;
+  locale: 'zh-cn' | 'en' | 'zh-tw';
+  url: string;
 }
 
 const translations = {
   'zh-cn': zhCN,
-  'en': en,
+  en: en,
   'zh-tw': zhTW,
 };
 
@@ -56,8 +56,8 @@ export const Subscribe = ({ firstName, locale, url }: NewsletterProps): React.Re
               {t.subscribe.confirm}
             </Link>
             <Text>{t.subscribe.ignore}</Text>
-            <Text>{t.subscribe.fallback}{' '}
-              <Link href={url}>{url}</Link>
+            <Text>
+              {t.subscribe.fallback} <Link href={url}>{url}</Link>
             </Text>
           </Container>
         </Body>
@@ -72,4 +72,4 @@ Subscribe.PreviewProps = {
   firstName: 'Qnurye',
   locale: 'en',
   url: 'https://qnury.es',
-}
+};
