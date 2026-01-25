@@ -1,4 +1,5 @@
 {
+  "project_name": "qnuryes",
   "languages": {
     "JavaScript": {
       "formatter": { "language_server": { "name": "biome" } },
@@ -21,13 +22,6 @@
         "source.organizeImports.biome": true
       }
     },
-    "JSX": {
-      "formatter": { "language_server": { "name": "biome" } },
-      "code_actions_on_format": {
-        "source.fixAll.biome": true,
-        "source.organizeImports.biome": true
-      }
-    },
     "JSON": {
       "formatter": { "language_server": { "name": "biome" } }
     },
@@ -35,6 +29,7 @@
       "formatter": { "language_server": { "name": "biome" } }
     },
     "CSS": {
+      "language_servers": ["tailwindcss-language-server"],
       "formatter": { "language_server": { "name": "biome" } }
     },
     "Astro": {
