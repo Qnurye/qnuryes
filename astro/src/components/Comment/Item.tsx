@@ -1,54 +1,50 @@
-import React, { useState } from 'react';
-import { formatDate } from '@/lib/utils.ts';
-import type { Comment } from '@/types';
+import { ChevronDownIcon, ChevronRightIcon, ReplyIcon, ThumbsUpIcon } from 'lucide-react';
+import type React from 'react';
+import { useState } from 'react';
 import Markdown from 'react-markdown';
-import { ReplyIcon, ThumbsUpIcon, ChevronDownIcon, ChevronRightIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button.tsx';
 import { useTranslations } from '@/hooks/useTranslations.ts';
+import { formatDate } from '@/lib/utils.ts';
+import type { Comment } from '@/types';
 
 interface CommentItemProps {
-  comment: Comment
-  locale: string
-  onReply: (comment: Comment) => void
-  onLike: (id: number) => Promise<void>
+  comment: Comment;
+  locale: string;
+  onReply: (comment: Comment) => void;
+  onLike: (id: number) => Promise<void>;
 }
 
 interface CommentHeaderProps {
-  comment: Comment
-  locale: string
+  comment: Comment;
+  locale: string;
 }
 
 const CommentHeader: React.FC<CommentHeaderProps> = ({ comment, locale }) => (
-  <div className="flex justify-between mb-2">
-    <div className="font-bold max-w-96 overflow-hidden text-ellipsis">
+  <div className="mb-2 flex justify-between">
+    <div className="max-w-96 overflow-hidden text-ellipsis font-bold">
       <span className="font-serif">{comment.author_name}</span>
       {comment.author_email && (
-        <a
-          className="text-sm font-mono font-light text-primary ml-2"
-          href={`mailto:${comment.author_email}`}
-        >
+        <a className="ml-2 font-light font-mono text-primary text-sm" href={`mailto:${comment.author_email}`}>
           {comment.author_email}
         </a>
       )}
     </div>
     <div className="text-primary text-sm">
-      {comment.country_code && (
-        <span className="mr-2 font-mono">{comment.country_code}</span>
-      )}
+      {comment.country_code && <span className="mr-2 font-mono">{comment.country_code}</span>}
       <span>{formatDate(comment.created_at, locale)}</span>
     </div>
   </div>
 );
 
 interface CommentActionsProps {
-  comment: Comment
-  locale: string
-  onReply: (comment: Comment) => void
-  onLike: (id: number) => Promise<void>
-  hasReplies: boolean
-  isExpanded: boolean
-  loadingReplies: boolean
-  onExpand: () => void
+  comment: Comment;
+  locale: string;
+  onReply: (comment: Comment) => void;
+  onLike: (id: number) => Promise<void>;
+  hasReplies: boolean;
+  isExpanded: boolean;
+  loadingReplies: boolean;
+  onExpand: () => void;
 }
 
 const CommentActions: React.FC<CommentActionsProps> = ({
@@ -78,24 +74,13 @@ const CommentActions: React.FC<CommentActionsProps> = ({
         {comment.likes}
         <ThumbsUpIcon size={14} />
       </Button>
-      <Button
-        variant="ghost"
-        className="text-sm"
-        onClick={() => onReply(comment)}
-      >
+      <Button variant="ghost" className="text-sm" onClick={() => onReply(comment)}>
         <ReplyIcon size={14} />
         {t('comment.reply')}
       </Button>
       {hasReplies && (
-        <Button
-          variant="ghost"
-          className="text-sm"
-          onClick={onExpand}
-          disabled={loadingReplies}
-        >
-          {isExpanded
-            ? <ChevronDownIcon size={14} />
-            : <ChevronRightIcon size={14} />}
+        <Button variant="ghost" className="text-sm" onClick={onExpand} disabled={loadingReplies}>
+          {isExpanded ? <ChevronDownIcon size={14} /> : <ChevronRightIcon size={14} />}
           {loadingReplies
             ? t('comment.loading')
             : isExpanded
@@ -107,25 +92,20 @@ const CommentActions: React.FC<CommentActionsProps> = ({
   );
 };
 
-const CommentItem: React.FC<CommentItemProps> = ({
-  comment,
-  locale,
-  onReply,
-  onLike,
-}) => {
+const CommentItem: React.FC<CommentItemProps> = ({ comment, locale, onReply, onLike }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [replies, setReplies] = useState<Comment[]>(comment.replies || []);
   const [loadingReplies, setLoadingReplies] = useState(false);
   const hasReplies = (comment.replyCount ?? 0) > 0;
 
   const loadReplies = async (): Promise<void> => {
-    if (loadingReplies) { return; }
+    if (loadingReplies) {
+      return;
+    }
 
     setLoadingReplies(true);
     try {
-      const response = await fetch(
-        `${import.meta.env.PUBLIC_API_BASE_URL}/comments/${comment.id}/replies`,
-      );
+      const response = await fetch(`${import.meta.env.PUBLIC_API_BASE_URL}/comments/${comment.id}/replies`);
 
       if (!response.ok) {
         throw new Error('Failed to load replies');
@@ -133,8 +113,7 @@ const CommentItem: React.FC<CommentItemProps> = ({
 
       const data = await response.json();
       setReplies(data);
-    } catch (error) {
-      console.error('Error loading replies:', error);
+    } catch (_error) {
     } finally {
       setLoadingReplies(false);
     }
@@ -150,7 +129,7 @@ const CommentItem: React.FC<CommentItemProps> = ({
   return (
     <div className="pb-4">
       <CommentHeader comment={comment} locale={locale} />
-      <div className="pl-2 mb-2 leading-relaxed">
+      <div className="mb-2 pl-2 leading-relaxed">
         <Markdown>{comment.content}</Markdown>
       </div>
       <CommentActions
@@ -164,15 +143,9 @@ const CommentItem: React.FC<CommentItemProps> = ({
         onExpand={handleExpand}
       />
       {isExpanded && replies.length > 0 && (
-        <div className="ml-2 pl-4 border-l-2 border-sidebar-border pt-2 mt-2">
-          {replies.map(reply => (
-            <CommentItem
-              key={reply.id}
-              comment={reply}
-              locale={locale}
-              onReply={onReply}
-              onLike={onLike}
-            />
+        <div className="mt-2 ml-2 border-sidebar-border border-l-2 pt-2 pl-4">
+          {replies.map((reply) => (
+            <CommentItem key={reply.id} comment={reply} locale={locale} onReply={onReply} onLike={onLike} />
           ))}
         </div>
       )}

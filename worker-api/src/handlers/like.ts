@@ -1,16 +1,11 @@
-import { Context } from 'hono';
-import { BaseHandler } from './base';
-import type { Env } from '@/types';
+import type { Context } from 'hono';
 import { ErrorCode } from '@/constants/errors';
+import { BaseHandler } from './base';
 
 export class LikeHandler extends BaseHandler {
-  constructor(env: Env) {
-    super(env);
-  }
-
   async likeComment(c: Context): Promise<Response> {
-    const id = parseInt(c.req.param('id'));
-    if (isNaN(id)) {
+    const id = parseInt(c.req.param('id'), 10);
+    if (Number.isNaN(id)) {
       return c.json({ code: ErrorCode.INVALID_COMMENT_ID }, 400);
     }
 
@@ -18,9 +13,8 @@ export class LikeHandler extends BaseHandler {
 
     try {
       // Check if comment exists
-      const comment = await this.db.prepare(
-        'SELECT 1 FROM comments WHERE id = ? AND status = ?',
-      )
+      const comment = await this.db
+        .prepare('SELECT 1 FROM comments WHERE id = ? AND status = ?')
         .bind(id, 'approved')
         .first();
 
@@ -29,9 +23,8 @@ export class LikeHandler extends BaseHandler {
       }
 
       // Check if already liked
-      const existingLike = await this.db.prepare(
-        'SELECT 1 FROM comment_likes WHERE comment_id = ? AND user_identifier = ?',
-      )
+      const existingLike = await this.db
+        .prepare('SELECT 1 FROM comment_likes WHERE comment_id = ? AND user_identifier = ?')
         .bind(id, clientIP)
         .first();
 
@@ -40,29 +33,23 @@ export class LikeHandler extends BaseHandler {
       }
 
       // Add like
-      await this.db.prepare(
-        'INSERT INTO comment_likes (comment_id, user_identifier) VALUES (?, ?)',
-      )
+      await this.db
+        .prepare('INSERT INTO comment_likes (comment_id, user_identifier) VALUES (?, ?)')
         .bind(id, clientIP)
         .run();
 
       // Update likes count
-      await this.db.prepare(
-        'UPDATE comments SET likes = likes + 1 WHERE id = ?',
-      )
-        .bind(id)
-        .run();
+      await this.db.prepare('UPDATE comments SET likes = likes + 1 WHERE id = ?').bind(id).run();
 
       return c.json({ success: true });
-    } catch (error) {
-      console.error('Database error:', error);
+    } catch (_error) {
       return c.json({ code: ErrorCode.DATABASE_ERROR }, 500);
     }
   }
 
   async unlikeComment(c: Context): Promise<Response> {
-    const id = parseInt(c.req.param('id'));
-    if (isNaN(id)) {
+    const id = parseInt(c.req.param('id'), 10);
+    if (Number.isNaN(id)) {
       return c.json({ code: ErrorCode.INVALID_COMMENT_ID }, 400);
     }
 
@@ -70,9 +57,8 @@ export class LikeHandler extends BaseHandler {
 
     try {
       // Check if like exists
-      const like = await this.db.prepare(
-        'SELECT 1 FROM comment_likes WHERE comment_id = ? AND user_identifier = ?',
-      )
+      const like = await this.db
+        .prepare('SELECT 1 FROM comment_likes WHERE comment_id = ? AND user_identifier = ?')
         .bind(id, clientIP)
         .first();
 
@@ -81,22 +67,16 @@ export class LikeHandler extends BaseHandler {
       }
 
       // Remove like
-      await this.db.prepare(
-        'DELETE FROM comment_likes WHERE comment_id = ? AND user_identifier = ?',
-      )
+      await this.db
+        .prepare('DELETE FROM comment_likes WHERE comment_id = ? AND user_identifier = ?')
         .bind(id, clientIP)
         .run();
 
       // Update likes count
-      await this.db.prepare(
-        'UPDATE comments SET likes = likes - 1 WHERE id = ?',
-      )
-        .bind(id)
-        .run();
+      await this.db.prepare('UPDATE comments SET likes = likes - 1 WHERE id = ?').bind(id).run();
 
       return c.json({ success: true });
-    } catch (error) {
-      console.error('Database error:', error);
+    } catch (_error) {
       return c.json({ code: ErrorCode.DATABASE_ERROR }, 500);
     }
   }

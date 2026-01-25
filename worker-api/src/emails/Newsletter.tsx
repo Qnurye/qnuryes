@@ -1,29 +1,29 @@
 import { Body, Container, Head, Heading, Html, Link, Preview, Section, Tailwind, Text } from '@react-email/components';
-import React from 'react';
-import { zhCN } from '@/i18n/zh-cn';
+import type React from 'react';
+import Fonts from '@/emails/_components/Fonts';
 import { en } from '@/i18n/en';
+import { zhCN } from '@/i18n/zh-cn';
 import { zhTW } from '@/i18n/zh-tw';
 import NewsletterCard from './_components/NewsletterCard';
-import Fonts from '@/emails/_components/Fonts';
 
 export interface NewsletterProps {
-  issue: string
+  issue: string;
   posts: Array<{
-    id: string
-    title: string
-    description: string
-    created_at: string
-    updated_at: string
-    tags: string[]
-    content: string
-  }>
-  locale: 'zh-cn' | 'en' | 'zh-tw'
-  baseUrl: string
+    id: string;
+    title: string;
+    description: string;
+    created_at: string;
+    updated_at: string;
+    tags: string[];
+    content: string;
+  }>;
+  locale: 'zh-cn' | 'en' | 'zh-tw';
+  baseUrl: string;
 }
 
 const translations = {
   'zh-cn': zhCN,
-  'en': en,
+  en: en,
   'zh-tw': zhTW,
 };
 
@@ -56,12 +56,11 @@ export const Newsletter = ({ issue, posts, locale, baseUrl }: NewsletterProps): 
         }}
       >
         <Body className="bg-background font-sans">
-          <Container className="mx-auto max-w-[580px] py-5 px-2">
-            <Heading className="text-secondary text-sm font-bold my-4 font-serif">
-              {t.newsletter.title}
-            </Heading>
-            <Text className="text-primary flex flex-row gap-2 text-4xl items-end my-4 font-mono">
-              <span className="text-2xl font-mono">Vol.</span>{issue}
+          <Container className="mx-auto max-w-[580px] px-2 py-5">
+            <Heading className="my-4 font-bold font-serif text-secondary text-sm">{t.newsletter.title}</Heading>
+            <Text className="my-4 flex flex-row items-end gap-2 font-mono text-4xl text-primary">
+              <span className="font-mono text-2xl">Vol.</span>
+              {issue}
             </Text>
             <Text>
               简体中文读者请查看<Link href={`${baseUrl}/zh-cn/blog/issues/${issue}`}>简体中文版本</Link>。
@@ -69,7 +68,7 @@ export const Newsletter = ({ issue, posts, locale, baseUrl }: NewsletterProps): 
               繁體中文讀者請查看<Link href={`${baseUrl}/zh-tw/blog/issues/${issue}`}>繁體中文版本</Link>。
             </Text>
 
-            {posts.map(post => (
+            {posts.map((post) => (
               <NewsletterCard
                 key={post.id}
                 url={`${baseUrl}/${locale}/blog/${post.id}`}
@@ -85,17 +84,10 @@ export const Newsletter = ({ issue, posts, locale, baseUrl }: NewsletterProps): 
                 })}
               />
             ))}
-            <Section className="p-6 border border-border rounded mb-5 text-pretty">
-              <Text className="text-secondary text-base leading-6 my-4">
-                {
-                  t.newsletter.thanks
-                }
-              </Text>
-              <Text className="text-secondary text-base leading-6 my-4">
-                {
-                  t.newsletter.unsubscribe
-                }{' '}
-                <Link href="{{{RESEND_UNSUBSCRIBE_URL}}}">unsubscribe</Link>
+            <Section className="mb-5 text-pretty rounded border border-border p-6">
+              <Text className="my-4 text-base text-secondary leading-6">{t.newsletter.thanks}</Text>
+              <Text className="my-4 text-base text-secondary leading-6">
+                {t.newsletter.unsubscribe} <Link href="{{{RESEND_UNSUBSCRIBE_URL}}}">unsubscribe</Link>
               </Text>
             </Section>
           </Container>
@@ -113,27 +105,29 @@ Newsletter.PreviewProps = {
     {
       id: 'tomb',
       title: 'Digital Tombstone',
-      description: '**In youth,** everything seems so close—that is the future. In old age, everything seems so'
-        + ' distant—that is the past.',
+      description:
+        '**In youth,** everything seems so close—that is the future. In old age, everything seems so' +
+        ' distant—that is the past.',
       created_at: new Date('2025-04-01T00:32:00.000Z'),
       updated_at: new Date('2025-04-01T14:58:03.000Z'),
       tags: ['foo', 'bar'],
-      content: 'Qui ad commodo nisi nostrud aliquip quis tempor amet culpa non adipisicing eiusmod ipsum nisi.'
-        + ' Lorem id quis tempor veniam velit sunt nostrud culpa aute adipisicing sit in consequat. Aliqua non anim'
-        + ' et sit duis nostrud velit cupidatat sint est irure. Sint nisi do ad elit tempor deserunt pariatur.'
-        + ' Aliquip laboris cupidatat duis sunt amet.\n\n'
-        + ' Lorem id quis tempor veniam velit sunt nostrud culpa aute adipisicing sit in consequat. Aliqua non anim'
-        + ' et sit duis nostrud velit cupidatat sint est irure. Sint nisi do ad elit tempor deserunt pariatur.'
-        + ' Aliquip laboris cupidatat duis sunt amet.\n\n'
-        + ' Lorem id quis tempor veniam velit sunt nostrud culpa aute adipisicing sit in consequat. Aliqua non anim'
-        + ' et sit duis nostrud velit cupidatat sint est irure. Sint nisi do ad elit tempor deserunt pariatur.'
-        + ' Aliquip laboris cupidatat duis sunt amet.\n\n'
-        + ' Lorem id quis tempor veniam velit sunt nostrud culpa aute adipisicing sit in consequat. Aliqua non anim'
-        + ' et sit duis nostrud velit cupidatat sint est irure. Sint nisi do ad elit tempor deserunt pariatur.'
-        + ' Aliquip laboris cupidatat duis sunt amet.\n\n'
-        + ' Lorem id quis tempor veniam velit sunt nostrud culpa aute adipisicing sit in consequat. Aliqua non anim'
-        + ' et sit duis nostrud velit cupidatat sint est irure. Sint nisi do ad elit tempor deserunt pariatur.'
-        + ' Aliquip laboris cupidatat duis sunt amet.\n\n',
+      content:
+        'Qui ad commodo nisi nostrud aliquip quis tempor amet culpa non adipisicing eiusmod ipsum nisi.' +
+        ' Lorem id quis tempor veniam velit sunt nostrud culpa aute adipisicing sit in consequat. Aliqua non anim' +
+        ' et sit duis nostrud velit cupidatat sint est irure. Sint nisi do ad elit tempor deserunt pariatur.' +
+        ' Aliquip laboris cupidatat duis sunt amet.\n\n' +
+        ' Lorem id quis tempor veniam velit sunt nostrud culpa aute adipisicing sit in consequat. Aliqua non anim' +
+        ' et sit duis nostrud velit cupidatat sint est irure. Sint nisi do ad elit tempor deserunt pariatur.' +
+        ' Aliquip laboris cupidatat duis sunt amet.\n\n' +
+        ' Lorem id quis tempor veniam velit sunt nostrud culpa aute adipisicing sit in consequat. Aliqua non anim' +
+        ' et sit duis nostrud velit cupidatat sint est irure. Sint nisi do ad elit tempor deserunt pariatur.' +
+        ' Aliquip laboris cupidatat duis sunt amet.\n\n' +
+        ' Lorem id quis tempor veniam velit sunt nostrud culpa aute adipisicing sit in consequat. Aliqua non anim' +
+        ' et sit duis nostrud velit cupidatat sint est irure. Sint nisi do ad elit tempor deserunt pariatur.' +
+        ' Aliquip laboris cupidatat duis sunt amet.\n\n' +
+        ' Lorem id quis tempor veniam velit sunt nostrud culpa aute adipisicing sit in consequat. Aliqua non anim' +
+        ' et sit duis nostrud velit cupidatat sint est irure. Sint nisi do ad elit tempor deserunt pariatur.' +
+        ' Aliquip laboris cupidatat duis sunt amet.\n\n',
     },
     {
       id: 'terms',
@@ -147,4 +141,4 @@ Newsletter.PreviewProps = {
   ],
   locale: 'en',
   baseUrl: 'https://qnury.es',
-}
+};

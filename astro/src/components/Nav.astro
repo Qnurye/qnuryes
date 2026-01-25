@@ -1,11 +1,11 @@
 ---
-import Logo from './Logo.astro';
-import LanguageSwitcher from './LanguageSwitcher.tsx';
-import { loadTranslations } from '@/i18n';
 import { getRelativeLocaleUrl } from 'astro:i18n';
-import { Button } from './ui/button';
 import { MenuIcon, X } from 'lucide-react';
+import { loadTranslations } from '@/i18n';
 import { ColorModeToggle } from './ColorModeToggle';
+import LanguageSwitcher from './LanguageSwitcher.tsx';
+import Logo from './Logo.astro';
+import { Button } from './ui/button';
 
 const t = await loadTranslations(Astro.currentLocale);
 const locales = Astro.props.locales || ['en', 'zh-cn', 'zh-tw'];
@@ -29,19 +29,12 @@ const locales = Astro.props.locales || ['en', 'zh-cn', 'zh-tw'];
       <MenuIcon />
     </Button>
 
-    <Button
-      variant="ghost"
-      id="menu-toggle"
-      className="lg:hidden p-2"
-      aria-label="Toggle menu"
-    >
-      <MenuIcon />
-    </Button>
-
     <nav class="lg:flex hidden flex-row gap-4 items-center">
       <a href={`/${Astro.currentLocale}#about`}>{t('nav.about')}</a>
-      <a href={`/${Astro.currentLocale}#portfolio`}>{t('nav.portfolio')}</a>
-      <a href={getRelativeLocaleUrl(Astro.currentLocale || 'en', 'blog')}>{t('nav.blog')}</a>
+      <a href={`/${Astro.currentLocale}#portfolio`}>{t('nav.portfolio')}
+      </a>
+      <a href={getRelativeLocaleUrl(Astro.currentLocale || 'en', 'blog')}>{t('nav.blog')}
+      </a>
       <a href="https://pad.qnury.es">{t('nav.notes')}</a>
       <ColorModeToggle
         t={{
@@ -74,9 +67,21 @@ const locales = Astro.props.locales || ['en', 'zh-cn', 'zh-tw'];
     >
       <X />
     </Button>
-    <a href={`/${Astro.currentLocale}#about`} class="text-xl">{t('nav.about')}</a>
-    <a href={`/${Astro.currentLocale}#portfolio`} class="text-xl">{t('nav.portfolio')}</a>
-    <a href={getRelativeLocaleUrl(Astro.currentLocale || 'en', 'blog')} class="text-xl">{t('nav.blog')}</a>
+    <a
+      href={`/${Astro.currentLocale}#about`}
+      class="text-xl"
+    >{t('nav.about')}
+    </a>
+    <a
+      href={`/${Astro.currentLocale}#portfolio`}
+      class="text-xl"
+    >{t('nav.portfolio')}
+    </a>
+    <a
+      href={getRelativeLocaleUrl(Astro.currentLocale || 'en', 'blog')}
+      class="text-xl"
+    >{t('nav.blog')}
+    </a>
     <a href="https://pad.qnury.es" class="text-xl">{t('nav.notes')}</a>
     <ColorModeToggle
       t={{

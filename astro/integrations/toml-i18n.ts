@@ -1,5 +1,5 @@
-import * as fs from 'fs/promises';
-import * as path from 'path';
+import * as fs from 'node:fs/promises';
+import * as path from 'node:path';
 import * as TOML from '@iarna/toml';
 import type { AstroIntegration } from 'astro';
 
@@ -27,9 +27,7 @@ export default function tomlI18n(): AstroIntegration {
 
       const outputPath = path.join(outputDir, fileName.replace('.toml', '.json'));
       await fs.writeFile(outputPath, jsonContent);
-    } catch (error) {
-      console.error(`Error processing ${filePath}:`, error);
-    }
+    } catch (_error) {}
   }
 
   // Function to process all TOML files in the directory
@@ -38,15 +36,13 @@ export default function tomlI18n(): AstroIntegration {
       await fs.mkdir(outputDir, { recursive: true });
 
       const files = await fs.readdir(tomlDir);
-      const tomlFiles = files.filter(file => file.endsWith('.toml'));
+      const tomlFiles = files.filter((file) => file.endsWith('.toml'));
 
       for (const file of tomlFiles) {
         const filePath = path.join(tomlDir, file);
         await processTomlFile(filePath);
       }
-    } catch (error) {
-      console.error('Error processing TOML files:', error);
-    }
+    } catch (_error) {}
   }
 
   return {
@@ -65,21 +61,19 @@ export default function tomlI18n(): AstroIntegration {
           .on('add', (path) => {
             if (isPathUnderDir(path, tomlDir)) {
               processTomlFile(path).then(() => {
-                server.ws.send({ type: 'full-reload', path: '*' })
+                server.ws.send({ type: 'full-reload', path: '*' });
               });
               logger.info(`loaded: ${path}`);
             }
-          },
-          )
+          })
           .on('change', (path) => {
             if (isPathUnderDir(path, tomlDir)) {
               processTomlFile(path).then(() => {
-                server.ws.send({ type: 'full-reload', path: '*' })
+                server.ws.send({ type: 'full-reload', path: '*' });
               });
               logger.info(`reloaded: ${path}`);
             }
-          },
-          );
+          });
       },
     },
   };

@@ -1,7 +1,7 @@
 import type { GetStaticPathsResult } from 'astro';
 
 export const locales = {
-  'en': 'English',
+  en: 'English',
   'zh-cn': '简体中文',
   'zh-tw': '繁體中文',
 };
@@ -17,12 +17,12 @@ export const getLanguageNameFromLocale = (locale: string): string => {
 };
 
 export const getI18nPaths = (): GetStaticPathsResult =>
-  Object.keys(locales).map(locale => ({
+  Object.keys(locales).map((locale) => ({
     params: { locale },
   }));
 
 export interface Translations {
-  [key: string]: string | Translations
+  [key: string]: string | Translations;
 }
 
 export function getTranslationValue(obj: Translations, key: string): string {
@@ -41,12 +41,12 @@ export function getTranslationValue(obj: Translations, key: string): string {
 }
 
 export interface InterpolationValues {
-  [key: string]: string | number
+  [key: string]: string | number;
 }
 
-export async function loadTranslations(locale: string | undefined): Promise<(
-  key: string, values?: InterpolationValues,
-) => string> {
+export async function loadTranslations(
+  locale: string | undefined,
+): Promise<(key: string, values?: InterpolationValues) => string> {
   const resolvedLocale = locale || defaultLocale;
 
   try {
@@ -64,8 +64,7 @@ export async function loadTranslations(locale: string | undefined): Promise<(
         return result.replace(pattern, String(value));
       }, rawText);
     };
-  } catch (error) {
-    console.error(`Error loading translations for locale "${resolvedLocale}":`, error);
+  } catch (_error) {
     return (k: string) => k;
   }
 }
