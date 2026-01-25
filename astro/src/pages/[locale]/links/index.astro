@@ -4,9 +4,8 @@ import Base from '@/layouts/Base.astro';
 export { getI18nPaths as getStaticPaths } from '@/i18n';
 
 import { type CollectionEntry, getCollection } from 'astro:content';
-import Friend from '@/components/Friend.astro';
-import 'aos/dist/aos.css';
 import Accordions from '@/components/Accordions';
+import Friend from '@/components/Friend.astro';
 import { loadTranslations } from '@/i18n';
 
 const t = await loadTranslations(Astro.currentLocale);
@@ -46,7 +45,7 @@ if (links.length > 0) {
     </div>
     <div class="flex flex-col gap-4 md:hidden items-center">
       {[...linksCol1, ...linksCol2, ...linksCol3].map((link, index) => (
-        <div data-aos="fade-up" data-aos-delay={100 * (index % 3 + 3)}>
+        <div data-animate="fade-up" data-delay={(index % 3) + 1}>
           <Friend
             key={index}
             name={link.data.name}
@@ -59,7 +58,7 @@ if (links.length > 0) {
     </div>
 
     <div class="hidden md:flex md:flex-row gap-2 justify-around *:flex *:flex-col *:gap-2">
-      <div data-aos="fade-up" data-aos-delay="300">
+      <div data-animate="fade-up" data-delay="1">
         {linksCol1.map((link, index) => (
           <Friend
             key={index}
@@ -70,7 +69,7 @@ if (links.length > 0) {
           />
         ))}
       </div>
-      <div data-aos="fade-up" data-aos-delay="400">
+      <div data-animate="fade-up" data-delay="2">
         {linksCol2.map((link, index) => (
           <Friend
             key={index}
@@ -81,7 +80,7 @@ if (links.length > 0) {
           />
         ))}
       </div>
-      <div data-aos="fade-up" data-aos-delay="500">
+      <div data-animate="fade-up" data-delay="3">
         {linksCol3.map((link, index) => (
           <Friend
             key={index}
@@ -95,7 +94,7 @@ if (links.length > 0) {
     </div>
   </div>
 
-  <div class="space-y-2 mt-12 mx-auto max-w-prose" data-aos="fade-up" data-aos-delay="300">
+  <div class="space-y-2 mt-12 mx-auto max-w-prose" data-animate="fade-up" data-delay="1">
     <hr />
     <h2 class="scroll-m-16 text-3xl font-serif">
       {t('links.application.about')}
@@ -125,11 +124,18 @@ if (links.length > 0) {
 </Base>
 
 <script>
-import AOS from 'aos';
+  const animateObserver = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animated');
+        }
+      }
+    },
+    { threshold: 0.1, rootMargin: '0px 0px -50px 0px' },
+  );
 
-AOS.init({
-  once: false,
-  mirror: true,
-  easing: 'ease-in-cubic',
-});
+  document.querySelectorAll('[data-animate]').forEach((el) => {
+    animateObserver.observe(el);
+  });
 </script>
