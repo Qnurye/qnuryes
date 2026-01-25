@@ -1,21 +1,24 @@
 ---
 import Base from '@/layouts/Base.astro';
+
 export { getI18nPaths as getStaticPaths } from '@/i18n';
+
 import { getCollection } from 'astro:content';
-import { loadTranslations } from '@/i18n';
 import { getAbsoluteLocaleUrl } from 'astro:i18n';
+import { loadTranslations } from '@/i18n';
 
 const locale = Astro.currentLocale || 'en';
 const t = await loadTranslations(locale);
-const tags = (await getCollection('blog', p => p.data.locale === Astro.currentLocale))
-  .reduce((acc, post) => {
+const tags = (await getCollection('blog', (p) => p.data.locale === Astro.currentLocale)).reduce(
+  (acc, post) => {
     post.data.tags.forEach((tag) => {
       acc[tag] = (acc[tag] || 0) + 1;
     });
 
     return acc;
-  }, {} as Record<string, number>);
-
+  },
+  {} as Record<string, number>,
+);
 ---
 
 <Base
@@ -40,7 +43,7 @@ const tags = (await getCollection('blog', p => p.data.locale === Astro.currentLo
           .map(([tag, count]) => (
             <li class="flex justify-between font-mono items-center gap-16">
               <a href={getAbsoluteLocaleUrl(locale, `blog/tags/${tag}`)}>#{tag}</a>
-              <div class="grow border-dashed border-1 border-neutral-100"></div>
+              <div class="grow border-dashed border border-neutral-100"></div>
               <span>{count}</span>
             </li>
           ))

@@ -2,10 +2,10 @@ import { useState } from 'react';
 import type { ErrorResponse } from '@/types';
 
 interface useCommentLikeReturn {
-  loading: boolean
-  error: ErrorResponse | null
-  likeComment: (commentId: number) => Promise<void>
-  unlikeComment: (commentId: number) => Promise<void>
+  loading: boolean;
+  error: ErrorResponse | null;
+  likeComment: (commentId: number) => Promise<void>;
+  unlikeComment: (commentId: number) => Promise<void>;
 }
 
 export const useCommentLike = (fetchComments: () => Promise<void>): useCommentLikeReturn => {
@@ -31,7 +31,6 @@ export const useCommentLike = (fetchComments: () => Promise<void>): useCommentLi
       // Refresh comments to update the like count
       await fetchComments();
     } catch (err) {
-      console.error('Error liking comment:', err);
       setError(err as ErrorResponse);
     } finally {
       setLoading(false);
@@ -57,7 +56,6 @@ export const useCommentLike = (fetchComments: () => Promise<void>): useCommentLi
       // Refresh comments to update the like count
       await fetchComments();
     } catch (err) {
-      console.error('Error unliking comment:', err);
       setError(err as ErrorResponse);
     } finally {
       setLoading(false);

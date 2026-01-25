@@ -1,41 +1,42 @@
-'use client'
+'use client';
 
-import React, { useState } from 'react'
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command'
-import { Button } from '@/components/ui/button'
-import { CheckIcon, LanguagesIcon } from 'lucide-react'
-import { getLanguageNameFromLocale } from '@/i18n'
-import { useTranslations } from '@/hooks/useTranslations'
+import { CheckIcon, LanguagesIcon } from 'lucide-react';
+import type React from 'react';
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { useTranslations } from '@/hooks/useTranslations';
+import { getLanguageNameFromLocale } from '@/i18n';
 
-export default function LanguageSwitcher({ locales, currentLocale }: {
-  locales: string[]
-  currentLocale: string
+export default function LanguageSwitcher({
+  locales,
+  currentLocale,
+}: {
+  locales: string[];
+  currentLocale: string;
 }): React.ReactElement {
-  const [open, setOpen] = useState(false)
-  const { t, isLoading } = useTranslations(currentLocale)
+  const [open, setOpen] = useState(false);
+  const { t, isLoading } = useTranslations(currentLocale);
 
   function handleLanguageChange(locale: string): undefined {
-    if (locale === currentLocale) { return }
+    if (locale === currentLocale) {
+      return;
+    }
 
-    const pathname = window.location.pathname
-    const currentPath = pathname.replace(`/${currentLocale}`, '')
+    const pathname = window.location.pathname;
+    const currentPath = pathname.replace(`/${currentLocale}`, '');
 
-    window.location.href = `/${locale}${currentPath}`
+    window.location.href = `/${locale}${currentPath}`;
   }
 
   if (isLoading) {
     return (
-      <Button
-        variant="outline"
-        size="sm"
-        className="w-fit justify-between gap-1"
-        disabled
-      >
+      <Button variant="outline" size="sm" className="w-fit justify-between gap-1" disabled>
         <LanguagesIcon className="size-4" />
         {getLanguageNameFromLocale(currentLocale)}
       </Button>
-    )
+    );
   }
 
   return (
@@ -47,14 +48,16 @@ export default function LanguageSwitcher({ locales, currentLocale }: {
           aria-expanded={open}
           aria-label={t('nav.language.select') || 'Select language'}
           size="sm"
-          className={'w-fit justify-between gap-1 border-contrast transition-colors hover:bg-contrast'
-            + ' hover:text-contrast-foreground'}
+          className={
+            'w-fit justify-between gap-1 border-contrast transition-colors hover:bg-contrast' +
+            'hover:text-contrast-foreground'
+          }
         >
           <LanguagesIcon className="size-4" />
           {getLanguageNameFromLocale(currentLocale)}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-fit p-0 mx-12">
+      <PopoverContent className="mx-12 w-fit p-0">
         <Command>
           <CommandInput placeholder={t('nav.language.search') || 'Search language...'} />
           <CommandList>
@@ -68,9 +71,7 @@ export default function LanguageSwitcher({ locales, currentLocale }: {
                   className="cursor-pointer"
                 >
                   <span>{getLanguageNameFromLocale(locale)}</span>
-                  {locale === currentLocale && (
-                    <CheckIcon className="ml-auto size-4" />
-                  )}
+                  {locale === currentLocale && <CheckIcon className="ml-auto size-4" />}
                 </CommandItem>
               ))}
             </CommandGroup>
@@ -78,5 +79,5 @@ export default function LanguageSwitcher({ locales, currentLocale }: {
         </Command>
       </PopoverContent>
     </Popover>
-  )
+  );
 }

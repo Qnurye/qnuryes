@@ -1,9 +1,8 @@
 import { Font } from '@react-email/components';
-import React from 'react';
+import type React from 'react';
 
 export const Fonts = (): React.ReactElement => (
   <>
-
     <Font
       fontFamily="Maple Mono"
       fallbackFontFamily="monospace"
@@ -75,6 +74,6 @@ export const Fonts = (): React.ReactElement => (
       fontStyle="italic"
     />
   </>
-)
+);
 
 export default Fonts;

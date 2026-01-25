@@ -1,19 +1,19 @@
 import { Body, Container, Head, Heading, Html, Link, Preview, Tailwind, Text } from '@react-email/components';
-import React from 'react';
-import { zhCN } from '@/i18n/zh-cn';
-import { en } from '@/i18n/en';
-import { zhTW } from '@/i18n/zh-tw';
+import type React from 'react';
 import Fonts from '@/emails/_components/Fonts';
+import { en } from '@/i18n/en';
+import { zhCN } from '@/i18n/zh-cn';
+import { zhTW } from '@/i18n/zh-tw';
 
 export interface NewsletterProps {
-  firstName?: string
-  locale: 'zh-cn' | 'en' | 'zh-tw'
-  url: string
+  firstName?: string;
+  locale: 'zh-cn' | 'en' | 'zh-tw';
+  url: string;
 }
 
 const translations = {
   'zh-cn': zhCN,
-  'en': en,
+  en: en,
   'zh-tw': zhTW,
 };
 
@@ -46,18 +46,18 @@ export const Subscribe = ({ firstName, locale, url }: NewsletterProps): React.Re
         }}
       >
         <Body className="bg-background font-sans">
-          <Container className="w-full p-4 flex flex-col">
-            <Heading className="font-serif text-2xl font-bold italic mb-4">Qnury.e's</Heading>
+          <Container className="flex w-full flex-col p-4">
+            <Heading className="mb-4 font-bold font-serif text-2xl italic">Qnury.e's</Heading>
             <Text>{t.subscribe.greeting.replace('{name}', firstName || 'there')}</Text>
             <Link
-              className="bg-primary text-background font-bold text-lg py-4 font-serif rounded my-4 block text-center"
+              className="my-4 block rounded bg-primary py-4 text-center font-bold font-serif text-background text-lg"
               href={url}
             >
               {t.subscribe.confirm}
             </Link>
             <Text>{t.subscribe.ignore}</Text>
-            <Text>{t.subscribe.fallback}{' '}
-              <Link href={url}>{url}</Link>
+            <Text>
+              {t.subscribe.fallback} <Link href={url}>{url}</Link>
             </Text>
           </Container>
         </Body>
@@ -72,4 +72,4 @@ Subscribe.PreviewProps = {
   firstName: 'Qnurye',
   locale: 'en',
   url: 'https://qnury.es',
-}
+};

@@ -1,21 +1,24 @@
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
+import { Resend } from 'resend';
 import { CommentHandler } from '@/handlers/comment';
 import { LikeHandler } from '@/handlers/like';
 import { SubscriptionHandler } from '@/handlers/subscription';
 import type { Env, Post } from '@/types';
-import { Resend } from 'resend';
 import Newsletter from './emails/Newsletter';
 
 const app = new Hono<{ Bindings: Env }>();
 
-app.use('*', cors({
-  origin: '*', // Allow all origins, can also be a specific domain
-  allowMethods: ['GET', 'POST', 'DELETE', 'OPTIONS'],
-  allowHeaders: ['Content-Type', 'Authorization'],
-  exposeHeaders: ['Content-Length', 'X-Request-Id'],
-  maxAge: 86400, // 24 hours
-}));
+app.use(
+  '*',
+  cors({
+    origin: '*', // Allow all origins, can also be a specific domain
+    allowMethods: ['GET', 'POST', 'DELETE', 'OPTIONS'],
+    allowHeaders: ['Content-Type', 'Authorization'],
+    exposeHeaders: ['Content-Length', 'X-Request-Id'],
+    maxAge: 86400, // 24 hours
+  }),
+);
 
 // Initialize handlers
 app.use('*', async (c, next) => {
@@ -70,51 +73,39 @@ app.get('/subscription/confirmation', async (c) => {
   return handler.confirm(c);
 });
 
-app.get('/', c => c.text('Hello Hono!'));
+app.get('/', (c) => c.text('Hello Hono!'));
 
 export default {
   fetch: app.fetch,
   async scheduled(event: ScheduledEvent, env: Env): Promise<void> {
     try {
-      const kv = env.subscription
+      const kv = env.subscription;
       const TRIGGERED_BROADCAST = 'triggered_broadcast';
-      const bounce = (await kv.get(TRIGGERED_BROADCAST) === event.cron);
+      const bounce = (await kv.get(TRIGGERED_BROADCAST)) === event.cron;
       if (bounce) {
-        // eslint-disable-next-line no-console
-        console.log({ scheduledTime: new Date(event.scheduledTime).toISOString(), status: 'canceled' });
         return;
       }
 
-      await kv.put(
-        TRIGGERED_BROADCAST,
-        event.cron,
-        { expirationTtl: 120 },
-      );
-
-      // eslint-disable-next-line no-console
-      console.log({ scheduledTime: new Date(event.scheduledTime).toISOString(), status: 'running' });
+      await kv.put(TRIGGERED_BROADCAST, event.cron, { expirationTtl: 120 });
 
       const now = new Date();
       now.setMonth(now.getMonth() - 1);
-      const year = String(now.getFullYear()).slice(-2)
-      const month = String(now.getMonth() + 1).padStart(2, '0')
+      const year = String(now.getFullYear()).slice(-2);
+      const month = String(now.getMonth() + 1).padStart(2, '0');
       const issue = `${year}${month}`;
 
       const locale = 'en';
       const response = await fetch(`${env.WEBSITE_BASE_URL}/${locale}/blog/issues/newsletter/${issue}`);
       if (!response.ok) {
         if (response.status === 404) {
-          console.warn('Seems somebody wrote no shit for this month');
         }
-        console.error(response);
         await kv.delete(TRIGGERED_BROADCAST);
         return;
       }
 
-      const posts = await response.json() as Post[];
+      const posts = (await response.json()) as Post[];
 
       if (posts.length === 0) {
-        console.warn(`No posts found for locale ${locale} in issue ${issue}`);
         return;
       }
 
@@ -134,22 +125,15 @@ export default {
         react: emailReact,
       });
       if (!broadcastResponse.data || !broadcastResponse.data.id) {
-        console.error(broadcastResponse);
         await kv.delete(TRIGGERED_BROADCAST);
         return;
       }
 
       const sendResponse = await resend.broadcasts.send(broadcastResponse.data.id);
       if (sendResponse.error) {
-        console.error(sendResponse);
         await kv.delete(TRIGGERED_BROADCAST);
         return;
       }
-
-      // eslint-disable-next-line no-console
-      console.log({ scheduledTime: new Date(event.scheduledTime).toISOString(), status: 'done' });
-    } catch (error) {
-      console.error(error);
-    }
+    } catch (_error) {}
   },
 };
