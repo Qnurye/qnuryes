@@ -46,11 +46,11 @@ export const Subscribe = ({ firstName, locale, url }: NewsletterProps): React.Re
         }}
       >
         <Body className="bg-background font-sans">
-          <Container className="w-full p-4 flex flex-col">
-            <Heading className="font-serif text-2xl font-bold italic mb-4">Qnury.e's</Heading>
+          <Container className="flex w-full flex-col p-4">
+            <Heading className="mb-4 font-bold font-serif text-2xl italic">Qnury.e's</Heading>
             <Text>{t.subscribe.greeting.replace('{name}', firstName || 'there')}</Text>
             <Link
-              className="bg-primary text-background font-bold text-lg py-4 font-serif rounded my-4 block text-center"
+              className="my-4 block rounded bg-primary py-4 text-center font-bold font-serif text-background text-lg"
               href={url}
             >
               {t.subscribe.confirm}

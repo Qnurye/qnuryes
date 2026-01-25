@@ -16,15 +16,15 @@ const CommentList: React.FC<CommentListProps> = ({ comments, loading, locale, on
   const { t } = useTranslations(locale);
   if (loading) {
     return (
-      <div className="text-center py-8 flex justify-center items-center gap-2">
-        <Loader2Icon className="animate-spin size-4" />
+      <div className="flex items-center justify-center gap-2 py-8 text-center">
+        <Loader2Icon className="size-4 animate-spin" />
         {t('comment.loading')}
       </div>
     );
   }
 
   if (!comments || comments.length === 0) {
-    return <div className="text-center py-8">{t('comment.no_comments')}</div>;
+    return <div className="py-8 text-center">{t('comment.no_comments')}</div>;
   }
 
   return (

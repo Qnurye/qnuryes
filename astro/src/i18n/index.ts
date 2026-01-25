@@ -64,8 +64,7 @@ export async function loadTranslations(
         return result.replace(pattern, String(value));
       }, rawText);
     };
-  } catch (error) {
-    console.error(`Error loading translations for locale "${resolvedLocale}":`, error);
+  } catch (_error) {
     return (k: string) => k;
   }
 }

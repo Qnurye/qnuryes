@@ -1,16 +1,11 @@
 import type { Context } from 'hono';
 import { ErrorCode } from '@/constants/errors';
-import type { Env } from '@/types';
 import { BaseHandler } from './base';
 
 export class LikeHandler extends BaseHandler {
-  constructor(env: Env) {
-    super(env);
-  }
-
   async likeComment(c: Context): Promise<Response> {
-    const id = parseInt(c.req.param('id'));
-    if (isNaN(id)) {
+    const id = parseInt(c.req.param('id'), 10);
+    if (Number.isNaN(id)) {
       return c.json({ code: ErrorCode.INVALID_COMMENT_ID }, 400);
     }
 
@@ -47,15 +42,14 @@ export class LikeHandler extends BaseHandler {
       await this.db.prepare('UPDATE comments SET likes = likes + 1 WHERE id = ?').bind(id).run();
 
       return c.json({ success: true });
-    } catch (error) {
-      console.error('Database error:', error);
+    } catch (_error) {
       return c.json({ code: ErrorCode.DATABASE_ERROR }, 500);
     }
   }
 
   async unlikeComment(c: Context): Promise<Response> {
-    const id = parseInt(c.req.param('id'));
-    if (isNaN(id)) {
+    const id = parseInt(c.req.param('id'), 10);
+    if (Number.isNaN(id)) {
       return c.json({ code: ErrorCode.INVALID_COMMENT_ID }, 400);
     }
 
@@ -82,8 +76,7 @@ export class LikeHandler extends BaseHandler {
       await this.db.prepare('UPDATE comments SET likes = likes - 1 WHERE id = ?').bind(id).run();
 
       return c.json({ success: true });
-    } catch (error) {
-      console.error('Database error:', error);
+    } catch (_error) {
       return c.json({ code: ErrorCode.DATABASE_ERROR }, 500);
     }
   }

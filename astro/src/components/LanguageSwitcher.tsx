@@ -50,14 +50,14 @@ export default function LanguageSwitcher({
           size="sm"
           className={
             'w-fit justify-between gap-1 border-contrast transition-colors hover:bg-contrast' +
-            ' hover:text-contrast-foreground'
+            'hover:text-contrast-foreground'
           }
         >
           <LanguagesIcon className="size-4" />
           {getLanguageNameFromLocale(currentLocale)}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-fit p-0 mx-12">
+      <PopoverContent className="mx-12 w-fit p-0">
         <Command>
           <CommandInput placeholder={t('nav.language.search') || 'Search language...'} />
           <CommandList>

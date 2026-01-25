@@ -20,9 +20,9 @@ export const NewsletterCard = ({
   tags,
   readMoreText,
 }: NewsletterCardProps): React.ReactElement => (
-  <Section className="p-6 border border-border rounded mb-5">
+  <Section className="mb-5 rounded border border-border p-6">
     <Hr />
-    <Heading className="text-primary text-xl font-bold font-serif mb-2.5">{title}</Heading>
+    <Heading className="mb-2.5 font-bold font-serif text-primary text-xl">{title}</Heading>
     <Text className="flex flex-wrap gap-3 font-serif text-secondary text-sm">
       {time}
       {tags.map((tag) => (
@@ -91,7 +91,7 @@ export const NewsletterCard = ({
     </Markdown>
     <Button
       href={url}
-      className="bg-primary text-white text-base no-underline text-center block py-3 px-4 my-5 rounded"
+      className="my-5 block rounded bg-primary px-4 py-3 text-center text-base text-white no-underline"
     >
       {readMoreText}
     </Button>

@@ -15,17 +15,17 @@ const TechStack = ({
   url: string;
 }): React.ReactElement => (
   <HoverCard>
-    <HoverCardTrigger className="dark:bg-border dark:rounded-md dark:p-1" asChild>
+    <HoverCardTrigger className="dark:rounded-md dark:bg-border dark:p-1" asChild>
       {/* Avoid `<a />` generated that affect SEO */}
       <div>{children}</div>
     </HoverCardTrigger>
     <HoverCardContent className="w-80">
       <div className="space-y-1">
-        <h4 className="text-sm font-semibold">{title}</h4>
+        <h4 className="font-semibold text-sm">{title}</h4>
         <p className="text-sm">{description}</p>
         <div className="flex items-center pt-2">
           <LinkIcon className="mr-2 h-4 w-4 opacity-70" />{' '}
-          <a className="text-xs text-muted-foreground" href={url}>
+          <a className="text-muted-foreground text-xs" href={url}>
             {url}
           </a>
         </div>

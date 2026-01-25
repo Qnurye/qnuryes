@@ -36,7 +36,6 @@ export const useComments = (postId: string): UseCommentsReturn => {
       setTotalPages(data.totalPages);
       setError(null);
     } catch (error) {
-      console.error('Error fetching comments:', error);
       setError(error as ErrorResponse);
     } finally {
       setLoading(false);

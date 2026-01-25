@@ -1,21 +1,17 @@
 import type { Context } from 'hono';
 import { ErrorCode } from '@/constants/errors';
-import { type Comment, type CommentResponse, commentRequestSchema, type Env, type PaginationResponse } from '@/types';
+import { type Comment, type CommentResponse, commentRequestSchema, type PaginationResponse } from '@/types';
 import { BaseHandler } from './base';
 
 export class CommentHandler extends BaseHandler {
-  constructor(env: Env) {
-    super(env);
-  }
-
   async getCommentsByPostId(c: Context): Promise<Response> {
     const postId = c.req.param('post_id');
     if (!postId) {
       return c.json({ code: ErrorCode.INVALID_POST_ID }, 400);
     }
 
-    const page = parseInt(c.req.query('page') || '1');
-    const pageSize = parseInt(c.req.query('limit') || '20');
+    const page = parseInt(c.req.query('page') || '1', 10);
+    const pageSize = parseInt(c.req.query('limit') || '20', 10);
     if (page < 1) {
       return c.json({ code: ErrorCode.INVALID_PAGE_NUMBER }, 400);
     }
@@ -85,15 +81,14 @@ export class CommentHandler extends BaseHandler {
       };
 
       return c.json(response);
-    } catch (error) {
-      console.error('Database error:', error);
+    } catch (_error) {
       return c.json({ code: ErrorCode.DATABASE_ERROR }, 500);
     }
   }
 
   async getCommentReplies(c: Context): Promise<Response> {
-    const commentId = parseInt(c.req.param('id'));
-    if (isNaN(commentId)) {
+    const commentId = parseInt(c.req.param('id'), 10);
+    if (Number.isNaN(commentId)) {
       return c.json({ code: ErrorCode.INVALID_COMMENT_ID }, 400);
     }
 
@@ -116,15 +111,14 @@ export class CommentHandler extends BaseHandler {
           replyCount,
         })),
       );
-    } catch (error) {
-      console.error('Database error:', error);
+    } catch (_error) {
       return c.json({ code: ErrorCode.DATABASE_ERROR }, 500);
     }
   }
 
   async getCommentById(c: Context): Promise<Response> {
-    const id = parseInt(c.req.param('id'));
-    if (isNaN(id)) {
+    const id = parseInt(c.req.param('id'), 10);
+    if (Number.isNaN(id)) {
       return c.json({ code: ErrorCode.INVALID_COMMENT_ID }, 400);
     }
 
@@ -154,8 +148,7 @@ export class CommentHandler extends BaseHandler {
       }
 
       return c.json(comment);
-    } catch (error) {
-      console.error('Database error:', error);
+    } catch (_error) {
       return c.json({ code: ErrorCode.DATABASE_ERROR }, 500);
     }
   }
@@ -220,8 +213,7 @@ export class CommentHandler extends BaseHandler {
 
         return c.json(result, 201);
       }
-    } catch (error) {
-      console.error('Database error:', error);
+    } catch (_error) {
       return c.json({ code: ErrorCode.DATABASE_ERROR }, 500);
     }
   }

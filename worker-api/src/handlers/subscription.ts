@@ -36,8 +36,7 @@ export class SubscriptionHandler {
       });
 
       return c.json({ message: 'Confirmation email sent' });
-    } catch (error) {
-      console.error('Error in subscription:', error);
+    } catch (_error) {
       return c.json({ error: 'Failed to subscribe' }, 500);
     }
   }

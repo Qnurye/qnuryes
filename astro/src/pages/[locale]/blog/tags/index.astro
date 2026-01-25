@@ -43,7 +43,7 @@ const tags = (await getCollection('blog', (p) => p.data.locale === Astro.current
           .map(([tag, count]) => (
             <li class="flex justify-between font-mono items-center gap-16">
               <a href={getAbsoluteLocaleUrl(locale, `blog/tags/${tag}`)}>#{tag}</a>
-              <div class="grow border-dashed border-1 border-neutral-100"></div>
+              <div class="grow border-dashed border border-neutral-100"></div>
               <span>{count}</span>
             </li>
           ))

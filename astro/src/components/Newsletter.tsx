@@ -63,8 +63,8 @@ const NewsletterForm: React.FC<{
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="p-4 space-y-4">
-        <div className="flex flex-wrap sm:flex-row gap-2 *:grow">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 p-4">
+        <div className="flex flex-wrap gap-2 *:grow sm:flex-row">
           <FormField
             control={form.control}
             name="email"
@@ -131,8 +131,8 @@ const NewsletterForm: React.FC<{
             </FormItem>
           )}
         />
-        <FormMessage className={`text-destructive` + (!error && ' hidden')}>{t('newsletter.error')}</FormMessage>
-        <Button type="submit" className={'w-full' + (disabled && !loading ? ' hidden' : '')} disabled={disabled}>
+        <FormMessage className={`text-destructive${!error && 'hidden'}`}>{t('newsletter.error')}</FormMessage>
+        <Button type="submit" className={`w-full${disabled && !loading ? 'hidden' : ''}`} disabled={disabled}>
           {loading ? <Loader2Icon className="animate-spin" /> : t('newsletter.submit_button')}
         </Button>
       </form>
@@ -205,7 +205,7 @@ const Newsletter: React.FC<{ locale: string }> = ({ locale }) => {
       <DrawerContent className="p-1 sm:p-2 md:p-4">
         <div className="overflow-y-auto scroll-smooth pb-24 sm:pb-16 md:pb-0">
           <DrawerHeader>
-            <DrawerTitle className="text-2xl font-serif">{t('newsletter.title')}</DrawerTitle>
+            <DrawerTitle className="font-serif text-2xl">{t('newsletter.title')}</DrawerTitle>
             <DrawerDescription className="font-serif">{t('newsletter.description')}</DrawerDescription>
           </DrawerHeader>
           <NewsletterForm
@@ -215,10 +215,10 @@ const Newsletter: React.FC<{ locale: string }> = ({ locale }) => {
             loading={formState === 'loading'}
             error={isError}
           />
-          <DrawerFooter className={`flex flex-col gap-2 ${formState !== 'successful' ? ' hidden' : ''}`}>
+          <DrawerFooter className={`flex flex-col gap-2 ${formState !== 'successful' ? 'hidden' : ''}`}>
             <span>{t('newsletter.check_inbox')}</span>
-            <div className="flex w-full grow md:w-auto flex-wrap gap-2 justify-end">
-              <Button className={`grow ${mailTarget ? '' : ' hidden'}`} asChild>
+            <div className="flex w-full grow flex-wrap justify-end gap-2 md:w-auto">
+              <Button className={`grow ${mailTarget ? '' : 'hidden'}`} asChild>
                 <a href={mailTarget || '#'} target="_blank" rel="noopener noreferrer">
                   {t('newsletter.check_button')}
                 </a>

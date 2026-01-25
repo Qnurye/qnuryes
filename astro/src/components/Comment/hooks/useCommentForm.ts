@@ -69,7 +69,6 @@ export const useCommentForm = (
       setFormData(defaultFormData);
       await fetchComments();
     } catch (err) {
-      console.error('Error submitting comment:', err);
       setError(err as ErrorResponse);
       toast.error(t('comment.submit_error'));
     } finally {

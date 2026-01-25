@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils';
 
 const { name, description, avatar, url, className } = Astro.props;
 
-let p;
+let p: { Vibrant?: { hex?: string; bodyTextColor?: string } } | undefined;
 try {
   const response = await fetch(avatar);
 
@@ -24,8 +24,8 @@ try {
   };
 }
 
-const color = p.Vibrant?.hex || 'var(--color-foreground)';
-const foregroundColor = p.Vibrant?.bodyTextColor || 'var(--color-background)';
+const color = p?.Vibrant?.hex || 'var(--color-foreground)';
+const foregroundColor = p?.Vibrant?.bodyTextColor || 'var(--color-background)';
 ---
 
 <a
@@ -41,12 +41,12 @@ const foregroundColor = p.Vibrant?.bodyTextColor || 'var(--color-background)';
   <div
     class={'flex flex-col justify-end p-2 absolute size-full top-0 left-0 z-10 overflow-hidden transition-all'
       + ' duration-500'
-      + ' group-hover:[background-color:var(--vibrant-color)]'}
+      + ' group-hover:bg-(--vibrant-color)'}
   >
     <div class="translate-y-full">
       <div
-        class={'flex flex-col justify-end gap-2 text-[var(--vibrant-color)]'
-          + ' group-hover:text-[var(--vibrant-foreground)] transition-all *:transition-all z-10'
+        class={'flex flex-col justify-end gap-2 text-(--vibrant-color)'
+          + ' group-hover:text-(--vibrant-foreground) transition-all *:transition-all z-10'
           + ' group-hover:-translate-y-full *:duration-500 duration-500'}
       >
         <p class={'text-3xl -translate-y-full group-hover:translate-y-0 group-hover:text-xl'
@@ -54,7 +54,7 @@ const foregroundColor = p.Vibrant?.bodyTextColor || 'var(--color-background)';
         >
           {name}
         </p>
-        <div class="flex-grow overflow-hidden max-h-[6rem] line-clamp-3">
+        <div class="grow overflow-hidden max-h-24 line-clamp-3">
           <Markdown content={description} />
         </div>
         <p class="font-mono">{url}</p>

@@ -13,7 +13,7 @@ const formattedDate = new Intl.DateTimeFormat(Astro.currentLocale, {
   day: 'numeric',
 }).format(date);
 
-let p;
+let p: { Vibrant?: { hex?: string; bodyTextColor?: string } } | undefined;
 if (cover) {
   try {
     // FIXME)) We need to deploy the site twice to get it correct
@@ -54,12 +54,12 @@ const foregroundColor = p?.Vibrant?.bodyTextColor || 'var(--color-background)';
   <div
     class={'flex flex-col justify-end p-2 absolute size-full top-0 left-0 z-10 overflow-hidden transition-all'
       + ' duration-500'
-      + ' group-hover:[background-color:var(--vibrant-color)]'}
+      + ' group-hover:bg-(--vibrant-color)'}
   >
     <div class={cover ? 'translate-y-full' : ''}>
       <div
-        class={'flex flex-col justify-end gap-2 text-[var(--vibrant-color)]'
-          + ' group-hover:text-[var(--vibrant-foreground)] transition-all *:transition-all z-10'
+        class={'flex flex-col justify-end gap-2 text-(--vibrant-color)'
+          + ' group-hover:text-(--vibrant-foreground) transition-all *:transition-all z-10'
           + (cover ? ' group-hover:-translate-y-full *:duration-500 duration-500' : '')}
       >
         <p class={'text-3xl'
@@ -68,7 +68,7 @@ const foregroundColor = p?.Vibrant?.bodyTextColor || 'var(--color-background)';
         >
           {title}
         </p>
-        <div class="flex-grow overflow-hidden max-h-[6rem] line-clamp-3">
+        <div class="grow overflow-hidden max-h-24 line-clamp-3">
           <Markdown content={description} />
         </div>
         <p class="font-mono">{formattedDate}</p>

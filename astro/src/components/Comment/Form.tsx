@@ -29,19 +29,19 @@ const ReplyToCard: React.FC<{
     replyTo: string;
   };
 }> = ({ replyTo, onCancelReply, t }) => (
-  <div className="bg-card p-3 mb-4 rounded-md flex justify-between items-center">
-    <div className="flex flex-col gap-2 w-full">
-      <div className="flex flex-row between items-center">
-        <span className="inline-flex items-baseline gap-1 flex-grow min-w-0">
-          <QuoteIcon className="size-4 mr-2" />
+  <div className="mb-4 flex items-center justify-between rounded-md bg-card p-3">
+    <div className="flex w-full flex-col gap-2">
+      <div className="between flex flex-row items-center">
+        <span className="inline-flex min-w-0 flex-grow items-baseline gap-1">
+          <QuoteIcon className="mr-2 size-4" />
           <span className="flex-shrink-0">{t.replyTo}</span>
-          <span className="font-serif font-bold flex-shrink-0">{replyTo.author_name}</span>
+          <span className="flex-shrink-0 font-bold font-serif">{replyTo.author_name}</span>
         </span>
         <Button variant="ghost" onClick={onCancelReply} type="button" size="icon">
           <XIcon className="size-3" />
         </Button>
       </div>
-      <div className="font-sans w-full bg-input p-2 rounded *:overflow-hidden *:text-ellipsis *:max-h-24">
+      <div className="w-full rounded bg-input p-2 font-sans *:max-h-24 *:overflow-hidden *:text-ellipsis">
         <Markdown>{replyTo.content}</Markdown>
       </div>
     </div>
@@ -73,7 +73,7 @@ const CommentForm: React.FC<CommentFormProps> = ({
       <Form {...form}>
         <form
           id="comment-form"
-          className="mb-8 p-6 bg-secondary rounded-lg flex flex-col"
+          className="mb-8 flex flex-col rounded-lg bg-secondary p-6"
           onSubmit={form.handleSubmit(handleSubmit)}
         >
           {replyTo && (
@@ -132,7 +132,7 @@ const CommentForm: React.FC<CommentFormProps> = ({
             {loading ? t('comment.loading') : t('comment.submit')}
           </Button>
 
-          {error && <div className="text-destructive mt-4">{error.details || t('comment.error')}</div>}
+          {error && <div className="mt-4 text-destructive">{error.details || t('comment.error')}</div>}
         </form>
       </Form>
       <Toaster />

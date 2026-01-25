@@ -1,15 +1,14 @@
 /* eslint-disable */
 
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { fontSplit } from '@konghayao/cn-font-split';
-import { dirname, join } from 'path';
-import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const rootDir = join(__dirname, '..');
 
 async function splitFonts() {
-  console.log('Splitting LXGW Neo XiHei...');
   await fontSplit({
     FontPath: join(rootDir, 'fonts/LXGWNeoXiHei.ttf'),
     destFold: join(rootDir, 'public/fonts/lxgw-neo-xihei'),
@@ -23,9 +22,6 @@ async function splitFonts() {
       fontDisplay: 'swap',
     },
   });
-  console.log('LXGW Neo XiHei split complete!');
-
-  console.log('Splitting GenRyuMin2 TC...');
   await fontSplit({
     FontPath: join(rootDir, 'fonts/GenRyuMin2TC-R.otf'),
     destFold: join(rootDir, 'public/fonts/genryumin'),
@@ -39,9 +35,6 @@ async function splitFonts() {
       fontDisplay: 'swap',
     },
   });
-  console.log('GenRyuMin2 TC split complete!');
-
-  console.log('All fonts split successfully!');
 }
 
 splitFonts().catch(console.error);

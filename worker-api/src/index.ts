@@ -83,15 +83,10 @@ export default {
       const TRIGGERED_BROADCAST = 'triggered_broadcast';
       const bounce = (await kv.get(TRIGGERED_BROADCAST)) === event.cron;
       if (bounce) {
-        // eslint-disable-next-line no-console
-        console.log({ scheduledTime: new Date(event.scheduledTime).toISOString(), status: 'canceled' });
         return;
       }
 
       await kv.put(TRIGGERED_BROADCAST, event.cron, { expirationTtl: 120 });
-
-      // eslint-disable-next-line no-console
-      console.log({ scheduledTime: new Date(event.scheduledTime).toISOString(), status: 'running' });
 
       const now = new Date();
       now.setMonth(now.getMonth() - 1);
@@ -103,9 +98,7 @@ export default {
       const response = await fetch(`${env.WEBSITE_BASE_URL}/${locale}/blog/issues/newsletter/${issue}`);
       if (!response.ok) {
         if (response.status === 404) {
-          console.warn('Seems somebody wrote no shit for this month');
         }
-        console.error(response);
         await kv.delete(TRIGGERED_BROADCAST);
         return;
       }
@@ -113,7 +106,6 @@ export default {
       const posts = (await response.json()) as Post[];
 
       if (posts.length === 0) {
-        console.warn(`No posts found for locale ${locale} in issue ${issue}`);
         return;
       }
 
@@ -133,22 +125,15 @@ export default {
         react: emailReact,
       });
       if (!broadcastResponse.data || !broadcastResponse.data.id) {
-        console.error(broadcastResponse);
         await kv.delete(TRIGGERED_BROADCAST);
         return;
       }
 
       const sendResponse = await resend.broadcasts.send(broadcastResponse.data.id);
       if (sendResponse.error) {
-        console.error(sendResponse);
         await kv.delete(TRIGGERED_BROADCAST);
         return;
       }
-
-      // eslint-disable-next-line no-console
-      console.log({ scheduledTime: new Date(event.scheduledTime).toISOString(), status: 'done' });
-    } catch (error) {
-      console.error(error);
-    }
+    } catch (_error) {}
   },
 };

@@ -36,6 +36,9 @@
       "correctness": {
         "noUnusedVariables": "error",
         "noUnusedImports": "error"
+      },
+      "nursery": {
+        "useSortedClasses": "warn"
       }
     }
   },
@@ -55,6 +58,10 @@
     }
   },
   "css": {
+    "parser": {
+      "cssModules": true,
+      "tailwindDirectives": true
+    },
     "formatter": {
       "enabled": true,
       "indentWidth": 2
@@ -62,5 +69,31 @@
     "linter": {
       "enabled": true
     }
-  }
+  },
+  "overrides": [
+    {
+      "includes": ["**/*.astro"],
+      "linter": {
+        "rules": {
+          "correctness": {
+            "noUnusedVariables": "off",
+            "noUnusedImports": "off"
+          },
+          "suspicious": {
+            "noConsole": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["**/scripts/**"],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "noConsole": "off"
+          }
+        }
+      }
+    }
+  ]
 }

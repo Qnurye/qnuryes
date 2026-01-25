@@ -18,7 +18,7 @@ const Pagination: React.FC<PaginationProps> = ({ page, totalPages, loading, loca
   }
 
   return (
-    <div className="flex justify-between items-center my-8 gap-4">
+    <div className="my-8 flex items-center justify-between gap-4">
       <Button variant="secondary" onClick={() => onPageChange(Math.max(page - 1, 1))} disabled={page === 1 || loading}>
         <ArrowLeftIcon size={14} />
         {t('comment.previous')}

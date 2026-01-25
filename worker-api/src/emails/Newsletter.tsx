@@ -56,10 +56,10 @@ export const Newsletter = ({ issue, posts, locale, baseUrl }: NewsletterProps): 
         }}
       >
         <Body className="bg-background font-sans">
-          <Container className="mx-auto max-w-[580px] py-5 px-2">
-            <Heading className="text-secondary text-sm font-bold my-4 font-serif">{t.newsletter.title}</Heading>
-            <Text className="text-primary flex flex-row gap-2 text-4xl items-end my-4 font-mono">
-              <span className="text-2xl font-mono">Vol.</span>
+          <Container className="mx-auto max-w-[580px] px-2 py-5">
+            <Heading className="my-4 font-bold font-serif text-secondary text-sm">{t.newsletter.title}</Heading>
+            <Text className="my-4 flex flex-row items-end gap-2 font-mono text-4xl text-primary">
+              <span className="font-mono text-2xl">Vol.</span>
               {issue}
             </Text>
             <Text>
@@ -84,9 +84,9 @@ export const Newsletter = ({ issue, posts, locale, baseUrl }: NewsletterProps): 
                 })}
               />
             ))}
-            <Section className="p-6 border border-border rounded mb-5 text-pretty">
-              <Text className="text-secondary text-base leading-6 my-4">{t.newsletter.thanks}</Text>
-              <Text className="text-secondary text-base leading-6 my-4">
+            <Section className="mb-5 text-pretty rounded border border-border p-6">
+              <Text className="my-4 text-base text-secondary leading-6">{t.newsletter.thanks}</Text>
+              <Text className="my-4 text-base text-secondary leading-6">
                 {t.newsletter.unsubscribe} <Link href="{{{RESEND_UNSUBSCRIBE_URL}}}">unsubscribe</Link>
               </Text>
             </Section>

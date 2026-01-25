@@ -24,7 +24,7 @@ const formattedDate = new Intl.DateTimeFormat(locale, {
   day: 'numeric',
 }).format(createdAt);
 
-let p;
+let p: { Vibrant?: { hex?: string; bodyTextColor?: string } } | undefined;
 if (cover) {
   try {
     const response = await fetch(new URL(cover, import.meta.env.PUBLIC_BASE_URL));
@@ -66,9 +66,9 @@ const uid = crypto.randomUUID();
         />
       )}
 
-    <div class="flex w-full flex-col md:border-r-2 border-[var(--vibrant-color)]">
-      <h1 class="text-2xl md:text-3xl text-[var(--vibrant-color)] p-2 font-black">{title}</h1>
-      <div class="bg-[var(--vibrant-color)] text-[var(--vibrant-foreground)] w-full md:h-full p-2 space-y-2">
+    <div class="flex w-full flex-col md:border-r-2 border-(--vibrant-color)">
+      <h1 class="text-2xl md:text-3xl text-(--vibrant-color) p-2 font-black">{title}</h1>
+      <div class="bg-(--vibrant-color) text-(--vibrant-foreground) w-full md:h-full p-2 space-y-2">
         <p class="text-sm">{formattedDate}</p>
         <Markdown content={description} />
       </div>
@@ -82,8 +82,8 @@ const uid = crypto.randomUUID();
     <a
       id={`readMore-${uid}`}
       href={getAbsoluteLocaleUrl(locale, `/blog/${id}`)}
-      class={'absolute bottom-0 left-0 w-full text-center bg-gradient-to-t from-[var(--vibrant-color)]'
-        + ' to-transparent pt-4 pb-2 hidden text-[var(--vibrant-foreground)]'}
+      class={'absolute bottom-0 left-0 w-full text-center bg-gradient-to-t from-(--vibrant-color)'
+        + ' to-transparent pt-4 pb-2 hidden text-(--vibrant-foreground)'}
     >
       <ChevronRightIcon className="w-4 inline" />
       {t('issues.read_more')}

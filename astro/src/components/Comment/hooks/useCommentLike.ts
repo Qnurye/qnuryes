@@ -31,7 +31,6 @@ export const useCommentLike = (fetchComments: () => Promise<void>): useCommentLi
       // Refresh comments to update the like count
       await fetchComments();
     } catch (err) {
-      console.error('Error liking comment:', err);
       setError(err as ErrorResponse);
     } finally {
       setLoading(false);
@@ -57,7 +56,6 @@ export const useCommentLike = (fetchComments: () => Promise<void>): useCommentLi
       // Refresh comments to update the like count
       await fetchComments();
     } catch (err) {
-      console.error('Error unliking comment:', err);
       setError(err as ErrorResponse);
     } finally {
       setLoading(false);

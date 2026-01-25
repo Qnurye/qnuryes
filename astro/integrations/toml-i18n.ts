@@ -1,7 +1,7 @@
+import * as fs from 'node:fs/promises';
+import * as path from 'node:path';
 import * as TOML from '@iarna/toml';
 import type { AstroIntegration } from 'astro';
-import * as fs from 'fs/promises';
-import * as path from 'path';
 
 function isPathUnderDir(pathToCheck: string, dir: string): boolean {
   const relativePath = path.relative(dir, pathToCheck);
@@ -27,9 +27,7 @@ export default function tomlI18n(): AstroIntegration {
 
       const outputPath = path.join(outputDir, fileName.replace('.toml', '.json'));
       await fs.writeFile(outputPath, jsonContent);
-    } catch (error) {
-      console.error(`Error processing ${filePath}:`, error);
-    }
+    } catch (_error) {}
   }
 
   // Function to process all TOML files in the directory
@@ -44,9 +42,7 @@ export default function tomlI18n(): AstroIntegration {
         const filePath = path.join(tomlDir, file);
         await processTomlFile(filePath);
       }
-    } catch (error) {
-      console.error('Error processing TOML files:', error);
-    }
+    } catch (_error) {}
   }
 
   return {

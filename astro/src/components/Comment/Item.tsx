@@ -20,11 +20,11 @@ interface CommentHeaderProps {
 }
 
 const CommentHeader: React.FC<CommentHeaderProps> = ({ comment, locale }) => (
-  <div className="flex justify-between mb-2">
-    <div className="font-bold max-w-96 overflow-hidden text-ellipsis">
+  <div className="mb-2 flex justify-between">
+    <div className="max-w-96 overflow-hidden text-ellipsis font-bold">
       <span className="font-serif">{comment.author_name}</span>
       {comment.author_email && (
-        <a className="text-sm font-mono font-light text-primary ml-2" href={`mailto:${comment.author_email}`}>
+        <a className="ml-2 font-light font-mono text-primary text-sm" href={`mailto:${comment.author_email}`}>
           {comment.author_email}
         </a>
       )}
@@ -113,8 +113,7 @@ const CommentItem: React.FC<CommentItemProps> = ({ comment, locale, onReply, onL
 
       const data = await response.json();
       setReplies(data);
-    } catch (error) {
-      console.error('Error loading replies:', error);
+    } catch (_error) {
     } finally {
       setLoadingReplies(false);
     }
@@ -130,7 +129,7 @@ const CommentItem: React.FC<CommentItemProps> = ({ comment, locale, onReply, onL
   return (
     <div className="pb-4">
       <CommentHeader comment={comment} locale={locale} />
-      <div className="pl-2 mb-2 leading-relaxed">
+      <div className="mb-2 pl-2 leading-relaxed">
         <Markdown>{comment.content}</Markdown>
       </div>
       <CommentActions
@@ -144,7 +143,7 @@ const CommentItem: React.FC<CommentItemProps> = ({ comment, locale, onReply, onL
         onExpand={handleExpand}
       />
       {isExpanded && replies.length > 0 && (
-        <div className="ml-2 pl-4 border-l-2 border-sidebar-border pt-2 mt-2">
+        <div className="mt-2 ml-2 border-sidebar-border border-l-2 pt-2 pl-4">
           {replies.map((reply) => (
             <CommentItem key={reply.id} comment={reply} locale={locale} onReply={onReply} onLike={onLike} />
           ))}

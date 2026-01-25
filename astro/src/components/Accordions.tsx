@@ -11,7 +11,7 @@ interface AccordionProps {
   }>;
 }
 const Accordions = ({ className, accordions }: AccordionProps): ReactElement => (
-  <Accordion type="single" collapsible className={cn('max-w-prose prose', className)}>
+  <Accordion type="single" collapsible className={cn('prose max-w-prose', className)}>
     {accordions.map((a, key) => (
       <AccordionItem value={`item-${key}`} key={key}>
         <AccordionTrigger>
