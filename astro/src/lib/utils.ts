@@ -24,20 +24,14 @@ export const formatDateAsMonth = (dateString: string, locale: string): string =>
   return date.toLocaleDateString(locale, options).toUpperCase();
 };
 
-export const wpm = {
+const wpm: Record<string, number> = {
   en: 200,
   'zh-cn': 300,
   'zh-tw': 300,
-} as Record<string, number>;
-
-export const readingTimeLocales = {
-  en: 'en',
-  'zh-cn': 'cn',
-  'zh-tw': 'cn',
-} as Record<string, SupportedLanguages>;
+};
 
 export const getReadingTime = (text: string, locale: string): number =>
-  readingTime(text, wpm[locale], readingTimeLocales[locale]).minutes;
+  readingTime(text, { wordsPerMinute: wpm[locale], language: locale as SupportedLanguages }).minutes;
 
 export const dateToIssue = (date: Date): string => {
   const year = String(date.getFullYear()).slice(-2);
