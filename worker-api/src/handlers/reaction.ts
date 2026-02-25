@@ -138,7 +138,7 @@ export class ReactionHandler extends BaseHandler {
       const listed = await this.kv.list({ prefix: `${KV_PREFIX_REACTION}:`, cursor });
       allKeys.push(...listed.keys);
       listComplete = listed.list_complete;
-      cursor = listed.cursor;
+      cursor = listed.list_complete ? undefined : listed.cursor;
     }
 
     if (allKeys.length === 0) {

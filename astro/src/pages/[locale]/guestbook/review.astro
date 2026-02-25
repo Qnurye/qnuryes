@@ -1,0 +1,17 @@
+---
+import GuestbookReview from '@/components/Guestbook/GuestbookReview';
+import Base from '@/layouts/Base.astro';
+
+export { getI18nPaths as getStaticPaths } from '@/i18n';
+---
+
+<Base
+  title="Qnury.e's | Guestbook Review"
+  description="Review a guestbook submission"
+  className="flex flex-col gap-8 py-12"
+>
+  <div class="mx-auto w-full max-w-lg text-center font-serif">
+    <h1 class="text-4xl md:text-5xl">Guestbook Review</h1>
+  </div>
+  <GuestbookReview client:load />
+</Base>

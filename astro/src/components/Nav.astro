@@ -36,6 +36,7 @@ const locales = Astro.props.locales || ['en', 'zh-cn', 'zh-tw'];
       <a href={getRelativeLocaleUrl(Astro.currentLocale || 'en', 'blog')}>{t('nav.blog')}
       </a>
       <a href="https://pad.qnury.es">{t('nav.notes')}</a>
+      <a href={getRelativeLocaleUrl(Astro.currentLocale || 'en', 'guestbook')}>{t('nav.guestbook')}</a>
       <ColorModeToggle
         t={{
           label: t('nav.appearance.label'),
@@ -83,6 +84,11 @@ const locales = Astro.props.locales || ['en', 'zh-cn', 'zh-tw'];
     >{t('nav.blog')}
     </a>
     <a href="https://pad.qnury.es" class="text-xl">{t('nav.notes')}</a>
+    <a
+      href={getRelativeLocaleUrl(Astro.currentLocale || 'en', 'guestbook')}
+      class="text-xl"
+    >{t('nav.guestbook')}
+    </a>
     <ColorModeToggle
       t={{
         label: t('nav.appearance.label'),

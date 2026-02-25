@@ -10,12 +10,22 @@ export enum ErrorCode {
   INVALID_POST_SLUG = 1006,
   INVALID_EMOJI_LABEL = 1007,
 
+  // Guestbook validation errors (1100-1199)
+  INVALID_NICKNAME = 1100,
+  INVALID_SIGNATURE = 1101,
+  INVALID_MESSAGE_LENGTH = 1102,
+  INVALID_TOKEN = 1103,
+  MISSING_REJECT_REASON = 1104,
+
   // Business logic errors (2000-2999)
   PARENT_COMMENT_NOT_FOUND = 2000,
   COMMENT_NOT_FOUND = 2001,
   ALREADY_LIKED = 2002,
   NOT_LIKED = 2003,
   RATE_LIMITED = 2004,
+  TOKEN_EXPIRED = 2005,
+  TOKEN_ALREADY_USED = 2006,
+  GUESTBOOK_RATE_LIMITED = 2007,
 
   // System errors (3000-3999)
   DATABASE_ERROR = 3000,
@@ -87,6 +97,46 @@ export const ErrorMessages = {
     en: 'Invalid emoji label',
     'zh-cn': '无效的表情标签',
     'zh-tw': '無效的表情標籤',
+  },
+  [ErrorCode.INVALID_NICKNAME]: {
+    en: 'Invalid nickname',
+    'zh-cn': '无效的昵称',
+    'zh-tw': '無效的暱稱',
+  },
+  [ErrorCode.INVALID_SIGNATURE]: {
+    en: 'Invalid signature',
+    'zh-cn': '无效的签名',
+    'zh-tw': '無效的簽名',
+  },
+  [ErrorCode.INVALID_MESSAGE_LENGTH]: {
+    en: 'Message is too long',
+    'zh-cn': '留言过长',
+    'zh-tw': '留言過長',
+  },
+  [ErrorCode.INVALID_TOKEN]: {
+    en: 'Invalid token',
+    'zh-cn': '无效的令牌',
+    'zh-tw': '無效的令牌',
+  },
+  [ErrorCode.MISSING_REJECT_REASON]: {
+    en: 'Rejection reason is required',
+    'zh-cn': '拒绝原因不能为空',
+    'zh-tw': '拒絕原因不能為空',
+  },
+  [ErrorCode.TOKEN_EXPIRED]: {
+    en: 'Token has expired',
+    'zh-cn': '令牌已过期',
+    'zh-tw': '令牌已過期',
+  },
+  [ErrorCode.TOKEN_ALREADY_USED]: {
+    en: 'Token has already been used',
+    'zh-cn': '令牌已被使用',
+    'zh-tw': '令牌已被使用',
+  },
+  [ErrorCode.GUESTBOOK_RATE_LIMITED]: {
+    en: 'Too many guestbook submissions',
+    'zh-cn': '留言提交过于频繁',
+    'zh-tw': '留言提交過於頻繁',
   },
   [ErrorCode.DATABASE_ERROR]: {
     en: 'Database error',

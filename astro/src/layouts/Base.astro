@@ -3,6 +3,7 @@ import '@/styles/global.css';
 import GoogleAnalytics from '@astro-kits/google-analytics';
 import Footer from '@/components/Footer.astro';
 import Nav from '@/components/Nav.astro';
+import { Toaster } from '@/components/ui/sonner';
 import { cn } from '@/lib/utils';
 
 const { title, className, description, keywords } = Astro.props;
@@ -84,6 +85,7 @@ const pageKeywords = (keywords || '')
       <slot />
     </main>
     <Footer />
+    <Toaster client:load />
   </body>
 </html>
 

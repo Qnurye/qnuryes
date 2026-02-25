@@ -161,7 +161,7 @@ export class CommentHandler extends BaseHandler {
       return c.json(
         {
           code: ErrorCode.MISSING_REQUIRED_FIELDS,
-          details: validation.error.errors[0].message,
+          details: validation.error.issues[0].message,
         },
         400,
       );

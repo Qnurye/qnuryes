@@ -18,6 +18,7 @@ WEBSITE_BASE_URL = "http://localhost:4321"
 NEWSLETTER_TO_EMAIL = "a@b.c"
 RESEND_AUDIENCE_ID = "000-xxx-xxx-xxx-xxx"
 RESEND_FROM = "Qnurye <noreply@qnury.es>"
+GUESTBOOK_NOTIFY_EMAIL = "a@b.c"
 
 [triggers]
 crons = ["0 0 1 * *", "0 0 * * *"]

@@ -2,6 +2,7 @@ import { Hono } from 'hono';
 import { cors } from 'hono/cors';
 import { Resend } from 'resend';
 import { CommentHandler } from '@/handlers/comment';
+import { GuestbookHandler } from '@/handlers/guestbook';
 import { LikeHandler } from '@/handlers/like';
 import { ReactionHandler } from '@/handlers/reaction';
 import { SubscriptionHandler } from '@/handlers/subscription';
@@ -27,10 +28,12 @@ app.use('*', async (c, next) => {
   const likeHandler = new LikeHandler(c.env as unknown as Env);
   const reactionHandler = new ReactionHandler(c.env as unknown as Env);
   const subscriptionHandler = new SubscriptionHandler(c.env as unknown as Env);
+  const guestbookHandler = new GuestbookHandler(c.env as unknown as Env);
   c.set('commentHandler' as never, commentHandler as never);
   c.set('likeHandler' as never, likeHandler as never);
   c.set('reactionHandler' as never, reactionHandler as never);
   c.set('subscriptionHandler' as never, subscriptionHandler as never);
+  c.set('guestbookHandler' as never, guestbookHandler as never);
   await next();
 });
 
@@ -85,6 +88,32 @@ app.post('/subscription', async (c) => {
 app.get('/subscription/confirmation', async (c) => {
   const handler = c.get('subscriptionHandler' as never) as SubscriptionHandler;
   return handler.confirm(c);
+});
+
+// Guestbook routes
+app.post('/guestbook', async (c) => {
+  const handler = c.get('guestbookHandler' as never) as GuestbookHandler;
+  return handler.submit(c);
+});
+
+app.get('/guestbook/review', async (c) => {
+  const handler = c.get('guestbookHandler' as never) as GuestbookHandler;
+  return handler.getByToken(c);
+});
+
+app.post('/guestbook/approve', async (c) => {
+  const handler = c.get('guestbookHandler' as never) as GuestbookHandler;
+  return handler.approve(c);
+});
+
+app.post('/guestbook/reject', async (c) => {
+  const handler = c.get('guestbookHandler' as never) as GuestbookHandler;
+  return handler.reject(c);
+});
+
+app.get('/guestbook/wall', async (c) => {
+  const handler = c.get('guestbookHandler' as never) as GuestbookHandler;
+  return handler.getWall(c);
 });
 
 app.get('/', (c) => c.text('Hello Hono!'));

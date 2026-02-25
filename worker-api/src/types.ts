@@ -56,11 +56,32 @@ export interface Env {
   WEBSITE_BASE_URL: string;
   RESEND_AUDIENCE_ID: string;
   RESEND_FROM: string;
+  GUESTBOOK_NOTIFY_EMAIL: string;
   subscription: KVNamespace;
   [key: string]: unknown;
 }
 
-export type { ReactionCounts } from '@qnury-es/shared';
+export type { GuestbookSubmission, ReactionCounts } from '@qnury-es/shared';
+
+export const guestbookSubmitSchema = z.object({
+  nickname: z.string().min(1).max(50),
+  email: z.string().email().optional(),
+  url: z.string().url().optional(),
+  message: z.string().max(140).optional(),
+  signature_svg: z.string().min(1),
+  signature_bbox: z.string().min(1),
+  locale: z.enum(['en', 'zh-cn', 'zh-tw']).default('en'),
+  address: z.string().optional(), // honeypot
+});
+
+export const guestbookReviewSchema = z.object({
+  token: z.string().uuid(),
+});
+
+export const guestbookRejectSchema = z.object({
+  token: z.string().uuid(),
+  reason: z.string().min(1).max(500),
+});
 
 export interface PostReaction {
   post_slug: string;

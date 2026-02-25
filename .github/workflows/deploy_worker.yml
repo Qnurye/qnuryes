@@ -50,6 +50,7 @@ jobs:
             sed -i '/^\[vars\]/,/^$/ s#^NEWSLETTER_TO_EMAIL = ".*"$#NEWSLETTER_TO_EMAIL = "${{ secrets.NEWSLETTER_TO_EMAIL }}"#g' wrangler.toml
             sed -i '/^\[vars\]/,/^$/ s#^RESEND_AUDIENCE_ID = ".*"$#RESEND_AUDIENCE_ID = "${{ secrets.RESEND_AUDIENCE_ID }}"#g' wrangler.toml
             sed -i '/^\[vars\]/,/^$/ s#^RESEND_FROM = ".*"$#RESEND_FROM = "${{ secrets.RESEND_FROM }}"#g' wrangler.toml
+            sed -i '/^\[vars\]/,/^$/ s#^GUESTBOOK_NOTIFY_EMAIL = ".*"$#GUESTBOOK_NOTIFY_EMAIL = "${{ secrets.GUESTBOOK_NOTIFY_EMAIL }}"#g' wrangler.toml
             sed -i '/^\[triggers\]/,/^$/ s#^crons = \[".*"\]$#crons = ["${{ secrets.CLOUDFLARE_WORKER_TRIGGER }}"]#g' wrangler.toml
 
             echo "=== Final wrangler.toml configuration ==="

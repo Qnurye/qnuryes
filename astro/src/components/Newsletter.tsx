@@ -191,6 +191,15 @@ const Newsletter: React.FC<{ locale: string }> = ({ locale }) => {
     return () => mql.removeEventListener('change', handler);
   }, []);
 
+  // Reset state when the modal closes so it opens fresh next time
+  useEffect(() => {
+    if (!open) {
+      setFormState('input');
+      setMailTarget(null);
+      setIsError(false);
+    }
+  }, [open]);
+
   const onSubmit = async (value: z.infer<typeof newsletterSchema>): Promise<void> => {
     setFormState('loading');
 

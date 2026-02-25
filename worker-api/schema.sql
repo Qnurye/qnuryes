@@ -31,8 +31,31 @@ CREATE TABLE IF NOT EXISTS post_reactions (
   counts TEXT NOT NULL DEFAULT '{}'
 );
 
+-- Create guestbook_submissions table
+CREATE TABLE IF NOT EXISTS guestbook_submissions (
+  id TEXT PRIMARY KEY,
+  created_at INTEGER NOT NULL,
+  nickname TEXT NOT NULL,
+  email TEXT,
+  url TEXT,
+  message TEXT,
+  signature_svg TEXT NOT NULL,
+  signature_bbox TEXT NOT NULL,
+  locale TEXT NOT NULL DEFAULT 'en',
+  status TEXT NOT NULL DEFAULT 'pending',
+  reject_reason TEXT,
+  ip TEXT,
+  approve_token_hash TEXT NOT NULL,
+  token_used INTEGER NOT NULL DEFAULT 0,
+  token_expires_at INTEGER NOT NULL,
+  reviewed_at INTEGER
+);
+
 -- Create indexes
 CREATE INDEX IF NOT EXISTS idx_comments_post_id ON comments(post_id);
 CREATE INDEX IF NOT EXISTS idx_comments_parent_id ON comments(parent_id);
 CREATE INDEX IF NOT EXISTS idx_comments_status ON comments(status);
 CREATE INDEX IF NOT EXISTS idx_comment_likes_comment_id ON comment_likes(comment_id);
+CREATE INDEX IF NOT EXISTS idx_guestbook_status ON guestbook_submissions(status);
+CREATE INDEX IF NOT EXISTS idx_guestbook_created_at ON guestbook_submissions(created_at);
+CREATE INDEX IF NOT EXISTS idx_guestbook_token_hash ON guestbook_submissions(approve_token_hash);
