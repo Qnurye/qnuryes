@@ -31,6 +31,7 @@ import { Input } from '@/components/ui/input.tsx';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select.tsx';
 import { useTranslations } from '@/hooks/useTranslations.ts';
 import { locales } from '@/i18n';
+import { cn } from '@/lib/utils.ts';
 
 const localeOptions = Object.keys(locales) as [keyof typeof locales, ...Array<keyof typeof locales>];
 
@@ -131,8 +132,8 @@ const NewsletterForm: React.FC<{
             </FormItem>
           )}
         />
-        <FormMessage className={`text-destructive${!error && 'hidden'}`}>{t('newsletter.error')}</FormMessage>
-        <Button type="submit" className={`w-full${disabled && !loading ? 'hidden' : ''}`} disabled={disabled}>
+        <FormMessage className={cn('text-destructive', !error && 'hidden')}>{t('newsletter.error')}</FormMessage>
+        <Button type="submit" className={cn('w-full', disabled && !loading && 'hidden')} disabled={disabled}>
           {loading ? <Loader2Icon className="animate-spin" /> : t('newsletter.submit_button')}
         </Button>
       </form>
