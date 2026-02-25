@@ -36,6 +36,19 @@ function DrawerOverlay({
   );
 }
 
+function DrawerHandle({
+  className,
+  ...props
+}: React.ComponentProps<typeof DrawerPrimitive.Handle>): React.ReactElement {
+  return (
+    <DrawerPrimitive.Handle
+      data-slot="drawer-handle"
+      className={cn('hidden group-data-[vaul-drawer-direction=bottom]/drawer-content:block', className)}
+      {...props}
+    />
+  );
+}
+
 function DrawerContent({
   className,
   children,
@@ -64,12 +77,7 @@ function DrawerContent({
         )}
         {...props}
       >
-        <div
-          className={cn(
-            'mx-auto mt-4 hidden h-2 w-[100px] shrink-0 rounded-full bg-muted',
-            'group-data-[vaul-drawer-direction=bottom]/drawer-content:block',
-          )}
-        />
+        <DrawerHandle />
         {children}
       </DrawerPrimitive.Content>
     </DrawerPortal>
@@ -114,6 +122,7 @@ export {
   DrawerTrigger,
   DrawerClose,
   DrawerContent,
+  DrawerHandle,
   DrawerHeader,
   DrawerFooter,
   DrawerTitle,

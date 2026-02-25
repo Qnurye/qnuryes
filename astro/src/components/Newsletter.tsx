@@ -267,10 +267,10 @@ const Newsletter: React.FC<{ locale: string }> = ({ locale }) => {
   }
 
   return (
-    <Drawer open={open} onOpenChange={setOpen}>
+    <Drawer open={open} onOpenChange={setOpen} handleOnly>
       <DrawerTrigger asChild>{trigger}</DrawerTrigger>
       <DrawerContent className="p-1 sm:p-2">
-        <div className="overflow-y-auto scroll-smooth pb-24 sm:pb-16">
+        <div className="overflow-y-auto pb-24 sm:pb-16">
           <DrawerHeader>
             <DrawerTitle className="font-serif text-2xl">{t('newsletter.title')}</DrawerTitle>
             <DrawerDescription className="font-serif">{t('newsletter.description')}</DrawerDescription>
