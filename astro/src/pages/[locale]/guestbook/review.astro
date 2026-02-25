@@ -1,17 +1,21 @@
 ---
 import GuestbookReview from '@/components/Guestbook/GuestbookReview';
+import { loadTranslations } from '@/i18n';
 import Base from '@/layouts/Base.astro';
 
 export { getI18nPaths as getStaticPaths } from '@/i18n';
+
+const locale = Astro.currentLocale || 'en';
+const t = await loadTranslations(locale);
 ---
 
 <Base
-  title="Qnury.e's | Guestbook Review"
-  description="Review a guestbook submission"
+  title={t('guestbook.review.page_title')}
+  description={t('guestbook.review.page_description')}
   className="flex flex-col gap-8 py-12"
 >
   <div class="mx-auto w-full max-w-lg text-center font-serif">
-    <h1 class="text-4xl md:text-5xl">Guestbook Review</h1>
+    <h1 class="text-4xl md:text-5xl">{t('guestbook.review.heading')}</h1>
   </div>
-  <GuestbookReview client:load />
+  <GuestbookReview client:load locale={locale} />
 </Base>

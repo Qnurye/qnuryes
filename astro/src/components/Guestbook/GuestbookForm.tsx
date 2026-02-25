@@ -177,6 +177,7 @@ function GuestbookForm({ locale }: GuestbookFormProps): React.ReactElement {
         <p className="text-muted-foreground text-sm">{t('guestbook.form.signature_hint')}</p>
         <SignatureCanvas
           onSignatureChange={handleSignatureChange}
+          tapToSignLabel={t('guestbook.form.tap_to_sign')}
           undoLabel={t('guestbook.form.undo')}
           clearLabel={t('guestbook.form.clear')}
         />

@@ -1,5 +1,6 @@
 import type { GuestbookWallEntry, SignatureBBox } from '@qnury-es/shared';
 import { ExternalLinkIcon } from 'lucide-react';
+import { useTranslations } from '@/hooks/useTranslations';
 import { cn } from '@/lib/utils';
 
 interface SignatureCardProps {
@@ -8,6 +9,7 @@ interface SignatureCardProps {
 }
 
 function SignatureCard({ entry, locale }: SignatureCardProps): React.ReactElement {
+  const { t } = useTranslations(locale);
   const bbox: SignatureBBox = JSON.parse(entry.signature_bbox);
   const date = new Date(entry.created_at).toLocaleDateString(locale, {
     year: 'numeric',
@@ -16,18 +18,13 @@ function SignatureCard({ entry, locale }: SignatureCardProps): React.ReactElemen
   });
 
   return (
-    <div
-      className={cn(
-        'break-inside-avoid rounded-lg border bg-card p-4 shadow-sm',
-        'transition-transform duration-200 hover:-translate-y-0.5',
-      )}
-    >
+    <div className={cn('break-inside-avoid rounded-lg border bg-card p-4 shadow-sm')}>
       <svg
         viewBox={`${bbox.x} ${bbox.y} ${bbox.width} ${bbox.height}`}
         width="100%"
         height="auto"
         className="mb-3"
-        aria-label={`Signature by ${entry.nickname}`}
+        aria-label={t('guestbook.wall.signature_by', { name: entry.nickname })}
       >
         <path d={entry.signature_svg} fill="currentColor" />
       </svg>

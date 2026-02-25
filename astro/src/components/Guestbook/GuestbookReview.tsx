@@ -3,6 +3,7 @@ import { Loader2Icon } from 'lucide-react';
 import { useCallback, useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
+import { useTranslations } from '@/hooks/useTranslations';
 import { cn } from '@/lib/utils';
 
 interface ReviewData {
@@ -24,7 +25,12 @@ const LOCALE_NAMES: Record<string, string> = {
 
 type ReviewState = 'loading' | 'review' | 'approved' | 'rejected' | 'error';
 
-function GuestbookReview(): React.ReactElement | null {
+interface GuestbookReviewProps {
+  locale: string;
+}
+
+function GuestbookReview({ locale }: GuestbookReviewProps): React.ReactElement | null {
+  const { t } = useTranslations(locale);
   const [state, setState] = useState<ReviewState>('loading');
   const [data, setData] = useState<ReviewData | null>(null);
   const [errorMsg, setErrorMsg] = useState('');
@@ -36,7 +42,7 @@ function GuestbookReview(): React.ReactElement | null {
 
   useEffect(() => {
     if (!token) {
-      setErrorMsg('No review token provided.');
+      setErrorMsg(t('guestbook.review.no_token'));
       setState('error');
       return;
     }
@@ -45,7 +51,7 @@ function GuestbookReview(): React.ReactElement | null {
       .then(async (res) => {
         if (!res.ok) {
           const body = await res.json().catch(() => ({}));
-          throw new Error(body.error || 'Failed to load submission');
+          throw new Error(body.error || t('guestbook.review.load_failed'));
         }
         return res.json();
       })
@@ -57,7 +63,7 @@ function GuestbookReview(): React.ReactElement | null {
         setErrorMsg(err.message);
         setState('error');
       });
-  }, [token]);
+  }, [token, t]);
 
   const handleApprove = useCallback(async () => {
     if (!token) {
@@ -75,12 +81,12 @@ function GuestbookReview(): React.ReactElement | null {
       }
       setState('approved');
     } catch {
-      setErrorMsg('Failed to approve. The token may have expired.');
+      setErrorMsg(t('guestbook.review.approve_failed'));
       setState('error');
     } finally {
       setSubmitting(false);
     }
-  }, [token]);
+  }, [token, t]);
 
   const handleReject = useCallback(async () => {
     if (!token) {
@@ -98,12 +104,12 @@ function GuestbookReview(): React.ReactElement | null {
       }
       setState('rejected');
     } catch {
-      setErrorMsg('Failed to reject. The token may have expired.');
+      setErrorMsg(t('guestbook.review.reject_failed'));
       setState('error');
     } finally {
       setSubmitting(false);
     }
-  }, [token, rejectReason]);
+  }, [token, rejectReason, t]);
 
   if (state === 'loading') {
     return (
@@ -124,7 +130,7 @@ function GuestbookReview(): React.ReactElement | null {
   if (state === 'approved') {
     return (
       <div className="mx-auto max-w-md py-12 text-center">
-        <p className="text-green-600 text-lg dark:text-green-400">Approved! The entry is now live on the wall.</p>
+        <p className="text-green-600 text-lg dark:text-green-400">{t('guestbook.review.approved')}</p>
       </div>
     );
   }
@@ -132,7 +138,7 @@ function GuestbookReview(): React.ReactElement | null {
   if (state === 'rejected') {
     return (
       <div className="mx-auto max-w-md py-12 text-center">
-        <p className="text-lg text-muted-foreground">Rejected. The submitter will be notified.</p>
+        <p className="text-lg text-muted-foreground">{t('guestbook.review.rejected')}</p>
       </div>
     );
   }
@@ -158,7 +164,7 @@ function GuestbookReview(): React.ReactElement | null {
           viewBox={viewBox}
           width="100%"
           style={{ height: 'auto', maxHeight: '200px' }}
-          aria-label={`Signature by ${data.nickname}`}
+          aria-label={t('guestbook.wall.signature_by', { name: data.nickname })}
         >
           <path d={data.signature_svg} fill="currentColor" />
         </svg>
@@ -167,18 +173,18 @@ function GuestbookReview(): React.ReactElement | null {
       {/* Details */}
       <div className="flex flex-col gap-3 rounded-lg border p-4 text-sm">
         <div className="flex justify-between">
-          <span className="text-muted-foreground">Nickname</span>
+          <span className="text-muted-foreground">{t('guestbook.review.nickname')}</span>
           <span className="font-medium">{data.nickname}</span>
         </div>
         {data.message && (
           <div className="flex justify-between gap-4">
-            <span className="shrink-0 text-muted-foreground">Message</span>
+            <span className="shrink-0 text-muted-foreground">{t('guestbook.review.message')}</span>
             <span className="text-end">{data.message}</span>
           </div>
         )}
         {data.url && (
           <div className="flex justify-between">
-            <span className="text-muted-foreground">Link</span>
+            <span className="text-muted-foreground">{t('guestbook.review.link')}</span>
             <a href={data.url} target="_blank" rel="noopener noreferrer" className="truncate underline">
               {data.url}
             </a>
@@ -186,16 +192,16 @@ function GuestbookReview(): React.ReactElement | null {
         )}
         {data.email && (
           <div className="flex justify-between">
-            <span className="text-muted-foreground">Email</span>
+            <span className="text-muted-foreground">{t('guestbook.review.email')}</span>
             <span>{data.email}</span>
           </div>
         )}
         <div className="flex justify-between">
-          <span className="text-muted-foreground">Submitted</span>
+          <span className="text-muted-foreground">{t('guestbook.review.submitted')}</span>
           <time>{new Date(data.created_at).toLocaleString()}</time>
         </div>
         <div className="flex justify-between">
-          <span className="text-muted-foreground">Visitor language</span>
+          <span className="text-muted-foreground">{t('guestbook.review.visitor_language')}</span>
           <span>{LOCALE_NAMES[data.locale] || data.locale}</span>
         </div>
       </div>
@@ -204,26 +210,26 @@ function GuestbookReview(): React.ReactElement | null {
       {!rejectMode ? (
         <div className="flex gap-3">
           <Button className="flex-1 bg-green-600 hover:bg-green-700" onClick={handleApprove} disabled={submitting}>
-            {submitting ? <Loader2Icon className="animate-spin" /> : 'Approve'}
+            {submitting ? <Loader2Icon className="animate-spin" /> : t('guestbook.review.approve')}
           </Button>
           <Button variant="destructive" className="flex-1" onClick={() => setRejectMode(true)} disabled={submitting}>
-            Reject
+            {t('guestbook.review.reject')}
           </Button>
         </div>
       ) : (
         <div className={cn('flex flex-col gap-3')}>
           <Textarea
-            placeholder="Reason for rejection (optional)"
+            placeholder={t('guestbook.review.reject_reason_placeholder')}
             value={rejectReason}
             onChange={(e) => setRejectReason(e.target.value)}
             rows={3}
           />
           <div className="flex gap-3">
             <Button variant="destructive" className="flex-1" onClick={handleReject} disabled={submitting}>
-              {submitting ? <Loader2Icon className="animate-spin" /> : 'Confirm Reject'}
+              {submitting ? <Loader2Icon className="animate-spin" /> : t('guestbook.review.confirm_reject')}
             </Button>
             <Button variant="outline" className="flex-1" onClick={() => setRejectMode(false)} disabled={submitting}>
-              Cancel
+              {t('guestbook.review.cancel')}
             </Button>
           </div>
         </div>

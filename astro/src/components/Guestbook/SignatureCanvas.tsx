@@ -21,6 +21,7 @@ export interface SignatureData {
 
 interface SignatureCanvasProps {
   onSignatureChange: (data: SignatureData | null) => void;
+  tapToSignLabel?: string;
   undoLabel?: string;
   clearLabel?: string;
   className?: string;
@@ -159,8 +160,9 @@ function computeOutput(allStrokes: Point[][], strokeScale: number): SignatureDat
 
 function SignatureCanvas({
   onSignatureChange,
-  undoLabel = 'Undo',
-  clearLabel = 'Clear',
+  tapToSignLabel,
+  undoLabel,
+  clearLabel,
   className,
 }: SignatureCanvasProps): React.ReactElement {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -315,9 +317,9 @@ function SignatureCanvas({
           onPointerUp={handlePointerUp}
           onPointerLeave={handlePointerUp}
         />
-        {strokeCount === 0 && (
+        {strokeCount === 0 && tapToSignLabel && (
           <div className="pointer-events-none absolute inset-0 flex items-center justify-center text-muted-foreground text-sm">
-            Tap to sign
+            {tapToSignLabel}
           </div>
         )}
       </div>
