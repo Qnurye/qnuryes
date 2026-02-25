@@ -5,7 +5,7 @@ import { getCollection, render } from 'astro:content';
 import type { GetStaticPathsResult } from 'astro';
 import { Markdown } from 'astro-remote';
 import { AtSignIcon, CopyrightIcon, LanguagesIcon } from 'lucide-react';
-import Section from '@/components/Comment/Section';
+import ReactionBar from '@/components/Reaction/ReactionBar';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { loadTranslations } from '@/i18n';
 import Base from '@/layouts/Base.astro';
@@ -126,8 +126,9 @@ const { Content } = await render(page);
       </div>
     </footer>
 
-    <hr class="border-t border-foreground mt-6 mb-12" />
-    <Section client:load postId={page.data.translation_id || page.id} locale={locale} client:load />
+    <div class="my-12">
+      <ReactionBar client:load postSlug={page.data.translation_id || page.id} locale={locale} />
+    </div>
   </article>
 </Base>
 

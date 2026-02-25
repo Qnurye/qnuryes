@@ -60,6 +60,13 @@ export interface Env {
   [key: string]: unknown;
 }
 
+export type { ReactionCounts } from '@qnury-es/shared';
+
+export interface PostReaction {
+  post_slug: string;
+  counts: string; // JSON string of ReactionCounts
+}
+
 export interface Post {
   id: string;
   title: string;

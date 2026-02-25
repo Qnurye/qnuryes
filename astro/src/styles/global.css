@@ -268,3 +268,134 @@ body[data-scroll-locked] {
     transition-delay: 0.5s;
   }
 }
+
+/* Reaction bar animations */
+@keyframes reaction-spring {
+  0% {
+    transform: scale(0.9);
+  }
+  40% {
+    transform: scale(1.2);
+  }
+  70% {
+    transform: scale(0.96);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes reaction-burst {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) translate(0, 0) scale(var(--burst-scale)) rotate(0deg);
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) translate(var(--burst-x), var(--burst-y)) scale(0) rotate(var(--burst-rotation));
+  }
+}
+
+@keyframes reaction-tick-out {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+}
+
+@keyframes reaction-tick-in {
+  0% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes reaction-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  15% {
+    transform: translateX(-4px);
+  }
+  30% {
+    transform: translateX(4px);
+  }
+  45% {
+    transform: translateX(-3px);
+  }
+  60% {
+    transform: translateX(3px);
+  }
+  75% {
+    transform: translateX(-1px);
+  }
+  90% {
+    transform: translateX(1px);
+  }
+}
+
+@keyframes reaction-wiggle {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-8deg);
+  }
+  75% {
+    transform: rotate(8deg);
+  }
+}
+
+.reaction-spring {
+  animation: reaction-spring 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.reaction-burst {
+  animation: reaction-burst 800ms cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+}
+
+.reaction-tick-out {
+  animation: reaction-tick-out 200ms ease-out forwards;
+}
+
+.reaction-tick-in {
+  animation: reaction-tick-in 200ms ease-out forwards;
+}
+
+.reaction-shake {
+  animation: reaction-shake 400ms ease-out;
+}
+
+.reaction-pill:hover .reaction-wiggle-hover {
+  animation: reaction-wiggle 300ms ease-in-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reaction-spring,
+  .reaction-burst,
+  .reaction-shake,
+  .reaction-pill:hover .reaction-wiggle-hover {
+    animation: none;
+  }
+
+  .reaction-tick-out {
+    animation: reaction-tick-out 1ms ease-out forwards;
+  }
+
+  .reaction-tick-in {
+    animation: reaction-tick-in 1ms ease-out forwards;
+  }
+}

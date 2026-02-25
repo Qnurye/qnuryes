@@ -7,11 +7,15 @@ export enum ErrorCode {
   INVALID_EMAIL = 1004,
   MISSING_REQUIRED_FIELDS = 1005,
 
+  INVALID_POST_SLUG = 1006,
+  INVALID_EMOJI_LABEL = 1007,
+
   // Business logic errors (2000-2999)
   PARENT_COMMENT_NOT_FOUND = 2000,
   COMMENT_NOT_FOUND = 2001,
   ALREADY_LIKED = 2002,
   NOT_LIKED = 2003,
+  RATE_LIMITED = 2004,
 
   // System errors (3000-3999)
   DATABASE_ERROR = 3000,
@@ -68,6 +72,21 @@ export const ErrorMessages = {
     en: 'Not liked this comment',
     'zh-cn': '未点赞过该评论',
     'zh-tw': '未點讚過該評論',
+  },
+  [ErrorCode.RATE_LIMITED]: {
+    en: 'Too many requests',
+    'zh-cn': '请求过于频繁',
+    'zh-tw': '請求過於頻繁',
+  },
+  [ErrorCode.INVALID_POST_SLUG]: {
+    en: 'Invalid post slug',
+    'zh-cn': '无效的文章标识',
+    'zh-tw': '無效的文章標識',
+  },
+  [ErrorCode.INVALID_EMOJI_LABEL]: {
+    en: 'Invalid emoji label',
+    'zh-cn': '无效的表情标签',
+    'zh-tw': '無效的表情標籤',
   },
   [ErrorCode.DATABASE_ERROR]: {
     en: 'Database error',

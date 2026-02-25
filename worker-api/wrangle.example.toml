@@ -20,7 +20,7 @@ RESEND_AUDIENCE_ID = "000-xxx-xxx-xxx-xxx"
 RESEND_FROM = "Qnurye <noreply@qnury.es>"
 
 [triggers]
-crons = ["0 0 1 * *"]
+crons = ["0 0 1 * *", "0 0 * * *"]
 
 [observability]
 enabled = true

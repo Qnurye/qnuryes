@@ -81,6 +81,9 @@ importers:
       '@icons-pack/react-simple-icons':
         specifier: ^13.8.0
         version: 13.11.2(react@19.2.4)
+      '@qnury-es/shared':
+        specifier: workspace:*
+        version: link:../shared
       '@radix-ui/react-accordion':
         specifier: ^1.2.12
         version: 1.2.12(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -188,11 +191,16 @@ importers:
         specifier: ^6.4.1
         version: 6.4.1(@types/node@25.3.0)(jiti@2.6.1)(lightningcss@1.31.1)(yaml@2.8.2)
 
+  shared: {}
+
   worker-api:
     dependencies:
       '@hono/node-server':
         specifier: ^1.19.9
         version: 1.19.9(hono@4.12.1)
+      '@qnury-es/shared':
+        specifier: workspace:*
+        version: link:../shared
       '@react-email/components':
         specifier: ^1.0.5
         version: 1.0.8(react-dom@19.2.4(react@19.2.4))(react@19.2.4)

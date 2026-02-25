@@ -3,6 +3,7 @@ import { cors } from 'hono/cors';
 import { Resend } from 'resend';
 import { CommentHandler } from '@/handlers/comment';
 import { LikeHandler } from '@/handlers/like';
+import { ReactionHandler } from '@/handlers/reaction';
 import { SubscriptionHandler } from '@/handlers/subscription';
 import type { Env, Post } from '@/types';
 import Newsletter from './emails/Newsletter';
@@ -24,9 +25,11 @@ app.use(
 app.use('*', async (c, next) => {
   const commentHandler = new CommentHandler(c.env as unknown as Env);
   const likeHandler = new LikeHandler(c.env as unknown as Env);
+  const reactionHandler = new ReactionHandler(c.env as unknown as Env);
   const subscriptionHandler = new SubscriptionHandler(c.env as unknown as Env);
   c.set('commentHandler' as never, commentHandler as never);
   c.set('likeHandler' as never, likeHandler as never);
+  c.set('reactionHandler' as never, reactionHandler as never);
   c.set('subscriptionHandler' as never, subscriptionHandler as never);
   await next();
 });
@@ -63,6 +66,17 @@ app.delete('/comments/:id/like', async (c) => {
   return handler.unlikeComment(c);
 });
 
+// Reaction routes
+app.get('/reactions/:postSlug', async (c) => {
+  const handler = c.get('reactionHandler' as never) as ReactionHandler;
+  return handler.getReactions(c);
+});
+
+app.post('/reactions/:postSlug/:emoji', async (c) => {
+  const handler = c.get('reactionHandler' as never) as ReactionHandler;
+  return handler.addReaction(c);
+});
+
 app.post('/subscription', async (c) => {
   const handler = c.get('subscriptionHandler' as never) as SubscriptionHandler;
   return handler.subscribe(c);
@@ -78,6 +92,14 @@ app.get('/', (c) => c.text('Hello Hono!'));
 export default {
   fetch: app.fetch,
   async scheduled(event: ScheduledEvent, env: Env): Promise<void> {
+    // Reaction sync: runs daily at midnight UTC
+    if (event.cron === '0 0 * * *') {
+      const reactionHandler = new ReactionHandler(env as unknown as Env);
+      await reactionHandler.syncReactions();
+      return;
+    }
+
+    // Newsletter broadcast: runs monthly
     try {
       const kv = env.subscription;
       const TRIGGERED_BROADCAST = 'triggered_broadcast';

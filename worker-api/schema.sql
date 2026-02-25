@@ -25,8 +25,14 @@ CREATE TABLE IF NOT EXISTS comment_likes (
   UNIQUE(comment_id, user_identifier)
 );
 
+-- Create post_reactions table
+CREATE TABLE IF NOT EXISTS post_reactions (
+  post_slug TEXT PRIMARY KEY,
+  counts TEXT NOT NULL DEFAULT '{}'
+);
+
 -- Create indexes
 CREATE INDEX IF NOT EXISTS idx_comments_post_id ON comments(post_id);
 CREATE INDEX IF NOT EXISTS idx_comments_parent_id ON comments(parent_id);
 CREATE INDEX IF NOT EXISTS idx_comments_status ON comments(status);
-CREATE INDEX IF NOT EXISTS idx_comment_likes_comment_id ON comment_likes(comment_id); 
+CREATE INDEX IF NOT EXISTS idx_comment_likes_comment_id ON comment_likes(comment_id);
