@@ -3,11 +3,21 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader2Icon, MailboxIcon } from 'lucide-react';
 import type React from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { Button } from '@/components/ui/button.tsx';
 import { Checkbox } from '@/components/ui/checkbox.tsx';
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog.tsx';
 import {
   Drawer,
   DrawerClose,
@@ -167,9 +177,19 @@ const mailWebLinks: Record<string, string> = {
 
 const Newsletter: React.FC<{ locale: string }> = ({ locale }) => {
   const { t } = useTranslations(locale);
+  const [open, setOpen] = useState(false);
   const [formState, setFormState] = useState<'loading' | 'successful' | 'input'>('input');
   const [mailTarget, setMailTarget] = useState<string | null>(null);
   const [isError, setIsError] = useState<boolean>(false);
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const mql = window.matchMedia('(min-width: 768px)');
+    setIsDesktop(mql.matches);
+    const handler = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
+    mql.addEventListener('change', handler);
+    return () => mql.removeEventListener('change', handler);
+  }, []);
 
   const onSubmit = async (value: z.infer<typeof newsletterSchema>): Promise<void> => {
     setFormState('loading');
@@ -195,39 +215,72 @@ const Newsletter: React.FC<{ locale: string }> = ({ locale }) => {
     }
   };
 
-  return (
-    <Drawer>
-      <DrawerTrigger asChild>
-        <Button variant="outline">
-          <MailboxIcon />
-          {t('footer.subscribe_newsletter')}
+  const trigger = (
+    <Button variant="outline">
+      <MailboxIcon />
+      {t('footer.subscribe_newsletter')}
+    </Button>
+  );
+
+  const form = (
+    <NewsletterForm
+      locale={locale as keyof typeof locales}
+      onSubmit={onSubmit}
+      disabled={formState !== 'input'}
+      loading={formState === 'loading'}
+      error={isError}
+    />
+  );
+
+  const successFooter = (
+    <div className={cn('flex flex-col gap-2', formState !== 'successful' && 'hidden')}>
+      <span>{t('newsletter.check_inbox')}</span>
+      <div className="flex w-full grow flex-wrap justify-end gap-2">
+        <Button className={cn('grow', !mailTarget && 'hidden')} asChild>
+          <a href={mailTarget || '#'} target="_blank" rel="noopener noreferrer">
+            {t('newsletter.check_button')}
+          </a>
         </Button>
-      </DrawerTrigger>
-      <DrawerContent className="p-1 sm:p-2 md:p-4">
-        <div className="overflow-y-auto scroll-smooth pb-24 sm:pb-16 md:pb-0">
+      </div>
+    </div>
+  );
+
+  if (isDesktop) {
+    return (
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogTrigger asChild>{trigger}</DialogTrigger>
+        <DialogContent className="sm:max-w-lg">
+          <DialogHeader>
+            <DialogTitle className="font-serif text-2xl">{t('newsletter.title')}</DialogTitle>
+            <DialogDescription className="font-serif">{t('newsletter.description')}</DialogDescription>
+          </DialogHeader>
+          {form}
+          <DialogFooter className={cn(formState !== 'successful' && 'hidden')}>
+            {successFooter}
+            <DialogClose asChild>
+              <Button variant="outline">{t('newsletter.close_button')}</Button>
+            </DialogClose>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    );
+  }
+
+  return (
+    <Drawer open={open} onOpenChange={setOpen}>
+      <DrawerTrigger asChild>{trigger}</DrawerTrigger>
+      <DrawerContent className="p-1 sm:p-2">
+        <div className="overflow-y-auto scroll-smooth pb-24 sm:pb-16">
           <DrawerHeader>
             <DrawerTitle className="font-serif text-2xl">{t('newsletter.title')}</DrawerTitle>
             <DrawerDescription className="font-serif">{t('newsletter.description')}</DrawerDescription>
           </DrawerHeader>
-          <NewsletterForm
-            locale={locale as keyof typeof locales}
-            onSubmit={onSubmit}
-            disabled={formState !== 'input'}
-            loading={formState === 'loading'}
-            error={isError}
-          />
-          <DrawerFooter className={`flex flex-col gap-2 ${formState !== 'successful' ? 'hidden' : ''}`}>
-            <span>{t('newsletter.check_inbox')}</span>
-            <div className="flex w-full grow flex-wrap justify-end gap-2 md:w-auto">
-              <Button className={`grow ${mailTarget ? '' : 'hidden'}`} asChild>
-                <a href={mailTarget || '#'} target="_blank" rel="noopener noreferrer">
-                  {t('newsletter.check_button')}
-                </a>
-              </Button>
-              <DrawerClose asChild>
-                <Button variant="outline">{t('newsletter.close_button')}</Button>
-              </DrawerClose>
-            </div>
+          {form}
+          <DrawerFooter className={cn(formState !== 'successful' && 'hidden')}>
+            {successFooter}
+            <DrawerClose asChild>
+              <Button variant="outline">{t('newsletter.close_button')}</Button>
+            </DrawerClose>
           </DrawerFooter>
         </div>
       </DrawerContent>
