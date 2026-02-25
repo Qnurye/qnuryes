@@ -1,6 +1,5 @@
 ---
 import '@/styles/global.css';
-import { getAbsoluteLocaleUrl } from 'astro:i18n';
 import GoogleAnalytics from '@astro-kits/google-analytics';
 import Footer from '@/components/Footer.astro';
 import Nav from '@/components/Nav.astro';
@@ -72,7 +71,7 @@ const pageKeywords = (keywords || '')
       rel="alternate"
       type="application/rss+xml"
       title="pageTitle"
-      href={getAbsoluteLocaleUrl(Astro.currentLocale || 'en', 'rss.xml')}
+      href={`/${Astro.currentLocale || 'en'}/rss.xml`}
     />
 
     <!-- Google tag (gtag.js) -->

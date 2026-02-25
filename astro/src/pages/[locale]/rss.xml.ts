@@ -22,7 +22,7 @@ export const GET: APIRoute = async (context): Promise<Response> => {
       title: post.data.title,
       pubDate: post.data.created_at,
       description: post.data.description,
-      link: `/${locale}/blog/${post.id}/`,
+      link: `/${locale}/blog/${post.data.translation_id || post.id.replace(/^[^/]+\//, '')}/`,
       content: sanitizeHtml(parser.render(post.body || ''), {
         allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img']),
       }),

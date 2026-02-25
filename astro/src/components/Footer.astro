@@ -1,6 +1,6 @@
 ---
 import { Image } from 'astro:assets';
-import { getAbsoluteLocaleUrl, getRelativeLocaleUrl } from 'astro:i18n';
+import { getRelativeLocaleUrl } from 'astro:i18n';
 import { Markdown } from 'astro-remote';
 import { CodeIcon, CopyrightIcon, RssIcon } from 'lucide-react';
 import tail from '@/assets/tail.svg';
@@ -16,7 +16,7 @@ const t = await loadTranslations(locale);
   <div class="flex flex-wrap gap-4 items-end">
     <Newsletter locale={locale} client:load />
     <a
-      href={getAbsoluteLocaleUrl(locale, 'rss.xml')}
+      href={`/${locale}/rss.xml`}
       class={buttonVariants({ variant: 'outline' })}
     >
       <RssIcon />
