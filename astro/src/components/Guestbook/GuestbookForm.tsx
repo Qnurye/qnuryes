@@ -141,7 +141,6 @@ function GuestbookForm({ locale }: GuestbookFormProps): React.ReactElement {
       }
 
       setFormState('success');
-      toast.success(t('guestbook.form.success'));
     } catch {
       setFormState('error');
       toast.error(t('guestbook.form.error'));
