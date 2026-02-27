@@ -1,0 +1,54 @@
+---
+import { BotIcon, ExternalLinkIcon } from 'lucide-react';
+import { loadTranslations } from '@/i18n';
+import { cn } from '@/lib/utils';
+import { buttonVariants } from './ui/button';
+
+interface Props {
+  documentType: 'terms' | 'privacy';
+  locale: string;
+}
+
+const { documentType, locale } = Astro.props;
+const t = await loadTranslations(locale);
+
+const documentTitle = documentType === 'terms' ? t('tos.title') : t('privacy.title');
+const pageUrl = `https://qnury.es/${locale}/${documentType === 'terms' ? 'terms' : 'privacy'}`;
+
+const prompts: Record<string, string> = {
+  en: `Summarize in plain language, no legal jargon, the key points of "${documentTitle}" at ${pageUrl}`,
+  'zh-cn': `请用通俗易懂的语言（不要法律术语）总结 ${pageUrl} 上"${documentTitle}"的要点`,
+  'zh-tw': `請用通俗易懂的語言（不要法律術語）總結 ${pageUrl} 上「${documentTitle}」的要點`,
+};
+const encodedPrompt = encodeURIComponent(prompts[locale] || prompts.en);
+
+const aiServices = [
+  { name: 'ChatGPT', url: `https://chatgpt.com/?q=${encodedPrompt}` },
+  { name: 'Claude', url: `https://claude.ai/new?q=${encodedPrompt}` },
+  { name: 'Gemini', url: `https://gemini.google.com/?q=${encodedPrompt}` },
+  { name: 'Perplexity', url: `https://www.perplexity.ai/?q=${encodedPrompt}` },
+];
+---
+
+<div class="rounded-lg border bg-muted/30 p-4 sm:p-6 mb-8 space-y-3">
+  <div class="flex items-center gap-2">
+    <BotIcon className="size-4 shrink-0 text-muted-foreground" />
+    <h2 class="text-sm font-medium">{t('legal.ask_ai_title')}</h2>
+  </div>
+  <p class="text-sm text-muted-foreground">
+    {t('legal.ask_ai_description')}
+  </p>
+  <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+    {aiServices.map((service) => (
+      <a
+        href={service.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        class={cn(buttonVariants({ variant: 'outline', size: 'sm' }), 'justify-center')}
+      >
+        {service.name}
+        <ExternalLinkIcon className="size-3" />
+      </a>
+    ))}
+  </div>
+</div>

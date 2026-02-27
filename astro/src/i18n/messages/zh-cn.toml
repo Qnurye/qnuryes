@@ -29,7 +29,25 @@ rss = "RSS"
 source_code = "源代码"
 credits = "Qnurye 设计开发。*Islands join hands*，由 [Astro](https://astro.build/) 驱动。"
 all_rights_reserved = " 保留所有权利。"
-tos_pp = "用户协议 & 隐私政策"
+tos = "用户协议"
+privacy = "隐私政策"
+click_it = "点我"
+
+[tos]
+page_title = "Qnury.e's | 用户协议"
+page_description = "qnury.es 用户协议 — 用户行为规范、内容政策、免责声明及你的权利。"
+title = "用户协议"
+effective_date = "生效日期：2026 年 2 月 27 日"
+
+[privacy]
+page_title = "Qnury.e's | 隐私政策"
+page_description = "qnury.es 隐私政策 — 我们收集哪些数据、如何使用、第三方服务及你的权利。"
+title = "隐私政策"
+effective_date = "生效日期：2026 年 2 月 27 日"
+
+[legal]
+ask_ai_title = "AI 来解释"
+ask_ai_description = "快速获取本页内容的通俗语言摘要。"
 
 [landing]
 welcome = "欢迎光临 ***Qnurye's***"

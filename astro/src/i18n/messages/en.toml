@@ -29,7 +29,25 @@ rss = "RSS"
 source_code = "source code"
 credits = "Designed and built by Qnurye. *Islands join hands*, powered by [Astro](https://astro.build/)."
 all_rights_reserved = "All rights reserved."
-tos_pp = "Terms of service and privacy policy"
+tos = "Terms of Service"
+privacy = "Privacy Policy"
+click_it = "Click"
+
+[tos]
+page_title = "Qnury.e's | Terms of Service"
+page_description = "Terms of Service for qnury.es — user conduct, content policies, disclaimers, and your rights."
+title = "Terms of Service"
+effective_date = "Effective: February 27, 2026"
+
+[privacy]
+page_title = "Qnury.e's | Privacy Policy"
+page_description = "Privacy Policy for qnury.es — what data we collect, how we use it, third-party services, and your rights."
+title = "Privacy Policy"
+effective_date = "Effective: February 27, 2026"
+
+[legal]
+ask_ai_title = "Ask AI to Explain"
+ask_ai_description = "Get a quick, plain-language summary of this page."
 
 [landing]
 welcome = "# Welcome to ***Qnurye's***"

@@ -3,7 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader2Icon, MailboxIcon } from 'lucide-react';
 import type React from 'react';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { Button } from '@/components/ui/button.tsx';
@@ -214,6 +214,7 @@ const Newsletter: React.FC<{ locale: string }> = ({ locale }) => {
     if (!response.ok) {
       setIsError(true);
       setMailTarget(null);
+      setFormState('input');
       return;
     }
 
@@ -224,12 +225,153 @@ const Newsletter: React.FC<{ locale: string }> = ({ locale }) => {
     }
   };
 
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
+  const animFrameRef = useRef<number>(0);
+  const startTimeRef = useRef<number>(0);
+  const animPhaseRef = useRef<'idle' | 'converging' | 'settled'>('idle');
+  const [animPhase, setAnimPhase] = useState<'idle' | 'converging' | 'settled'>('idle');
+
+  const setPhase = useCallback((phase: 'idle' | 'converging' | 'settled') => {
+    animPhaseRef.current = phase;
+    setAnimPhase(phase);
+  }, []);
+
+  const cancelAnimation = useCallback(() => {
+    if (animFrameRef.current) {
+      cancelAnimationFrame(animFrameRef.current);
+      animFrameRef.current = 0;
+    }
+  }, []);
+
+  const handleMouseEnter = useCallback(() => {
+    if (open || animPhaseRef.current !== 'idle') {
+      return;
+    }
+    if (!window.matchMedia('(hover: hover)').matches) {
+      return;
+    }
+    const el = triggerRef.current;
+    const overlay = overlayRef.current;
+    if (!el || !overlay) {
+      return;
+    }
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return;
+    }
+
+    overlay.style.willChange = 'mask-image, opacity';
+
+    const rect = el.getBoundingClientRect();
+    const targetX = rect.left + rect.width / 2;
+    const targetY = rect.top + rect.height / 2;
+    const corners = [
+      { x: 0, y: 0 },
+      { x: window.innerWidth, y: 0 },
+      { x: 0, y: window.innerHeight },
+      { x: window.innerWidth, y: window.innerHeight },
+    ];
+    const startRadius = Math.max(window.innerWidth, window.innerHeight);
+    const endRadius = Math.max(rect.width, rect.height) / 2 + 12;
+
+    setPhase('converging');
+    startTimeRef.current = 0;
+
+    const easeOutExpo = (t: number): number => (t === 1 ? 1 : 1 - 2 ** (-10 * t));
+    const lerp = (start: number, end: number, t: number): number => start + (end - start) * t;
+
+    const animate = (timestamp: number) => {
+      if (!startTimeRef.current) {
+        startTimeRef.current = timestamp;
+      }
+      const elapsed = timestamp - startTimeRef.current;
+      const progress = Math.min(elapsed / 1200, 1);
+      const eased = easeOutExpo(progress);
+
+      overlay.style.setProperty('--s1x', `${lerp(corners[0].x, targetX, eased)}px`);
+      overlay.style.setProperty('--s1y', `${lerp(corners[0].y, targetY, eased)}px`);
+      overlay.style.setProperty('--s2x', `${lerp(corners[1].x, targetX, eased)}px`);
+      overlay.style.setProperty('--s2y', `${lerp(corners[1].y, targetY, eased)}px`);
+      overlay.style.setProperty('--s3x', `${lerp(corners[2].x, targetX, eased)}px`);
+      overlay.style.setProperty('--s3y', `${lerp(corners[2].y, targetY, eased)}px`);
+      overlay.style.setProperty('--s4x', `${lerp(corners[3].x, targetX, eased)}px`);
+      overlay.style.setProperty('--s4y', `${lerp(corners[3].y, targetY, eased)}px`);
+      overlay.style.setProperty('--sr', `${lerp(startRadius, endRadius, eased)}px`);
+      overlay.style.opacity = `${Math.min(elapsed / 400, 1)}`;
+
+      if (progress < 1) {
+        animFrameRef.current = requestAnimationFrame(animate);
+      } else {
+        animFrameRef.current = 0;
+        setPhase('settled');
+      }
+    };
+
+    animFrameRef.current = requestAnimationFrame(animate);
+  }, [open, setPhase]);
+
+  const handleMouseLeave = useCallback(() => {
+    cancelAnimation();
+    const overlay = overlayRef.current;
+    if (overlay) {
+      overlay.style.opacity = '0';
+      overlay.style.willChange = 'auto';
+    }
+    setPhase('idle');
+  }, [cancelAnimation, setPhase]);
+
+  useEffect(() => {
+    if (open) {
+      cancelAnimation();
+      const overlay = overlayRef.current;
+      if (overlay) {
+        overlay.style.opacity = '0';
+        overlay.style.willChange = 'auto';
+      }
+      setPhase('idle');
+    }
+  }, [open, cancelAnimation, setPhase]);
+
+  useEffect(() => {
+    return () => {
+      cancelAnimation();
+    };
+  }, [cancelAnimation]);
+
   const trigger = (
-    <Button variant="outline">
-      <MailboxIcon />
-      {t('footer.subscribe_newsletter')}
-    </Button>
+    <div className="relative">
+      <Button
+        ref={triggerRef}
+        variant="outline"
+        className={cn('newsletter-trigger', animPhase !== 'idle' && 'newsletter-glow z-50')}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        <MailboxIcon className="newsletter-icon" />
+        {t('footer.subscribe_newsletter')}
+      </Button>
+      {animPhase === 'settled' && (
+        <span
+          className="click-it-text pointer-events-none absolute top-1/2 left-full z-50 flex items-center gap-1 whitespace-nowrap font-medium text-foreground text-xs"
+          aria-hidden="true"
+        >
+          <span className="click-it-arrow">←</span>
+          <span className="click-it-letters">
+            {t('footer.click_it')
+              .split('')
+              .map((char, i) => (
+                <span key={i} className="click-it-letter" style={{ animationDelay: `${200 + i * 60}ms` }}>
+                  {char}
+                </span>
+              ))}
+          </span>
+        </span>
+      )}
+    </div>
   );
+
+  const spotlight = <div ref={overlayRef} className="newsletter-spotlight" aria-hidden="true" />;
 
   const form = (
     <NewsletterForm
@@ -256,44 +398,50 @@ const Newsletter: React.FC<{ locale: string }> = ({ locale }) => {
 
   if (isDesktop) {
     return (
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogTrigger asChild>{trigger}</DialogTrigger>
-        <DialogContent className="sm:max-w-lg">
-          <DialogHeader>
-            <DialogTitle className="font-serif text-2xl">{t('newsletter.title')}</DialogTitle>
-            <DialogDescription className="font-serif">{t('newsletter.description')}</DialogDescription>
-          </DialogHeader>
-          {form}
-          <DialogFooter className={cn(formState !== 'successful' && 'hidden')}>
-            {successFooter}
-            <DialogClose asChild>
-              <Button variant="outline">{t('newsletter.close_button')}</Button>
-            </DialogClose>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+      <>
+        {spotlight}
+        <Dialog open={open} onOpenChange={setOpen}>
+          <DialogTrigger asChild>{trigger}</DialogTrigger>
+          <DialogContent className="sm:max-w-lg">
+            <DialogHeader>
+              <DialogTitle className="font-serif text-2xl">{t('newsletter.title')}</DialogTitle>
+              <DialogDescription className="font-serif">{t('newsletter.description')}</DialogDescription>
+            </DialogHeader>
+            {form}
+            <DialogFooter className={cn(formState !== 'successful' && 'hidden')}>
+              {successFooter}
+              <DialogClose asChild>
+                <Button variant="outline">{t('newsletter.close_button')}</Button>
+              </DialogClose>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+      </>
     );
   }
 
   return (
-    <Drawer open={open} onOpenChange={setOpen} handleOnly>
-      <DrawerTrigger asChild>{trigger}</DrawerTrigger>
-      <DrawerContent className="p-1 sm:p-2">
-        <div className="overflow-y-auto pb-24 sm:pb-16">
-          <DrawerHeader>
-            <DrawerTitle className="font-serif text-2xl">{t('newsletter.title')}</DrawerTitle>
-            <DrawerDescription className="font-serif">{t('newsletter.description')}</DrawerDescription>
-          </DrawerHeader>
-          {form}
-          <DrawerFooter className={cn(formState !== 'successful' && 'hidden')}>
-            {successFooter}
-            <DrawerClose asChild>
-              <Button variant="outline">{t('newsletter.close_button')}</Button>
-            </DrawerClose>
-          </DrawerFooter>
-        </div>
-      </DrawerContent>
-    </Drawer>
+    <>
+      {spotlight}
+      <Drawer open={open} onOpenChange={setOpen} handleOnly>
+        <DrawerTrigger asChild>{trigger}</DrawerTrigger>
+        <DrawerContent className="p-1 sm:p-2">
+          <div className="overflow-y-auto pb-24 sm:pb-16">
+            <DrawerHeader>
+              <DrawerTitle className="font-serif text-2xl">{t('newsletter.title')}</DrawerTitle>
+              <DrawerDescription className="font-serif">{t('newsletter.description')}</DrawerDescription>
+            </DrawerHeader>
+            {form}
+            <DrawerFooter className={cn(formState !== 'successful' && 'hidden')}>
+              {successFooter}
+              <DrawerClose asChild>
+                <Button variant="outline">{t('newsletter.close_button')}</Button>
+              </DrawerClose>
+            </DrawerFooter>
+          </div>
+        </DrawerContent>
+      </Drawer>
+    </>
   );
 };
 
