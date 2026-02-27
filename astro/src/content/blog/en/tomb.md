@@ -19,4 +19,3 @@ which might explain the concept of output-driven learning. However, the decline 
 and the loss of expressive desire are occurring at an age that doesn’t seem quite right for me.
 I will share some of my interesting thoughts here to motivate myself to keep thinking and progressing.
 You can subscribe to my death knell via RSS or a monthly newsletter to stay updated on my latest activities.
-Meanwhile, please carefully read our [terms of service and privacy policy](/en/blog/terms).
