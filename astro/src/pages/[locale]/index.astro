@@ -30,6 +30,7 @@ import { ChevronDownIcon } from 'lucide-react';
 import Project from '@/components/Project.astro';
 import TechStack from '@/components/TechStack';
 import { loadTranslations } from '@/i18n';
+import { generateWebSiteJsonLd } from '@/lib/jsonld';
 
 const t = await loadTranslations(Astro.currentLocale);
 const projectsPage = await getCollection(
@@ -63,6 +64,12 @@ if (projectsPage.length > 0) {
   keywords={t('landing.page_keywords')}
   className="flex flex-col gap-4"
 >
+  <script slot="jsonLd" type="application/ld+json" set:html={generateWebSiteJsonLd({
+    name: "Qnury.e's",
+    url: Astro.site?.origin || 'https://qnury.es',
+    description: t('landing.page_description'),
+  })} />
+
     <!-- Landing -->
     <div
       class={'h-[80vh] w-full font-serif mb-12 md:mb-36 flex flex-col gap-4 md:gap-8'

@@ -4,11 +4,44 @@ import GoogleAnalytics from '@astro-kits/google-analytics';
 import Footer from '@/components/Footer.astro';
 import Nav from '@/components/Nav.astro';
 import { Toaster } from '@/components/ui/sonner';
+import { stripMarkdown } from '@/lib/seo';
 import { cn } from '@/lib/utils';
 
-const { title, className, description, keywords } = Astro.props;
-const pageTitle = title || "query.e's";
-const pageDescription = description || "Qnury.e's is the personal website of Qnurye";
+interface Props {
+  title?: string;
+  description?: string;
+  keywords?: string;
+  className?: string;
+  image?: string;
+  imageAlt?: string;
+  type?: 'website' | 'article';
+  publishedTime?: Date;
+  modifiedTime?: Date;
+  author?: string;
+  noIndex?: boolean;
+  tags?: string[];
+}
+
+const {
+  title,
+  className,
+  description,
+  keywords,
+  image,
+  imageAlt,
+  type = 'website',
+  publishedTime,
+  modifiedTime,
+  author = 'Qnurye',
+  noIndex = false,
+  tags = [],
+} = Astro.props;
+
+const pageTitle = title || "Qnury.e's";
+const defaultDescription = "Qnury.e's is the personal website of Qnurye";
+const pageDescription = stripMarkdown(description || defaultDescription) || defaultDescription;
+const siteUrl = Astro.site?.origin || 'https://qnury.es';
+const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
 const pageKeywords = (keywords || '')
   .split(',')
   .map((keyword: string) => keyword.trim())
@@ -18,19 +51,38 @@ const pageKeywords = (keywords || '')
       ' OpenGL, Vulkan, DirectX, Metal, OpenCL, CUDA',
   )
   .join(', ');
+
+// Resolve OG image to absolute URL
+const ogImage = image ? new URL(image, siteUrl).href : undefined;
+
+// Locale mapping for OG
+const ogLocaleMap: Record<string, string> = {
+  en: 'en_US',
+  'zh-cn': 'zh_CN',
+  'zh-tw': 'zh_TW',
+};
+const currentLocale = Astro.currentLocale || 'en';
+const ogLocale = ogLocaleMap[currentLocale] || 'en_US';
+const alternateLocales = Object.entries(ogLocaleMap)
+  .filter(([key]) => key !== currentLocale)
+  .map(([, value]) => value);
+
+// All locales for hreflang
+const allLocales = ['en', 'zh-cn', 'zh-tw'];
 ---
 
 <!doctype html>
 <html lang={Astro.currentLocale}>
   <head>
 
-    <!--  High Priority -->
+    <!-- High Priority -->
     <title>{pageTitle}</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
+    {noIndex && <meta name="robots" content="noindex, nofollow" />}
 
-    <!--  Fonts -->
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -57,23 +109,70 @@ const pageKeywords = (keywords || '')
       crossorigin
     />
 
-    <!--  Low Priority -->
-    <meta name="author" content="Qnurye" />
+    <!-- SEO -->
+    <meta name="author" content={author} />
     <meta name="description" content={pageDescription} />
     <meta name="keywords" content={pageKeywords} />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <link rel="icon" href="/favicon.ico" />
-    <link rel="canonical" href={`https://qnury.es/${Astro.currentLocale}`} />
-    <meta property="og:type" content="website" />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Hreflang -->
+    {allLocales.map((loc) => (
+      <link
+        rel="alternate"
+        hreflang={loc}
+        href={new URL(Astro.url.pathname.replace(`/${currentLocale}`, `/${loc}`), siteUrl).href}
+      />
+    ))}
+    <link
+      rel="alternate"
+      hreflang="x-default"
+      href={new URL(Astro.url.pathname.replace(`/${currentLocale}`, '/en'), siteUrl).href}
+    />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content={type} />
     <meta property="og:title" content={pageTitle} />
-    <meta property="og:url" content={Astro.url} />
-    <meta property="og:site_name" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:site_name" content="Qnury.e's" />
+    <meta property="og:locale" content={ogLocale} />
+    {alternateLocales.map((loc) => (
+      <meta property="og:locale:alternate" content={loc} />
+    ))}
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    {ogImage && <meta property="og:image:alt" content={imageAlt || pageTitle} />}
+
+    <!-- Article-specific OG -->
+    {type === 'article' && publishedTime && (
+      <meta property="article:published_time" content={publishedTime.toISOString()} />
+    )}
+    {type === 'article' && modifiedTime && (
+      <meta property="article:modified_time" content={modifiedTime.toISOString()} />
+    )}
+    {type === 'article' && <meta property="article:author" content={author} />}
+    {type === 'article' && tags.map((tag) => (
+      <meta property="article:tag" content={tag} />
+    ))}
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content={ogImage ? 'summary_large_image' : 'summary'} />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
+    {ogImage && <meta name="twitter:image" content={ogImage} />}
+    {ogImage && <meta name="twitter:image:alt" content={imageAlt || pageTitle} />}
+
+    <!-- RSS -->
     <link
       rel="alternate"
       type="application/rss+xml"
-      title="pageTitle"
-      href={`/${Astro.currentLocale || 'en'}/rss.xml`}
+      title={pageTitle}
+      href={`/${currentLocale}/rss.xml`}
     />
+
+    <!-- Structured Data -->
+    <slot name="jsonLd" />
 
     <!-- Google tag (gtag.js) -->
     <GoogleAnalytics />
