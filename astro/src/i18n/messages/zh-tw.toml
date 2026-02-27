@@ -13,7 +13,7 @@ guestbook = "留言簿"
 
 [nav.language]
 select = "選擇語言"
-search = "搜索語言..."
+search = "搜索語言…"
 not_found = "我不會說這門語言"
 
 [nav.appearance]
@@ -203,7 +203,7 @@ error = "沒能保存你的反應，請再試一次。"
 title = "訂閱新聞郵件"
 description = "提交郵箱地址後，你將收到我的每月更新合集。如果希望收到更頻繁的更新提醒，請訂閱我的 RSS。"
 email_label = "郵箱地址"
-email_placeholder = "your@email.com"
+email_placeholder = "輸入信箱地址"
 name_label = "姓名（可選）"
 name_placeholder = "可留空"
 language_label = "偏好語言"
@@ -255,8 +255,8 @@ close = "我知道了"
 
 [guestbook.wall]
 title = "到此一遊"
-loading = "載入中..."
-load_more = "載入更多..."
+loading = "載入中…"
+load_more = "載入更多…"
 empty = "還沒有人簽到，來當第一個吧！"
 sign_guestbook = "去簽到"
 signature_by = "{name} 的簽名"
