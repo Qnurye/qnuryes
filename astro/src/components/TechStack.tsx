@@ -2,6 +2,7 @@ import type { IconType } from '@icons-pack/react-simple-icons';
 import { LinkIcon } from 'lucide-react';
 import type React from 'react';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
+import { trackEvent } from '@/lib/analytics';
 
 const TechStack = ({
   children,
@@ -14,7 +15,13 @@ const TechStack = ({
   description: string;
   url: string;
 }): React.ReactElement => (
-  <HoverCard>
+  <HoverCard
+    onOpenChange={(open) => {
+      if (open) {
+        trackEvent('techstack_hover', { tech: title });
+      }
+    }}
+  >
     <HoverCardTrigger className="dark:rounded-md dark:bg-border dark:p-1" asChild>
       {/* Avoid `<a />` generated that affect SEO */}
       <div>{children}</div>

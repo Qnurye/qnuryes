@@ -41,6 +41,7 @@ import { Input } from '@/components/ui/input.tsx';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select.tsx';
 import { useTranslations } from '@/hooks/useTranslations.ts';
 import { locales } from '@/i18n';
+import { trackEvent } from '@/lib/analytics';
 import { cn } from '@/lib/utils.ts';
 
 const localeOptions = Object.keys(locales) as [keyof typeof locales, ...Array<keyof typeof locales>];
@@ -201,6 +202,7 @@ const Newsletter: React.FC<{ locale: string }> = ({ locale }) => {
   }, [open]);
 
   const onSubmit = async (value: z.infer<typeof newsletterSchema>): Promise<void> => {
+    trackEvent('newsletter_submit');
     setFormState('loading');
 
     const response = await fetch(`${import.meta.env.PUBLIC_API_BASE_URL}/subscription`, {
@@ -213,12 +215,14 @@ const Newsletter: React.FC<{ locale: string }> = ({ locale }) => {
 
     if (!response.ok) {
       setIsError(true);
+      trackEvent('newsletter_error', { status: response.status });
       setMailTarget(null);
       setFormState('input');
       return;
     }
 
     setFormState('successful');
+    trackEvent('newsletter_success');
     const email = value.email.split('@')[1];
     if (mailWebLinks[email]) {
       setMailTarget(mailWebLinks[email]);
@@ -388,7 +392,12 @@ const Newsletter: React.FC<{ locale: string }> = ({ locale }) => {
       <span>{t('newsletter.check_inbox')}</span>
       <div className="flex w-full grow flex-wrap justify-end gap-2">
         <Button className={cn('grow', !mailTarget && 'hidden')} asChild>
-          <a href={mailTarget || '#'} target="_blank" rel="noopener noreferrer">
+          <a
+            href={mailTarget || '#'}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => trackEvent('newsletter_email_link', { provider: mailTarget || '' })}
+          >
             {t('newsletter.check_button')}
           </a>
         </Button>
@@ -400,7 +409,15 @@ const Newsletter: React.FC<{ locale: string }> = ({ locale }) => {
     return (
       <>
         {spotlight}
-        <Dialog open={open} onOpenChange={setOpen}>
+        <Dialog
+          open={open}
+          onOpenChange={(value) => {
+            if (value) {
+              trackEvent('newsletter_open');
+            }
+            setOpen(value);
+          }}
+        >
           <DialogTrigger asChild>{trigger}</DialogTrigger>
           <DialogContent className="sm:max-w-lg">
             <DialogHeader>
@@ -423,7 +440,16 @@ const Newsletter: React.FC<{ locale: string }> = ({ locale }) => {
   return (
     <>
       {spotlight}
-      <Drawer open={open} onOpenChange={setOpen} handleOnly>
+      <Drawer
+        open={open}
+        onOpenChange={(value) => {
+          if (value) {
+            trackEvent('newsletter_open');
+          }
+          setOpen(value);
+        }}
+        handleOnly
+      >
         <DrawerTrigger asChild>{trigger}</DrawerTrigger>
         <DrawerContent className="p-1 sm:p-2">
           <div className="overflow-y-auto pb-24 sm:pb-16">

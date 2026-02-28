@@ -2,6 +2,7 @@ import { Trash2Icon, Undo2Icon } from 'lucide-react';
 import { getStroke } from 'perfect-freehand';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
+import { trackEvent } from '@/lib/analytics';
 import { cn } from '@/lib/utils';
 
 // Aspect ratios for landscape and portrait orientations.
@@ -291,6 +292,7 @@ function SignatureCanvas({
   }, [redraw, onSignatureChange]);
 
   const handleUndo = useCallback(() => {
+    trackEvent('guestbook_signature_undo');
     strokesRef.current = strokesRef.current.slice(0, -1);
     const count = strokesRef.current.length;
     setStrokeCount(count);
@@ -299,6 +301,7 @@ function SignatureCanvas({
   }, [redraw, onSignatureChange]);
 
   const handleClear = useCallback(() => {
+    trackEvent('guestbook_signature_clear');
     strokesRef.current = [];
     setStrokeCount(0);
     onSignatureChange(null);

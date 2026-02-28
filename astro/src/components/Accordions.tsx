@@ -1,6 +1,7 @@
 import type { ReactElement } from 'react';
 import Markdown from 'react-markdown';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion.tsx';
+import { trackEvent } from '@/lib/analytics';
 import { cn } from '@/lib/utils.ts';
 
 interface AccordionProps {
@@ -14,7 +15,7 @@ const Accordions = ({ className, accordions }: AccordionProps): ReactElement => 
   <Accordion type="single" collapsible className={cn('prose max-w-prose', className)}>
     {accordions.map((a, key) => (
       <AccordionItem value={`item-${key}`} key={key}>
-        <AccordionTrigger>
+        <AccordionTrigger onClick={() => trackEvent('accordion_toggle', { title: a.title })}>
           <Markdown>{a.title}</Markdown>
         </AccordionTrigger>
         <AccordionContent>

@@ -8,6 +8,7 @@ import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Command
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { useTranslations } from '@/hooks/useTranslations';
 import { getLanguageNameFromLocale } from '@/i18n';
+import { trackEvent } from '@/lib/analytics';
 
 export default function LanguageSwitcher({
   locales,
@@ -23,6 +24,8 @@ export default function LanguageSwitcher({
     if (locale === currentLocale) {
       return;
     }
+
+    trackEvent('nav_locale_change', { from: currentLocale, to: locale });
 
     const pathname = window.location.pathname;
     const currentPath = pathname.replace(`/${currentLocale}`, '');

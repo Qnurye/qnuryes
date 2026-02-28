@@ -1,6 +1,7 @@
 import { useCallback, useRef, useState } from 'react';
 import { Toaster } from '@/components/ui/sonner';
 import { useTranslations } from '@/hooks/useTranslations';
+import { trackEvent } from '@/lib/analytics';
 import { cn } from '@/lib/utils';
 import type { ReactionEmoji } from './reactions';
 import { DEFAULT_REACTIONS } from './reactions';
@@ -57,6 +58,7 @@ function ReactionBar({ postSlug, locale }: ReactionBarProps): React.ReactElement
   const handleClick = useCallback(
     (emoji: ReactionEmoji, e: React.MouseEvent<HTMLButtonElement>) => {
       if (rateLimited) {
+        trackEvent('reaction_rate_limit', { emoji: emoji.emoji, post: postSlug });
         return;
       }
 
@@ -103,9 +105,10 @@ function ReactionBar({ postSlug, locale }: ReactionBarProps): React.ReactElement
         });
       }
 
+      trackEvent('reaction_click', { emoji: emoji.emoji, post: postSlug });
       react(emoji);
     },
-    [counts, rateLimited, react],
+    [counts, rateLimited, react, postSlug],
   );
 
   return (

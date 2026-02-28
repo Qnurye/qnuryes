@@ -109,12 +109,14 @@ const locales = Astro.props.locales || ['en', 'zh-cn', 'zh-tw'];
 
 <script>
     document.getElementById('menu-toggle')?.addEventListener('click', () => {
+      window.umami?.track('nav_mobile_menu_toggle', { action: 'open' });
       document
         .getElementById('mobile-menu')
         ?.classList.toggle('translate-x-full');
     });
 
     document.getElementById('menu-close')?.addEventListener('click', () => {
+      window.umami?.track('nav_mobile_menu_toggle', { action: 'close' });
       document
         .getElementById('mobile-menu')
         ?.classList.toggle('translate-x-full');

@@ -60,11 +60,12 @@ export default defineConfig({
     }),
     partytown({
       config: {
-        forward: ['dataLayer.push', 'gtag'],
+        forward: ['dataLayer.push', 'gtag', 'umami.track', 'umami.identify'],
       },
     }),
     umami({
       id: UMAMI_ID,
+      withPartytown: true,
     }),
   ],
   i18n: {

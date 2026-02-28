@@ -30,6 +30,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useTranslations } from '@/hooks/useTranslations';
+import { trackEvent } from '@/lib/analytics';
 import { cn } from '@/lib/utils';
 import SignatureCanvas, { type SignatureData } from './SignatureCanvas';
 
@@ -111,6 +112,7 @@ function GuestbookForm({ locale }: GuestbookFormProps): React.ReactElement {
       return;
     }
 
+    trackEvent('guestbook_submit');
     setFormState('submitting');
 
     try {
@@ -130,19 +132,23 @@ function GuestbookForm({ locale }: GuestbookFormProps): React.ReactElement {
 
       if (response.status === 429) {
         setFormState('rate_limited');
+        trackEvent('guestbook_rate_limit');
         toast.error(t('guestbook.form.rate_limit'));
         return;
       }
 
       if (!response.ok) {
         setFormState('error');
+        trackEvent('guestbook_error');
         toast.error(t('guestbook.form.error'));
         return;
       }
 
       setFormState('success');
+      trackEvent('guestbook_success');
     } catch {
       setFormState('error');
+      trackEvent('guestbook_error');
       toast.error(t('guestbook.form.error'));
     }
   };
@@ -243,7 +249,15 @@ function GuestbookForm({ locale }: GuestbookFormProps): React.ReactElement {
 
   if (isDesktop) {
     return (
-      <Dialog open={open} onOpenChange={setOpen}>
+      <Dialog
+        open={open}
+        onOpenChange={(value) => {
+          if (value) {
+            trackEvent('guestbook_open');
+          }
+          setOpen(value);
+        }}
+      >
         <DialogTrigger asChild>{trigger}</DialogTrigger>
         <DialogContent className="max-h-[85vh] overflow-y-auto sm:max-w-xl">
           <DialogHeader>
@@ -262,7 +276,16 @@ function GuestbookForm({ locale }: GuestbookFormProps): React.ReactElement {
   }
 
   return (
-    <Drawer open={open} onOpenChange={setOpen} handleOnly>
+    <Drawer
+      open={open}
+      onOpenChange={(value) => {
+        if (value) {
+          trackEvent('guestbook_open');
+        }
+        setOpen(value);
+      }}
+      handleOnly
+    >
       <DrawerTrigger asChild>{trigger}</DrawerTrigger>
       <DrawerContent className="p-1 sm:p-2">
         <div className="overflow-y-auto pb-24 sm:pb-16">

@@ -18,19 +18,29 @@ const t = await loadTranslations(locale);
         <a
           href={`/${locale}/rss.xml`}
           class="hover:text-foreground transition-colors underline underline-offset-2"
+          data-umami-event="footer_rss_click"
         >
           {t('footer.rss')}
         </a>
         <a
           href="https://github.com/Qnurye/qnuryes"
           class="hover:text-foreground transition-colors underline underline-offset-2"
+          data-umami-event="footer_source_click"
         >
           {t('footer.source_code')}
         </a>
-        <a href={getRelativeLocaleUrl(locale, 'terms')} class="hover:text-foreground transition-colors underline underline-offset-2">
+        <a
+          href={getRelativeLocaleUrl(locale, 'terms')}
+          class="hover:text-foreground transition-colors underline underline-offset-2"
+          data-umami-event="footer_tos_click"
+        >
           {t('footer.tos')}
         </a>
-        <a href={getRelativeLocaleUrl(locale, 'privacy')} class="hover:text-foreground transition-colors underline underline-offset-2">
+        <a
+          href={getRelativeLocaleUrl(locale, 'privacy')}
+          class="hover:text-foreground transition-colors underline underline-offset-2"
+          data-umami-event="footer_privacy_click"
+        >
           {t('footer.privacy')}
         </a>
       </div>

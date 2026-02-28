@@ -31,6 +31,8 @@ const foregroundColor = p?.Vibrant?.bodyTextColor || 'var(--color-background)';
 <a
   class={cn('relative group block max-w-72 *:transition-all *:duration-500 border-2 rounded', className)}
   href={url}
+  data-umami-event="friend_card_click"
+  data-umami-event-name={name}
   style={`
     --vibrant-color: ${color};
     --vibrant-foreground: ${foregroundColor};

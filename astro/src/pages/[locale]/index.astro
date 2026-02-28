@@ -92,6 +92,7 @@ if (projectsPage.length > 0) {
       id="more"
       class={'transition-opacity duration-500 absolute left-1/2 -translate-x-1/2 bottom-2 flex flex-col gap-0.5'
         + ' items-center opacity-70 animate-bounce hover:cursor-pointer'}
+      data-umami-event="landing_scroll_click"
     >
       <span class="font-serif">SCROLL</span>
       <ChevronDownIcon size={16} />
@@ -390,6 +391,7 @@ if (projectsPage.length > 0) {
 
       const observer = new IntersectionObserver(async ([entry]) => {
         if (entry.isIntersecting) {
+          window.umami?.track('landing_timeline_load');
           wrapper.innerHTML = await fetch('blog/partial/timeline')
             .then(res => res.text());
 

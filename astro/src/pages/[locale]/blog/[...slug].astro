@@ -107,7 +107,7 @@ const siteUrl = Astro.site?.origin || 'https://qnury.es';
         {page.data.tags && (
           <div class="flex flex-wrap gap-2">
             {page.data.tags.map((tag: string) => (
-              <a href={`/${locale}/blog/tags/${tag}`}>
+              <a href={`/${locale}/blog/tags/${tag}`} data-umami-event="blog_tag_click" data-umami-event-tag={tag}>
                 {`#${tag}`}
               </a>
             ))}

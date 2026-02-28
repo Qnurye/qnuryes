@@ -1,6 +1,5 @@
 import { Moon, Sun } from 'lucide-react';
 import * as React from 'react';
-
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -11,6 +10,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { trackEvent } from '@/lib/analytics';
 
 export function ColorModeToggle({
   t,
@@ -52,7 +52,13 @@ export function ColorModeToggle({
       <DropdownMenuContent className="w-56">
         <DropdownMenuLabel>{t.label}</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuRadioGroup value={theme} onValueChange={setThemeState}>
+        <DropdownMenuRadioGroup
+          value={theme}
+          onValueChange={(value) => {
+            trackEvent('nav_theme_change', { theme: value });
+            setThemeState(value);
+          }}
+        >
           <DropdownMenuRadioItem value="light">{t.light}</DropdownMenuRadioItem>
           <DropdownMenuRadioItem value="dark">{t.dark}</DropdownMenuRadioItem>
           <DropdownMenuRadioItem value="system">{t.system}</DropdownMenuRadioItem>

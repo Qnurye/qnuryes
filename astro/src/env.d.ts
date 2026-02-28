@@ -10,3 +10,12 @@ interface ImportMetaEnv {
 interface ImportMeta {
   readonly env: ImportMetaEnv;
 }
+
+interface Umami {
+  track(event: string, data?: Record<string, string | number | boolean>): void;
+  identify(data: Record<string, string | number | boolean>): void;
+}
+
+interface Window {
+  umami?: Umami;
+}
