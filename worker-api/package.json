@@ -15,12 +15,12 @@
     "@react-email/font": "0.0.10",
     "@react-email/render": "^2.0.3",
     "hono": "^4.11.4",
-    "marked": "^17.0.1",
+    "marked": "^18.0.0",
     "resend": "^6.8.0"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20260120.0",
-    "@react-email/preview-server": "5.2.8",
-    "react-email": "5.2.8"
+    "@react-email/preview-server": "5.2.10",
+    "react-email": "5.2.10"
   }
 }
