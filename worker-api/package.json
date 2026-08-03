@@ -9,7 +9,7 @@
     "lint": "biome check . --write"
   },
   "dependencies": {
-    "@hono/node-server": "^1.19.9",
+    "@hono/node-server": "^2.0.10",
     "@qnury-es/shared": "workspace:*",
     "@react-email/components": "^1.0.5",
     "@react-email/font": "0.0.10",
